@@ -13,7 +13,7 @@ import java.util.LinkedList; 	// Required for LinkedList
 %%
 // ------> Directives (flags)
 %public
-%class SQL_AL
+%class rules_SQL
 //%cupsym sym		// Symbols is an object that will be sent to Cup (I need to create this class)
 %cup 		   		// Enables cup
 %unicode
@@ -54,13 +54,13 @@ whitespace      = {WhiteSpace}
 /* Reserved words --> Oracle (PLSQL) */
 <YYINITIAL> "select" 		{ System.out.println("Recognized: " + yytext()); return Symbol(sym.SELECT); }
 <YYINITIAL> "update" 		{ System.out.println("Recognized: " + yytext()); return Symbol(sym.UPDATE); }
-<YYINITIAL> "delete" 		{ System.out.println("Recognized: " + yytext()); return Symbol(sym.SELECT); }
-<YYINITIAL> "from" 			{ System.out.println("Recognized: " + yytext()); return Symbol(sym.SELECT); }
-<YYINITIAL> "where"			{ System.out.println("Recognized: " + yytext()); return Symbol(sym.SELECT); }
+<YYINITIAL> "delete" 		{ System.out.println("Recognized: " + yytext()); return Symbol(sym.DELETE); }
+<YYINITIAL> "from" 			{ System.out.println("Recognized: " + yytext()); return Symbol(sym.FROM); }
+<YYINITIAL> "where"			{ System.out.println("Recognized: " + yytext()); return Symbol(sym.WHERE); }
 
 
-{identifier}    { System.out.println("Recognized: " + yytext()); return Symbol(sym.IDENT); }
-{integer}       { System.out.println("Recognized: " + yytext()); return Symbol(sym.INT); }
+{identifier}    { System.out.println("Recognized: " + yytext()); return Symbol(sym.IDENTIFIER); }
+{integer}       { System.out.println("Recognized: " + yytext()); return Symbol(sym.INTEGER); }
 {real}          { System.out.println("Recognized: " + yytext()); return Symbol(sym.REAL); }
 {whitespace}    { /* Ignore whitespace. */ }
 

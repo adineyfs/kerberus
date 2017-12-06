@@ -1,0 +1,15 @@
+package com.kerberus.syntaxValidator.rules;
+
+import java_cup.runtime.*;
+import java.util.*;
+import java.io.*;
+
+terminal SELECT, UPDATE, DELETE, FROM, WHERE;
+terminal IDENTIFIER, INTEGER, REAL;
+
+non terminal statement;
+
+
+
+
+statement ::= SELECT | UPDATE | DELETE;

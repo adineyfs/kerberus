@@ -26,5 +26,15 @@
 	  <artifactId>jflex</artifactId>
 	  <version>1.6.1</version>
 	</dependency>
+<!-- https://mvnrepository.com/artifact/com.github.vbmacher/java-cup -->
+<dependency>
+    <groupId>com.github.vbmacher</groupId>
+    <artifactId>java-cup</artifactId>
+    <version>11b</version>
+</dependency>
+
+
+
+	
   </dependencies>
 </project>
