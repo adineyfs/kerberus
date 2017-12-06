@@ -2,7 +2,7 @@
 
 /* JFlex example: partial Java language lexer specification */
 
-package com.kerberus.syntaxValidator.rules;
+package com.kerberus.syntaxValidator;
 
 
 import java_cup.runtime.*; 		// Required to send lexemas to Cup
