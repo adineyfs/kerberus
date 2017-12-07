@@ -59,7 +59,7 @@ action code
 terminal SELECT, UPDATE, DELETE, FROM, WHERE,_STAR,_COMMA;
 terminal identifier, integer, real;
 
-non terminal _SEL1_,_SEL2_,_COLS_,_FRO_,_TABLE_;
+non terminal _SEL1_,_COLS_,_FRO_,_TABLE_,_START_,_STMNT_;
 
 /* 
  * Precedence definition --> this is used when the grammar is ambiguous
@@ -71,16 +71,32 @@ non terminal _SEL1_,_SEL2_,_COLS_,_FRO_,_TABLE_;
 // precedence left operator4;
 
 // Define which is the first production
-start with _SEL1_;
+start with _START_;
 
 /*---------------------- 3rd Part: Semantic Rules --------------------------------------------*/
 
-_SEL1_ 	::= SELECT _STAR _FRO_ | _SEL2_;
+/* ------------ ToDo: Evaluate this --------------------------------------*/
 
-_SEL2_ 	::= SELECT _COLS_ FROM _TABLE_;
+_START_ ::= _STMNT_ {: System.out.println("\n --> Statement Ok"); :};
 
-_COLS_	::= identifier; // _COLS_ COMMA _COLS_ - Evaluate this
+_STMNT_ ::= SELECT _COLS_ _FRO_ ;
+
+_COLS_	::= _COLS_ _COMMA identifier 
+		  | identifier:col{: System.out.println("Column: " + col + " found in (x,y): ("+ colleft +","+ colright +")"); :}
+		  | _STAR;
 
 _FRO_	::= FROM _TABLE_;
 
-_TABLE_	::= identifier;
+_TABLE_	::= identifier:id;
+
+
+
+/*
+ * Just testing NullPointer problem
+ */
+/*
+_START_ ::= _STMNT_ {: System.out.println("Document Ok"); :};
+
+_STMNT_ ::= _COLS_ _COMMA identifier:word {: System.out.println("Word: " + word + " found in (x,y): ("+ wordleft +","+ wordright +")"); :}
+	   | identifier:word {: System.out.println("Word: " + word + " found in (x,y): ("+ wordleft +","+ wordright +")"); :};
+*/

@@ -40,33 +40,27 @@ import com.kerberus.syntaxValidator.rules.sql.sym;
  */
 
 WhiteSpace      = [" "|\t|\r|\n|\f]
-letter          = [A-Za-z]
-digit           = [0-9]
-alphanumeric    = {letter}|{digit}
-underscore   	= [\_]
-identifier      = {letter}|{underscore}({alphanumeric}|{underscore})*
-integer         = {digit}+
-real            = {integer}+\.{integer}+
-char            = '.' /*Not sure about this*/
-//comment         = {leftbrace}{comment_body}{rightbrace}
+identifier      = [A-Za-z]([0-9]|[A-Za-z])* // {letter}({digit}|{letter})*
 whitespace      = {WhiteSpace}
 
 %%
 
 /* Reserved words --> Oracle (PLSQL) */
-<YYINITIAL> "select" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.SELECT); }
-<YYINITIAL> "update" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.UPDATE); }
-<YYINITIAL> "delete" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.DELETE); }
-<YYINITIAL> "from" 		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.FROM); }
-<YYINITIAL> "where"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.WHERE); }
+<YYINITIAL> "select" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.SELECT, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "update" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.UPDATE, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "delete" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.DELETE, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "from" 		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.FROM, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "where"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.WHERE, yyline+1, yycolumn+1, yytext()); }
 
-<YYINITIAL> "*"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._STAR); }
-<YYINITIAL> ","			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._COMMA); }
+<YYINITIAL> "*"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._STAR, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> ","			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._COMMA, yyline+1, yycolumn+1, yytext()); }
 
 // Terminal tokens (LOWERCASE)
-{identifier}    { System.out.println("Recognized: " + yytext()); return new Symbol(sym.identifier); }
-{integer}       { System.out.println("Recognized: " + yytext()); return new Symbol(sym.integer); }
-{real}          { System.out.println("Recognized: " + yytext()); return new Symbol(sym.real); }
+{identifier}    { System.out.println("Recognized: " + yytext()); return new Symbol(sym.identifier, yyline+1, yycolumn+1, yytext()); }
+/*
+{integer}       { System.out.println("Recognized: " + yytext()); return new Symbol(sym.integer, yyline+1, yycolumn+1, yytext()); }
+{real}          { System.out.println("Recognized: " + yytext()); return new Symbol(sym.real, yyline+1, yycolumn+1, yytext()); }
+*/
 {whitespace}    { /* Ignore whitespace. */ }
 
 
