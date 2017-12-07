@@ -55,31 +55,23 @@ action code
 :}
 
 /*---------------------- 2nd Part: Declarations --------------------------------------------*/
-terminal SELECT, UPDATE, DELETE, FROM, WHERE,_STAR,_COMMA;
-terminal identifier, integer, real;
+terminal String WORD;
+terminal String COMMA;
 
-non terminal _SEL1_,_SEL2_,_COLS_,_FRO_,_TABLE_;
+non terminal DOC;
+non terminal LIST;
 
-/* 
- * Precedence definition --> this is used when the grammar is ambiguous
- * The priority of the elements has the highest value starting from the bottom 
- */ 
-// precedence left operator1;
-// precedence left operator2;
-// precedence left operator3;
-// precedence left operator4;
 
 // Define which is the first production
-start with _SEL1_;
+start with DOC;
 
 /*---------------------- 3rd Part: Semantic Rules --------------------------------------------*/
+DOC ::= LIST {: System.out.println("Document Ok"); :};
 
-_SEL1_ 	::= SELECT _STAR _FRO_ | _SEL2_;
+/* 
+ * When we do WORD:id, the variables idleft and idright are automatically created. Another example
+ * WORD:whatever, will create whateverleft and whateverright
+ */
 
-_SEL2_ 	::= SELECT _COLS_ FROM _TABLE_;
-
-_COLS_	::= identifier; // _COLS_ COMMA _COLS_ - Evaluate this
-
-_FRO_	::= FROM _TABLE_;
-
-_TABLE_	::= identifier;
+LIST ::= LIST COMMA WORD:word {: System.out.println("Word: " + word + " found in (x,y): ("+ wordleft +","+ wordright +")"); :}
+	   | WORD:word {: System.out.println("Word: " + word + " found in (x,y): ("+ wordleft +","+ wordright +")"); :};

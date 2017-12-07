@@ -9,7 +9,8 @@ public class Generator {
 		String rootPath = Paths.get("").toAbsolutePath(). toString();
         String subPath = "/src/main/java/com/kerberus/syntaxValidator/rules/";
 
-        String file = rootPath + subPath + "rules_SQL.jflex";
+        //String file = rootPath + subPath + "rules_SQL.jflex";
+        String file = rootPath + subPath + "commas.jflex";
 
         File sourceCode = new File(file);
 

@@ -37,11 +37,11 @@ import java.util.LinkedList; 	// Required for LinkedList
  * PATTERN DEFINITIONS:
  */
 
-WhiteSpace      = [ \t\r\n\f]
+WhiteSpace      = [" "|\t|\r|\n|\f]
 letter          = [A-Za-z]
 digit           = [0-9]
 alphanumeric    = {letter}|{digit}
-underscore   	= [_]
+underscore   	= [\_]
 identifier      = {letter}|{underscore}({alphanumeric}|{underscore})*
 integer         = {digit}+
 real            = {integer}+\.{integer}+
@@ -52,16 +52,19 @@ whitespace      = {WhiteSpace}
 %%
 
 /* Reserved words --> Oracle (PLSQL) */
-<YYINITIAL> "select" 		{ System.out.println("Recognized: " + yytext()); return Symbol(sym.SELECT); }
-<YYINITIAL> "update" 		{ System.out.println("Recognized: " + yytext()); return Symbol(sym.UPDATE); }
-<YYINITIAL> "delete" 		{ System.out.println("Recognized: " + yytext()); return Symbol(sym.DELETE); }
-<YYINITIAL> "from" 			{ System.out.println("Recognized: " + yytext()); return Symbol(sym.FROM); }
-<YYINITIAL> "where"			{ System.out.println("Recognized: " + yytext()); return Symbol(sym.WHERE); }
+<YYINITIAL> "select" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.SELECT); }
+<YYINITIAL> "update" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.UPDATE); }
+<YYINITIAL> "delete" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.DELETE); }
+<YYINITIAL> "from" 		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.FROM); }
+<YYINITIAL> "where"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.WHERE); }
 
+<YYINITIAL> "*"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._STAR); }
+<YYINITIAL> ","			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._COMMA); }
 
-{identifier}    { System.out.println("Recognized: " + yytext()); return Symbol(sym.IDENTIFIER); }
-{integer}       { System.out.println("Recognized: " + yytext()); return Symbol(sym.INTEGER); }
-{real}          { System.out.println("Recognized: " + yytext()); return Symbol(sym.REAL); }
+// Terminal tokens (LOWERCASE)
+{identifier}    { System.out.println("Recognized: " + yytext()); return new Symbol(sym.identifier); }
+{integer}       { System.out.println("Recognized: " + yytext()); return new Symbol(sym.integer); }
+{real}          { System.out.println("Recognized: " + yytext()); return new Symbol(sym.real); }
 {whitespace}    { /* Ignore whitespace. */ }
 
 
