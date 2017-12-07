@@ -1,4 +1,4 @@
-package com.kerberus.syntaxValidator.rules;
+package com.kerberus.syntaxValidator.rules.util;
 
 public class TError {
 	String lexeme,type,description;

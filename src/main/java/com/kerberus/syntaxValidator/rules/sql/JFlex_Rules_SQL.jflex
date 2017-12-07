@@ -1,10 +1,12 @@
 /* JFlex example: partial Java language lexer specification */
 
-package com.kerberus.syntaxValidator.rules;
+package com.kerberus.syntaxValidator.rules.sql;
 
 
 import java_cup.runtime.*; 		// Required to send lexemas to Cup
 import java.util.LinkedList; 	// Required for LinkedList
+import com.kerberus.syntaxValidator.rules.util.*;
+import com.kerberus.syntaxValidator.rules.sql.sym;
 
 /**
  * This class is a simple example lexer.
@@ -13,7 +15,7 @@ import java.util.LinkedList; 	// Required for LinkedList
 %%
 // ------> Directives (flags)
 %public
-%class rules_SQL
+%class JFlex_Rules_SQL
 //%cupsym sym		// Symbols is an object that will be sent to Cup (I need to create this class)
 %cup 		   		// Enables cup
 %unicode

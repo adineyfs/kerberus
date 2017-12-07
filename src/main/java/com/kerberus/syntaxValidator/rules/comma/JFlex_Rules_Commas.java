@@ -2,18 +2,20 @@
 
 /* JFlex example: partial Java language lexer specification */
 
-package com.kerberus.syntaxValidator.rules;
+package com.kerberus.syntaxValidator.rules.comma;
 
 
 import java_cup.runtime.*; 		// Required to send lexemas to Cup
-
+import java.util.LinkedList; 	// Required for LinkedList
+import com.kerberus.syntaxValidator.rules.util.*;
+import com.kerberus.syntaxValidator.rules.comma.sym;
 
 /**
  * This class is a simple example lexer.
  */
 
 
-public class LexAnalyzer_commas implements java_cup.runtime.Scanner {
+public class JFlex_Rules_Commas implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -247,7 +249,7 @@ public class LexAnalyzer_commas implements java_cup.runtime.Scanner {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public LexAnalyzer_commas(java.io.Reader in) {
+  public JFlex_Rules_Commas(java.io.Reader in) {
     this.zzReader = in;
   }
 
