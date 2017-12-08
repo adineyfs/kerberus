@@ -32,7 +32,10 @@ public class Main {
 
         // ----------- SQL ----------------------------------------------------------------------- 
                 
-        String statement = "SElect column1,column2,colum3,colum4,colum5,colum6,columN, FROM products WHERE some = 1";
+        String statement = "select ord1,something,colum3,colum4,colum5,colum6,colum, FROM product WHERE hola = 1";
+        
+        //String statement = "select column1,column2,colum3,colum4,colum5,colum6,colum, FROM product WHERE hola = 1 AND hola = 2";
+        //String statement = "select column1,column2,colum3,colum4,colum5,colum6,colum ? FROM product WHERE hola = 1 AND hola = 2";
         
 		JFlex_Rules_SQL Lex_Analyzer = new JFlex_Rules_SQL( new BufferedReader( new StringReader(statement) ) ); 
 		Cup_Rules_SQL Syntax_Analyzer = new Cup_Rules_SQL(Lex_Analyzer);
@@ -46,22 +49,24 @@ public class Main {
 			System.out.println("number of errors found: " + Syntax_Analyzer.TableSE.size() );
 			System.out.println("----------------------------------------------------------\n");
 			
-			int co,ro;
-			String le,err;
-			
-			co = Syntax_Analyzer.TableSE.getFirst().getColumn();
-			ro = Syntax_Analyzer.TableSE.getFirst().getRow();
-			le = Syntax_Analyzer.TableSE.getFirst().getLexeme();
-			le = Syntax_Analyzer.TableSE.getFirst().getLexeme();
-			err = Syntax_Analyzer.TableSE.getFirst().getDescription();
-			
-			System.out.println(statement);
-			
-			for (int i = 0; i < co; i++) {
+			if( !Syntax_Analyzer.TableSE.isEmpty() ){
+				int co,ro;
+				String le,err;
 				
-				System.out.print(" ");
-				if( i == (co-1) )
-					System.out.println("^ " + err );
+				co = Syntax_Analyzer.TableSE.getFirst().getColumn();
+				ro = Syntax_Analyzer.TableSE.getFirst().getRow();
+				le = Syntax_Analyzer.TableSE.getFirst().getLexeme();
+				le = Syntax_Analyzer.TableSE.getFirst().getLexeme();
+				err = Syntax_Analyzer.TableSE.getFirst().getDescription();
+				
+				System.out.println(statement);
+				
+				for (int i = 0; i < co; i++) {
+					
+					System.out.print(" ");
+					if( i == (co-1) )
+						System.out.println("^ " + err );
+				}
 			}
 			
 			

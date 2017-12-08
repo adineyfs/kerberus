@@ -96,7 +96,7 @@ start with _START_;
 /* ------------ ToDo: Evaluate this --------------------------------------*/
 
 
-
+/*
 _START_ ::= _STMNT_ {: System.out.println("\n --> Statement Ok"); :};
 
 _STMNT_ ::= SELECT _COLS_ _FRO_ ;
@@ -108,10 +108,10 @@ _COLS_	::= identifier _COMMA _COLS_
 _FRO_	::= FROM _TABLE_;
 
 _TABLE_	::= identifier:id;
+*/
 
 
 
-/*
 _START_ ::= _STMNT_ {: System.out.println("\n --> Statement Ok"); :};
 
 _STMNT_ ::= SELECT _COLS_ _FRO_ _WHE_;
