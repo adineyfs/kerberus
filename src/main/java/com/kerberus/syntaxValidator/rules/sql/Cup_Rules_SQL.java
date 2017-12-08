@@ -110,15 +110,13 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
 	public void syntax_error(Symbol s)
 	{
 		String lexeme = s.value.toString();
-		int row = s.right;
-		int column = s.left;
+		int column = s.right;
+		int row = s.left;
 		
-		System.out.println("### - Syntax error detected - ###");
-		System.out.println("\t\tLexeme:" + lexeme);
-		System.out.println("\t\tRow: " + row);
-		System.out.println("\t\tColumn: " + column);
+		System.out.println("### - Syntax error detected - ###\n");
+		System.out.println("---> Unexpected: " + lexeme + " at (row,colum): ("+row+"," + column + ").");
 		
-		TError errors_found = new TError(lexeme,row,column, "Syntax error", "Unexpected character");
+		TError errors_found = new TError(lexeme,row,column, "Syntax error", "Unexpected " + lexeme);
 		TableSE .add(errors_found);
 	}
 	

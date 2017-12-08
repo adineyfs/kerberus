@@ -44,7 +44,27 @@ public class Main {
 			Syntax_Analyzer.parse();
 			System.out.println("\n-------------- Finished Analysis -----------------------");
 			System.out.println("number of errors found: " + Syntax_Analyzer.TableSE.size() );
-			System.out.println("----------------------------------------------------------");
+			System.out.println("----------------------------------------------------------\n");
+			
+			int co,ro;
+			String le,err;
+			
+			co = Syntax_Analyzer.TableSE.getFirst().getColumn();
+			ro = Syntax_Analyzer.TableSE.getFirst().getRow();
+			le = Syntax_Analyzer.TableSE.getFirst().getLexeme();
+			le = Syntax_Analyzer.TableSE.getFirst().getLexeme();
+			err = Syntax_Analyzer.TableSE.getFirst().getDescription();
+			
+			System.out.println(statement);
+			
+			for (int i = 0; i < co; i++) {
+				
+				System.out.print(" ");
+				if( i == (co-1) )
+					System.out.println("^ " + err );
+			}
+			
+			
 		} catch (Exception e) {
 			// printStackTrace method
             // prints line numbers + call stack
