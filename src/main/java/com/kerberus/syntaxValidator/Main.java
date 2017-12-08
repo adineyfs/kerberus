@@ -2,46 +2,36 @@ package com.kerberus.syntaxValidator;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
-import java.nio.file.Paths;
 
-import com.kerberus.syntaxValidator.rules.sql.Cup_Rules_SQL;
-import com.kerberus.syntaxValidator.rules.sql.JFlex_Rules_SQL;
+import com.kerberus.syntaxValidator.rules.comma.*;
+import com.kerberus.syntaxValidator.rules.sql.*;
+import com.kerberus.syntaxValidator.rules.util.CupUtil;
+import com.kerberus.syntaxValidator.rules.util.FlexUtil;
+import com.kerberus.syntaxValidator.rules.util.UtilFiles;
 
 public class Main {
 	
 	public static void main(String[] args) {
 		
-		String rootPath = Paths.get("").toAbsolutePath(). toString();
-        String subPath = "\\src\\main\\java\\com\\kerberus\\syntaxValidator\\rules\\sql\\";
-        String the_file = "Cup_Rules_SQL";
+		UtilFiles utilFiles = new UtilFiles();
 		
-        Generator_Cup generator_Cup = new Generator_Cup();
-		String options[] = new String[5];		
-        
-        options[0] = "-destdir";
-        options[1] = rootPath + subPath;        
-        options[2] = "-parser";        
-        options[3] = the_file;
-        options[4] = rootPath + subPath + the_file + ".cup";
-        generator_Cup.generate_Cup_file(options);
-        
-        
-        subPath = "\\src\\main\\java\\com\\kerberus\\syntaxValidator\\rules\\comma\\";
-        options[0] = "-destdir";
-        options[1] = rootPath + subPath;        
-        options[2] = "-parser";        
-        // options[3] = "rules_SQL_cup";
-        options[3] = "Cup_Rules_Commas";
-        options[4] = rootPath + subPath + "Cup_Rules_Commas.cup";
-        generator_Cup.generate_Cup_file(options);
-        
+		String rootPath = utilFiles.getRootpath();
+        String subPath = utilFiles.getSubpath();
+        String sqlCupFile = "Cup_Rules_SQL";
+        String commaCupFile = "Cup_Rules_Commas";
+        String sqlFlexFile = "JFlex_Rules_SQL";
+        String commaFlexFile = "JFlex_Rules_Commas";
 		
-		
-		
+        CupUtil cupUtil = new CupUtil();
+        cupUtil.generateCupFile(rootPath, subPath + "\\sql\\", sqlCupFile);
+        cupUtil.generateCupFile(rootPath, subPath + "\\comma\\", commaCupFile);
+        
+        FlexUtil flexUtil = new FlexUtil();
+        flexUtil.generateFlexFile(rootPath, subPath + "\\sql\\", sqlFlexFile);
+        flexUtil.generateFlexFile(rootPath, subPath + "\\comma\\", commaFlexFile);
+
         // ----------- SQL ----------------------------------------------------------------------- 
-        
-		/*ToDo: rename generated analyzer to: LexicalAnalyzer and SyntacticalAnalyzer*/
-        
+                
         String statement = "SElect column1,column2,colum3,colum4,colum5,colum6,columN FROm products";
         
 		JFlex_Rules_SQL Lex_Analyzer = new JFlex_Rules_SQL( new BufferedReader( new StringReader(statement) ) ); 
