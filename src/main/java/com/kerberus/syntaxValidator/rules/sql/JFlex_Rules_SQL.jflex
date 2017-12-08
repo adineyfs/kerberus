@@ -39,8 +39,12 @@ import com.kerberus.syntaxValidator.rules.sql.sym;
  * PATTERN DEFINITIONS:
  */
 
-WhiteSpace      = [" "|\t|\r|\n|\f]
-identifier      = [A-Za-z]([0-9]|[A-Za-z])* // {letter}({digit}|{letter})*
+WhiteSpace      = [ |\t|\r|\n|\f]
+letter 			= [A-Za-z]
+digit			= [0-9]
+identifier      = {letter}({digit}|{letter})*
+integer			= {digit}+
+real			= {digit}\.{digit}
 whitespace      = {WhiteSpace}
 
 %%
@@ -55,12 +59,30 @@ whitespace      = {WhiteSpace}
 <YYINITIAL> "*"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._STAR, yyline+1, yycolumn+1, yytext()); }
 <YYINITIAL> ","			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._COMMA, yyline+1, yycolumn+1, yytext()); }
 
+/* Logical Operators */
+<YYINITIAL> "="			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._EQU, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> ">"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._GT, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "<"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._LT, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "<="		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._LET, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> ">="		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._GET, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "<>"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._DIFF, yyline+1, yycolumn+1, yytext()); }
+
+/* Logical conectors */
+
+<YYINITIAL> "and"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._AND, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "or"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._OR, yyline+1, yycolumn+1, yytext()); }
+
+/* Negation */
+<YYINITIAL> "not"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._NOT, yyline+1, yycolumn+1, yytext()); }
+
+
+
+
 // Terminal tokens (LOWERCASE)
 {identifier}    { System.out.println("Recognized: " + yytext()); return new Symbol(sym.identifier, yyline+1, yycolumn+1, yytext()); }
-/*
 {integer}       { System.out.println("Recognized: " + yytext()); return new Symbol(sym.integer, yyline+1, yycolumn+1, yytext()); }
 {real}          { System.out.println("Recognized: " + yytext()); return new Symbol(sym.real, yyline+1, yycolumn+1, yytext()); }
-*/
+
 {whitespace}    { /* Ignore whitespace. */ }
 
 

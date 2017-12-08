@@ -9,17 +9,26 @@ package com.kerberus.syntaxValidator.rules.sql;
 public class sym {
   /* terminals */
   public static final int WHERE = 6;
-  public static final int _STAR = 7;
-  public static final int UPDATE = 3;
-  public static final int integer = 10;
-  public static final int EOF = 0;
-  public static final int identifier = 9;
-  public static final int DELETE = 4;
-  public static final int error = 1;
-  public static final int SELECT = 2;
   public static final int FROM = 5;
-  public static final int real = 11;
-  public static final int _COMMA = 8;
+  public static final int _EQU = 11;
+  public static final int _COMMA = 20;
+  public static final int _GET = 15;
+  public static final int SELECT = 2;
+  public static final int identifier = 7;
+  public static final int _AND = 17;
+  public static final int _NOT = 19;
+  public static final int _DIFF = 16;
+  public static final int real = 9;
+  public static final int EOF = 0;
+  public static final int _LT = 13;
+  public static final int _OR = 18;
+  public static final int error = 1;
+  public static final int integer = 8;
+  public static final int _STAR = 10;
+  public static final int DELETE = 4;
+  public static final int UPDATE = 3;
+  public static final int _LET = 14;
+  public static final int _GT = 12;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -28,11 +37,20 @@ public class sym {
   "DELETE",
   "FROM",
   "WHERE",
-  "_STAR",
-  "_COMMA",
   "identifier",
   "integer",
-  "real"
+  "real",
+  "_STAR",
+  "_EQU",
+  "_GT",
+  "_LT",
+  "_LET",
+  "_GET",
+  "_DIFF",
+  "_AND",
+  "_OR",
+  "_NOT",
+  "_COMMA"
   };
 }
 

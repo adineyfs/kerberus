@@ -32,7 +32,7 @@ public class Main {
 
         // ----------- SQL ----------------------------------------------------------------------- 
                 
-        String statement = "SElect column1,column2,colum3,colum4,colum5,colum6,columN FROm products";
+        String statement = "SElect column1,column2,colum3,colum4,colum5,colum6,columN, FROM products WHERE some = 1";
         
 		JFlex_Rules_SQL Lex_Analyzer = new JFlex_Rules_SQL( new BufferedReader( new StringReader(statement) ) ); 
 		Cup_Rules_SQL Syntax_Analyzer = new Cup_Rules_SQL(Lex_Analyzer);

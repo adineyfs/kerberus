@@ -32,6 +32,7 @@ parser code
 	// Unrecoverable syntax errors - This method will catch any other errors that go beyond our language(exceptions)
 	public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
 	{
+		/*
 		String lexeme = s.value.toString();
 		int row = s.right;
 		int column = s.left;
@@ -44,6 +45,7 @@ parser code
 		
 		TError errors_found = new TError(lexeme,row,column, "Unrecoverable syntax error", "Unexpected character");
 		TableSE .add(errors_found);
+		*/
 	}	
 	
 :}
@@ -56,10 +58,28 @@ action code
 :}
 
 /*---------------------- 2nd Part: Declarations --------------------------------------------*/
-terminal SELECT, UPDATE, DELETE, FROM, WHERE,_STAR,_COMMA;
+
+// Reserved words
+terminal SELECT, UPDATE, DELETE, FROM, WHERE;
+
+// Identifiers and numbers
 terminal identifier, integer, real;
 
-non terminal _SEL1_,_COLS_,_FRO_,_TABLE_,_START_,_STMNT_;
+// Star symbol (all)
+terminal _STAR;
+
+// Operators 
+terminal _EQU, _GT, _LT, _LET, _GET, _DIFF;
+
+// Logial
+terminal _AND,_OR,_NOT;
+
+// Separator
+terminal _COMMA;
+
+// Tree branches
+non terminal _START_,_STMNT_,_COLS_,_FRO_,_TABLE_;
+non terminal _WHE_,_EVAL_,_OPER_,_LC_,_EL_;
 
 /* 
  * Precedence definition --> this is used when the grammar is ambiguous
@@ -77,11 +97,13 @@ start with _START_;
 
 /* ------------ ToDo: Evaluate this --------------------------------------*/
 
+
+
 _START_ ::= _STMNT_ {: System.out.println("\n --> Statement Ok"); :};
 
 _STMNT_ ::= SELECT _COLS_ _FRO_ ;
 
-_COLS_	::= _COLS_ _COMMA identifier 
+_COLS_	::= identifier _COMMA _COLS_  
 		  | identifier:col{: System.out.println("Column: " + col + " found in (x,y): ("+ colleft +","+ colright +")"); :}
 		  | _STAR;
 
@@ -92,11 +114,34 @@ _TABLE_	::= identifier:id;
 
 
 /*
- * Just testing NullPointer problem
- */
-/*
-_START_ ::= _STMNT_ {: System.out.println("Document Ok"); :};
+_START_ ::= _STMNT_ {: System.out.println("\n --> Statement Ok"); :};
 
-_STMNT_ ::= _COLS_ _COMMA identifier:word {: System.out.println("Word: " + word + " found in (x,y): ("+ wordleft +","+ wordright +")"); :}
-	   | identifier:word {: System.out.println("Word: " + word + " found in (x,y): ("+ wordleft +","+ wordright +")"); :};
+_STMNT_ ::= SELECT _COLS_ _FRO_ _WHE_;
+//_STMNT_ ::= SELECT _COLS_ _FRO_ _TABLE_;
+
+_COLS_	::= _COLS_ _COMMA identifier:col{: System.out.println("Column: " + col + " found in (x,y): ("+ colleft +","+ colright +")"); :} 
+		  | identifier:col{: System.out.println("Column: " + col + " found in (x,y): ("+ colleft +","+ colright +")"); :};
+
+_FRO_	::= FROM _TABLE_;
+
+_WHE_   ::= WHERE _EL_ _OPER_ _EL_;
+
+_TABLE_	::= identifier:id{: System.out.println("Column: " + id + " found in (x,y): ("+ idleft +","+ idright +")"); :};
+
+_EL_    ::= identifier | integer | real;
+
+_OPER_  ::= _EQU | _GT | _LT | _LET | _GET | _DIFF;
+
+/*
+// cut here
+_WHE_   ::= _WHE_ _LC_ _EVAL_
+		  | WHERE _LC_ _EVAL_;
+
+_EVAL_  ::= _EVAL_ _OPER_ _EL_; 
+
+_OPER_  ::= _EQU | _GT | _LT | _LET | _GET | _DIFF;
+
+_EL_    ::= identifier | integer | real;
+
+_LC_    ::= _AND | _OR;
 */
