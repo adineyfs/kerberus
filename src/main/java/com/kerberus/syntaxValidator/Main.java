@@ -3,7 +3,7 @@ package com.kerberus.syntaxValidator;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
-import com.kerberus.syntaxValidator.rules.comma.*;
+//import com.kerberus.syntaxValidator.rules.comma.*;
 import com.kerberus.syntaxValidator.rules.sql.*;
 import com.kerberus.syntaxValidator.rules.util.CupUtil;
 import com.kerberus.syntaxValidator.rules.util.FlexUtil;
@@ -12,6 +12,10 @@ import com.kerberus.syntaxValidator.rules.util.UtilFiles;
 public class Main {
 	
 	public static void main(String[] args) {
+		
+		/*
+		 * 
+		 */
 		
 		UtilFiles utilFiles = new UtilFiles();
 		
@@ -22,6 +26,7 @@ public class Main {
         String sqlFlexFile = "JFlex_Rules_SQL";
         String commaFlexFile = "JFlex_Rules_Commas";
 		
+        /*
         CupUtil cupUtil = new CupUtil();
         cupUtil.generateCupFile(rootPath, subPath + "\\sql\\", sqlCupFile);
         cupUtil.generateCupFile(rootPath, subPath + "\\comma\\", commaCupFile);
@@ -29,11 +34,19 @@ public class Main {
         FlexUtil flexUtil = new FlexUtil();
         flexUtil.generateFlexFile(rootPath, subPath + "\\sql\\", sqlFlexFile);
         flexUtil.generateFlexFile(rootPath, subPath + "\\comma\\", commaFlexFile);
+        */
+        
+        FlexUtil flexUtil = new FlexUtil();
+        flexUtil.generateFlexFile(rootPath, subPath + "\\sql\\", sqlFlexFile);
+        
+        CupUtil cupUtil = new CupUtil();
+        cupUtil.generateCupFile(rootPath, subPath + "\\sql\\", sqlCupFile);
 
         // ----------- SQL ----------------------------------------------------------------------- 
                 
-        String statement = "select ord1,something,colum3,colum4,colum5,colum6,colum, FROM product WHERE hola = 1";
-        
+        String statement = "select _col_1 FROM some_table WHerE _col_2 = 1 AND _"
+        		+ "col_3 = 4 OR _col_4 == 30";
+        //String statement = "select _ord1,one_two_three,_a_b_c,___4,colum5,colum6,colum FROM product WHERE hola = 1 ;";
         //String statement = "select column1,column2,colum3,colum4,colum5,colum6,colum, FROM product WHERE hola = 1 AND hola = 2";
         //String statement = "select column1,column2,colum3,colum4,colum5,colum6,colum ? FROM product WHERE hola = 1 AND hola = 2";
         
@@ -44,7 +57,14 @@ public class Main {
 		System.out.println("Statement: \"" + statement + "\"\n");
 		
 		try {
+			
+			// Run Syntax Analyzer
 			Syntax_Analyzer.parse();
+			
+			// Debug Mode
+			//Syntax_Analyzer.debug_stack();
+			//Syntax_Analyzer.debug_parse();
+			
 			System.out.println("\n-------------- Finished Analysis -----------------------");
 			System.out.println("number of errors found: " + Syntax_Analyzer.TableSE.size() );
 			System.out.println("----------------------------------------------------------\n");

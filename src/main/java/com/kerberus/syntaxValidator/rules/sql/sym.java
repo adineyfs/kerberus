@@ -16,6 +16,8 @@ public class sym {
   public static final int SELECT = 2;
   public static final int identifier = 7;
   public static final int _AND = 17;
+  public static final int _SEMCOL2 = 22;
+  public static final int _SEMCOL1 = 21;
   public static final int _NOT = 19;
   public static final int _DIFF = 16;
   public static final int real = 9;
@@ -50,7 +52,9 @@ public class sym {
   "_AND",
   "_OR",
   "_NOT",
-  "_COMMA"
+  "_COMMA",
+  "_SEMCOL1",
+  "_SEMCOL2"
   };
 }
 

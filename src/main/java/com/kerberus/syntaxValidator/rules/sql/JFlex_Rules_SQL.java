@@ -40,15 +40,15 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
    * Translates characters to character classes
    */
   private static final char [] ZZ_CMAP = {
-     0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 27,  1,  1,  0,  0, 
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1, 29,  1,  1,  0,  0, 
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
-     1,  0,  0,  0,  0,  0,  0,  0,  0,  0, 21,  0, 22,  0,  4,  0, 
-     3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  0,  0, 25, 23, 24,  0, 
-     0, 14,  2,  9, 13,  7, 15,  2, 20,  2,  2,  2,  8, 18, 26, 17, 
-    12,  2, 16,  6, 10, 11,  2, 19,  2,  2,  2,  0,  0,  0,  0,  0, 
-     0, 14,  2,  9, 13,  7, 15,  2, 20,  2,  2,  2,  8, 18, 26, 17, 
-    12,  2, 16,  6, 10, 11,  2, 19,  2,  2,  2,  0,  1,  0,  0,  0, 
-     0,  0,  0,  0,  0, 27,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
+     1,  0,  0,  0,  0,  0,  0,  0,  0,  0, 23,  0, 24,  0,  5,  0, 
+     3,  3,  3,  3,  3,  3,  3,  3,  3,  3,  0,  6, 27, 25, 26,  0, 
+     0, 16,  2, 11, 15,  9, 17,  2, 22,  2,  2,  2, 10, 20, 28, 19, 
+    14,  2, 18,  8, 12, 13,  2, 21,  2,  2,  2,  0,  0,  0,  0,  4, 
+     0, 16,  2, 11, 15,  9, 17,  2, 22,  2,  2,  2, 10, 20, 28, 19, 
+    14,  2, 18,  8, 12, 13,  2, 21,  2,  2,  2,  0,  1,  0,  0,  0, 
+     0,  0,  0,  0,  0, 29,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 
@@ -64,14 +64,15 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\0\1\1\1\2\1\3\1\4\1\1\7\3\1\5"+
-    "\1\6\1\7\1\10\1\11\1\3\1\4\2\0\5\3"+
-    "\1\12\1\3\1\13\1\14\1\15\1\3\1\16\1\0"+
-    "\3\3\1\17\2\3\1\20\1\0\3\3\1\21\1\3"+
-    "\1\0\3\3\1\22\2\23\1\24\1\25";
+    "\1\0\1\1\1\2\1\1\1\3\1\4\10\1\1\5"+
+    "\1\6\1\7\1\10\1\11\1\1\1\12\1\0\1\3"+
+    "\2\0\1\13\1\12\1\13\4\12\1\14\1\12\1\15"+
+    "\1\16\1\17\1\12\1\20\1\0\3\12\1\21\2\12"+
+    "\1\22\1\0\3\12\1\23\1\12\1\0\3\12\1\24"+
+    "\2\25\1\26\1\27";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[57];
+    int [] result = new int[62];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -96,17 +97,17 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\34\0\34\0\70\0\124\0\160\0\214\0\250"+
-    "\0\304\0\340\0\374\0\u0118\0\u0134\0\34\0\34\0\34"+
-    "\0\u0150\0\u016c\0\u0188\0\u01a4\0\u01c0\0\u01dc\0\u01f8\0\u0214"+
-    "\0\u0230\0\u024c\0\u0268\0\70\0\u0284\0\34\0\34\0\34"+
-    "\0\u02a0\0\34\0\u02bc\0\u02d8\0\u02f4\0\u0310\0\70\0\u032c"+
-    "\0\u0348\0\70\0\u0364\0\u0380\0\u039c\0\u03b8\0\70\0\u03d4"+
-    "\0\u03f0\0\u040c\0\u0428\0\u0444\0\70\0\34\0\70\0\70"+
-    "\0\70";
+    "\0\0\0\36\0\36\0\74\0\132\0\36\0\170\0\226"+
+    "\0\264\0\322\0\360\0\u010e\0\u012c\0\u014a\0\36\0\36"+
+    "\0\36\0\u0168\0\u0186\0\u01a4\0\74\0\74\0\u01c2\0\u01e0"+
+    "\0\u01fe\0\36\0\u021c\0\74\0\u023a\0\u0258\0\u0276\0\u0294"+
+    "\0\74\0\u02b2\0\36\0\36\0\36\0\u02d0\0\36\0\u02ee"+
+    "\0\u030c\0\u032a\0\u0348\0\74\0\u0366\0\u0384\0\74\0\u03a2"+
+    "\0\u03c0\0\u03de\0\u03fc\0\74\0\u041a\0\u0438\0\u0456\0\u0474"+
+    "\0\u0492\0\74\0\36\0\74\0\74\0\74";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[57];
+    int [] result = new int[62];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -129,43 +130,47 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\2\1\3\1\4\1\5\1\2\1\6\1\7\4\4"+
-    "\1\10\1\4\1\11\1\12\1\13\1\4\1\14\1\4"+
-    "\1\15\1\4\1\16\1\17\1\20\1\21\1\22\1\23"+
-    "\37\0\2\4\2\0\17\4\5\0\1\4\4\0\1\24"+
-    "\1\25\36\0\1\26\26\0\2\4\2\0\1\4\1\27"+
-    "\15\4\5\0\1\4\3\0\2\4\2\0\6\4\1\30"+
-    "\10\4\5\0\1\4\3\0\2\4\2\0\1\4\1\31"+
-    "\15\4\5\0\1\4\3\0\2\4\2\0\17\4\5\0"+
-    "\1\32\3\0\2\4\2\0\12\4\1\33\4\4\5\0"+
-    "\1\4\3\0\2\4\2\0\12\4\1\34\4\4\5\0"+
-    "\1\4\3\0\2\4\2\0\16\4\1\35\5\0\1\4"+
-    "\30\0\1\36\33\0\1\37\1\40\5\0\2\4\2\0"+
-    "\13\4\1\41\3\4\5\0\1\4\4\0\1\24\33\0"+
-    "\1\42\40\0\1\43\25\0\2\4\2\0\2\4\1\44"+
-    "\14\4\5\0\1\4\3\0\2\4\2\0\7\4\1\45"+
-    "\7\4\5\0\1\4\3\0\2\4\2\0\2\4\1\46"+
-    "\14\4\5\0\1\4\3\0\2\4\2\0\7\4\1\47"+
-    "\7\4\5\0\1\4\3\0\2\4\2\0\13\4\1\50"+
-    "\3\4\5\0\1\4\3\0\2\4\2\0\1\4\1\51"+
-    "\15\4\5\0\1\4\3\0\2\4\2\0\4\4\1\52"+
-    "\12\4\5\0\1\4\10\0\1\53\26\0\2\4\2\0"+
-    "\1\4\1\54\15\4\5\0\1\4\3\0\2\4\2\0"+
-    "\10\4\1\55\6\4\5\0\1\4\3\0\2\4\2\0"+
-    "\1\4\1\56\15\4\5\0\1\4\3\0\2\4\2\0"+
-    "\14\4\1\57\2\4\5\0\1\4\3\0\2\4\2\0"+
-    "\12\4\1\60\4\4\5\0\1\4\12\0\1\61\24\0"+
-    "\2\4\2\0\3\4\1\62\13\4\5\0\1\4\3\0"+
-    "\2\4\2\0\4\4\1\63\12\4\5\0\1\4\3\0"+
-    "\2\4\2\0\4\4\1\64\12\4\5\0\1\4\3\0"+
-    "\2\4\2\0\1\4\1\65\15\4\5\0\1\4\13\0"+
-    "\1\66\23\0\2\4\2\0\4\4\1\67\12\4\5\0"+
-    "\1\4\3\0\2\4\2\0\1\4\1\70\15\4\5\0"+
-    "\1\4\3\0\2\4\2\0\1\4\1\71\15\4\5\0"+
-    "\1\4\1\0";
+    "\1\2\1\3\1\4\1\5\1\4\1\2\1\6\1\7"+
+    "\1\10\4\4\1\11\1\4\1\12\1\13\1\14\1\4"+
+    "\1\15\1\4\1\16\1\4\1\17\1\20\1\21\1\22"+
+    "\1\23\1\24\41\0\2\25\1\26\3\0\17\25\5\0"+
+    "\1\25\4\0\1\27\1\0\1\30\41\0\1\31\1\0"+
+    "\1\32\24\0\2\25\1\26\3\0\1\25\1\33\1\25"+
+    "\1\34\13\25\5\0\1\25\3\0\2\25\1\26\3\0"+
+    "\6\25\1\35\10\25\5\0\1\25\3\0\2\25\1\26"+
+    "\3\0\1\25\1\36\15\25\5\0\1\25\3\0\2\25"+
+    "\1\26\3\0\17\25\5\0\1\37\3\0\2\25\1\26"+
+    "\3\0\12\25\1\40\4\25\5\0\1\25\3\0\2\25"+
+    "\1\26\3\0\12\25\1\41\4\25\5\0\1\25\3\0"+
+    "\2\25\1\26\3\0\16\25\1\42\5\0\1\25\32\0"+
+    "\1\43\35\0\1\44\1\45\5\0\2\25\1\26\3\0"+
+    "\13\25\1\46\3\25\5\0\1\25\4\0\1\27\35\0"+
+    "\1\47\44\0\1\50\25\0\2\25\1\26\3\0\2\25"+
+    "\1\51\14\25\5\0\1\25\3\0\2\25\1\26\3\0"+
+    "\7\25\1\52\7\25\5\0\1\25\3\0\2\25\1\26"+
+    "\3\0\2\25\1\53\14\25\5\0\1\25\3\0\2\25"+
+    "\1\26\3\0\7\25\1\54\7\25\5\0\1\25\3\0"+
+    "\2\25\1\26\3\0\13\25\1\55\3\25\5\0\1\25"+
+    "\3\0\2\25\1\26\3\0\1\25\1\56\15\25\5\0"+
+    "\1\25\3\0\2\25\1\26\3\0\4\25\1\57\12\25"+
+    "\5\0\1\25\12\0\1\60\26\0\2\25\1\26\3\0"+
+    "\1\25\1\61\15\25\5\0\1\25\3\0\2\25\1\26"+
+    "\3\0\10\25\1\62\6\25\5\0\1\25\3\0\2\25"+
+    "\1\26\3\0\1\25\1\63\15\25\5\0\1\25\3\0"+
+    "\2\25\1\26\3\0\14\25\1\64\2\25\5\0\1\25"+
+    "\3\0\2\25\1\26\3\0\12\25\1\65\4\25\5\0"+
+    "\1\25\14\0\1\66\24\0\2\25\1\26\3\0\3\25"+
+    "\1\67\13\25\5\0\1\25\3\0\2\25\1\26\3\0"+
+    "\4\25\1\70\12\25\5\0\1\25\3\0\2\25\1\26"+
+    "\3\0\4\25\1\71\12\25\5\0\1\25\3\0\2\25"+
+    "\1\26\3\0\1\25\1\72\15\25\5\0\1\25\15\0"+
+    "\1\73\23\0\2\25\1\26\3\0\4\25\1\74\12\25"+
+    "\5\0\1\25\3\0\2\25\1\26\3\0\1\25\1\75"+
+    "\15\25\5\0\1\25\3\0\2\25\1\26\3\0\1\25"+
+    "\1\76\15\25\5\0\1\25\1\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[1120];
+    int [] result = new int[1200];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -203,12 +208,12 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\2\11\12\1\3\11\4\1\2\0\7\1\3\11"+
-    "\1\1\1\11\1\0\7\1\1\0\5\1\1\0\4\1"+
-    "\1\11\3\1";
+    "\1\0\2\11\2\1\1\11\10\1\3\11\4\1\1\0"+
+    "\1\1\2\0\1\11\10\1\3\11\1\1\1\11\1\0"+
+    "\7\1\1\0\5\1\1\0\4\1\1\11\3\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[57];
+    int [] result = new int[62];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -662,87 +667,95 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
 				  TError errors_found = new TError(yytext(),yyline,yycolumn,"Lexical Error","This symbol does not exist in this language");
 				  TableLE.add(errors_found);
             }
-          case 22: break;
-          case 2: 
-            { /* Ignore whitespace. */
-            }
-          case 23: break;
-          case 3: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.identifier, yyline+1, yycolumn+1, yytext());
-            }
           case 24: break;
-          case 4: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.integer, yyline+1, yycolumn+1, yytext());
+          case 2: 
+            { /* Ignore whitespace */
             }
           case 25: break;
-          case 5: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._STAR, yyline+1, yycolumn+1, yytext());
+          case 3: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.integer, yyline, yycolumn, yytext());
             }
           case 26: break;
-          case 6: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._COMMA, yyline+1, yycolumn+1, yytext());
+          case 4: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._SEMCOL2, yyline, yycolumn, yytext());
             }
           case 27: break;
-          case 7: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._EQU, yyline+1, yycolumn+1, yytext());
+          case 5: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._STAR, yyline, yycolumn, yytext());
             }
           case 28: break;
-          case 8: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._GT, yyline+1, yycolumn+1, yytext());
+          case 6: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._COMMA, yyline, yycolumn, yytext());
             }
           case 29: break;
-          case 9: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._LT, yyline+1, yycolumn+1, yytext());
+          case 7: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._EQU, yyline, yycolumn, yytext());
             }
           case 30: break;
-          case 10: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._OR, yyline+1, yycolumn+1, yytext());
+          case 8: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._GT, yyline, yycolumn, yytext());
             }
           case 31: break;
-          case 11: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._GET, yyline+1, yycolumn+1, yytext());
+          case 9: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._LT, yyline, yycolumn, yytext());
             }
           case 32: break;
-          case 12: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._LET, yyline+1, yycolumn+1, yytext());
+          case 10: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.identifier, yyline, yycolumn, yytext());
             }
           case 33: break;
-          case 13: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._DIFF, yyline+1, yycolumn+1, yytext());
+          case 11: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._SEMCOL1, yyline, yycolumn, yytext());
             }
           case 34: break;
-          case 14: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.real, yyline+1, yycolumn+1, yytext());
+          case 12: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._OR, yyline, yycolumn, yytext());
             }
           case 35: break;
-          case 15: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._AND, yyline+1, yycolumn+1, yytext());
+          case 13: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._GET, yyline, yycolumn, yytext());
             }
           case 36: break;
-          case 16: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._NOT, yyline+1, yycolumn+1, yytext());
+          case 14: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._LET, yyline, yycolumn, yytext());
             }
           case 37: break;
-          case 17: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.FROM, yyline+1, yycolumn+1, yytext());
+          case 15: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._DIFF, yyline, yycolumn, yytext());
             }
           case 38: break;
-          case 18: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.WHERE, yyline+1, yycolumn+1, yytext());
+          case 16: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.real, yyline, yycolumn, yytext());
             }
           case 39: break;
-          case 19: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.SELECT, yyline+1, yycolumn+1, yytext());
+          case 17: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._AND, yyline, yycolumn, yytext());
             }
           case 40: break;
-          case 20: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.UPDATE, yyline+1, yycolumn+1, yytext());
+          case 18: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym._NOT, yyline, yycolumn, yytext());
             }
           case 41: break;
-          case 21: 
-            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.DELETE, yyline+1, yycolumn+1, yytext());
+          case 19: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.FROM, yyline, yycolumn, yytext());
             }
           case 42: break;
+          case 20: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.WHERE, yyline, yycolumn, yytext());
+            }
+          case 43: break;
+          case 21: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.SELECT, yyline, yycolumn, yytext());
+            }
+          case 44: break;
+          case 22: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.UPDATE, yyline, yycolumn, yytext());
+            }
+          case 45: break;
+          case 23: 
+            { System.out.println("Recognized: " + yytext()); return new Symbol(sym.DELETE, yyline, yycolumn, yytext());
+            }
+          case 46: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

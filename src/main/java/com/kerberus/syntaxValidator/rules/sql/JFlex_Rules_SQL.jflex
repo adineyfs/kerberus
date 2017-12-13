@@ -16,18 +16,22 @@ import com.kerberus.syntaxValidator.rules.sql.sym;
 // ------> Directives (flags)
 %public
 %class JFlex_Rules_SQL
-//%cupsym sym		// Symbols is an object that will be sent to Cup (I need to create this class)
-%cup 		   		// Enables cup
+//%cupsym symbol		// Symbols is an object that will be sent to Cup (I need to create this class)
+%cup 		   			// Enables cup
+//%cupdebug				// Activates Cup debug mode
 %unicode
-%char 				// Counting amount of character read (starts at zero)
+%char 					// Counting amount of character read (starts at zero)
 %line
 %column
-%full  				// use an 8 bit input character set (character codes 0-255)
-%ignorecase			// not case sensitive
+%full  					// use an 8 bit input character set (character codes 0-255)
+%ignorecase				// not case sensitive
 
-// -------- states declarations | what's this?
-
-
+/*
+%eofval{
+	// return new Symbol(sym.EOF, yyline, yycolumn, yytext());  // Error: duplicated EOF
+	//return new java_cup.runtime.Symbol(<CUPSYM>.EOF);			// same error
+%eofval}
+*/
 %{
 	// Initialize any necessary variables here
 	
@@ -39,51 +43,55 @@ import com.kerberus.syntaxValidator.rules.sql.sym;
  * PATTERN DEFINITIONS:
  */
 
-WhiteSpace      = [ |\t|\r|\n|\f]
+WhiteSpace      = [ |\t|\r|\n|\f|\r\n]  // [\r\n] --> End of line
 letter 			= [A-Za-z]
 digit			= [0-9]
-identifier      = {letter}({digit}|{letter})*
+under			= [\_] // Underscore character
+identifier      = ({under}|{letter})({digit}|{letter}|{under})*({digit}|{letter}) // begins with letter or a _, followed by characters,numbers or underscore, finishing with letter or a _.
 integer			= {digit}+
 real			= {digit}\.{digit}
 whitespace      = {WhiteSpace}
+semicolon		= [;] 
 
 %%
 
 /* Reserved words --> Oracle (PLSQL) */
-<YYINITIAL> "select" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.SELECT, yyline+1, yycolumn+1, yytext()); }
-<YYINITIAL> "update" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.UPDATE, yyline+1, yycolumn+1, yytext()); }
-<YYINITIAL> "delete" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.DELETE, yyline+1, yycolumn+1, yytext()); }
-<YYINITIAL> "from" 		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.FROM, yyline+1, yycolumn+1, yytext()); }
-<YYINITIAL> "where"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.WHERE, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "select" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.SELECT, yyline, yycolumn, yytext()); }
+<YYINITIAL> "update" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.UPDATE, yyline, yycolumn, yytext()); }
+<YYINITIAL> "delete" 	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.DELETE, yyline, yycolumn, yytext()); }
+<YYINITIAL> "from" 		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.FROM, yyline, yycolumn, yytext()); }
+<YYINITIAL> "where"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym.WHERE, yyline, yycolumn, yytext()); }
 
-<YYINITIAL> "*"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._STAR, yyline+1, yycolumn+1, yytext()); }
-<YYINITIAL> ","			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._COMMA, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "*"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._STAR, yyline, yycolumn, yytext()); }
+<YYINITIAL> ","			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._COMMA, yyline, yycolumn, yytext()); }
 
 /* Logical Operators */
-<YYINITIAL> "="			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._EQU, yyline+1, yycolumn+1, yytext()); }
-<YYINITIAL> ">"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._GT, yyline+1, yycolumn+1, yytext()); }
-<YYINITIAL> "<"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._LT, yyline+1, yycolumn+1, yytext()); }
-<YYINITIAL> "<="		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._LET, yyline+1, yycolumn+1, yytext()); }
-<YYINITIAL> ">="		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._GET, yyline+1, yycolumn+1, yytext()); }
-<YYINITIAL> "<>"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._DIFF, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "="			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._EQU, yyline, yycolumn, yytext()); }
+<YYINITIAL> ">"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._GT, yyline, yycolumn, yytext()); }
+<YYINITIAL> "<"			{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._LT, yyline, yycolumn, yytext()); }
+<YYINITIAL> "<="		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._LET, yyline, yycolumn, yytext()); }
+<YYINITIAL> ">="		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._GET, yyline, yycolumn, yytext()); }
+<YYINITIAL> "<>"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._DIFF, yyline, yycolumn, yytext()); }
 
 /* Logical conectors */
 
-<YYINITIAL> "and"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._AND, yyline+1, yycolumn+1, yytext()); }
-<YYINITIAL> "or"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._OR, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "and"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._AND, yyline, yycolumn, yytext()); }
+<YYINITIAL> "or"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._OR, yyline, yycolumn, yytext()); }
 
 /* Negation */
-<YYINITIAL> "not"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._NOT, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> "not"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._NOT, yyline, yycolumn, yytext()); }
 
-
+/* Statement closure */
+<YYINITIAL> "sc"		{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._SEMCOL1, yyline, yycolumn, yytext()); }
+<YYINITIAL> {semicolon}	{ System.out.println("Recognized: " + yytext()); return new Symbol(sym._SEMCOL2, yyline, yycolumn, yytext()); }
 
 
 // Terminal tokens (LOWERCASE)
-{identifier}    { System.out.println("Recognized: " + yytext()); return new Symbol(sym.identifier, yyline+1, yycolumn+1, yytext()); }
-{integer}       { System.out.println("Recognized: " + yytext()); return new Symbol(sym.integer, yyline+1, yycolumn+1, yytext()); }
-{real}          { System.out.println("Recognized: " + yytext()); return new Symbol(sym.real, yyline+1, yycolumn+1, yytext()); }
+<YYINITIAL> {identifier}    { System.out.println("Recognized: " + yytext()); return new Symbol(sym.identifier, yyline, yycolumn, yytext()); }
+<YYINITIAL> {integer}       { System.out.println("Recognized: " + yytext()); return new Symbol(sym.integer, yyline, yycolumn, yytext()); }
+<YYINITIAL> {real}          { System.out.println("Recognized: " + yytext()); return new Symbol(sym.real, yyline, yycolumn, yytext()); }
 
-{whitespace}    { /* Ignore whitespace. */ }
+<YYINITIAL> {whitespace}    { /* Ignore whitespace */ }
 
 
 // Lexical errors - This is like the default option in a SWITCH clause.
