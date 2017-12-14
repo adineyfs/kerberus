@@ -90,7 +90,10 @@ public class Main {
 				
 			}
 			
-			System.out.println(Syntax_Analyzer.Columns + " " + Syntax_Analyzer.Columns.size());
+			System.out.println("\n-------------- Findings Analysis -----------------------");
+			System.out.println("Table_name (to be validated): " +  Syntax_Analyzer.table_name);
+			System.out.println(Syntax_Analyzer.Columns.size()+ " Columns found (to be validated): " + Syntax_Analyzer.Columns);
+			
 			
 			
 		} catch (Exception e) {

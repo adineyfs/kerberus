@@ -119,13 +119,13 @@ _SELS_ 	::= _SEL_ _FRO_ _WHE_ /*_SC_*/;
 
 _SEL_ 	::= SELECT _COLS_;
 
-_COLS_	::= identifier _COMMA _COLS_  
-		  | identifier:col{: Columns.add(col+""); :}
+_COLS_	::= identifier:col1 _COMMA _COLS_ {: Columns.add(col1+""); :}  
+		  | identifier:col2{: Columns.add(col2+""); :}
 		  | _STAR;
 
 _FRO_	::= FROM _TABLE_;
 
-_TABLE_	::= identifier:tab{: /* Table = tab+"";*/ :};
+_TABLE_	::= identifier:tab{:  table_name = tab+""; :};
 
 _WHE_   ::= WHERE _WC_;  
 

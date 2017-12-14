@@ -266,7 +266,10 @@ class CUP$Cup_Rules_SQL$actions {
           case 5: // _COLS_ ::= identifier _COMMA _COLS_ 
             {
               Object RESULT =null;
-
+		int col1left = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)).left;
+		int col1right = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)).right;
+		Object col1 = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)).value;
+		 Columns.add(col1+""); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_COLS_",2, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -275,10 +278,10 @@ class CUP$Cup_Rules_SQL$actions {
           case 6: // _COLS_ ::= identifier 
             {
               Object RESULT =null;
-		int colleft = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).left;
-		int colright = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
-		Object col = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
-		 Columns.add(col+""); 
+		int col2left = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).left;
+		int col2right = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
+		Object col2 = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
+		 Columns.add(col2+""); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_COLS_",2, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -308,7 +311,7 @@ class CUP$Cup_Rules_SQL$actions {
 		int tableft = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).left;
 		int tabright = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
 		Object tab = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
-		 /* Table = tab+"";*/ 
+		  table_name = tab+""; 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_TABLE_",4, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
