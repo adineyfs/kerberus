@@ -46,12 +46,12 @@ import com.kerberus.syntaxValidator.rules.sql.sym;
 WhiteSpace      = [ |\t|\r|\n|\f|\r\n]  // [\r\n] --> End of line
 letter 			= [A-Za-z]
 digit			= [0-9]
-under			= [\_] // Underscore character
+under			= [\_] 		// Underscore character
 identifier      = ({under}|{letter})({digit}|{letter}|{under})*({digit}|{letter}) // begins with letter or a _, followed by characters,numbers or underscore, finishing with letter or a _.
 integer			= {digit}+
 real			= {digit}\.{digit}
 whitespace      = {WhiteSpace}
-semicolon		= [;] 
+semicolon		= [;]		// Always define these character this way 
 
 %%
 

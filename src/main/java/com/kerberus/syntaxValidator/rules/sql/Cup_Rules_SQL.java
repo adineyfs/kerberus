@@ -139,8 +139,15 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
 
 
 
-	// This list will hold every error found in the syntax analysis process. SE -> Syntax errors
+	// This list will store every error found in the syntax analysis process. SE -> Syntax errors
 	public static LinkedList<TError> TableSE = new LinkedList<TError>();
+
+	// This object has a list with all columns found and its table
+	//public static ColumnEvalutator Columns = new ColumnEvaluator();
+
+	public static String table_name = "";
+	public LinkedList<String> Columns = new LinkedList<String>();
+
 
 	// Recoverable syntax errors - This method will take case of the errors, and notify about it
 	public void syntax_error(Symbol s) 
@@ -153,7 +160,7 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
 		System.out.println("---> Unexpected: " + lexeme + " at (row,colum): ("+row+"," + column + ").");
 		
 		TError errors_found = new TError(lexeme,row,column, "Syntax error", "Unexpected " + lexeme);
-		TableSE .add(errors_found);
+		TableSE.add(errors_found);
 	}
 	
 	// Unrecoverable syntax errors - This method will catch any other errors that go beyond our language(exceptions)
@@ -271,7 +278,7 @@ class CUP$Cup_Rules_SQL$actions {
 		int colleft = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).left;
 		int colright = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
 		Object col = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
-		 System.out.println("Column: " + col + " found in (x,y): ("+ colleft +","+ colright +")"); 
+		 Columns.add(col+""); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_COLS_",2, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -298,7 +305,10 @@ class CUP$Cup_Rules_SQL$actions {
           case 9: // _TABLE_ ::= identifier 
             {
               Object RESULT =null;
-
+		int tableft = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).left;
+		int tabright = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
+		Object tab = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
+		 /* Table = tab+"";*/ 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_TABLE_",4, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;

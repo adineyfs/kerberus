@@ -10,8 +10,15 @@ import com.kerberus.syntaxValidator.rules.util.*;
 // ---------------------- Code for parser,variables and methods ----------------------
 parser code
 {:
-	// This list will hold every error found in the syntax analysis process. SE -> Syntax errors
+	// This list will store every error found in the syntax analysis process. SE -> Syntax errors
 	public static LinkedList<TError> TableSE = new LinkedList<TError>();
+
+	// This object has a list with all columns found and its table
+	//public static ColumnEvalutator Columns = new ColumnEvaluator();
+
+	public static String table_name = "";
+	public LinkedList<String> Columns = new LinkedList<String>();
+
 
 	// Recoverable syntax errors - This method will take case of the errors, and notify about it
 	public void syntax_error(Symbol s) 
@@ -24,7 +31,7 @@ parser code
 		System.out.println("---> Unexpected: " + lexeme + " at (row,colum): ("+row+"," + column + ").");
 		
 		TError errors_found = new TError(lexeme,row,column, "Syntax error", "Unexpected " + lexeme);
-		TableSE .add(errors_found);
+		TableSE.add(errors_found);
 	}
 	
 	// Unrecoverable syntax errors - This method will catch any other errors that go beyond our language(exceptions)
@@ -113,12 +120,12 @@ _SELS_ 	::= _SEL_ _FRO_ _WHE_ /*_SC_*/;
 _SEL_ 	::= SELECT _COLS_;
 
 _COLS_	::= identifier _COMMA _COLS_  
-		  | identifier:col{: System.out.println("Column: " + col + " found in (x,y): ("+ colleft +","+ colright +")"); :}
+		  | identifier:col{: Columns.add(col+""); :}
 		  | _STAR;
 
 _FRO_	::= FROM _TABLE_;
 
-_TABLE_	::= identifier;
+_TABLE_	::= identifier:tab{: /* Table = tab+"";*/ :};
 
 _WHE_   ::= WHERE _WC_;  
 

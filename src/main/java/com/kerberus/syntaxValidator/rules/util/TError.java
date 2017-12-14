@@ -1,5 +1,10 @@
 package com.kerberus.syntaxValidator.rules.util;
 
+/*
+ * This class will store errors found in lexical analyzer (JFlex)
+ */
+
+
 public class TError {
 	private String lexeme,type,description;
 	private int row,column;
