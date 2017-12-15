@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kerberus.controller.MainController">
+   <center>
+      <Pane prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnValidate" layoutX="271.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleTestButton" text="Validate" />
+            <TextField fx:id="txtFieldSqlStatement" layoutX="124.0" layoutY="68.0" prefHeight="25.0" prefWidth="441.0" />
+            <TextArea fx:id="txtAreaSqlValidationReturn" layoutX="35.0" layoutY="159.0" prefHeight="200.0" prefWidth="530.0" />
+            <Label fx:id="lblSqlStatement" layoutX="35.0" layoutY="72.0" text="SQL Statement:" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

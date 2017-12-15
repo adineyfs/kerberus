@@ -1,11 +1,11 @@
-package com.kerberus.syntaxValidator.rules.util;
+package com.kerberus.model.syntaxValidator.rules.util;
 
 import java.nio.file.Paths;
 
 public class UtilFiles {
 	
 	private String rootPath = Paths.get("").toAbsolutePath(). toString();
-	private String subPath = "\\src\\main\\java\\com\\kerberus\\syntaxValidator\\rules\\";
+	private String subPath = "\\src\\main\\java\\com\\kerberus\\model\\syntaxValidator\\rules\\";
 	private String cupRulesSQLFile = "Cup_Rules_SQL";
 	private String cupRulesCommaFile = "Cup_Rules_Commas";
 	

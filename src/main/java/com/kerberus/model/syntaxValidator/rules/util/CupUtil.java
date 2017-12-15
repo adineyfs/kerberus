@@ -1,4 +1,4 @@
-package com.kerberus.syntaxValidator.rules.util;
+package com.kerberus.model.syntaxValidator.rules.util;
 
 public class CupUtil {
 	

@@ -1,11 +1,11 @@
 /* ---------------------- 1st Part: User Code --------------------------------------------*/
-package com.kerberus.syntaxValidator.rules.sql;
+package com.kerberus.model.syntaxValidator.rules.sql;
 
 import java_cup.runtime.*; //Just import Symbols, maybe it's the only one we need
 //import java.util.*;
 import java.util.LinkedList;
 import java.io.*;
-import com.kerberus.syntaxValidator.rules.util.*;
+import com.kerberus.model.syntaxValidator.rules.util.*;
 
 // ---------------------- Code for parser,variables and methods ----------------------
 parser code

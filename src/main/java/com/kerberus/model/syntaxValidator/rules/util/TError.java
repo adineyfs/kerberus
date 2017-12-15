@@ -1,4 +1,4 @@
-package com.kerberus.syntaxValidator.rules.util;
+package com.kerberus.model.syntaxValidator.rules.util;
 
 /*
  * This class will store errors found in lexical analyzer (JFlex)
