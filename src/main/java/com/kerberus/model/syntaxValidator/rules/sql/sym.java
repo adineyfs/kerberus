@@ -8,40 +8,35 @@ package com.kerberus.model.syntaxValidator.rules.sql;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int WHERE = 6;
-  public static final int FROM = 5;
-  public static final int _EQU = 11;
-  public static final int _COMMA = 20;
-  public static final int _GET = 15;
+  public static final int WHERE = 4;
+  public static final int FROM = 3;
+  public static final int _EQU = 9;
+  public static final int _COMMA = 17;
+  public static final int _GET = 13;
   public static final int SELECT = 2;
-  public static final int identifier = 7;
-  public static final int _AND = 17;
-  public static final int _SEMCOL2 = 22;
-  public static final int _SEMCOL1 = 21;
-  public static final int _NOT = 19;
-  public static final int _DIFF = 16;
-  public static final int real = 9;
+  public static final int _AND = 15;
+  public static final int IDENTIFIER = 5;
+  public static final int _SEMCOL2 = 18;
+  public static final int _DIFF = 14;
   public static final int EOF = 0;
-  public static final int _LT = 13;
-  public static final int _OR = 18;
+  public static final int ILLEGAL_CHAR = 19;
+  public static final int _LT = 11;
+  public static final int _OR = 16;
   public static final int error = 1;
-  public static final int integer = 8;
-  public static final int _STAR = 10;
-  public static final int DELETE = 4;
-  public static final int UPDATE = 3;
-  public static final int _LET = 14;
-  public static final int _GT = 12;
+  public static final int _STAR = 8;
+  public static final int INTEGER = 6;
+  public static final int REAL = 7;
+  public static final int _LET = 12;
+  public static final int _GT = 10;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "SELECT",
-  "UPDATE",
-  "DELETE",
   "FROM",
   "WHERE",
-  "identifier",
-  "integer",
-  "real",
+  "IDENTIFIER",
+  "INTEGER",
+  "REAL",
   "_STAR",
   "_EQU",
   "_GT",
@@ -51,10 +46,9 @@ public class sym {
   "_DIFF",
   "_AND",
   "_OR",
-  "_NOT",
   "_COMMA",
-  "_SEMCOL1",
-  "_SEMCOL2"
+  "_SEMCOL2",
+  "ILLEGAL_CHAR"
   };
 }
 

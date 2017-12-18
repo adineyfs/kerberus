@@ -15,19 +15,15 @@ public class SyntaxAnalizer {
 
         // ----------- SQL ----------------------------------------------------------------------- 
                 
-        String statement = "select _col_1,_col_2,_col_3 FROM some_table WHerE _col_2 = 1 AND _"
-        		+ "col_3 = 4 OR _col_4 = 30";
-        //String statement = "select _ord1,one_two_three,_a_b_c,___4,colum5,colum6,colum FROM product WHERE hola = 1 ;";
-        //String statement = "select column1,column2,colum3,colum4,colum5,colum6,colum, FROM product WHERE hola = 1 AND hola = 2";
-        //String statement = "select column1,column2,colum3,colum4,colum5,colum6,colum ? FROM product WHERE hola = 1 AND hola = 2";
-        
+        //String statement = "select _col_1,_col_2,_col_3 FROM some_table WHerE _col_2 = 1 AND _col_3 = 4 OR _col_4 = 30";
+		
 		JFlex_Rules_SQL Lex_Analyzer = new JFlex_Rules_SQL( new BufferedReader( new StringReader(sqlStatement) ) ); 
 		Cup_Rules_SQL Syntax_Analyzer = new Cup_Rules_SQL(Lex_Analyzer);
 		
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append("\n\n\n\n----- Lexical and Syntactical Analysis ------\n");
-		sb.append("Statement: \"" + sqlStatement + "\"\n");
+		sb.append("----- Lexical and Syntactical Analysis ------\n");
+		//sb.append("Statement: \"" + sqlStatement + "\"\n");
 		
 		try {
 			
@@ -39,27 +35,14 @@ public class SyntaxAnalizer {
 			//Syntax_Analyzer.debug_parse();
 			
 			sb.append("\n-------------- Finished Analysis -----------------------");
-			sb.append("\nnumber of errors found: " + Syntax_Analyzer.TableSE.size() );
-			sb.append("\n----------------------------------------------------------\n");
 			
-			if( !Syntax_Analyzer.TableSE.isEmpty() ){
-				int co,ro;
-				String le,err;
+			if( Syntax_Analyzer.errors > 0 ){
+				sb.append("\nnumber of errors found: " + Syntax_Analyzer.errors );
+				sb.append(Syntax_Analyzer.the_error_message);
 				
-				co = Syntax_Analyzer.TableSE.getFirst().getColumn();
-				ro = Syntax_Analyzer.TableSE.getFirst().getRow();
-				le = Syntax_Analyzer.TableSE.getFirst().getLexeme();
-				le = Syntax_Analyzer.TableSE.getFirst().getLexeme();
-				err = Syntax_Analyzer.TableSE.getFirst().getDescription();
-				
-				sb.append(sqlStatement);
-				
-				for (int i = 0; i < co; i++) {
-					
-					if( i == (co-1) )
-						sb.append("\n^ " + err );
-				}
-				
+			}
+			else {
+				sb.append("\n -------> Statement is good to go!" );
 			}
 			
 			sb.append("\n-------------- Findings Analysis -----------------------");

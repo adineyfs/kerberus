@@ -19,41 +19,60 @@ parser code
 	public static String table_name = "";
 	public LinkedList<String> Columns = new LinkedList<String>();
 
+	public  Scanner s;
+  	public  int errors = 0, line, column;
+  	public 	String the_error;
+	public 	StringBuilder the_error_message;
 
-	// Recoverable syntax errors - This method will take case of the errors, and notify about it
-	public void syntax_error(Symbol s) 
-	{
-		String lexeme = s.value.toString();
-		int column = s.right;
-		int row = s.left;
-		
-		System.out.println("### - Syntax error detected - ###\n");
-		System.out.println("---> Unexpected: " + lexeme + " at (row,colum): ("+row+"," + column + ").");
-		
-		TError errors_found = new TError(lexeme,row,column, "Syntax error", "Unexpected " + lexeme);
-		TableSE.add(errors_found);
-	}
+
+	/* This is the error handler */
+	public void report_error(String message, Object info) {
+
+        /* Create a StringBuilder called 'm' with the string 'Error' in it. */
+        StringBuilder m = new StringBuilder("\n\n---- Error message: " + message + "\n");
+   
+        /* Check if the information passed to the method is the same
+           type as the type java_cup.runtime.Symbol. */
+        if (info instanceof java_cup.runtime.Symbol) {
+
+        	errors++;
+
+            /* Declare a java_cup.runtime.Symbol object 's' with the
+               information in the object info that is being typecasted
+               as a java_cup.runtime.Symbol object. */
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+   
+            /* Check if the line number in the input is greater or
+               equal to zero. */
+            if (s.left >= 0 && s.right >= 0) {
+
+            	the_error = s.value.toString();
+                
+                m.append("--> Unexpected : " + the_error );
+                m.append(" at line: "+(s.left+1));   
+                m.append(", column: "+(s.right+1));
+
+				the_error_message = m;
+            }
+        }
+   
+        /* Print the contents of the StringBuilder 'm', which contains
+           an error message, out on a line. */
+        System.err.println(m);
+    }
+   
+    /* Change the method report_fatal_error so when it reports a fatal
+       error it will display the line and column number of where the
+       fatal error occurred in the input as well as the reason for the
+       fatal error which is passed into the method in the object
+       'message' and then exit.*/
+
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
 	
-	// Unrecoverable syntax errors - This method will catch any other errors that go beyond our language(exceptions)
-	public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
-	{
-		/*
-		String lexeme = s.value.toString();
-		int row = s.right;
-		int column = s.left;
-		
-		System.out.println("### Syntax error captured ###");
-		System.out.println("### - Unrecoverable syntax error detected - ###");
-		System.out.println("\t\tLexeme:" + lexeme);
-		System.out.println("\t\tRow: " + row);
-		System.out.println("\t\tColumn: " + column);
-		
-		TError errors_found = new TError(lexeme,row,column, "Unrecoverable syntax error", "Unexpected character");
-		TableSE .add(errors_found);
-		*/
-	}	
-	
-:}
+:};
 
 // -------------- Code for grammatical actions ------------------------------------------
 
@@ -64,11 +83,30 @@ action code
 
 /*---------------------- 2nd Part: Declarations --------------------------------------------*/
 
+
+
+/* --- Non-Terminals | Branches of the tree --- */
+
+non terminal _select, _from, _where, table_name;
+
+non terminal statement_group, statement;
+
+non terminal select_s, select_part, from_part, where_part, cols;
+
+non terminal w_condition, cond, log_oper,ari_oper, element;
+
+
+
+
+
+/* --- Terminals | Branches of the tree --- */
+
+
 // Reserved words
-terminal SELECT, UPDATE, DELETE, FROM, WHERE;
+terminal SELECT, /*UPDATE, DELETE,*/ FROM, WHERE;
 
 // Identifiers and numbers
-terminal identifier, integer, real;
+terminal IDENTIFIER, INTEGER, REAL;
 
 // Star symbol (all)
 terminal _STAR;
@@ -77,118 +115,77 @@ terminal _STAR;
 terminal _EQU, _GT, _LT, _LET, _GET, _DIFF;
 
 // Logial
-terminal _AND,_OR,_NOT;
+terminal _AND,_OR;
 
 // Separator
 terminal _COMMA;
 
 // Statement closure
-terminal _SEMCOL1,_SEMCOL2;
+terminal /*_SEMCOL1,*/_SEMCOL2;
 
-// Cup's internal
-//terminal EOF; 		// <---  this is already declared in CUP's code
 
-// Tree branches
-non terminal _START_,_SELS_,_COLS_,_FRO_,_TABLE_,_SEL_;
-non terminal _WHE_,_WC_,_COND_,_OPER_,_LC_,_EL_,_SC_;
+// Lexical error
+terminal ILLEGAL_CHAR;
 
-/* 
- * Precedence definition --> this is used when the grammar is ambiguous
- * The priority of the elements has the highest value starting from the bottom 
- */ 
-// precedence left operator1;
-// precedence left operator2;
-// precedence left operator3;
-// precedence left operator4;
 
 // Define which is the first production
-start with _START_;
+start with statement_group;
+
 
 /*---------------------- 3rd Part: Semantic Rules --------------------------------------------*/
 
-/* ------------ ToDo: Evaluate this --------------------------------------*/
+statement_group ::=		statement_group statement _SEMCOL2
+			  	  | 	statement _SEMCOL2
+			  	  |		error _SEMCOL2
+			  	  | 	error:err 	{: System.out.println(" Error in left: " + (errleft+1) + ", right: " + (errright+1) + "\n Here: " + err ); :};
 
-
-
-_START_ ::= _SELS_ 
-		  | _SELS_ _SC_; // SELECT [Columns] FROM [table] WHERE [Condition]
-		  //| _UPDS_
-		  //| _DELS_
-
-_SELS_ 	::= _SEL_ _FRO_ _WHE_ /*_SC_*/;
-
-_SEL_ 	::= SELECT _COLS_;
-
-_COLS_	::= identifier:col1 _COMMA _COLS_ {: Columns.add(col1+""); :}  
-		  | identifier:col2{: Columns.add(col2+""); :}
-		  | _STAR;
-
-_FRO_	::= FROM _TABLE_;
-
-_TABLE_	::= identifier:tab{:  table_name = tab+""; :};
-
-_WHE_   ::= WHERE _WC_;  
-
-_WC_	::= _COND_ _LC_ _WC_
-		  | _COND_;
-
-_COND_ 	::= _EL_ _OPER_ _COND_
-		  | _EL_;
-
-_EL_    ::= identifier
-		  | integer
-		  | real;
-
-_OPER_  ::= _EQU 
-		  | _GT 
-		  | _LT 
-		  | _LET 
-		  | _GET 
-		  | _DIFF;
-
-_LC_    ::= _AND | _OR;
-
-_SC_	::= _SEMCOL2;
+statement 		::= 	select_s;   // delete_s | update_s | insert_s    // ---- TO-DO ----
 
 
 
 
-/*
-	// NULLPOINTER Exception not solved
+select_s		::=		select_part from_part 
+				  |		select_part from_part where_part;
 
-_START_ ::= _STMNT_ ; // Statement finishing with semicolon (should we force this??)
+select_part		::= 	_select _STAR
+			  	  | 	_select cols;
 
-_STMNT_ ::= _SEL2_ 
-		  | SELECT _COLS_ _FRO_ _WHE_;				
+_select 		::=		SELECT;
 
-_SEL2_	::= SELECT  WHERE _SEMCOL ;						
+cols			::= 	IDENTIFIER:col1 _COMMA cols {: Columns.add(col1 + ""); :}  
+		  	  	  | 	IDENTIFIER:col2 		   {: Columns.add(col2 + ""); :};
 
-//_SC_	::= _SEMCOL;
 
-_COLS_	::= identifier 
-		  | _COLS_ _COMMA identifier;
 
-//_FRO_	::= FROM _TABLE_;
 
-_WHE_   ::= WHERE _WC_;  
+from_part		::= 	_from table_name;
 
-_WC_	::= _COND_ _LC_ _WC_
-		  | _COND_;
+_from			::= 	FROM;
+table_name		::= 	IDENTIFIER:tab {:  table_name = tab+""; :};
 
-_COND_ 	::= _EL_ _OPER_ _EL_;
 
-_TABLE_	::= identifier;
 
-_EL_    ::= identifier
-		  | integer
-		  | real;
 
-_OPER_  ::= _EQU 
-		  | _GT 
-		  | _LT 
-		  | _LET 
-		  | _GET 
-		  | _DIFF;
+where_part		::= 	_where w_condition;  
 
-_LC_    ::= _AND | _OR;
-*/
+_where			::=		WHERE;
+
+w_condition		::= 	cond log_oper w_condition
+		  	  	  | 	cond;
+
+cond 			::= 	element ari_oper cond
+		  	  	  | 	element;
+
+element    		::= 	IDENTIFIER
+		  	  	  | 	INTEGER
+		  	  	  | 	REAL;
+
+ari_oper  		::= 	_EQU 
+		  	  	  | 	_GT 
+		  	  	  | 	_LT 
+		  	  	  | 	_LET 
+		  	  	  | 	_GET 
+		  	  	  | 	_DIFF;
+
+log_oper    	::= 	_AND 
+			  	  | 	_OR;

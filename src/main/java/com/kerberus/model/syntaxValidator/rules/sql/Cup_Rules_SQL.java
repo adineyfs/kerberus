@@ -34,15 +34,17 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\033\000\002\002\004\000\002\002\003\000\002\002" +
-    "\004\000\002\003\005\000\002\007\004\000\002\004\005" +
-    "\000\002\004\003\000\002\004\003\000\002\005\004\000" +
-    "\002\006\003\000\002\010\004\000\002\011\005\000\002" +
-    "\011\003\000\002\012\005\000\002\012\003\000\002\015" +
-    "\003\000\002\015\003\000\002\015\003\000\002\013\003" +
-    "\000\002\013\003\000\002\013\003\000\002\013\003\000" +
-    "\002\013\003\000\002\013\003\000\002\014\003\000\002" +
-    "\014\003\000\002\016\003" });
+    "\000\041\000\002\002\004\000\002\006\005\000\002\006" +
+    "\004\000\002\006\004\000\002\006\003\000\002\007\003" +
+    "\000\002\010\004\000\002\010\005\000\002\011\004\000" +
+    "\002\011\004\000\002\002\003\000\002\014\005\000\002" +
+    "\014\003\000\002\012\004\000\002\003\003\000\002\005" +
+    "\003\000\002\013\004\000\002\004\003\000\002\015\005" +
+    "\000\002\015\003\000\002\016\005\000\002\016\003\000" +
+    "\002\021\003\000\002\021\003\000\002\021\003\000\002" +
+    "\020\003\000\002\020\003\000\002\020\003\000\002\020" +
+    "\003\000\002\020\003\000\002\020\003\000\002\017\003" +
+    "\000\002\017\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -50,35 +52,38 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\045\000\004\004\007\001\002\000\004\007\020\001" +
-    "\002\000\006\002\000\030\016\001\002\000\004\002\015" +
-    "\001\002\000\006\011\011\014\012\001\002\000\004\007" +
-    "\ufffd\001\002\000\006\007\ufffb\026\013\001\002\000\004" +
-    "\007\ufffa\001\002\000\006\011\011\014\012\001\002\000" +
-    "\004\007\ufffc\001\002\000\004\002\001\001\002\000\004" +
-    "\002\uffe7\001\002\000\004\002\uffff\001\002\000\004\011" +
-    "\046\001\002\000\004\010\022\001\002\000\010\011\025" +
-    "\012\026\013\030\001\002\000\006\002\ufffe\030\ufffe\001" +
-    "\002\000\026\002\ufff3\015\043\016\042\017\041\020\040" +
-    "\021\037\022\036\023\ufff3\024\ufff3\030\ufff3\001\002\000" +
-    "\026\002\ufff2\015\ufff2\016\ufff2\017\ufff2\020\ufff2\021\ufff2" +
-    "\022\ufff2\023\ufff2\024\ufff2\030\ufff2\001\002\000\026\002" +
-    "\ufff1\015\ufff1\016\ufff1\017\ufff1\020\ufff1\021\ufff1\022\ufff1" +
-    "\023\ufff1\024\ufff1\030\ufff1\001\002\000\012\002\ufff5\023" +
-    "\033\024\032\030\ufff5\001\002\000\026\002\ufff0\015\ufff0" +
-    "\016\ufff0\017\ufff0\020\ufff0\021\ufff0\022\ufff0\023\ufff0\024" +
-    "\ufff0\030\ufff0\001\002\000\006\002\ufff7\030\ufff7\001\002" +
-    "\000\010\011\uffe8\012\uffe8\013\uffe8\001\002\000\010\011" +
-    "\uffe9\012\uffe9\013\uffe9\001\002\000\010\011\025\012\026" +
-    "\013\030\001\002\000\006\002\ufff6\030\ufff6\001\002\000" +
-    "\010\011\uffea\012\uffea\013\uffea\001\002\000\010\011\uffeb" +
-    "\012\uffeb\013\uffeb\001\002\000\010\011\uffec\012\uffec\013" +
-    "\uffec\001\002\000\010\011\uffed\012\uffed\013\uffed\001\002" +
-    "\000\010\011\uffee\012\uffee\013\uffee\001\002\000\010\011" +
-    "\uffef\012\uffef\013\uffef\001\002\000\010\011\025\012\026" +
-    "\013\030\001\002\000\012\002\ufff4\023\ufff4\024\ufff4\030" +
-    "\ufff4\001\002\000\004\010\ufff8\001\002\000\004\010\ufff9" +
-    "\001\002" });
+    "\000\054\000\006\003\005\004\012\001\002\000\004\024" +
+    "\ufffc\001\002\000\010\002\ufffd\004\ufffd\024\056\001\002" +
+    "\000\004\005\024\001\002\000\006\007\017\012\021\001" +
+    "\002\000\004\024\016\001\002\000\006\002\014\004\012" +
+    "\001\002\000\006\007\ufff7\012\ufff7\001\002\000\004\024" +
+    "\015\001\002\000\004\002\001\001\002\000\006\002\000" +
+    "\004\000\001\002\000\006\002\uffff\004\uffff\001\002\000" +
+    "\006\005\ufff5\023\022\001\002\000\004\005\ufff8\001\002" +
+    "\000\004\005\ufff9\001\002\000\004\007\017\001\002\000" +
+    "\004\005\ufff6\001\002\000\004\007\ufff3\001\002\000\006" +
+    "\006\031\024\ufffb\001\002\000\004\007\030\001\002\000" +
+    "\006\006\ufff4\024\ufff4\001\002\000\006\006\ufff2\024\ufff2" +
+    "\001\002\000\010\007\ufff0\010\ufff0\011\ufff0\001\002\000" +
+    "\004\024\ufffa\001\002\000\010\007\041\010\034\011\037" +
+    "\001\002\000\024\013\uffea\014\uffea\015\uffea\016\uffea\017" +
+    "\uffea\020\uffea\021\uffea\022\uffea\024\uffea\001\002\000\004" +
+    "\024\ufff1\001\002\000\024\013\054\014\053\015\052\016" +
+    "\050\017\047\020\046\021\uffec\022\uffec\024\uffec\001\002" +
+    "\000\024\013\uffe9\014\uffe9\015\uffe9\016\uffe9\017\uffe9\020" +
+    "\uffe9\021\uffe9\022\uffe9\024\uffe9\001\002\000\010\021\044" +
+    "\022\043\024\uffee\001\002\000\024\013\uffeb\014\uffeb\015" +
+    "\uffeb\016\uffeb\017\uffeb\020\uffeb\021\uffeb\022\uffeb\024\uffeb" +
+    "\001\002\000\010\007\041\010\034\011\037\001\002\000" +
+    "\010\007\uffe1\010\uffe1\011\uffe1\001\002\000\010\007\uffe2" +
+    "\010\uffe2\011\uffe2\001\002\000\004\024\uffef\001\002\000" +
+    "\010\007\uffe3\010\uffe3\011\uffe3\001\002\000\010\007\uffe4" +
+    "\010\uffe4\011\uffe4\001\002\000\010\007\uffe5\010\uffe5\011" +
+    "\uffe5\001\002\000\010\007\041\010\034\011\037\001\002" +
+    "\000\010\007\uffe6\010\uffe6\011\uffe6\001\002\000\010\007" +
+    "\uffe7\010\uffe7\011\uffe7\001\002\000\010\007\uffe8\010\uffe8" +
+    "\011\uffe8\001\002\000\010\021\uffed\022\uffed\024\uffed\001" +
+    "\002\000\006\002\ufffe\004\ufffe\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -86,21 +91,24 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\045\000\010\002\005\003\004\007\003\001\001\000" +
-    "\004\005\020\001\001\000\004\016\016\001\001\000\002" +
-    "\001\001\000\004\004\007\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\004\013\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\004\006\046\001\001\000\004\010\022" +
-    "\001\001\000\010\011\030\012\026\015\023\001\001\000" +
-    "\002\001\001\000\004\013\043\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\014\033\001\001\000\002\001" +
+    "\000\054\000\014\002\006\006\010\007\007\010\003\011" +
+    "\005\001\001\000\002\001\001\000\002\001\001\000\006" +
+    "\003\025\012\024\001\001\000\004\014\017\001\001\000" +
+    "\002\001\001\000\012\002\006\007\012\010\003\011\005" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\010\011\034\012\026\015\023\001\001\000\002\001" +
+    "\000\002\001\001\000\002\001\001\000\004\014\022\001" +
+    "\001\000\002\001\001\000\002\001\001\000\006\004\032" +
+    "\013\031\001\001\000\004\005\026\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\010\015\034\016\037\021\035\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\020\050\001\001\000\002" +
+    "\001\001\000\004\017\041\001\001\000\002\001\001\000" +
+    "\010\015\044\016\037\021\035\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\006\012\044\015\023\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001" });
+    "\002\001\001\000\002\001\001\000\006\016\054\021\035" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -148,39 +156,58 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
 	public static String table_name = "";
 	public LinkedList<String> Columns = new LinkedList<String>();
 
+	public  Scanner s;
+  	public  int errors = 0, line, column;
+  	public 	String the_error;
+	public 	StringBuilder the_error_message;
 
-	// Recoverable syntax errors - This method will take case of the errors, and notify about it
-	public void syntax_error(Symbol s) 
-	{
-		String lexeme = s.value.toString();
-		int column = s.right;
-		int row = s.left;
-		
-		System.out.println("### - Syntax error detected - ###\n");
-		System.out.println("---> Unexpected: " + lexeme + " at (row,colum): ("+row+"," + column + ").");
-		
-		TError errors_found = new TError(lexeme,row,column, "Syntax error", "Unexpected " + lexeme);
-		TableSE.add(errors_found);
-	}
-	
-	// Unrecoverable syntax errors - This method will catch any other errors that go beyond our language(exceptions)
-	public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
-	{
-		/*
-		String lexeme = s.value.toString();
-		int row = s.right;
-		int column = s.left;
-		
-		System.out.println("### Syntax error captured ###");
-		System.out.println("### - Unrecoverable syntax error detected - ###");
-		System.out.println("\t\tLexeme:" + lexeme);
-		System.out.println("\t\tRow: " + row);
-		System.out.println("\t\tColumn: " + column);
-		
-		TError errors_found = new TError(lexeme,row,column, "Unrecoverable syntax error", "Unexpected character");
-		TableSE .add(errors_found);
-		*/
-	}	
+
+	/* This is the error handler */
+	public void report_error(String message, Object info) {
+
+        /* Create a StringBuilder called 'm' with the string 'Error' in it. */
+        StringBuilder m = new StringBuilder("\n\n---- Error message: " + message + "\n");
+   
+        /* Check if the information passed to the method is the same
+           type as the type java_cup.runtime.Symbol. */
+        if (info instanceof java_cup.runtime.Symbol) {
+
+        	errors++;
+
+            /* Declare a java_cup.runtime.Symbol object 's' with the
+               information in the object info that is being typecasted
+               as a java_cup.runtime.Symbol object. */
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+   
+            /* Check if the line number in the input is greater or
+               equal to zero. */
+            if (s.left >= 0 && s.right >= 0) {
+
+            	the_error = s.value.toString();
+                
+                m.append("--> Unexpected : " + the_error );
+                m.append(" at line: "+(s.left+1));   
+                m.append(", column: "+(s.right+1));
+
+				the_error_message = m;
+            }
+        }
+   
+        /* Print the contents of the StringBuilder 'm', which contains
+           an error message, out on a line. */
+        System.err.println(m);
+    }
+   
+    /* Change the method report_fatal_error so when it reports a fatal
+       error it will display the line and column number of where the
+       fatal error occurred in the input as well as the reason for the
+       fatal error which is passed into the method in the object
+       'message' and then exit.*/
+
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
 	
 
 
@@ -213,7 +240,7 @@ class CUP$Cup_Rules_SQL$actions {
       switch (CUP$Cup_Rules_SQL$act_num)
         {
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 0: // $START ::= _START_ EOF 
+          case 0: // $START ::= statement_group EOF 
             {
               Object RESULT =null;
 		int start_valleft = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)).left;
@@ -227,245 +254,302 @@ class CUP$Cup_Rules_SQL$actions {
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // _START_ ::= _SELS_ 
+          case 1: // statement_group ::= statement_group statement _SEMCOL2 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_START_",0, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("statement_group",4, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // _START_ ::= _SELS_ _SC_ 
+          case 2: // statement_group ::= statement _SEMCOL2 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_START_",0, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("statement_group",4, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // _SELS_ ::= _SEL_ _FRO_ _WHE_ 
+          case 3: // statement_group ::= error _SEMCOL2 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_SELS_",1, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("statement_group",4, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // _SEL_ ::= SELECT _COLS_ 
+          case 4: // statement_group ::= error 
             {
               Object RESULT =null;
-
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_SEL_",5, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+		int errleft = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).left;
+		int errright = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
+		Object err = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
+		 System.out.println(" Error in left: " + (errleft+1) + ", right: " + (errright+1) + "\n Here: " + err ); 
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("statement_group",4, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // _COLS_ ::= identifier _COMMA _COLS_ 
+          case 5: // statement ::= select_s 
+            {
+              Object RESULT =null;
+
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("statement",5, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+            }
+          return CUP$Cup_Rules_SQL$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 6: // select_s ::= select_part from_part 
+            {
+              Object RESULT =null;
+
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("select_s",6, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+            }
+          return CUP$Cup_Rules_SQL$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 7: // select_s ::= select_part from_part where_part 
+            {
+              Object RESULT =null;
+
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("select_s",6, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+            }
+          return CUP$Cup_Rules_SQL$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 8: // select_part ::= _select _STAR 
+            {
+              Object RESULT =null;
+
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("select_part",7, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+            }
+          return CUP$Cup_Rules_SQL$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 9: // select_part ::= _select cols 
+            {
+              Object RESULT =null;
+
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("select_part",7, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+            }
+          return CUP$Cup_Rules_SQL$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 10: // _select ::= SELECT 
+            {
+              Object RESULT =null;
+
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_select",0, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+            }
+          return CUP$Cup_Rules_SQL$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 11: // cols ::= IDENTIFIER _COMMA cols 
             {
               Object RESULT =null;
 		int col1left = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)).left;
 		int col1right = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)).right;
 		Object col1 = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)).value;
-		 Columns.add(col1+""); 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_COLS_",2, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+		 Columns.add(col1 + ""); 
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("cols",10, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // _COLS_ ::= identifier 
+          case 12: // cols ::= IDENTIFIER 
             {
               Object RESULT =null;
 		int col2left = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).left;
 		int col2right = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
 		Object col2 = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
-		 Columns.add(col2+""); 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_COLS_",2, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+		 Columns.add(col2 + ""); 
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("cols",10, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // _COLS_ ::= _STAR 
+          case 13: // from_part ::= _from table_name 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_COLS_",2, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("from_part",8, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // _FRO_ ::= FROM _TABLE_ 
+          case 14: // _from ::= FROM 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_FRO_",3, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_from",1, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // _TABLE_ ::= identifier 
+          case 15: // table_name ::= IDENTIFIER 
             {
               Object RESULT =null;
 		int tableft = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).left;
 		int tabright = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
 		Object tab = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
 		  table_name = tab+""; 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_TABLE_",4, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("table_name",3, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // _WHE_ ::= WHERE _WC_ 
+          case 16: // where_part ::= _where w_condition 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_WHE_",6, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("where_part",9, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // _WC_ ::= _COND_ _LC_ _WC_ 
+          case 17: // _where ::= WHERE 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_WC_",7, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_where",2, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // _WC_ ::= _COND_ 
+          case 18: // w_condition ::= cond log_oper w_condition 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_WC_",7, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("w_condition",11, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // _COND_ ::= _EL_ _OPER_ _COND_ 
+          case 19: // w_condition ::= cond 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_COND_",8, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("w_condition",11, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // _COND_ ::= _EL_ 
+          case 20: // cond ::= element ari_oper cond 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_COND_",8, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("cond",12, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // _EL_ ::= identifier 
+          case 21: // cond ::= element 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_EL_",11, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("cond",12, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // _EL_ ::= integer 
+          case 22: // element ::= IDENTIFIER 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_EL_",11, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("element",15, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // _EL_ ::= real 
+          case 23: // element ::= INTEGER 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_EL_",11, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("element",15, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // _OPER_ ::= _EQU 
+          case 24: // element ::= REAL 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_OPER_",9, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("element",15, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // _OPER_ ::= _GT 
+          case 25: // ari_oper ::= _EQU 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_OPER_",9, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("ari_oper",14, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // _OPER_ ::= _LT 
+          case 26: // ari_oper ::= _GT 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_OPER_",9, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("ari_oper",14, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // _OPER_ ::= _LET 
+          case 27: // ari_oper ::= _LT 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_OPER_",9, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("ari_oper",14, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // _OPER_ ::= _GET 
+          case 28: // ari_oper ::= _LET 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_OPER_",9, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("ari_oper",14, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // _OPER_ ::= _DIFF 
+          case 29: // ari_oper ::= _GET 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_OPER_",9, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("ari_oper",14, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // _LC_ ::= _AND 
+          case 30: // ari_oper ::= _DIFF 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_LC_",10, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("ari_oper",14, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // _LC_ ::= _OR 
+          case 31: // log_oper ::= _AND 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_LC_",10, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("log_oper",13, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // _SC_ ::= _SEMCOL2 
+          case 32: // log_oper ::= _OR 
             {
               Object RESULT =null;
 
-              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_SC_",12, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
+              CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("log_oper",13, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
 

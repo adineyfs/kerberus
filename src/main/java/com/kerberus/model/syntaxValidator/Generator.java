@@ -13,9 +13,9 @@ public class Generator {
 		String rootPath = utilFiles.getRootpath();
         String subPath = utilFiles.getSubpath();
         String sqlCupFile = "Cup_Rules_SQL";
-        String commaCupFile = "Cup_Rules_Commas";
+        //String commaCupFile = "Cup_Rules_Commas";
         String sqlFlexFile = "JFlex_Rules_SQL";
-        String commaFlexFile = "JFlex_Rules_Commas";
+        //String commaFlexFile = "JFlex_Rules_Commas";
 			
         
         FlexUtil flexUtil = new FlexUtil();
