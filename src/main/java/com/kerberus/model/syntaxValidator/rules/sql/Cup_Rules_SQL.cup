@@ -16,7 +16,7 @@ parser code
 	// This object has a list with all columns found and its table
 	//public static ColumnEvalutator Columns = new ColumnEvaluator();
 
-	public static String table_name = "";
+	public LinkedList<String> Tables  = new LinkedList<String>();
 	public LinkedList<String> Columns = new LinkedList<String>();
 
 	public  Scanner s;
@@ -95,6 +95,9 @@ non terminal select_s, select_part, from_part, where_part, cols;
 
 non terminal w_condition, cond, log_oper,ari_oper, element;
 
+non terminal update_s, update_part, set_cols,value;
+
+non terminal delete_s;
 
 
 
@@ -103,10 +106,10 @@ non terminal w_condition, cond, log_oper,ari_oper, element;
 
 
 // Reserved words
-terminal SELECT, /*UPDATE, DELETE,*/ FROM, WHERE;
+terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE;
 
 // Identifiers and numbers
-terminal IDENTIFIER, INTEGER, REAL;
+terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
 
 // Star symbol (all)
 terminal _STAR;
@@ -128,8 +131,12 @@ terminal /*_SEMCOL1,*/_SEMCOL2;
 terminal ILLEGAL_CHAR;
 
 
-// Define which is the first production
+// ------- Define which is the first production
+// --------------------------------------------
+
 start with statement_group;
+
+// --------------------------------------------
 
 
 /*---------------------- 3rd Part: Semantic Rules --------------------------------------------*/
@@ -139,7 +146,10 @@ statement_group ::=		statement_group statement _SEMCOL2
 			  	  |		error _SEMCOL2
 			  	  | 	error:err 	{: System.out.println(" Error in left: " + (errleft+1) + ", right: " + (errright+1) + "\n Here: " + err ); :};
 
-statement 		::= 	select_s;   // delete_s | update_s | insert_s    // ---- TO-DO ----
+statement 		::= 	select_s   
+				  |  	delete_s
+				  | 	update_s; 
+				  //| 	insert_s    // ---- TO-DO ----
 
 
 
@@ -153,7 +163,25 @@ select_part		::= 	_select _STAR
 _select 		::=		SELECT;
 
 cols			::= 	IDENTIFIER:col1 _COMMA cols {: Columns.add(col1 + ""); :}  
-		  	  	  | 	IDENTIFIER:col2 		   {: Columns.add(col2 + ""); :};
+		  	  	  | 	IDENTIFIER:col2 		    {: Columns.add(col2 + ""); :};
+
+
+
+
+update_s		::= 	update_part SET set_cols where_part;
+
+update_part		::= 	UPDATE table_name;
+
+set_cols		::= 	IDENTIFIER:col1 _EQU value _COMMA set_cols {: Columns.add(col1 + ""); :} 
+		  	  	  | 	IDENTIFIER:col1 _EQU value		    	 	{: Columns.add(col1 + ""); :};
+
+
+value 			::= 	INTEGER
+				   | 	REAL
+				   | 	LITERAL_STRING;
+
+
+delete_s		::= 	DELETE from_part where_part;
 
 
 
@@ -161,7 +189,7 @@ cols			::= 	IDENTIFIER:col1 _COMMA cols {: Columns.add(col1 + ""); :}
 from_part		::= 	_from table_name;
 
 _from			::= 	FROM;
-table_name		::= 	IDENTIFIER:tab {:  table_name = tab+""; :};
+table_name		::= 	IDENTIFIER:tab {: Tables.add(tab+""); :};
 
 
 
@@ -178,7 +206,8 @@ cond 			::= 	element ari_oper cond
 
 element    		::= 	IDENTIFIER
 		  	  	  | 	INTEGER
-		  	  	  | 	REAL;
+		  	  	  | 	REAL
+		  	  	  | 	LITERAL_STRING;
 
 ari_oper  		::= 	_EQU 
 		  	  	  | 	_GT 

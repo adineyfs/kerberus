@@ -8,35 +8,43 @@ package com.kerberus.model.syntaxValidator.rules.sql;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int WHERE = 4;
-  public static final int FROM = 3;
-  public static final int _EQU = 9;
-  public static final int _COMMA = 17;
-  public static final int _GET = 13;
+  public static final int WHERE = 7;
+  public static final int FROM = 6;
+  public static final int _EQU = 13;
+  public static final int _COMMA = 21;
+  public static final int _GET = 17;
   public static final int SELECT = 2;
-  public static final int _AND = 15;
-  public static final int IDENTIFIER = 5;
-  public static final int _SEMCOL2 = 18;
-  public static final int _DIFF = 14;
+  public static final int _AND = 19;
+  public static final int IDENTIFIER = 8;
+  public static final int _SEMCOL2 = 22;
+  public static final int _DIFF = 18;
   public static final int EOF = 0;
-  public static final int ILLEGAL_CHAR = 19;
-  public static final int _LT = 11;
-  public static final int _OR = 16;
+  public static final int ILLEGAL_CHAR = 23;
+  public static final int SET = 4;
+  public static final int _LT = 15;
+  public static final int _OR = 20;
   public static final int error = 1;
-  public static final int _STAR = 8;
-  public static final int INTEGER = 6;
-  public static final int REAL = 7;
-  public static final int _LET = 12;
-  public static final int _GT = 10;
+  public static final int _STAR = 12;
+  public static final int INTEGER = 9;
+  public static final int DELETE = 5;
+  public static final int UPDATE = 3;
+  public static final int REAL = 10;
+  public static final int LITERAL_STRING = 11;
+  public static final int _LET = 16;
+  public static final int _GT = 14;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "SELECT",
+  "UPDATE",
+  "SET",
+  "DELETE",
   "FROM",
   "WHERE",
   "IDENTIFIER",
   "INTEGER",
   "REAL",
+  "LITERAL_STRING",
   "_STAR",
   "_EQU",
   "_GT",

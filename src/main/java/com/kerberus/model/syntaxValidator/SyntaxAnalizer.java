@@ -46,8 +46,14 @@ public class SyntaxAnalizer {
 			}
 			
 			sb.append("\n-------------- Findings Analysis -----------------------");
-			sb.append("\nTable_name (to be validated): " +  Syntax_Analyzer.table_name);
+			sb.append("\n" + Syntax_Analyzer.Tables.size()+ " Tables found (to be validated): " + Syntax_Analyzer.Tables);
 			sb.append("\n" + Syntax_Analyzer.Columns.size()+ " Columns found (to be validated): " + Syntax_Analyzer.Columns);
+			
+			sb.append("\n-------------- SQL Statement Copy -----------------------\n");
+			
+			for (int i = 0; i < Lex_Analyzer.StmtCopy.size(); i++) {
+				sb.append(Lex_Analyzer.StmtCopy.get(i));
+			}
 			
 			
 			
