@@ -37,10 +37,15 @@ import com.kerberus.model.syntaxValidator.rules.sql.sym;
 	
 	// A table I will create to store Lexical Errors found | import library for LinkedList
 	public LinkedList<TError> TableLE = new LinkedList<TError>();
-	public LinkedList<String> StmtCopy = new LinkedList<String>();
+	public LinkedList<String> StmtCopy = new LinkedList<String>(); // DELETE THIS, will be replaced by PrettyfiedStatement
 	
-	public void prettyfier (String lexeme) {
+	public LinkedList<PrettyStatement> PrettyfiedStatement = new LinkedList<PrettyStatement>();
 		
+	// Will need to create a structure to save the lexeme and its corresponding category code.
+	public void prettyfier (String lexeme, int category) {
+		
+		PrettyStatement ps = new PrettyStatement(lexeme,category);
+		PrettyfiedStatement.add(ps);
 	}
 %}
 
@@ -63,45 +68,43 @@ whitespace      = {WhiteSpace}
 %%
 
 <YYINITIAL> {
-	"select" 		{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym.SELECT, yyline+1, yycolumn+1, yytext()); }
-	"update" 		{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym.UPDATE, yyline+1, yycolumn+1, yytext()); }
-	"set" 			{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym.SET, yyline+1, yycolumn+1, yytext()); }
-	"delete" 		{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym.DELETE, yyline+1, yycolumn+1, yytext()); }
-	"from" 			{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym.FROM, yyline+1, yycolumn+1, yytext()); }
-	"where"			{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym.WHERE, yyline+1, yycolumn+1, yytext()); }
-
-	"*"				{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._STAR, yyline+1, yycolumn+1, yytext()); }
-	","				{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._COMMA, yyline+1, yycolumn+1, yytext()); }
+/*reserved words*/
+	"select" 		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SELECT, yyline+1, yycolumn+1, yytext()); }
+	"update" 		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.UPDATE, yyline+1, yycolumn+1, yytext()); }
+	"set" 			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SET, yyline+1, yycolumn+1, yytext()); }
+	"delete" 		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DELETE, yyline+1, yycolumn+1, yytext()); }
+	"from" 			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.FROM, yyline+1, yycolumn+1, yytext()); }
+	"where"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WHERE, yyline+1, yycolumn+1, yytext()); }
+	/* Logical conectors */
+	"and"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym._AND, yyline+1, yycolumn+1, yytext()); }
+	"or"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym._OR, yyline+1, yycolumn+1, yytext()); }
+/* Negation */
+	//"not"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), ); return new Symbol(sym._NOT, yyline+1, yycolumn+1, yytext()); }
+	
+	"*"				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._STAR, yyline+1, yycolumn+1, yytext()); }
+	","				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._COMMA, yyline+1, yycolumn+1, yytext()); }
 
 /* Logical Operators */
-	"="				{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._EQU, yyline+1, yycolumn+1, yytext()); }
-	">"				{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._GT, yyline+1, yycolumn+1, yytext()); }
-	"<"				{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._LT, yyline+1, yycolumn+1, yytext()); }
-	"<="			{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._LET, yyline+1, yycolumn+1, yytext()); }
-	">="			{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._GET, yyline+1, yycolumn+1, yytext()); }
-	"<>"			{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._DIFF, yyline+1, yycolumn+1, yytext()); }
+	"="				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._EQU, yyline+1, yycolumn+1, yytext()); }
+	">"				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._GT, yyline+1, yycolumn+1, yytext()); }
+	"<"				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._LT, yyline+1, yycolumn+1, yytext()); }
+	"<="			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._LET, yyline+1, yycolumn+1, yytext()); }
+	">="			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._GET, yyline+1, yycolumn+1, yytext()); }
+	"<>"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._DIFF, yyline+1, yycolumn+1, yytext()); }
 
-/* Logical conectors */
 
-	"and"			{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._AND, yyline+1, yycolumn+1, yytext()); }
-	"or"			{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._OR, yyline+1, yycolumn+1, yytext()); }
-
-/* Negation */
-	/*
-	"not"			{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._NOT, yyline+1, yycolumn+1, yytext()); }
-	*/
 /* Statement closure */
-	";"				{ System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym._SEMCOL2, yyline+1, yycolumn+1, yytext()); }
+	";"				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._SEMCOL2, yyline+1, yycolumn+1, yytext()); }
 
 
 // Terminal tokens (LOWERCASE)
-	{identifier}    { System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym.IDENTIFIER, yyline+1, yycolumn+1, yytext()); }
-	{integer}       { System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym.INTEGER, yyline+1, yycolumn+1, yytext()); }
-	{real}          { System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym.REAL, yyline+1, yycolumn+1, yytext()); }
-	{literalString} { System.out.println("Recognized: " + yytext()); StmtCopy.add(yytext()); return new Symbol(sym.LITERAL_STRING, yyline+1, yycolumn+1, yytext()); }
+	{identifier}    { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.IDENTIFIER); return new Symbol(sym.IDENTIFIER, yyline+1, yycolumn+1, yytext()); }
+	{integer}       { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NUMBER); return new Symbol(sym.INTEGER, yyline+1, yycolumn+1, yytext()); }
+	{real}          { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NUMBER); return new Symbol(sym.REAL, yyline+1, yycolumn+1, yytext()); }
+	{literalString} { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.LITERAL_STRING); return new Symbol(sym.LITERAL_STRING, yyline+1, yycolumn+1, yytext()); }
 
 // Save spaces to copy SQL statement
-	{whitespace}    { System.out.println("Recognized space: " + yytext()); StmtCopy.add(yytext()); }
+	{whitespace}    { System.out.println("Recognized space: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); }
 }
 
 
@@ -109,6 +112,6 @@ whitespace      = {WhiteSpace}
 [^]               	{ System.out.println("\n### Lexical error (Illegal element) ### - '" + yytext() + "' line: " + yyline + ", column: " + yychar + "\n"); 
 				  	  TError errors_found = new TError(yytext(),yyline,yycolumn,"Lexical Error","This symbol does not exist in this language");
 				  	  TableLE.add(errors_found); 
+				  	  prettyfier(yytext(), Categories.ERROR);
 					  return new Symbol(sym.ILLEGAL_CHAR, yyline, yycolumn, yytext());
 				  	}
-
