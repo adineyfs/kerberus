@@ -201,8 +201,7 @@ _where			::=		WHERE;
 w_condition		::= 	cond log_oper w_condition
 		  	  	  | 	cond;
 
-cond 			::= 	element ari_oper cond
-		  	  	  | 	element;
+cond 			::= 	element ari_oper element;
 
 element    		::= 	IDENTIFIER
 		  	  	  | 	INTEGER

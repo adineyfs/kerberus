@@ -2,13 +2,19 @@ package com.kerberus.model.syntaxValidator;
 
 import java.io.BufferedReader;
 import java.io.StringReader;
+import java.util.LinkedList;
+import java.util.Locale.Category;
 
 import com.kerberus.model.syntaxValidator.rules.sql.*;
+import com.kerberus.model.syntaxValidator.rules.util.Categories;
 import com.kerberus.model.syntaxValidator.rules.util.CupUtil;
 import com.kerberus.model.syntaxValidator.rules.util.FlexUtil;
+import com.kerberus.model.syntaxValidator.rules.util.PrettyStatement;
 import com.kerberus.model.syntaxValidator.rules.util.UtilFiles;
 
 public class SyntaxAnalizer {
+	
+	public LinkedList<PrettyStatement> ps = new LinkedList<PrettyStatement>();
 	
 	public StringBuilder analyzeSql(String sqlStatement) {
 		
@@ -34,7 +40,7 @@ public class SyntaxAnalizer {
 			//Syntax_Analyzer.debug_stack();
 			//Syntax_Analyzer.debug_parse();
 			
-			sb.append("\n-------------- Finished Analysis -----------------------");
+			//sb.append("\n-------------- Finished Analysis -----------------------");
 			
 			if( Syntax_Analyzer.errors > 0 ){
 				sb.append("\nnumber of errors found: " + Syntax_Analyzer.errors );
@@ -45,15 +51,23 @@ public class SyntaxAnalizer {
 				sb.append("\n -------> Statement is good to go!" );
 			}
 			
-			sb.append("\n-------------- Findings Analysis -----------------------");
-			sb.append("\n" + Syntax_Analyzer.Tables.size()+ " Tables found (to be validated): " + Syntax_Analyzer.Tables);
-			sb.append("\n" + Syntax_Analyzer.Columns.size()+ " Columns found (to be validated): " + Syntax_Analyzer.Columns);
+			sb.append("\n\n-------------- Findings Analysis -----------------------");
+			sb.append("\n" + Syntax_Analyzer.Tables.size()+ " Tables found (to be validated):\n" + Syntax_Analyzer.Tables);
+			sb.append("\n" + Syntax_Analyzer.Columns.size()+ " Columns found (to be validated):\n" + Syntax_Analyzer.Columns);
 			
-			sb.append("\n-------------- SQL Statement Copy -----------------------\n");
+			sb.append("\n\n-------------- SQL Statement Copy -----------------------\n");
 			
+			/*
 			for (int i = 0; i < Lex_Analyzer.StmtCopy.size(); i++) {
 				sb.append(Lex_Analyzer.StmtCopy.get(i));
 			}
+			*/
+			this.ps = Lex_Analyzer.PrettyfiedStatement;
+			/*
+			for (int i = 0; i < ps.size(); i++) {
+				sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
+			}
+			*/
 			
 			
 			
