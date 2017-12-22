@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -25,7 +26,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Kerberus");
 			primaryStage.initStyle(StageStyle.UTILITY);
 			Scene scene = new Scene(root);
-			scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+			scene.setFill(Color.TRANSPARENT);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (IOException e) {

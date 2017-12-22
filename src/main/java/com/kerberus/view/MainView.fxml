@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
@@ -7,20 +8,28 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="440.0" prefWidth="1000.0" style="-fx-background-color: #f2f2f2;" styleClass="mainViewContainer" stylesheets="@MainView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kerberus.controller.MainController">
+<Pane opacity="0.82" style="-fx-background-color: black;" styleClass="mainViewContainer" stylesheets="@MainView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kerberus.controller.MainController">
    <children>
-      <AnchorPane layoutX="45.0" layoutY="91.0" prefHeight="300.0" prefWidth="400.0">
+      <AnchorPane fx:id="sqlValidationReturnContainer" layoutX="454.0" layoutY="38.0" prefHeight="53.0" prefWidth="300.0" styleClass="sqlValidationReturnContainer">
          <children>
-            <TextArea fx:id="txtAreaSqlStatement" layoutY="35.0" pickOnBounds="false" prefHeight="300.0" prefWidth="250.0" style="-fx-control-inner-background: #000000;" styleClass="txtAreaSqlStatement" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Label fx:id="validationReturnLabel" layoutY="9.0" styleClass="validationReturnLabel" text="Validation Return" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="554.0" layoutY="91.0" prefHeight="300.0" prefWidth="400.0">
+      <AnchorPane fx:id="sqlStatementLabelContainer" layoutX="45.0" layoutY="40.0" prefHeight="53.0" prefWidth="300.0" styleClass="sqlStatementLabelContainer">
          <children>
-            <TextArea fx:id="txtAreaSqlValidationReturn" prefHeight="300.0" prefWidth="250.0" style="-fx-control-inner-background: #000000;" styleClass="txtAreaSqlValidationReturn" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Label fx:id="sqlStatementsLabel" layoutY="9.0" styleClass="sqlStatementsLabel" text="SQL Statements" />
          </children>
       </AnchorPane>
-      <Button fx:id="btnValidate" layoutX="471.0" layoutY="208.0" mnemonicParsing="false" onAction="#handleValidateButton" styleClass="btnValidate" text="Validate" />
-      <Label fx:id="lblSQLStatements" styleClass="lblSQLStatements" layoutX="203.0" layoutY="66.0" text="SQL Statements" />
-      <Label fx:id="lblValidationReturn" styleClass="lblSQLStatements" layoutX="708.0" layoutY="66.0" text="Validation Return" />
+      <AnchorPane layoutX="45.0" layoutY="91.0" styleClass="txtAreaSqlStatementContainer">
+         <children>
+            <TextArea fx:id="txtAreaSqlStatement" layoutY="35.0" pickOnBounds="false" styleClass="txtAreaSqlStatement" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="454.0" layoutY="91.0" styleClass="txtAreaSqlValidationReturnContainer">
+         <children>
+            <TextArea fx:id="txtAreaSqlValidationReturn" styleClass="txtAreaSqlValidationReturn" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <Button fx:id="btnValidate" layoutX="371.0" layoutY="288.0" mnemonicParsing="false" onAction="#handleValidateButton" styleClass="btnValidate" text="Validate" />
    </children>
-</AnchorPane>
+</Pane>

@@ -1,4 +1,39 @@
-.headerContainer {
-	-fx-background-color: #004896;
+.mainContainer {
+	-fx-pref-height: 600px;
+	-fx-pref-width: 1000px; 
 }
 
+.headerContainer {
+	-fx-pref-height: 600px;
+	-fx-pref-width: 200px;
+	-fx-background-color: #0d0d0d;
+	-fx-alignment: left;
+	-fx-opacity: 0.8;
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-border-color: #fff;
+}
+
+
+.lblValidationReturn {
+	-fx-text-fill: black;
+	-fx-font-weight: bold;
+	-fx-font-size: 20px;
+	
+}
+
+.lblSQLStatements {
+	-fx-text-fill: black;
+	-fx-font-weight: bold;
+	-fx-font-size: 20px;
+}
+
+.headerLogo {
+
+}
+
+.headerLabel {
+	-fx-font-size: 24;
+	-fx-color: white;
+}

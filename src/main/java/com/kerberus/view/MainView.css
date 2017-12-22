@@ -1,12 +1,46 @@
 .txtAreaSqlValidationReturn {
     -fx-background-insets: 0;
     -fx-background-color: black;
-    -fx-effect: dropshadow(gaussian, gray, 10, 0, 10, 15);
+    -fx-control-inner-background: #666666;
+    -fx-pref-height: 300px;
+	-fx-pref-width: 250px;
 }
 
 .txtAreaSqlStatement {
     -fx-background-insets: 0;
     -fx-background-color: black;
-    -fx-effect: dropshadow(gaussian, gray, 10, 0, 10, 15);
+    -fx-control-inner-background: #666666;
+    -fx-pref-height: 300px;
+	-fx-pref-width: 250px;
 }
 
+.txtAreaSqlValidationReturnContainer {
+	-fx-pref-height: 450px;
+	-fx-pref-width: 300px;
+}
+
+.txtAreaSqlStatementContainer {
+	-fx-pref-height: 450px;
+	-fx-pref-width: 300px;
+}
+
+.mainViewContainer {
+	-fx-pref-height: 600px;
+	-fx-pref-width: 800px;
+}
+
+.sqlValidationReturnContainer {
+	
+}
+
+.validationReturnLabel {
+	-fx-font-size: 24;
+}
+
+.sqlStatementLabelContainer {
+	
+}
+
+.sqlStatementsLabel {
+	-fx-font-size: 24;
+}
