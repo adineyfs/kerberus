@@ -178,7 +178,8 @@ set_cols		::= 	IDENTIFIER:col1 _EQU value _COMMA set_cols {: Columns.add(col1 + 
 
 value 			::= 	INTEGER
 				   | 	REAL
-				   | 	LITERAL_STRING;
+				   | 	LITERAL_STRING
+				   | 	IDENTIFIER;
 
 
 delete_s		::= 	DELETE from_part where_part;

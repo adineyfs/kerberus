@@ -2,22 +2,18 @@ package com.kerberus.controller;
 
 import java.util.LinkedList;
 
+import com.kerberus.Main;
 import com.kerberus.model.syntaxValidator.SyntaxAnalizer;
 import com.kerberus.model.syntaxValidator.rules.util.PrettyStatement;
-import com.kerberus.model.syntaxValidator.rules.util.Categories;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-
-
+import javafx.scene.web.WebView;
 
 public class MainController {
 	
 	@FXML
-    private TextField txtFieldSqlStatement;
+    private TextArea txtAreaSqlStatement;
 	
 	@FXML
 	private TextArea txtAreaSqlValidationReturn;
@@ -34,13 +30,11 @@ public class MainController {
     	
     }
     
-    @SuppressWarnings("restriction")
 	@FXML
-    private void handleTestButton() {
-    	String sqlStatement = txtFieldSqlStatement.getText();
+    private void handleValidateButton() {
+    	String sqlStatement = txtAreaSqlStatement.getText();
     	SyntaxAnalizer syntaxAnalyzer = new SyntaxAnalizer();
     	StringBuilder sb = syntaxAnalyzer.analyzeSql(sqlStatement);
-    	txtAreaSqlValidationReturn.setText(sb.toString());
     	
     	LinkedList<PrettyStatement> ps = syntaxAnalyzer.ps;
     	
@@ -48,7 +42,8 @@ public class MainController {
     	for (int i = 0; i < ps.size(); i++) {
 			//sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
     		
-    		sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
+    		//sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
+    		sb.append("\nLexeme: " + ps.get(i).getLexeme());
     		
     		/*
     		if( Categories.categoryNames[ps.get(i).getCategory()] == "RESERVED" ) {

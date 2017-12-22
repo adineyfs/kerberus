@@ -1,12 +1,16 @@
-package com.kerberus.controller;
+package com.kerberus;
 
 import java.io.IOException;
 
+import com.kerberus.controller.MainController;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class Main extends Application {
 	
@@ -15,11 +19,20 @@ public class Main extends Application {
 
 
 	@Override
-	public void start(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Kerberus");
+	public void start(Stage primaryStage) throws Exception {
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
+			primaryStage.setTitle("Kerberus");
+			primaryStage.initStyle(StageStyle.UTILITY);
+			Scene scene = new Scene(root);
+			scene.setFill(javafx.scene.paint.Color.TRANSPARENT);
+			primaryStage.setScene(scene);
+			primaryStage.show();
+		} catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        initRootLayout();
+        //initRootLayout();
 	}
 	
 	public void initRootLayout() {

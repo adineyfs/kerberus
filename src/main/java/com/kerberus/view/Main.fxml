@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainContainer" stylesheets="@Main.css" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane fx:id="headerContainer" prefHeight="160.0" prefWidth="1000.0" styleClass="headerContainer">
+         <children>
+            <Label fx:id="headerLabel" layoutX="320.0" layoutY="49.0" text="Tecsys Kerberus" textFill="WHITE">
+               <font>
+                  <Font name="Century Gothic" size="48.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="mainContentContainer" layoutX="-1.0" layoutY="159.0" prefHeight="445.0" prefWidth="1000.0" style="-fx-background-color: #FFFFFF;">
+         <children>
+         	<fx:include fx:id="mainContent" source="MainView.fxml" />
+         </children>
+      </AnchorPane>      
+   </children>
+</AnchorPane>
