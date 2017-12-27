@@ -7,8 +7,9 @@ import com.kerberus.model.syntaxValidator.SyntaxAnalizer;
 import com.kerberus.model.syntaxValidator.rules.util.PrettyStatement;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.web.WebView;
+import javafx.scene.layout.BorderPane;
 
 public class MainController {
 	
@@ -57,7 +58,13 @@ public class MainController {
     	
     	txtAreaSqlValidationReturn.setText(sb.toString());
     }
-
+	
+	
+	@FXML
+    private void handleTestButton() {
+		BorderPane border = (BorderPane) Main.getRoot();
+		border.setCenter(new Button("aa"));
+	}
     /**
      * É chamado pela aplicação principal para dar uma referência de volta a si mesmo.
      * 

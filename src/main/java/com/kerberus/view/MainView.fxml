@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<Pane opacity="0.82" style="-fx-background-color: black;" styleClass="mainViewContainer" stylesheets="@MainView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kerberus.controller.MainController">
+<AnchorPane styleClass="mainViewContainer" stylesheets="@MainView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kerberus.controller.MainController">
    <children>
       <AnchorPane fx:id="sqlValidationReturnContainer" layoutX="454.0" layoutY="38.0" prefHeight="53.0" prefWidth="300.0" styleClass="sqlValidationReturnContainer">
          <children>
@@ -31,5 +31,6 @@
          </children>
       </AnchorPane>
       <Button fx:id="btnValidate" layoutX="371.0" layoutY="288.0" mnemonicParsing="false" onAction="#handleValidateButton" styleClass="btnValidate" text="Validate" />
+      <Button layoutX="371.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleTestButton" text="Button" />
    </children>
-</Pane>
+</AnchorPane>

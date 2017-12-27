@@ -1,18 +1,14 @@
 .mainContainer {
-	-fx-pref-height: 600px;
-	-fx-pref-width: 1000px; 
+	
 }
 
 .headerContainer {
 	-fx-pref-height: 600px;
-	-fx-pref-width: 200px;
-	-fx-background-color: #0d0d0d;
-	-fx-alignment: left;
-	-fx-opacity: 0.8;
-    -fx-border-style: solid;
+	-fx-pref-width: 200px; 
+	-fx-border-style: solid;
     -fx-border-width: 2;
-    -fx-border-radius: 5;
     -fx-border-color: #fff;
+    -fx-background-color: rgba(0, 0, 0, 0.2);
 }
 
 

@@ -1,17 +1,57 @@
-.txtAreaSqlValidationReturn {
-    -fx-background-insets: 0;
-    -fx-background-color: black;
-    -fx-control-inner-background: #666666;
+.mainViewContainer {
+	-fx-background-color: rgba(0, 0, 0, 0.2);
+	-fx-pref-height: 600px;
+	-fx-pref-width: 800px;
+}
+
+.txtAreaSqlStatement {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
     -fx-pref-height: 300px;
 	-fx-pref-width: 250px;
 }
 
-.txtAreaSqlStatement {
-    -fx-background-insets: 0;
-    -fx-background-color: black;
-    -fx-control-inner-background: #666666;
+.txtAreaSqlStatement .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.txtAreaSqlStatement .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+
+.txtAreaSqlStatement .scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
+.txtAreaSqlStatement:focused {
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-border-color: rgba(255, 255, 255, 0.8);
+}
+
+.txtAreaSqlValidationReturn {
+    -fx-background-color: rgba(255, 255, 255, 0.4);
     -fx-pref-height: 300px;
 	-fx-pref-width: 250px;
+}
+
+.txtAreaSqlValidationReturn .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.txtAreaSqlValidationReturn .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+
+.txtAreaSqlValidationReturn .scroll-pane .content {
+    -fx-background-color: transparent;
+}
+
+.txtAreaSqlValidationReturn:focused {
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-border-color: rgba(255, 255, 255, 0.8);
 }
 
 .txtAreaSqlValidationReturnContainer {
@@ -24,23 +64,12 @@
 	-fx-pref-width: 300px;
 }
 
-.mainViewContainer {
-	-fx-pref-height: 600px;
-	-fx-pref-width: 800px;
-}
-
-.sqlValidationReturnContainer {
-	
-}
-
 .validationReturnLabel {
 	-fx-font-size: 24;
-}
-
-.sqlStatementLabelContainer {
-	
+	-fx-text-fill: white;
 }
 
 .sqlStatementsLabel {
 	-fx-font-size: 24;
+	-fx-text-fill: white;
 }

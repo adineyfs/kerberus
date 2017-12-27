@@ -1,47 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
 
-<StackPane stylesheets="@Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-   	  <ImageView pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@img/testImage.jpg" />
-         </image>
-         <effect>
-            <BoxBlur height="15" width="15" />
-         </effect>
-         <viewport>
-            <Rectangle2D height="600.0" width="1000.0" />
-         </viewport>
-      </ImageView>
-      <AnchorPane fx:id="mainContainer" styleClass="mainContainer" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-      <children>
-	      <AnchorPane fx:id="headerContainer" styleClass="headerContainer">
-               <children>
-                  <ImageView fx:id="headerLogo" fitHeight="150.0" fitWidth="200.0" layoutX="15.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" styleClass="headerLogo">
-                     <image>
-                        <Image url="@img/Kerberus_logo.png" />
-                     </image>
-                     <effect>
-                        <ColorAdjust brightness="0.72" contrast="0.07" hue="1.0" saturation="-1.0" />
-                     </effect></ImageView>
-                  <Label fx:id="headerLabel" layoutX="16.0" layoutY="49.0" styleClass="headerLabel" text="Tecsys Kerberus" textFill="WHITE" />
-               </children></AnchorPane>
-	      <AnchorPane fx:id="mainContentContainer" layoutX="200.0" styleClass="mainContentContainer">
-	         <children>
-	         	<fx:include fx:id="mainContent" source="MainView.fxml" />
-	         </children>
-	      </AnchorPane> 
-      </children>
-      </AnchorPane>  
-   </children>
-</StackPane>
+<BorderPane fx:id="mainContainer" styleClass="mainContainer" stylesheets="@Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <fx:include fx:id="background" source="background.fxml" />
+   <left>
+        <AnchorPane fx:id="headerContainer" styleClass="headerContainer">
+              <children>
+                 <ImageView fx:id="headerLogo" fitHeight="150.0" fitWidth="200.0" layoutX="15.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" styleClass="headerLogo">
+                    <image>
+                       <Image url="@img/Kerberus_logo.png" />
+                    </image>
+                    <effect>
+                       <ColorAdjust brightness="0.72" contrast="0.07" hue="1.0" saturation="-1.0" />
+                    </effect>
+                 </ImageView>
+                 <Label fx:id="headerLabel" layoutX="16.0" layoutY="49.0" styleClass="headerLabel" text="TECSYS Kerberus" textFill="WHITE" />
+              </children>
+         </AnchorPane>
+   </left>
+</BorderPane>

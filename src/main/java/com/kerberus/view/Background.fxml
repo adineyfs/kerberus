@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane stylesheets="@Background.css" >
+	<ImageView styleClass="backgroundContainer" fitHeight="600.0" fitWidth="1000.0" pickOnBounds="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	    <image>
+	       <Image url="@img/testImage.jpg" />
+	    </image>
+	    <effect>
+	      <GaussianBlur radius="15" />
+	    </effect>
+	</ImageView>
+</Pane>
+
