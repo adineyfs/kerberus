@@ -1,0 +1,16 @@
+.mainHeader {
+	-fx-background-color: rgba(0, 0, 0, 0.6);
+	-fx-pref-width: 1000px;
+	-fx-pref-height: 35px;
+}
+
+.btnClose {
+	-fx-background-color: rgba(0, 0, 0, 0.8);
+	-fx-background-radius: 0 0 10 10;
+	-fx-background-image:url('img/btnClose.png');
+	-fx-background-size: 30px 30px;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-min-width: 60px;
+	-fx-min-height: 35px;
+}

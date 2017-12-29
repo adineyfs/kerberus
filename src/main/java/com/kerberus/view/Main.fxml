@@ -1,30 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
 
-<BorderPane fx:id="mainContainer" styleClass="mainContainer" stylesheets="@Main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <fx:include fx:id="background" source="background.fxml" />
-   <left>
-        <AnchorPane fx:id="headerContainer" styleClass="headerContainer">
-              <children>
-                 <ImageView fx:id="headerLogo" fitHeight="150.0" fitWidth="200.0" layoutX="15.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" styleClass="headerLogo">
-                    <image>
-                       <Image url="@img/Kerberus_logo.png" />
-                    </image>
-                    <effect>
-                       <ColorAdjust brightness="0.72" contrast="0.07" hue="1.0" saturation="-1.0" />
-                    </effect>
-                 </ImageView>
-                 <Label fx:id="headerLabel" layoutX="16.0" layoutY="49.0" styleClass="headerLabel" text="TECSYS Kerberus" textFill="WHITE" />
-              </children>
-         </AnchorPane>
-   </left>
+<BorderPane fx:id="mainContainer" styleClass="mainContainer" stylesheets="@Main.css" xmlns:fx="http://javafx.com/fxml/1">
+	<ImageView>
+		<image>
+	       <Image url="@img/testImage.jpg" />
+	    </image>
+	    <effect>
+	      <GaussianBlur radius="15" />
+	    </effect>
+	</ImageView>
+	<!-- TODO Add Nodes -->
 </BorderPane>
+

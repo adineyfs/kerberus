@@ -10,27 +10,19 @@
 
 <AnchorPane styleClass="mainViewContainer" stylesheets="@MainView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kerberus.controller.MainController">
    <children>
-      <AnchorPane fx:id="sqlValidationReturnContainer" layoutX="454.0" layoutY="38.0" prefHeight="53.0" prefWidth="300.0" styleClass="sqlValidationReturnContainer">
+      <AnchorPane layoutX="51.0" layoutY="51.0" styleClass="txtAreaSqlStatementContainer">
          <children>
-            <Label fx:id="validationReturnLabel" layoutY="9.0" styleClass="validationReturnLabel" text="Validation Return" />
+         	<Label fx:id="sqlStatementsLabel" layoutX="25.0" layoutY="14.0" styleClass="sqlStatementsLabel" text="SQL Statements" />
+            <TextArea fx:id="txtAreaSqlStatement" layoutX="25.0" layoutY="56.0" pickOnBounds="false" styleClass="txtAreaSqlStatement" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="sqlStatementLabelContainer" layoutX="45.0" layoutY="40.0" prefHeight="53.0" prefWidth="300.0" styleClass="sqlStatementLabelContainer">
+      <AnchorPane layoutX="51.0" layoutY="334.0" styleClass="txtAreaSqlValidationReturnContainer">
          <children>
-            <Label fx:id="sqlStatementsLabel" layoutY="9.0" styleClass="sqlStatementsLabel" text="SQL Statements" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="45.0" layoutY="91.0" styleClass="txtAreaSqlStatementContainer">
-         <children>
-            <TextArea fx:id="txtAreaSqlStatement" layoutY="35.0" pickOnBounds="false" styleClass="txtAreaSqlStatement" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="454.0" layoutY="91.0" styleClass="txtAreaSqlValidationReturnContainer">
-         <children>
-            <TextArea fx:id="txtAreaSqlValidationReturn" styleClass="txtAreaSqlValidationReturn" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         	<Label fx:id="validationReturnLabel" layoutX="25.0" layoutY="14.0" styleClass="validationReturnLabel" text="Validation Return" />
+            <TextArea fx:id="txtAreaSqlValidationReturn" layoutX="25.0" layoutY="56.0" styleClass="txtAreaSqlValidationReturn" wrapText="true" />
          </children>
       </AnchorPane>
       <Button fx:id="btnValidate" layoutX="371.0" layoutY="288.0" mnemonicParsing="false" onAction="#handleValidateButton" styleClass="btnValidate" text="Validate" />
-      <Button layoutX="371.0" layoutY="54.0" mnemonicParsing="false" onAction="#handleTestButton" text="Button" />
+      <Button layoutX="725.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleTestButton" text="Button" visible="false" />
    </children>
 </AnchorPane>

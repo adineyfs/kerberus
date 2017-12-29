@@ -1,0 +1,32 @@
+.menuContainer {
+	-fx-pref-height: 600px;
+	-fx-pref-width: 200px; 
+	-fx-border-style: solid;
+    -fx-border-width: 0 2 0 0;
+    -fx-border-color: rgba(133, 133, 133, 0.6);
+    -fx-background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+.lblValidationReturn {
+	-fx-text-fill: black;
+	-fx-font-weight: bold;
+	-fx-font-size: 20px;
+	
+}
+
+.lblSQLStatements {
+	-fx-text-fill: black;
+	-fx-font-weight: bold;
+	-fx-font-size: 20px;
+}
+
+.menuLogo {
+
+}
+
+.menuLabel {
+	-fx-font-size: 22;
+	-fx-color: white;
+	-fx-font-family: 'Roboto Black';
+}

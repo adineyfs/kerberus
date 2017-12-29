@@ -8,6 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -20,13 +23,28 @@ public class Main extends Application {
 		try {
 			this.window = window;
 			window.setTitle("Kerberus");
-			window.initStyle(StageStyle.UTILITY);
-			BorderPane main = (BorderPane) FXMLLoader.load(getClass().getResource("view/Main.fxml"));
+			window.initStyle(StageStyle.TRANSPARENT);
+			
+			//Call the main layouts
+			BorderPane main = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
+			Pane menu = (Pane) FXMLLoader.load(getClass().getResource("view/Menu.fxml"));
+			Pane header = (Pane) FXMLLoader.load(getClass().getResource("view/header.fxml"));
 			AnchorPane mainView = (AnchorPane) FXMLLoader.load(getClass().getResource("view/MainView.fxml"));
 			
+			//Set the rounded corners on the main window
+			Rectangle mainShape = new Rectangle(1000,600);
+			mainShape.setArcHeight(60.0);
+			mainShape.setArcWidth(60.0);
+			main.setClip(mainShape);			
+			
+			//Sets the elements of the border pane
+			main.setTop(header);
+			main.setLeft(menu);
+			
 			main.setCenter(mainView);
-
+			
 			Scene scene = new Scene(main);
+			scene.setFill(Color.TRANSPARENT);
 			window.setScene(scene);
 			window.show();
 		} catch (IOException e) {

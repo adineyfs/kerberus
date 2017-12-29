@@ -1,13 +1,19 @@
 .mainViewContainer {
-	-fx-background-color: rgba(0, 0, 0, 0.2);
-	-fx-pref-height: 600px;
+	-fx-background-color: rgba(133, 133, 133, 0.2);
+	-fx-pref-height: 570px;
 	-fx-pref-width: 800px;
+	-fx-border-style: solid;
+	-fx-border-width: 2 2 2 0;
+    -fx-border-color: rgba(133, 133, 133, 0.6);
+    -fx-border-radius: 0 0 30 0;
 }
 
 .txtAreaSqlStatement {
-    -fx-background-color: rgba(255, 255, 255, 0.4);
-    -fx-pref-height: 300px;
-	-fx-pref-width: 250px;
+    -fx-background-color: gray;
+    -fx-pref-height: 130px;
+	-fx-pref-width: 650px;
+	-fx-text-fill: black;
+	-fx-font-size: 18;
 }
 
 .txtAreaSqlStatement .scroll-pane {
@@ -18,10 +24,10 @@
     -fx-background-color: transparent;
 }
 
-
 .txtAreaSqlStatement .scroll-pane .content {
-    -fx-background-color: transparent;
+    -fx-background-color: white;
 }
+
 
 .txtAreaSqlStatement:focused {
     -fx-border-style: solid;
@@ -31,8 +37,10 @@
 
 .txtAreaSqlValidationReturn {
     -fx-background-color: rgba(255, 255, 255, 0.4);
-    -fx-pref-height: 300px;
-	-fx-pref-width: 250px;
+    -fx-pref-height: 130px;
+	-fx-pref-width: 650px;
+	-fx-text-fill: black;
+	-fx-font-size: 18;
 }
 
 .txtAreaSqlValidationReturn .scroll-pane {
@@ -45,7 +53,7 @@
 
 
 .txtAreaSqlValidationReturn .scroll-pane .content {
-    -fx-background-color: transparent;
+    -fx-background-color: white;
 }
 
 .txtAreaSqlValidationReturn:focused {
@@ -55,21 +63,27 @@
 }
 
 .txtAreaSqlValidationReturnContainer {
-	-fx-pref-height: 450px;
-	-fx-pref-width: 300px;
+	-fx-background-color: rgba(0, 0, 0, 0.8);
+	-fx-pref-height: 210px;
+	-fx-pref-width: 700px;
+	-fx-background-radius: 10;
 }
 
 .txtAreaSqlStatementContainer {
-	-fx-pref-height: 450px;
-	-fx-pref-width: 300px;
+	-fx-background-color: rgba(0, 0, 0, 0.8);
+	-fx-pref-height: 210px;
+	-fx-pref-width: 700px;
+	-fx-background-radius: 10;
 }
 
 .validationReturnLabel {
 	-fx-font-size: 24;
 	-fx-text-fill: white;
+	-fx-font-family: 'Roboto';
 }
 
 .sqlStatementsLabel {
 	-fx-font-size: 24;
 	-fx-text-fill: white;
+	-fx-font-family: 'Roboto';
 }
