@@ -49,8 +49,8 @@ parser code
             	the_error = s.value.toString();
                 
                 m.append("--> Unexpected : " + the_error );
-                m.append(" at line: "+(s.left+1));   
-                m.append(", column: "+(s.right+1));
+                m.append(" at line: "+(s.left));   
+                m.append(", column: "+(s.right));
 
 				the_error_message = m;
             }
@@ -87,11 +87,11 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _from, _where, table_name;
+non terminal _select, _from, _where, table_name,tab;
 
 non terminal statement_group, statement;
 
-non terminal select_s, select_part, from_part, where_part, cols;
+non terminal select_s, select_part, from_part, where_part, cols,col;
 
 non terminal w_condition, cond, log_oper,ari_oper, element;
 
@@ -110,9 +110,7 @@ terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE;
 
 // Identifiers and numbers
 terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
-
-// Star symbol (all)
-terminal _STAR;
+terminal QTABLENAME, TABDOTCOL; // Quoted table-names, table.column
 
 // Operators 
 terminal _EQU, _GT, _LT, _LET, _GET, _DIFF;
@@ -120,8 +118,11 @@ terminal _EQU, _GT, _LT, _LET, _GET, _DIFF;
 // Logial
 terminal _AND,_OR;
 
-// Separator
+
+
+/* Other characters */
 terminal _COMMA;
+terminal _STAR;
 
 // Statement closure
 terminal /*_SEMCOL1,*/_SEMCOL2;
@@ -144,7 +145,7 @@ start with statement_group;
 statement_group ::=		statement_group statement _SEMCOL2
 			  	  | 	statement _SEMCOL2
 			  	  |		error _SEMCOL2
-			  	  | 	error:err 	{: System.out.println(" Error in left: " + (errleft+1) + ", right: " + (errright+1) + "\n Here: " + err ); :};
+			  	  | 	error:err 	{: System.out.println(" Error in left: " + (errleft) + ", right: " + (errright) + "\n Here: " + err ); :};
 
 statement 		::= 	select_s   
 				  |  	delete_s
@@ -152,7 +153,7 @@ statement 		::= 	select_s
 				  //| 	insert_s    // ---- TO-DO ----
 
 
-
+/* SELECT */
 
 select_s		::=		select_part from_part 
 				  |		select_part from_part where_part;
@@ -162,38 +163,56 @@ select_part		::= 	_select _STAR
 
 _select 		::=		SELECT;
 
-cols			::= 	IDENTIFIER:col1 _COMMA cols {: Columns.add(col1 + ""); :}  
-		  	  	  | 	IDENTIFIER:col2 		    {: Columns.add(col2 + ""); :};
+cols			::= 	col _COMMA cols   
+		  	  	  | 	col;
+col				::= 	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
+				  |		TABDOTCOL:col1  {: Columns.add(col1 + ""); :};
 
 
 
+/* UPDATE */
 
 update_s		::= 	update_part SET set_cols where_part;
 
 update_part		::= 	UPDATE table_name;
 
-set_cols		::= 	IDENTIFIER:col1 _EQU value _COMMA set_cols {: Columns.add(col1 + ""); :} 
-		  	  	  | 	IDENTIFIER:col1 _EQU value		    	 	{: Columns.add(col1 + ""); :};
+set_cols		::= 	col:col1 _EQU value _COMMA set_cols {: Columns.add(col1 + ""); :} 
+		  	  	  | 	col:col1 _EQU value		    	 	{: Columns.add(col1 + ""); :};
 
 
 value 			::= 	INTEGER
-				   | 	REAL
-				   | 	LITERAL_STRING
-				   | 	IDENTIFIER;
+				  | 	REAL
+				  | 	LITERAL_STRING
+				  | 	col;
 
+
+/* DELETE */
 
 delete_s		::= 	DELETE from_part where_part;
 
 
 
 
+/* FROM */
+
 from_part		::= 	_from table_name;
 
 _from			::= 	FROM;
-table_name		::= 	IDENTIFIER:tab {: Tables.add(tab+""); :};
 
 
 
+/* TABLE NAMES */
+
+table_name		::= 	tab 
+				  | 	tab IDENTIFIER;
+				  
+tab				::= 	IDENTIFIER:id {: Tables.add(id+""); :}
+				  | 	QTABLENAME:id {: Tables.add(id.toString().replace("\"", "")); :};
+
+
+
+
+/* WHERE */
 
 where_part		::= 	_where w_condition;  
 

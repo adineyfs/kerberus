@@ -10,28 +10,30 @@ public class sym {
   /* terminals */
   public static final int WHERE = 7;
   public static final int FROM = 6;
-  public static final int _EQU = 13;
-  public static final int _COMMA = 21;
-  public static final int _GET = 17;
+  public static final int _EQU = 14;
+  public static final int _COMMA = 22;
+  public static final int _GET = 18;
   public static final int SELECT = 2;
-  public static final int _AND = 19;
+  public static final int _AND = 20;
   public static final int IDENTIFIER = 8;
-  public static final int _SEMCOL2 = 22;
-  public static final int _DIFF = 18;
+  public static final int TABDOTCOL = 13;
+  public static final int _SEMCOL2 = 24;
+  public static final int _DIFF = 19;
   public static final int EOF = 0;
-  public static final int ILLEGAL_CHAR = 23;
+  public static final int ILLEGAL_CHAR = 25;
   public static final int SET = 4;
-  public static final int _LT = 15;
-  public static final int _OR = 20;
+  public static final int _LT = 16;
+  public static final int _OR = 21;
   public static final int error = 1;
-  public static final int _STAR = 12;
+  public static final int _STAR = 23;
+  public static final int QTABLENAME = 12;
   public static final int INTEGER = 9;
   public static final int DELETE = 5;
   public static final int UPDATE = 3;
+  public static final int _LET = 17;
   public static final int REAL = 10;
   public static final int LITERAL_STRING = 11;
-  public static final int _LET = 16;
-  public static final int _GT = 14;
+  public static final int _GT = 15;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -45,7 +47,8 @@ public class sym {
   "INTEGER",
   "REAL",
   "LITERAL_STRING",
-  "_STAR",
+  "QTABLENAME",
+  "TABDOTCOL",
   "_EQU",
   "_GT",
   "_LT",
@@ -55,6 +58,7 @@ public class sym {
   "_AND",
   "_OR",
   "_COMMA",
+  "_STAR",
   "_SEMCOL2",
   "ILLEGAL_CHAR"
   };
