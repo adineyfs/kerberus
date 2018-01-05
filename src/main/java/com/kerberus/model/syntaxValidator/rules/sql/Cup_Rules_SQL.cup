@@ -89,7 +89,7 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _from, _where, table_name,table_name_mult,tab;
+non terminal _select, _from, _where, table_name,table_name_mult,tab,tab_ali;
 
 non terminal statement_group, statement;
 
@@ -252,10 +252,12 @@ _from			::= 	FROM;
 /* TABLE NAMES */
 
 table_name		::= 	tab 
-				  | 	tab IDENTIFIER;
+				  | 	tab tab_ali;
 				  
-tab				::= 	IDENTIFIER:id {: Tables.add(id+""); :}
-				  | 	QTABLENAME:id {: Tables.add(id.toString().replace("\"", "")); :};
+tab_ali 		::= 	IDENTIFIER
+				  | 	QTABLENAME;
+				  
+tab				::= 	IDENTIFIER:id {: Tables.add(id+""); :};
 
 
 
