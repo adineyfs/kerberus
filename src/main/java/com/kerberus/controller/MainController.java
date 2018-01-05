@@ -11,7 +11,7 @@ import com.kerberus.util.LogFileUtil;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 public class MainController {
@@ -20,7 +20,7 @@ public class MainController {
     private CodeArea codeAreaSqlStatement;
 	
 	@FXML
-	private TextArea txtAreaSqlValidationReturn;
+	private CodeArea codeAreaSqlValidationReturn;
 
     @FXML
     private void initialize() {
@@ -53,8 +53,7 @@ public class MainController {
     		*/
 		//}
     	this.writeFile(sb);
-    	
-    	txtAreaSqlValidationReturn.setText(sb.toString());
+    	codeAreaSqlValidationReturn.replaceText(0, codeAreaSqlValidationReturn.getLength(), sb.toString());
     }
 	
 	
@@ -67,6 +66,13 @@ public class MainController {
 	@FXML
 	private void handleKeyPressed() {
 
+	}
+	
+	@FXML
+	public void handleEnterPress(KeyEvent event){
+	    if(event.getCode().toString().equals("ENTER") && event.isControlDown()) {
+	    	this.handleValidateButton();
+	    }
 	}
 	
 	

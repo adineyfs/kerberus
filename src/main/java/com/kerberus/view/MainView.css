@@ -17,25 +17,12 @@
 }
 
 
-.txtAreaSqlValidationReturn {
-    -fx-background-color: rgba(255, 255, 255, 0.4);
+.codeAreaSqlValidationReturn {
+    -fx-background-color: white;
     -fx-pref-height: 270px;
 	-fx-pref-width: 1050px;
 	-fx-text-fill: black;
 	-fx-font-size: 18;
-}
-
-.txtAreaSqlValidationReturn .scroll-pane {
-    -fx-background-color: transparent;
-}
-
-.txtAreaSqlValidationReturn .scroll-pane .viewport {
-    -fx-background-color: transparent;
-}
-
-
-.txtAreaSqlValidationReturn .scroll-pane .content {
-    -fx-background-color: white;
 }
 
 .txtAreaSqlValidationReturn:focused {
