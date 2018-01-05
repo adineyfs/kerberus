@@ -1,44 +1,26 @@
 .mainViewContainer {
 	-fx-background-color: rgba(133, 133, 133, 0.2);
-	-fx-pref-height: 570px;
-	-fx-pref-width: 800px;
+	-fx-pref-height: 865px;
+	-fx-pref-width: 1200px;
 	-fx-border-style: solid;
 	-fx-border-width: 2 2 2 0;
     -fx-border-color: rgba(133, 133, 133, 0.6);
     -fx-border-radius: 0 0 30 0;
 }
 
-.txtAreaSqlStatement {
-    -fx-background-color: gray;
-    -fx-pref-height: 130px;
-	-fx-pref-width: 650px;
+.codeAreaSqlStatement {
+    -fx-background-color: white;
+    -fx-pref-height: 270px;
+	-fx-pref-width: 1050px;
 	-fx-text-fill: black;
 	-fx-font-size: 18;
 }
 
-.txtAreaSqlStatement .scroll-pane {
-    -fx-background-color: transparent;
-}
-
-.txtAreaSqlStatement .scroll-pane .viewport {
-    -fx-background-color: transparent;
-}
-
-.txtAreaSqlStatement .scroll-pane .content {
-    -fx-background-color: white;
-}
-
-
-.txtAreaSqlStatement:focused {
-    -fx-border-style: solid;
-    -fx-border-width: 2;
-    -fx-border-color: rgba(255, 255, 255, 0.8);
-}
 
 .txtAreaSqlValidationReturn {
     -fx-background-color: rgba(255, 255, 255, 0.4);
-    -fx-pref-height: 130px;
-	-fx-pref-width: 650px;
+    -fx-pref-height: 270px;
+	-fx-pref-width: 1050px;
 	-fx-text-fill: black;
 	-fx-font-size: 18;
 }
@@ -64,15 +46,15 @@
 
 .txtAreaSqlValidationReturnContainer {
 	-fx-background-color: rgba(0, 0, 0, 0.8);
-	-fx-pref-height: 210px;
-	-fx-pref-width: 700px;
+	-fx-pref-height: 350px;
+	-fx-pref-width: 1100px;
 	-fx-background-radius: 10;
 }
 
 .txtAreaSqlStatementContainer {
 	-fx-background-color: rgba(0, 0, 0, 0.8);
-	-fx-pref-height: 210px;
-	-fx-pref-width: 700px;
+	-fx-pref-height: 350px;
+	-fx-pref-width: 1100px;
 	-fx-background-radius: 10;
 }
 
@@ -86,4 +68,40 @@
 	-fx-font-size: 24;
 	-fx-text-fill: white;
 	-fx-font-family: 'Roboto';
+}
+
+
+.keyword {
+    -fx-fill: purple;
+    -fx-font-weight: bold;
+}
+.semicolon {
+    -fx-font-weight: bold;
+}
+.paren {
+    -fx-fill: firebrick;
+    -fx-font-weight: bold;
+}
+.bracket {
+    -fx-fill: darkgreen;
+    -fx-font-weight: bold;
+}
+.brace {
+    -fx-fill: teal;
+    -fx-font-weight: bold;
+}
+.string {
+    -fx-fill: red;
+}
+
+.comment {
+    -fx-fill: cadetblue;
+}
+
+.paragraph-box:has-caret {
+    -fx-background-color: #f2f9fc;
+}
+
+.code-area{
+    -fx-font-size: 16px;
 }

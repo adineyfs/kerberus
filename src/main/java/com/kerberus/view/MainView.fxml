@@ -7,22 +7,23 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import org.fxmisc.richtext.*?>
 
 <AnchorPane styleClass="mainViewContainer" stylesheets="@MainView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kerberus.controller.MainController">
    <children>
-      <AnchorPane layoutX="51.0" layoutY="51.0" styleClass="txtAreaSqlStatementContainer">
+      <AnchorPane layoutX="51.0" layoutY="39.0" styleClass="txtAreaSqlStatementContainer">
          <children>
          	<Label fx:id="sqlStatementsLabel" layoutX="25.0" layoutY="14.0" styleClass="sqlStatementsLabel" text="SQL Statements" />
-            <TextArea fx:id="txtAreaSqlStatement" layoutX="25.0" layoutY="56.0" pickOnBounds="false" styleClass="txtAreaSqlStatement" />
+            <CodeArea fx:id="codeAreaSqlStatement" styleClass="codeAreaSqlStatement" id="codeAreaSqlStatement" layoutX="25.0" layoutY="56.0" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="51.0" layoutY="334.0" styleClass="txtAreaSqlValidationReturnContainer">
+      <AnchorPane layoutX="51.0" layoutY="476.0" styleClass="txtAreaSqlValidationReturnContainer">
          <children>
          	<Label fx:id="validationReturnLabel" layoutX="25.0" layoutY="14.0" styleClass="validationReturnLabel" text="Validation Return" />
-            <TextArea fx:id="txtAreaSqlValidationReturn" layoutX="25.0" layoutY="56.0" styleClass="txtAreaSqlValidationReturn" wrapText="true" />
+            <TextArea fx:id="txtAreaSqlValidationReturn" layoutX="25.0" layoutY="59.0" styleClass="txtAreaSqlValidationReturn" wrapText="true" />
          </children>
       </AnchorPane>
-      <Button fx:id="btnValidate" layoutX="371.0" layoutY="288.0" mnemonicParsing="false" onAction="#handleValidateButton" styleClass="btnValidate" text="Validate" />
-      <Button layoutX="725.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleTestButton" text="Button" visible="false" />
+      <Button fx:id="btnValidate" layoutX="571.0" layoutY="420.0" mnemonicParsing="false" onAction="#handleValidateButton" styleClass="btnValidate" text="Validate" />
+      <Button layoutX="725.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleTestButton" text="Button" visible="false" />      
    </children>
 </AnchorPane>
