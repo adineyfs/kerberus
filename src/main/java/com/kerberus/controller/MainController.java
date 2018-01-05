@@ -36,6 +36,8 @@ public class MainController {
     	LinkedList<PrettyStatement> ps = syntaxAnalyzer.ps;
     	
     	/*for (int i = 0; i < ps.size(); i++) {
+    	//sb.append("<h1>teste</h1>");
+    	for (int i = 0; i < ps.size(); i++) {
 			//sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
     		
     		//sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
