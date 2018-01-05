@@ -97,6 +97,8 @@ non terminal select_s, select_part;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
+non terminal element_in, col_list, list;
+
 non terminal join_part,join_p,join_on,join_cond,join_c;
 
 non terminal w_condition, cond, log_oper,ari_oper, element;
@@ -114,7 +116,7 @@ non terminal delete_s;
 // Reserved words
 terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE,JOIN;
 
-terminal AS,ON;
+terminal AS,ON,IN;
 
 // Identifiers and numbers
 terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
@@ -126,7 +128,8 @@ terminal _EQU, _GT, _LT, _LET, _GET, _DIFF;
 // Logial
 terminal _AND,_OR;
 
-
+/* Grouping operators */
+terminal _OPENPAR,_CLOSEPAR;
 
 /* Other characters */
 terminal _COMMA;
@@ -271,7 +274,16 @@ _where			::=		WHERE;
 w_condition		::= 	cond log_oper w_condition
 		  	  	  | 	cond;
 
-cond 			::= 	element ari_oper element;
+cond 			::= 	element ari_oper element
+				  | 	element_in IN col_list;
+				  
+col_list 		::=  	_OPENPAR list  _CLOSEPAR;
+
+list 			::=  	element _COMMA list
+				  | 	element;
+
+element_in 		::=  	IDENTIFIER
+				  | 	TABDOTCOL;
 
 element    		::= 	IDENTIFIER
 		  	  	  | 	INTEGER
