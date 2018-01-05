@@ -89,13 +89,15 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _from, _where, table_name,table_name_mult,tab;
+non terminal _select, _from, _where, table_name,table_name_mult,tab,tab_ali;
 
 non terminal statement_group, statement;
 
 non terminal select_s, select_part;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
+
+non terminal element_in, col_list, list;
 
 non terminal join_part,join_p,join_on,join_cond,join_c;
 
@@ -114,7 +116,7 @@ non terminal delete_s;
 // Reserved words
 terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE,JOIN;
 
-terminal AS,ON;
+terminal AS,ON,IN;
 
 // Identifiers and numbers
 terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
@@ -126,7 +128,8 @@ terminal _EQU, _GT, _LT, _LET, _GET, _DIFF;
 // Logial
 terminal _AND,_OR;
 
-
+/* Grouping operators */
+terminal _OPENPAR,_CLOSEPAR;
 
 /* Other characters */
 terminal _COMMA;
@@ -252,10 +255,12 @@ _from			::= 	FROM;
 /* TABLE NAMES */
 
 table_name		::= 	tab 
-				  | 	tab IDENTIFIER;
+				  | 	tab tab_ali;
 				  
-tab				::= 	IDENTIFIER:id {: Tables.add(id+""); :}
-				  | 	QTABLENAME:id {: Tables.add(id.toString().replace("\"", "")); :};
+tab_ali 		::= 	IDENTIFIER
+				  | 	QTABLENAME;
+				  
+tab				::= 	IDENTIFIER:id {: Tables.add(id+""); :};
 
 
 
@@ -269,7 +274,16 @@ _where			::=		WHERE;
 w_condition		::= 	cond log_oper w_condition
 		  	  	  | 	cond;
 
-cond 			::= 	element ari_oper element;
+cond 			::= 	element ari_oper element
+				  | 	element_in IN col_list;
+				  
+col_list 		::=  	_OPENPAR list  _CLOSEPAR;
+
+list 			::=  	element _COMMA list
+				  | 	element;
+
+element_in 		::=  	IDENTIFIER
+				  | 	TABDOTCOL;
 
 element    		::= 	IDENTIFIER
 		  	  	  | 	INTEGER

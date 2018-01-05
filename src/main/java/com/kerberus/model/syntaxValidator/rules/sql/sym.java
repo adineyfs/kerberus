@@ -10,34 +10,37 @@ public class sym {
   /* terminals */
   public static final int WHERE = 7;
   public static final int FROM = 6;
-  public static final int _EQU = 18;
-  public static final int _COMMA = 26;
-  public static final int _GET = 22;
+  public static final int _EQU = 19;
+  public static final int _COMMA = 29;
+  public static final int _GET = 23;
   public static final int SELECT = 2;
-  public static final int _AND = 24;
+  public static final int IN = 11;
+  public static final int _AND = 25;
   public static final int ON = 10;
-  public static final int IDENTIFIER = 11;
-  public static final int TABDOTCOL = 16;
-  public static final int _SEMCOL2 = 28;
+  public static final int IDENTIFIER = 12;
+  public static final int TABDOTCOL = 17;
+  public static final int _SEMCOL2 = 31;
   public static final int AS = 9;
-  public static final int _DIFF = 23;
+  public static final int _CLOSEPAR = 28;
+  public static final int _DIFF = 24;
   public static final int EOF = 0;
-  public static final int ILLEGAL_CHAR = 29;
+  public static final int ILLEGAL_CHAR = 32;
   public static final int SET = 4;
-  public static final int _LT = 20;
-  public static final int QCOLALIAS = 17;
-  public static final int _OR = 25;
+  public static final int _LT = 21;
+  public static final int QCOLALIAS = 18;
+  public static final int _OR = 26;
   public static final int error = 1;
-  public static final int _STAR = 27;
-  public static final int QTABLENAME = 15;
-  public static final int INTEGER = 12;
+  public static final int _STAR = 30;
+  public static final int QTABLENAME = 16;
+  public static final int INTEGER = 13;
+  public static final int _OPENPAR = 27;
   public static final int DELETE = 5;
   public static final int UPDATE = 3;
-  public static final int _LET = 21;
-  public static final int REAL = 13;
-  public static final int LITERAL_STRING = 14;
+  public static final int _LET = 22;
+  public static final int REAL = 14;
+  public static final int LITERAL_STRING = 15;
   public static final int JOIN = 8;
-  public static final int _GT = 19;
+  public static final int _GT = 20;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -50,6 +53,7 @@ public class sym {
   "JOIN",
   "AS",
   "ON",
+  "IN",
   "IDENTIFIER",
   "INTEGER",
   "REAL",
@@ -65,6 +69,8 @@ public class sym {
   "_DIFF",
   "_AND",
   "_OR",
+  "_OPENPAR",
+  "_CLOSEPAR",
   "_COMMA",
   "_STAR",
   "_SEMCOL2",
