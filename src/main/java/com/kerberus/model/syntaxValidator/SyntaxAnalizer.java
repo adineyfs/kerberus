@@ -12,6 +12,11 @@ import com.kerberus.model.syntaxValidator.rules.util.FlexUtil;
 import com.kerberus.model.syntaxValidator.rules.util.PrettyStatement;
 import com.kerberus.model.syntaxValidator.rules.util.UtilFiles;
 
+/* DB Connection */
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class SyntaxAnalizer {
 	
 	public LinkedList<PrettyStatement> ps = new LinkedList<PrettyStatement>();
@@ -33,6 +38,9 @@ public class SyntaxAnalizer {
 		
 		try {
 			
+			if ( sqlStatement.isEmpty() )
+				return sb.append("No input.\nPlease enter a valid SQL statement.");
+			
 			// Run Syntax Analyzer
 			Syntax_Analyzer.parse();
 			
@@ -44,11 +52,18 @@ public class SyntaxAnalizer {
 			
 			if( Syntax_Analyzer.errors > 0 ){
 				sb.append("\nnumber of errors found: " + Syntax_Analyzer.errors );
-				sb.append(Syntax_Analyzer.the_error_message);
+				if(Syntax_Analyzer.the_error_message != null) {
+					sb.append(Syntax_Analyzer.the_error_message);
+					if (Syntax_Analyzer.TableSE.isEmpty() == false)
+						sb.append("\n"+Syntax_Analyzer.TableSE.getFirst().getDescription());
+				}
+				else 
+					if (Syntax_Analyzer.TableSE.isEmpty() == false)
+						sb.append("\n"+Syntax_Analyzer.TableSE.getFirst().getDescription());
 				
 			}
 			else {
-				sb.append("\n -------> Statement is good to go!" );
+				sb.append("\n -------> Statement's syntax is All Good!" );
 			}
 			
 			sb.append("\n\n-------------- Findings Analysis -----------------------");
@@ -79,6 +94,8 @@ public class SyntaxAnalizer {
             // Prints what exception has been thrown
             System.out.println(e);
 		}
+		
+		
 		
 		return sb;
 

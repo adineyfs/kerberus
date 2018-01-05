@@ -61,9 +61,10 @@ under			= [_] 		// Underscore character
 // begins with letter or a underscore, followed by characters,numbers or underscore, finishing with letter or a _.
 identifier      = ((  {under}({alphanumeric}|{under})+  ) | (  {letter}({alphanumeric}|{under})*  )) 
 integer			= {digit}+
-real			= {digit}\.{digit}
+real			= {digit}+[.]{digit}+
 literalString	= '(\\.|[^\\'])+'
-QTableName		= \"{identifier}\"
+QTableName		= \"{identifier}\" 
+QColAlias		= \"([^\\\"]|\\.)*\"
 TabDotCol	    = {identifier}\.{identifier}
 
 whitespace      = {WhiteSpace}  
@@ -78,6 +79,13 @@ whitespace      = {WhiteSpace}
 	"delete" 		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DELETE, yyline+1, yycolumn+1, yytext()); }
 	"from" 			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.FROM, yyline+1, yycolumn+1, yytext()); }
 	"where"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WHERE, yyline+1, yycolumn+1, yytext()); }
+	"join"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.JOIN, yyline+1, yycolumn+1, yytext()); }
+	
+	/* Other conectors */
+	"as"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.AS, yyline+1, yycolumn+1, yytext()); }
+	"on"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ON, yyline+1, yycolumn+1, yytext()); }
+	
+	
 	/* Logical conectors */
 	"and"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym._AND, yyline+1, yycolumn+1, yytext()); }
 	"or"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym._OR, yyline+1, yycolumn+1, yytext()); }
@@ -103,6 +111,7 @@ whitespace      = {WhiteSpace}
 // Terminal tokens (LOWERCASE)
 	{identifier}    { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.IDENTIFIER); return new Symbol(sym.IDENTIFIER, yyline+1, yycolumn+1, yytext()); }
 	{QTableName} 	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.IDENTIFIER); return new Symbol(sym.QTABLENAME, yyline+1, yycolumn+1, yytext()); }
+	{QColAlias}		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.IDENTIFIER); return new Symbol(sym.QCOLALIAS, yyline+1, yycolumn+1, yytext()); }	
 	{TabDotCol}		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.IDENTIFIER); return new Symbol(sym.TABDOTCOL, yyline+1, yycolumn+1, yytext()); }
 	{integer}       { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NUMBER); return new Symbol(sym.INTEGER, yyline+1, yycolumn+1, yytext()); }
 	{real}          { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NUMBER); return new Symbol(sym.REAL, yyline+1, yycolumn+1, yytext()); }

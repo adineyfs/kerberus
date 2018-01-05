@@ -10,30 +10,34 @@ public class sym {
   /* terminals */
   public static final int WHERE = 7;
   public static final int FROM = 6;
-  public static final int _EQU = 14;
-  public static final int _COMMA = 22;
-  public static final int _GET = 18;
+  public static final int _EQU = 18;
+  public static final int _COMMA = 26;
+  public static final int _GET = 22;
   public static final int SELECT = 2;
-  public static final int _AND = 20;
-  public static final int IDENTIFIER = 8;
-  public static final int TABDOTCOL = 13;
-  public static final int _SEMCOL2 = 24;
-  public static final int _DIFF = 19;
+  public static final int _AND = 24;
+  public static final int ON = 10;
+  public static final int IDENTIFIER = 11;
+  public static final int TABDOTCOL = 16;
+  public static final int _SEMCOL2 = 28;
+  public static final int AS = 9;
+  public static final int _DIFF = 23;
   public static final int EOF = 0;
-  public static final int ILLEGAL_CHAR = 25;
+  public static final int ILLEGAL_CHAR = 29;
   public static final int SET = 4;
-  public static final int _LT = 16;
-  public static final int _OR = 21;
+  public static final int _LT = 20;
+  public static final int QCOLALIAS = 17;
+  public static final int _OR = 25;
   public static final int error = 1;
-  public static final int _STAR = 23;
-  public static final int QTABLENAME = 12;
-  public static final int INTEGER = 9;
+  public static final int _STAR = 27;
+  public static final int QTABLENAME = 15;
+  public static final int INTEGER = 12;
   public static final int DELETE = 5;
   public static final int UPDATE = 3;
-  public static final int _LET = 17;
-  public static final int REAL = 10;
-  public static final int LITERAL_STRING = 11;
-  public static final int _GT = 15;
+  public static final int _LET = 21;
+  public static final int REAL = 13;
+  public static final int LITERAL_STRING = 14;
+  public static final int JOIN = 8;
+  public static final int _GT = 19;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -43,12 +47,16 @@ public class sym {
   "DELETE",
   "FROM",
   "WHERE",
+  "JOIN",
+  "AS",
+  "ON",
   "IDENTIFIER",
   "INTEGER",
   "REAL",
   "LITERAL_STRING",
   "QTABLENAME",
   "TABDOTCOL",
+  "QCOLALIAS",
   "_EQU",
   "_GT",
   "_LT",
