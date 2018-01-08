@@ -28,10 +28,10 @@ public class Components {
 	public Components() {
 		try {
 			//Call the main layouts
-			main = FXMLLoader.load(getClass().getResource("view/Main.fxml"));
-			menu = (Pane) FXMLLoader.load(getClass().getResource("view/Menu.fxml"));
-			header = (Pane) FXMLLoader.load(getClass().getResource("view/header.fxml"));
-			mainView = (AnchorPane) FXMLLoader.load(getClass().getResource("view/MainView.fxml"));			
+			main = FXMLLoader.load(getClass().getClassLoader().getResource("Main.fxml"));
+			menu = (Pane) FXMLLoader.load(getClass().getClassLoader().getResource("Menu.fxml"));
+			header = (Pane) FXMLLoader.load(getClass().getClassLoader().getResource("Header.fxml"));
+			mainView = (AnchorPane) FXMLLoader.load(getClass().getClassLoader().getResource("MainView.fxml"));			
 
 			
 			//Set the rounded corners on the main window
@@ -48,7 +48,7 @@ public class Components {
 			code = (CodeArea) mainView.lookup("#codeAreaSqlStatement");
 			
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new NullPointerException(getClass().toString());
 		}
 		
 	}

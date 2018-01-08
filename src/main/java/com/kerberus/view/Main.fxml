@@ -8,9 +8,6 @@
 
 <BorderPane fx:id="mainContainer" styleClass="mainContainer" stylesheets="@Main.css" xmlns:fx="http://javafx.com/fxml/1">
 	<ImageView>
-		<image>
-	       <Image url="@img/testImage.jpg" />
-	    </image>
 	    <effect>
 	      <GaussianBlur radius="15" />
 	    </effect>

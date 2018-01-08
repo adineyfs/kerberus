@@ -7,7 +7,7 @@
 .btnClose {
 	-fx-background-color: rgba(0, 0, 0, 0.8);
 	-fx-background-radius: 0 0 10 10;
-	-fx-background-image:url('img/btnClose.png');
+	-fx-background-image:url('btnClose.png');
 	-fx-background-size: 30px 30px;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;

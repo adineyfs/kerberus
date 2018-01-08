@@ -1,28 +1,78 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com</groupId>
-  <artifactId>kerberus</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <artifactId>Kerberus</artifactId>
+  <packaging>jar</packaging>
+  <version>0.1</version>
+  
+  <properties>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
   
   <dependencies>
-  	<dependency>
-	  <groupId>de.jflex</groupId>
-	  <artifactId>jflex</artifactId>
-	  <version>1.6.1</version>
-	</dependency>
-	<!-- https://mvnrepository.com/artifact/com.github.vbmacher/java-cup -->
-	<dependency>
-	  <groupId>com.github.vbmacher</groupId>
-	  <artifactId>java-cup</artifactId>
-	  <version>11b</version>
-	</dependency>
+  	  <dependency>
+    	  <groupId>de.jflex</groupId>
+    	  <artifactId>jflex</artifactId>
+    	  <version>1.6.1</version>
+	  </dependency>
+	  <!-- https://mvnrepository.com/artifact/com.github.vbmacher/java-cup -->
+	  <dependency>
+    	  <groupId>com.github.vbmacher</groupId>
+    	  <artifactId>java-cup</artifactId>
+    	  <version>11b</version>
+	  </dependency>
 	
-	<!-- RchTextFX -->
-	<dependency>
-	    <groupId>org.fxmisc.richtext</groupId>
-	    <artifactId>richtextfx</artifactId>
-	    <version>0.8.1</version>
-	</dependency>
+	  <!-- RchTextFX -->
+	  <dependency>
+	      <groupId>org.fxmisc.richtext</groupId>
+	      <artifactId>richtextfx</artifactId>
+	      <version>0.8.1</version>
+	  </dependency>
   </dependencies>
+  
+  <build>
+      <plugins>
+          <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <!-- Run shade goal on package phase -->
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                          <transformers>
+                                <!-- add Main-Class to manifest file -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.kerberus.Main</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <downloadSources>true</downloadSources>
+                    <downloadJavadocs>false</downloadJavadocs>
+                </configuration>
+            </plugin>     
+      </plugins>
+      <resources>
+          <resource>
+              <directory>src/main/java/com/kerberus/view</directory>
+          </resource>
+          <resource>
+              <directory>src/main/java/com/kerberus/view/img</directory>
+          </resource>
+      </resources>
+  </build>
   
 </project>

@@ -14,7 +14,7 @@
     <children>
        <ImageView fx:id="menuLogo" fitHeight="150.0" fitWidth="200.0" layoutX="15.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="headerLogo">
           <image>
-             <Image url="@img/Kerberus_logo.png" />
+             <Image url="Kerberus_logo.png" />
           </image>
           <effect>
              <ColorAdjust brightness="0.72" contrast="0.07" hue="1.0" saturation="-1.0" />

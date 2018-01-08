@@ -14,7 +14,7 @@
 }
 
 .mainContainer {
-	-fx-background-image:url('img/testImage.jpg');
+	-fx-background-image:url('testImage.jpg');
 	-fx-pref-width: 1400px;
 	-fx-pref-height: 1000px;
 }
