@@ -282,7 +282,9 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
            type as the type java_cup.runtime.Symbol. */
         if (info instanceof java_cup.runtime.Symbol) {
 
-        	errors++;
+        	// Uncomment when Analyzer can handle multiple errors
+			//errors++;
+			errors = 1;
 
             /* Declare a java_cup.runtime.Symbol object 's' with the
                information in the object info that is being typecasted
@@ -317,8 +319,8 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
        'message' and then exit.*/
 
     public void report_fatal_error(String message, Object info) {
-        report_error(message, info);
-        System.exit(1);
+        //report_error(message, info);
+		the_error_message.append("\n\n---- Unknown syntax error" + "\n");
     }
 	
 

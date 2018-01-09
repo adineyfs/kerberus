@@ -128,7 +128,7 @@ whitespace      = {WhiteSpace}
 
 // Lexical errors - This is like the default option in a SWITCH clause.
 	[^]            	{ System.out.println("\n### Lexical error (Illegal element) ### - '" + yytext() + "' line: " + yyline + ", column: " + yychar + "\n"); 
-				  	  TError errors_found = new TError(yytext(),yyline,yycolumn,"Lexical Error","This symbol does not exist in this language");
+				  	  TError errors_found = new TError(yytext(),yyline,yycolumn,"Lexical Error","Unrecognized symbol.");
 				  	  TableLE.add(errors_found); 
 				  	  prettyfier(yytext(), Categories.ERROR);
 					  return new Symbol(sym.ILLEGAL_CHAR, yyline, yycolumn, yytext());

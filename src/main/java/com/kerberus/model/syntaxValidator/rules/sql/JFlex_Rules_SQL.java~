@@ -708,7 +708,7 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
             { System.out.println("\n### Lexical error (Illegal element) ### - '" + yytext() + "' line: " + yyline + ", column: " + yychar + "\n"); 
-				  	  TError errors_found = new TError(yytext(),yyline,yycolumn,"Lexical Error","This symbol does not exist in this language");
+				  	  TError errors_found = new TError(yytext(),yyline,yycolumn,"Lexical Error","Unrecognized symbol.");
 				  	  TableLE.add(errors_found); 
 				  	  prettyfier(yytext(), Categories.ERROR);
 					  return new Symbol(sym.ILLEGAL_CHAR, yyline, yycolumn, yytext());
