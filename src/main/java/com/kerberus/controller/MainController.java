@@ -80,6 +80,7 @@ public class MainController {
 		try {
 			LogFileUtil logFile = new LogFileUtil();
 			logFile.writeLine(sb.toString());
+			logFile.close();
 		} catch (Exception e) {
 			System.out.println("Error creating file");
 		}
