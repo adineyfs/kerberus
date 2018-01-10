@@ -687,10 +687,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 35: // set_cols ::= col _EQU value _COMMA set_cols 
             {
               Object RESULT =null;
-		int col1left = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-4)).left;
-		int col1right = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-4)).right;
-		Object col1 = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-4)).value;
-		 Columns.add(col1 + ""); 
+
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("set_cols",32, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-4)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -699,10 +696,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 36: // set_cols ::= col _EQU value 
             {
               Object RESULT =null;
-		int col1left = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)).left;
-		int col1right = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)).right;
-		Object col1 = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)).value;
-		 Columns.add(col1 + ""); 
+
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("set_cols",32, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;

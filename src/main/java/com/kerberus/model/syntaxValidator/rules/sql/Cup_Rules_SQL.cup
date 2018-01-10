@@ -223,8 +223,8 @@ update_s		::= 	update_part SET set_cols where_part
 
 update_part		::= 	UPDATE table_name;
 
-set_cols		::= 	col:col1 _EQU value _COMMA set_cols {: Columns.add(col1 + ""); :} 
-		  	  	  | 	col:col1 _EQU value		    	 	{: Columns.add(col1 + ""); :};
+set_cols		::= 	col _EQU value _COMMA set_cols 
+		  	  	  | 	col _EQU value;
 
 
 value 			::= 	INTEGER
