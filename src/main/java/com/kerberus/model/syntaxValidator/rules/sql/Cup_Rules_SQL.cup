@@ -95,11 +95,11 @@ non terminal _select, _from, _where, table_name,table_name_mult,tab,tab_ali;
 
 non terminal statement_group, statement;
 
-non terminal select_s, select_part;
+non terminal select_s, select_part,select_part_sub;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
-non terminal element_in, col_list, list;
+non terminal element_in, in_list, in_exp, in_array, in_subquery;
 
 non terminal join_part,join_p,join_on,join_cond,join_c;
 
@@ -277,11 +277,21 @@ w_condition		::= 	cond log_oper w_condition
 		  	  	  | 	cond;
 
 cond 			::= 	element ari_oper element
-				  | 	element_in IN col_list;
+				  | 	element_in IN in_list;
 				  
-col_list 		::=  	_OPENPAR list  _CLOSEPAR;
+in_list 		::=  	_OPENPAR in_exp  _CLOSEPAR;
 
-list 			::=  	element _COMMA list
+in_exp 			::= 	in_array
+				  | 	in_subquery; 	
+				  
+in_subquery 	::= 	select_part_sub from_part
+				  |		select_part_sub from_part where_part
+				  |		select_part_sub from_part join_part
+				  |		select_part_sub from_part join_part where_part;
+				
+select_part_sub ::= 	_select col; 				  
+
+in_array 		::=  	element _COMMA in_array
 				  | 	element;
 
 element_in 		::=  	IDENTIFIER
