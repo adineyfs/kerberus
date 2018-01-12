@@ -182,13 +182,13 @@ _semicolon 		::= 	_SEMCOL2
 
 /* SELECT */
 
-select_s		::=		select_part from_part
+select_s		::=		select_part from_part _semicolon
 						{: System.out.println("select_s ::= select_part from_part"); :}
-				  |		select_part from_part where_part
+				  |		select_part from_part where_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part where_part"); :}
-				  |		select_part from_part join_part
+				  |		select_part from_part join_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part join_part"); :}
-				  |		select_part from_part join_part where_part
+				  |		select_part from_part join_part where_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part join_part where_part"); :};
 				  
 join_part		::= 	join_p join_part
@@ -292,7 +292,7 @@ value 			::= 	col
 
 /* DELETE */
 
-delete_s		::= 	DELETE FROM table_name where_part
+delete_s		::= 	DELETE FROM table_name where_part _semicolon
 				  | 	DELETE error {: TError errors_found = new TError("",0,0,"Syntax Error","Invalid DELETE statement.");
 				  	  			 		TableSE.add(errors_found);
 										System.out.println("value ::= LITERAL_STRING"); :};

@@ -53,6 +53,18 @@ import com.kerberus.model.syntaxValidator.rules.sql.sym;
  * PATTERN DEFINITIONS:
  */
 
+/* comments */
+LineTerminator = \r|\n|\r\n
+InputCharacter = [^\r\n]
+//WhiteSpace     = {LineTerminator} | [ \t\f]?
+Comment = {TraditionalComment} | {EndOfLineComment} | {DocumentationComment}
+
+TraditionalComment   = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+EndOfLineComment 	 = "--" {InputCharacter}* {LineTerminator}?
+DocumentationComment = "/**" {CommentContent} "*"+ "/"
+CommentContent       = ( [^*] | \*+ [^/*] )*          
+/* End-comments*/
+
 WhiteSpace      = [ |\t|\r|\n|\f|\r\n]  // [\r\n] --> End of line
 letter 			= [A-Za-z]
 digit			= [0-9]
@@ -121,6 +133,8 @@ whitespace      = {WhiteSpace}
 	{integer}       { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NUMBER); return new Symbol(sym.INTEGER, yyline+1, yycolumn+1, yytext()); }
 	{real}          { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NUMBER); return new Symbol(sym.REAL, yyline+1, yycolumn+1, yytext()); }
 	{literalString} { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.LITERAL_STRING); return new Symbol(sym.LITERAL_STRING, yyline+1, yycolumn+1, yytext()); }
+// Comments
+	{Comment}    	{ System.out.println("Recognized comment: " + yytext()); prettyfier(yytext(), Categories.COMMENT ); }
 // Save spaces to copy SQL statement
 	{whitespace}    { System.out.println("Recognized space: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); }
 }

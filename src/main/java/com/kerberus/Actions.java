@@ -19,14 +19,15 @@ public class Actions {
 			"join","as","on"
     };
 
-    private static final String KEYWORD_PATTERN = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
-    private static final String PAREN_PATTERN = "\\(|\\)";
-    private static final String BRACE_PATTERN = "\\{|\\}";
-    private static final String BRACKET_PATTERN = "\\[|\\]";
-    private static final String SEMICOLON_PATTERN = "\\;";
-    private static final String STRING_PATTERN = "\'(\\\\.|[^\\'])*\'";
-    private static final String COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/";
-
+    private static final String KEYWORD_PATTERN 	 = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
+    private static final String PAREN_PATTERN 		 = "\\(|\\)";
+    private static final String BRACE_PATTERN 	  	 = "\\{|\\}";
+    private static final String BRACKET_PATTERN 	 = "\\[|\\]";
+    private static final String SEMICOLON_PATTERN 	 = "\\;";
+    private static final String STRING_PATTERN 		 = "\'(\\\\.|[^\\'])*\'";
+    private static final String COMMENT_PATTERN 	 = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/";
+    private static final String LINE_COMMENT_PATTERN = "--[^\r\n]*" + "|" + "\r|\n|\r\n";
+    
     private static final Pattern PATTERN = Pattern.compile(
             "(?<KEYWORD>" + KEYWORD_PATTERN + ")"
             + "|(?<PAREN>" + PAREN_PATTERN + ")"
@@ -35,6 +36,7 @@ public class Actions {
             + "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")"
             + "|(?<STRING>" + STRING_PATTERN + ")"
             + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
+            + "|(?<LCOMMENT>" + LINE_COMMENT_PATTERN + ")"
     );
     
     private static final String sampleCode = String.join("\n", new String[] {
@@ -100,6 +102,7 @@ public class Actions {
                     matcher.group("SEMICOLON") != null ? "semicolon" :
                     matcher.group("STRING") != null ? "string" :
                     matcher.group("COMMENT") != null ? "comment" :
+                    matcher.group("LCOMMENT") != null ? "comment" :
                     null; /* never happens */ assert styleClass != null;
             spansBuilder.add(Collections.<String>emptyList(), matcher.start() - lastKwEnd);
             spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
