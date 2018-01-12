@@ -21,9 +21,13 @@ parser code
 
 	public  Scanner s;
   	public  int errors = 0, line, column;
-  	public 	String the_error;
-	public 	StringBuilder the_error_message;
+  	public 	String the_error = "";
+	public 	StringBuilder the_error_message = new StringBuilder();
 
+
+	public void clean_lists() {
+		TableSE = new LinkedList<TError>();
+	}
 
 	/* This is the error handler */
 	public void report_error(String message, Object info) {
@@ -53,8 +57,8 @@ parser code
 				//the_error = s.value.toString();
                 
                 m.append("--> Unexpected : " + the_error );
-                m.append(" at line: "+(s.left));   
-                m.append(", column: "+(s.right));
+                m.append(" at line: "+(s.left));  
+                m.append(", column: "+(s.right)); 
 
 				the_error_message = m;
             }
@@ -73,7 +77,7 @@ parser code
 
     public void report_fatal_error(String message, Object info) {
         //report_error(message, info);
-		the_error_message.append("\n\n---- Unknown syntax error" + "\n");
+		the_error_message.append("\n\n---- Unknown syntax error ლ(ಠ_ಠლ)" + "\n");
     }
 	
 :};
@@ -93,7 +97,7 @@ action code
 
 non terminal _select, _from, _where, table_name,table_name_mult,tab,tab_ali;
 
-non terminal statement_group, statement;
+non terminal statement_group, statement,_semicolon;
 
 non terminal select_s, select_part,select_part_sub;
 
@@ -105,7 +109,7 @@ non terminal join_part,join_p,join_on,join_cond,join_c;
 
 non terminal w_condition, cond, log_oper,ari_oper, element;
 
-non terminal update_s, update_part, set_cols,value;
+non terminal update_s,_update,_set, update_part, set_cols,value;
 
 non terminal delete_s;
 
@@ -144,44 +148,53 @@ terminal /*_SEMCOL1,*/_SEMCOL2;
 // Lexical error
 terminal ILLEGAL_CHAR;
 
+/* -------------Precedence and Associatively of Terminals Section----------- */
+/* Enter precedence declarations here*/
+
+//Precedences added by Eclipse plugin
+precedence nonassoc error;	// Inserted by Eclipse plugin | | 	_update table_name error
+
+
+
 
 // ------- Define which is the first production
-// --------------------------------------------
+start with statement_group ;
 
-start with statement_group;
-
-// --------------------------------------------
 
 
 /*---------------------- 3rd Part: Semantic Rules --------------------------------------------*/
 
-statement_group ::=		statement_group statement _SEMCOL2
-			  	  | 	statement _SEMCOL2
-			  	  | 	statement error 
-			  	  		{: TError errors_found = new TError("",0,0,"Syntax Error","Missing semicolon (;)");
-				  	  	   TableSE.add(errors_found);  :}
-				  | 	error _SEMCOL2 
-				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Missing semicolon (;)");
-				  	  	   TableSE.add(errors_found);  :}
-			  	  | 	error
-			  	  		{: TError errors_found = new TError("",0,0,"Syntax Error","Missing semicolon (;)");
-				  	  	   TableSE.add(errors_found);  :};
+statement_group ::=		statement_group statement
+						{: System.out.println("statement_group ::= statement_group statement"); :}
+			  	  | 	statement
+			  	  		{: System.out.println("statement_group ::= statement"); :};
 
 statement 		::= 	select_s   
+						{: System.out.println("statement ::= select_s"); :}
 				  |  	delete_s
-				  | 	update_s; 
+				  		{: System.out.println("statement ::= delete_s"); :}
+				  | 	update_s
+				  		{: System.out.println("statement ::= update_s"); :};
 				  //| 	insert_s    // ---- TO-DO ----
 
+_semicolon 		::= 	_SEMCOL2
+						{: System.out.println("_semicolon ::= _SEMICOL2"); :};
 
 /* SELECT */
 
 select_s		::=		select_part from_part
+						{: System.out.println("select_s ::= select_part from_part"); :}
 				  |		select_part from_part where_part
+				  		{: System.out.println("select_s ::= select_part from_part where_part"); :}
 				  |		select_part from_part join_part
-				  |		select_part from_part join_part where_part;
+				  		{: System.out.println("select_s ::= select_part from_part join_part"); :}
+				  |		select_part from_part join_part where_part
+				  		{: System.out.println("select_s ::= select_part from_part join_part where_part"); :};
 				  
 join_part		::= 	join_p join_part
-				  | 	join_p;		
+						{: System.out.println("join_part ::= join_p join_part"); :}
+				  | 	join_p
+				  		{: System.out.println("join_part ::= join_p"); :};		
 
 join_p			::= 	JOIN table_name join_cond;
 
@@ -201,6 +214,7 @@ select_part		::= 	_select _STAR
 _select 		::=		SELECT;
 
 cols			::= 	col _COMMA cols   
+						
 		  	  	  | 	col;
 
 col				::= 	cl
@@ -217,27 +231,71 @@ col_ali			::= 	QTABLENAME
 
 /* UPDATE */
 
-update_s		::= 	update_part SET set_cols where_part
-				  | 	update_part error {: TError errors_found = new TError("",0,0,"Syntax Error","Syntax error in update statement");
-				  	  			 			 TableSE.add(errors_found); :};
+update_s		::= 	update_part _set set_cols where_part _semicolon
+				  		{: System.out.println("update_s	::= update_part _set set_cols where_part _semicolon"); :}
+				  |  	update_part _set set_cols where_part error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE section. Missing semicolon (;).");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part _set set_cols where_part errorerror.\nMissing semicolon on UPDATE."); :}
+				  |  	update_part _set set_cols  error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","UPDATE error after set of columns.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part _set set_cols error"); :}
+				  /*|  	update_part _set error
+				  		{: System.out.println("update_s	::= update_part _set error"); :}*/
+				  |  	update_part error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete UPDATE.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part error"); :}
+				  |     _update error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= _update error"); :}
+				  /*| 	_update error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid statement.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("Invalid UPDATE part. Check UPDATE."); :}*/;
 
-update_part		::= 	UPDATE table_name;
+_set 			::= 	SET
+						{: System.out.println("_set ::= SET"); :};
+
+update_part		::= 	_update table_name
+						{: System.out.println("update_part ::= _update table_name"); :}
+				  | 	error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE.");
+				  	  	   TableSE.add(errors_found); 
+						   System.out.println("update_part ::= _update table_name"); :};
+
+_update 		::= 	UPDATE
+						{: System.out.println("_update ::= UPDATE"); :};
 
 set_cols		::= 	col _EQU value _COMMA set_cols 
-		  	  	  | 	col _EQU value;
+						{: System.out.println("set_cols	::=	col _EQU value _COMMA set_cols "); :}
+		  	  	  | 	col _EQU value
+		  	  	  		{: System.out.println("set_cols	::=	col _EQU value"); :}
+		  	  	  | 	error
+		  	  	  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid set of columns in UPDATE");
+				  	  	   TableSE.add(errors_found); 
+						   System.out.println("set_cols	::=	error"); :}
+		  	  	  ;
 
 
-value 			::= 	INTEGER
+value 			::= 	col
+				  		{: System.out.println("value ::= col"); :}
+				  | 	INTEGER
+						{: System.out.println("value ::= INTEGER"); :}
 				  | 	REAL
+				  		{: System.out.println("value ::= value"); :}
 				  | 	LITERAL_STRING
-				  | 	col;
+				  		{: System.out.println("value ::= LITERAL_STRING"); :};
 
 
 /* DELETE */
 
 delete_s		::= 	DELETE FROM table_name where_part
-				  | 	DELETE error {: TError errors_found = new TError("",0,0,"Syntax Error","Syntax error in delete statement");
-				  	  			 					TableSE.add(errors_found); :};
+				  | 	DELETE error {: TError errors_found = new TError("",0,0,"Syntax Error","Invalid DELETE statement.");
+				  	  			 		TableSE.add(errors_found);
+										System.out.println("value ::= LITERAL_STRING"); :};
 
 
 
@@ -256,25 +314,33 @@ _from			::= 	FROM;
 
 /* TABLE NAMES */
 
-table_name		::= 	tab 
-				  | 	tab tab_ali;
+table_name		::= 	tab
+				  		{: System.out.println("table_name ::= tab"); :}
+				  | 	tab_ali 
+						{: System.out.println("table_name ::= tab_ali"); :};
+
+tab				::= 	IDENTIFIER:id 
+						{: Tables.add(id+"");
+						   System.out.println("tab ::= IDENTIFIER"); :};
 				  
-tab_ali 		::= 	IDENTIFIER
-				  | 	QTABLENAME;
-				  
-tab				::= 	IDENTIFIER:id {: Tables.add(id+""); :};
-
-
-
+tab_ali 		::= 	IDENTIFIER IDENTIFIER
+						{: System.out.println("tab_ali ::= IDENTIFIER IDENTIFIER"); :}
+				  | 	IDENTIFIER QTABLENAME
+				  		{: System.out.println("tab_ali ::= IDENTIFIER QTABLENAME"); :};
+		
 
 /* WHERE */
 
-where_part		::= 	_where w_condition;  
+where_part		::= 	_where w_condition
+						{: System.out.println("where_part ::= _where w_condition"); :};  
 
-_where			::=		WHERE;
+_where			::=		WHERE
+						{: System.out.println("_where ::= WHERE"); :};
 
 w_condition		::= 	cond log_oper w_condition
-		  	  	  | 	cond;
+						{: System.out.println("w_condition ::= cond log_oper w_condition"); :}
+		  	  	  | 	cond
+		  	  	  		{: System.out.println("w_condition ::= cond"); :};
 
 cond 			::= 	element ari_oper element
 				  | 	element_in IN in_list;
@@ -312,3 +378,15 @@ ari_oper  		::= 	_EQU
 
 log_oper    	::= 	_AND 
 			  	  | 	_OR;
+
+// ~~ CUP-ECLIPSE:CONFLICT-RES-RR ~~ 
+ // After this the order of productions matters
+/*
+//Separated and moved by CUP Eclipse plugin
+statement_group ::=  	error 
+				  		{: System.out.println(".\nSyntax does not match any correct statement.\n\n\t( •_•)\n\n\t(•_• )\n\nTrying to break Kerberus?"); :};
+
+//Separated and moved by CUP Eclipse plugin
+update_s 		::=   	error
+				  		{: System.out.println("Invalid update_statement."); :};
+*/
