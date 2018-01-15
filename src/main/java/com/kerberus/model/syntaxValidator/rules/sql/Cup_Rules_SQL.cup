@@ -109,7 +109,9 @@ non terminal join_part,join_p,join_on,join_cond,join_c;
 
 non terminal w_condition, cond, log_oper,ari_oper, element;
 
-non terminal update_s,_update,_set, update_part, set_cols,value;
+non terminal update_s,_update,_set, update_part, ari_value;
+
+non terminal set_exp_list, set_exp,ari_exp,par_exp,exp,_ari_opr,_asig_opr;  // elements for a small calculator
 
 non terminal delete_s;
 
@@ -130,9 +132,13 @@ terminal QTABLENAME, TABDOTCOL,QCOLALIAS; // Quoted table-names, table.column, Q
 
 // Operators 
 terminal _EQU, _GT, _LT, _LET, _GET, _DIFF;
+terminal _PLUS, _MINUS, _DIVIDE; 
 
-// Logial
+// Logical
 terminal _AND,_OR;
+
+// Special assignment operators -   += | -= | *= | /= | %= | &= | ^= | |=
+terminal _PLUSEQ,_MINUSEQ,_TIMESEQ,_DIVIDEEQ,_MODEQ,_ANDEQ,_POWEQ,_OREQ;
 
 /* Grouping operators */
 terminal _OPENPAR,_CLOSEPAR;
@@ -153,6 +159,7 @@ terminal ILLEGAL_CHAR;
 
 //Precedences added by Eclipse plugin
 precedence nonassoc error;	// Inserted by Eclipse plugin | | 	_update table_name error
+precedence left  _PLUS,_MINUS,_STAR,_DIVIDE;
 
 
 
@@ -223,21 +230,21 @@ col				::= 	cl
 cl				::= 	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
 				  |		TABDOTCOL:col1  {: Columns.add(col1 + ""); :};
 				  
-col_ali			::= 	QTABLENAME 
-				  | 	IDENTIFIER
-				  | 	QCOLALIAS;				
+col_ali			::= 	QTABLENAME:t {: Tables.add(t+""); :}
+				  | 	IDENTIFIER:t {: Tables.add(t+""); :}
+				  | 	QCOLALIAS:t {: Tables.add(t+""); :};				
 
 
 
 /* UPDATE */
 
-update_s		::= 	update_part _set set_cols where_part _semicolon
+update_s		::= 	update_part _set set_exp_list where_part _semicolon
 				  		{: System.out.println("update_s	::= update_part _set set_cols where_part _semicolon"); :}
-				  |  	update_part _set set_cols where_part error
+				  |  	update_part _set set_exp_list where_part error
 				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE section. Missing semicolon (;).");
 				  	  	   TableSE.add(errors_found);
 						   System.out.println("update_s	::= update_part _set set_cols where_part errorerror.\nMissing semicolon on UPDATE."); :}
-				  |  	update_part _set set_cols  error
+				  |  	update_part _set set_exp_list  error
 				  		{: TError errors_found = new TError("",0,0,"Syntax Error","UPDATE error after set of columns.");
 				  	  	   TableSE.add(errors_found);
 						   System.out.println("update_s	::= update_part _set set_cols error"); :}
@@ -269,25 +276,42 @@ update_part		::= 	_update table_name
 _update 		::= 	UPDATE
 						{: System.out.println("_update ::= UPDATE"); :};
 
-set_cols		::= 	col _EQU value _COMMA set_cols 
-						{: System.out.println("set_cols	::=	col _EQU value _COMMA set_cols "); :}
-		  	  	  | 	col _EQU value
-		  	  	  		{: System.out.println("set_cols	::=	col _EQU value"); :}
+set_exp_list	::= 	set_exp _COMMA set_exp_list 
+						{: System.out.println("set_exp_list	::= set_exp _COMMA set_exp_list "); :}
+		  	  	  | 	set_exp
+		  	  	  		{: System.out.println("set_exp_list	::= set_exp "); :}
 		  	  	  | 	error
 		  	  	  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid set of columns in UPDATE");
 				  	  	   TableSE.add(errors_found); 
 						   System.out.println("set_cols	::=	error"); :}
 		  	  	  ;
 
+set_exp 		::= 	col _asig_opr ari_exp
+				  | 	col _EQU LITERAL_STRING
+				  		{: System.out.println("set_exp ::= col _EQU LITERAL_STRING"); :};
 
-value 			::= 	col
+ari_exp     	::=     par_exp
+              	  |     exp 
+              	  |     ari_value;
+              	  
+ari_value 		::=		col
 				  		{: System.out.println("value ::= col"); :}
 				  | 	INTEGER
 						{: System.out.println("value ::= INTEGER"); :}
 				  | 	REAL
-				  		{: System.out.println("value ::= value"); :}
-				  | 	LITERAL_STRING
-				  		{: System.out.println("value ::= LITERAL_STRING"); :};
+				  		{: System.out.println("value ::= value"); :};              	  
+ 
+par_exp 		::= 	_OPENPAR ari_exp _CLOSEPAR;
+
+exp 			::= 	ari_exp _ari_opr ari_exp; 
+ 
+_ari_opr        ::=     _PLUS 
+              	  |     _MINUS 
+                  |     _STAR 
+              	  |     _DIVIDE;
+
+_asig_opr 		::= 	_EQU|_PLUSEQ|_MINUSEQ|_TIMESEQ|_DIVIDEEQ|_MODEQ|_ANDEQ|_POWEQ|_OREQ;
+ 
 
 
 /* DELETE */
@@ -323,10 +347,12 @@ tab				::= 	IDENTIFIER:id
 						{: Tables.add(id+"");
 						   System.out.println("tab ::= IDENTIFIER"); :};
 				  
-tab_ali 		::= 	IDENTIFIER IDENTIFIER
-						{: System.out.println("tab_ali ::= IDENTIFIER IDENTIFIER"); :}
-				  | 	IDENTIFIER QTABLENAME
-				  		{: System.out.println("tab_ali ::= IDENTIFIER QTABLENAME"); :};
+tab_ali 		::= 	IDENTIFIER:id1 IDENTIFIER:id2
+						{: System.out.println("tab_ali ::= IDENTIFIER IDENTIFIER");	
+						   Tables.add(id1+" "+id2); :}
+				  | 	IDENTIFIER:id1 QTABLENAME:id2
+				  		{: System.out.println("tab_ali ::= IDENTIFIER QTABLENAME"); 
+						   Tables.add(id1+" "+id2); :};
 		
 
 /* WHERE */
