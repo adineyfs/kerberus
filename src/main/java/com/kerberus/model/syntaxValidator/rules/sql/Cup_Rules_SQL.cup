@@ -101,6 +101,8 @@ non terminal statement_group, statement,_semicolon;
 
 non terminal select_s, select_part,select_part_sub;
 
+non terminal col_el,aggregates,agg_count,count_exp;
+
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
 non terminal element_in, in_list, in_exp, in_array, in_subquery;
@@ -125,6 +127,9 @@ non terminal delete_s;
 terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE,JOIN;
 
 terminal AS,ON,IN, DISTINCT,NULL;
+
+// Aggregated functions
+terminal COUNT;
 
 // Identifiers and numbers
 terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
@@ -161,6 +166,7 @@ terminal ILLEGAL_CHAR;
 precedence nonassoc error;	// Inserted by Eclipse plugin | | 	_update table_name error
 precedence left  _PLUS,_MINUS,_STAR,_DIVIDE;
 precedence left  _EQU;
+
 
 
 
@@ -221,10 +227,22 @@ select_part		::= 	_select _STAR
 
 _select 		::=		SELECT;
 
-cols			::= 	col _COMMA cols   
-						
-		  	  	  | 	col;
+cols			::= 	col_el _COMMA cols   
+		  	  	  | 	col_el;
+				  	  	  
+col_el 			::= 	aggregates
+				  |     col;
+				  
+aggregates 		::= 	agg_count; // Add aggregate functions here
 
+agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
+				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
+
+count_exp 		::= 	DISTINCT cl
+				  | 	DISTINCT NULL
+				  | 	NULL
+				  | 	cl;
+				  
 col				::= 	cl
 				  | 	cl AS col_ali
 				  | 	NULL 
