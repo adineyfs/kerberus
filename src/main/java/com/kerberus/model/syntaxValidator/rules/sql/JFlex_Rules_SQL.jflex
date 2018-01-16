@@ -74,7 +74,7 @@ under			= [_] 		// Underscore character
 identifier      = ((  {under}({alphanumeric}|{under})+  ) | (  {letter}({alphanumeric}|{under})*  )) 
 integer			= {digit}+
 real			= {digit}+[.]{digit}+
-literalString	= '(\\.|[^\\'])+'
+literalString	= '(\\.|[^\\'])*'
 QTableName		= \"{identifier}\" 
 QColAlias		= \"([^\\\"]|\\.)*\"
 TabDotCol	    = {identifier}\.{identifier}
@@ -101,6 +101,7 @@ whitespace      = {WhiteSpace}
 	"on"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ON, yyline+1, yycolumn+1, yytext()); }
 	"in"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.IN, yyline+1, yycolumn+1, yytext()); }
 	"distinct"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DISTINCT, yyline+1, yycolumn+1, yytext()); }
+	"null"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NULL, yyline+1, yycolumn+1, yytext()); }
 	
 	
 /* Logical conectors */

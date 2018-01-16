@@ -16,7 +16,7 @@ public class Actions {
 	
 	private static final String[] KEYWORDS = new String[] {
 			"select","update","set","delete","from","where","and","or",
-			"join","as","on"
+			"join","as","on","null"
     };
 
     private static final String KEYWORD_PATTERN 	 = "\\b(" + String.join("|", KEYWORDS) + ")\\b";

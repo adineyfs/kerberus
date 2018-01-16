@@ -107,7 +107,7 @@ non terminal element_in, in_list, in_exp, in_array, in_subquery;
 
 non terminal join_part,join_p,join_on,join_cond,join_c;
 
-non terminal w_condition, cond, log_oper,ari_oper, element;
+non terminal w_condition, cond, log_oper,cmp_oper, element;
 
 non terminal update_s,_update,_set, update_part, ari_value;
 
@@ -124,7 +124,7 @@ non terminal delete_s;
 // Reserved words
 terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE,JOIN;
 
-terminal AS,ON,IN, DISTINCT;
+terminal AS,ON,IN, DISTINCT,NULL;
 
 // Identifiers and numbers
 terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
@@ -160,7 +160,7 @@ terminal ILLEGAL_CHAR;
 //Precedences added by Eclipse plugin
 precedence nonassoc error;	// Inserted by Eclipse plugin | | 	_update table_name error
 precedence left  _PLUS,_MINUS,_STAR,_DIVIDE;
-
+precedence left  _EQU;
 
 
 
@@ -226,10 +226,13 @@ cols			::= 	col _COMMA cols
 		  	  	  | 	col;
 
 col				::= 	cl
-				  | 	cl AS col_ali; 
+				  | 	cl AS col_ali
+				  | 	NULL 
+				  | 	NULL AS col_ali; 
 
 cl				::= 	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
-				  |		TABDOTCOL:col1  {: Columns.add(col1 + ""); :};
+				  |		TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
+				  | 	LITERAL_STRING;
 				  
 col_ali			::= 	QTABLENAME:t {: Tables.add(t+""); :}
 				  | 	IDENTIFIER:t {: Tables.add(t+""); :}
@@ -369,7 +372,7 @@ w_condition		::= 	cond log_oper w_condition
 		  	  	  | 	cond
 		  	  	  		{: System.out.println("w_condition ::= cond"); :};
 
-cond 			::= 	element ari_oper element
+cond 			::= 	element cmp_oper element
 				  | 	element_in IN in_list;
 				  
 in_list 		::=  	_OPENPAR in_exp  _CLOSEPAR;
@@ -394,9 +397,10 @@ element    		::= 	IDENTIFIER
 		  	  	  | 	INTEGER
 		  	  	  | 	REAL
 		  	  	  | 	LITERAL_STRING
-		  	  	  | 	TABDOTCOL;
+		  	  	  | 	TABDOTCOL
+		  	  	  | 	NULL;
 
-ari_oper  		::= 	_EQU 
+cmp_oper  		::= 	_EQU 
 		  	  	  | 	_GT 
 		  	  	  | 	_LT 
 		  	  	  | 	_LET 
