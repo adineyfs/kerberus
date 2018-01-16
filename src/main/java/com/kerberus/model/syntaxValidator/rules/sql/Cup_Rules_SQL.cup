@@ -124,7 +124,7 @@ non terminal delete_s;
 // Reserved words
 terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE,JOIN;
 
-terminal AS,ON,IN;
+terminal AS,ON,IN, DISTINCT;
 
 // Identifiers and numbers
 terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
@@ -214,6 +214,7 @@ join_c			::= 	join_on log_oper join_c
 join_on			::= 	element _EQU element;		  
 
 select_part		::= 	_select _STAR
+			  	  | 	_select DISTINCT cols
 			  	  | 	_select cols;
 		  	  	  /*|		SELECT error {: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete SELECT statement");
 				  	  	   		 TableSE.add(errors_found);  :};*/
