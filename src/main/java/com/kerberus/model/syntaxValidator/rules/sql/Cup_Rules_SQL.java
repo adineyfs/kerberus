@@ -463,7 +463,8 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
 
     public void report_fatal_error(String message, Object info) {
         //report_error(message, info);
-		the_error_message.append("\n\n---- Unknown syntax error ლ(ಠ_ಠლ)" + "\n");
+		//the_error_message.append("\n\n---- Unknown syntax error ლ(ಠ_ಠლ)" + "\n");
+		the_error_message.append("\n\n---- Unknown syntax error." + "\n");
     }
 	
 

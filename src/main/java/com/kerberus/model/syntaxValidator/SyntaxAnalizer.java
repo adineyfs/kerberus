@@ -30,7 +30,8 @@ public class SyntaxAnalizer {
 		try {
 			
 			if ( sqlStatement.isEmpty() )
-				return sb.append("No input.\n\nPlease enter a valid SQL statement ಠ_ಠ");
+				//return sb.append("No input.\n\nPlease enter a valid SQL statement ಠ_ಠ");
+				return sb.append("No input.\n\nPlease enter a valid SQL statement.");
 			
 			
 			// This cleans the list of syntax errors (it might have errors from the previous run).			
