@@ -36,25 +36,6 @@ public class Actions {
             + "|(?<STRING>" + STRING_PATTERN + ")"
             + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
     );
-    
-    private static final String sampleCode = String.join("\n", new String[] {
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-        });
 	
 	public Components components;
     public Stage primaryStage;
@@ -81,9 +62,7 @@ public class Actions {
                 .filter(ch -> !ch.getInserted().equals(ch.getRemoved())) // DON'T DO NOTHING
                 .subscribe(change -> {
                 	codeAreaSqlStatement.setStyleSpans(0, computeHighlighting(codeAreaSqlStatement.getText()));
-                });
-		//codeAreaSqlStatement.replaceText(0, 0, sampleCode);
-		
+                });		
 	}
 	
 	private static StyleSpans<Collection<String>> computeHighlighting(String text) {

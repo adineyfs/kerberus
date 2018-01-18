@@ -20,6 +20,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
+		window = primaryStage;
 		primaryStage.setTitle("Kerberus");
 		primaryStage.initStyle(StageStyle.TRANSPARENT);
 		components.scene = new Scene(components.main);
@@ -38,7 +39,7 @@ public class Main extends Application {
 		return scene.getRoot();
 	}
 	
-	public Stage getPrimaryStage() {
+	public static Stage getPrimaryStage() {
         return window;
     }
 

@@ -28,20 +28,20 @@ public class HeaderController {
     
     @FXML
     private void handleBtnClose() {
-        Stage stage = (Stage) btnClose.getScene().getWindow();
+        Stage stage = (Stage) Main.getPrimaryStage();
         stage.close();
     }
     
     @FXML
     private void handleOnMousePressed(MouseEvent event) {
-    	Stage stage = (Stage) mainHeader.getScene().getWindow();
+    	Stage stage = (Stage) Main.getPrimaryStage();
     	xOffset = stage.getX() - event.getScreenX();
         yOffset = stage.getY() - event.getScreenY();
     }
     
     @FXML
     private void handleOnMouseDragged(MouseEvent event) {
-    	Stage stage = (Stage) mainHeader.getScene().getWindow();
+    	Stage stage = (Stage) Main.getPrimaryStage();
     	stage.setX(event.getScreenX() + xOffset);
     	stage.setY(event.getScreenY() + yOffset);
     }
