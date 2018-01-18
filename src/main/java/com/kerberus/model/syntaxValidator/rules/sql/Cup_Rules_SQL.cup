@@ -21,9 +21,13 @@ parser code
 
 	public  Scanner s;
   	public  int errors = 0, line, column;
-  	public 	String the_error;
-	public 	StringBuilder the_error_message;
+  	public 	String the_error = "";
+	public 	StringBuilder the_error_message = new StringBuilder();
 
+
+	public void clean_lists() {
+		TableSE = new LinkedList<TError>();
+	}
 
 	/* This is the error handler */
 	public void report_error(String message, Object info) {
@@ -53,8 +57,8 @@ parser code
 				//the_error = s.value.toString();
                 
                 m.append("--> Unexpected : " + the_error );
-                m.append(" at line: "+(s.left));   
-                m.append(", column: "+(s.right));
+                m.append(" at line: "+(s.left));  
+                m.append(", column: "+(s.right)); 
 
 				the_error_message = m;
             }
@@ -73,7 +77,8 @@ parser code
 
     public void report_fatal_error(String message, Object info) {
         //report_error(message, info);
-		the_error_message.append("\n\n---- Unknown syntax error" + "\n");
+		//the_error_message.append("\n\n---- Unknown syntax error ლ(ಠ_ಠლ)" + "\n");
+		the_error_message.append("\n\n---- Unknown syntax error." + "\n");
     }
 	
 :};
@@ -93,19 +98,23 @@ action code
 
 non terminal _select, _from, _where, table_name,table_name_mult,tab,tab_ali;
 
-non terminal statement_group, statement;
+non terminal statement_group, statement,_semicolon;
 
-non terminal select_s, select_part;
+non terminal select_s, select_part,select_part_sub;
+
+non terminal col_el,aggregates,agg_count,count_exp;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
-non terminal element_in, col_list, list;
+non terminal element_in, in_list, in_exp, in_array, in_subquery;
 
 non terminal join_part,join_p,join_on,join_cond,join_c;
 
-non terminal w_condition, cond, log_oper,ari_oper, element;
+non terminal w_condition, cond, log_oper,cmp_oper, element;
 
-non terminal update_s, update_part, set_cols,value;
+non terminal update_s,_update,_set, update_part, ari_value;
+
+non terminal set_exp_list, set_exp,ari_exp,par_exp,exp,_ari_opr,_asig_opr;  // elements for a small calculator
 
 non terminal delete_s;
 
@@ -118,7 +127,10 @@ non terminal delete_s;
 // Reserved words
 terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE,JOIN;
 
-terminal AS,ON,IN;
+terminal AS,ON,IN, DISTINCT,NULL;
+
+// Aggregated functions
+terminal COUNT;
 
 // Identifiers and numbers
 terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
@@ -126,9 +138,13 @@ terminal QTABLENAME, TABDOTCOL,QCOLALIAS; // Quoted table-names, table.column, Q
 
 // Operators 
 terminal _EQU, _GT, _LT, _LET, _GET, _DIFF;
+terminal _PLUS, _MINUS, _DIVIDE; 
 
-// Logial
+// Logical
 terminal _AND,_OR;
+
+// Special assignment operators -   += | -= | *= | /= | %= | &= | ^= | |=
+terminal _PLUSEQ,_MINUSEQ,_TIMESEQ,_DIVIDEEQ,_MODEQ,_ANDEQ,_POWEQ,_OREQ;
 
 /* Grouping operators */
 terminal _OPENPAR,_CLOSEPAR;
@@ -144,44 +160,55 @@ terminal /*_SEMCOL1,*/_SEMCOL2;
 // Lexical error
 terminal ILLEGAL_CHAR;
 
+/* -------------Precedence and Associatively of Terminals Section----------- */
+/* Enter precedence declarations here*/
+
+//Precedences added by Eclipse plugin
+precedence nonassoc error;	// Inserted by Eclipse plugin | | 	_update table_name error
+precedence left  _PLUS,_MINUS,_STAR,_DIVIDE;
+precedence left  _EQU;
+
+
+
 
 // ------- Define which is the first production
-// --------------------------------------------
+start with statement_group ;
 
-start with statement_group;
-
-// --------------------------------------------
 
 
 /*---------------------- 3rd Part: Semantic Rules --------------------------------------------*/
 
-statement_group ::=		statement_group statement _SEMCOL2
-			  	  | 	statement _SEMCOL2
-			  	  | 	statement error 
-			  	  		{: TError errors_found = new TError("",0,0,"Syntax Error","Missing semicolon (;)");
-				  	  	   TableSE.add(errors_found);  :}
-				  | 	error _SEMCOL2 
-				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Missing semicolon (;)");
-				  	  	   TableSE.add(errors_found);  :}
-			  	  | 	error
-			  	  		{: TError errors_found = new TError("",0,0,"Syntax Error","Missing semicolon (;)");
-				  	  	   TableSE.add(errors_found);  :};
+statement_group ::=		statement_group statement
+						{: System.out.println("statement_group ::= statement_group statement"); :}
+			  	  | 	statement
+			  	  		{: System.out.println("statement_group ::= statement"); :};
 
 statement 		::= 	select_s   
+						{: System.out.println("statement ::= select_s"); :}
 				  |  	delete_s
-				  | 	update_s; 
+				  		{: System.out.println("statement ::= delete_s"); :}
+				  | 	update_s
+				  		{: System.out.println("statement ::= update_s"); :};
 				  //| 	insert_s    // ---- TO-DO ----
 
+_semicolon 		::= 	_SEMCOL2
+						{: System.out.println("_semicolon ::= _SEMICOL2"); :};
 
 /* SELECT */
 
-select_s		::=		select_part from_part
-				  |		select_part from_part where_part
-				  |		select_part from_part join_part
-				  |		select_part from_part join_part where_part;
+select_s		::=		select_part from_part _semicolon
+						{: System.out.println("select_s ::= select_part from_part"); :}
+				  |		select_part from_part where_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part where_part"); :}
+				  |		select_part from_part join_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part join_part"); :}
+				  |		select_part from_part join_part where_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part join_part where_part"); :};
 				  
 join_part		::= 	join_p join_part
-				  | 	join_p;		
+						{: System.out.println("join_part ::= join_p join_part"); :}
+				  | 	join_p
+				  		{: System.out.println("join_part ::= join_p"); :};		
 
 join_p			::= 	JOIN table_name join_cond;
 
@@ -194,50 +221,128 @@ join_c			::= 	join_on log_oper join_c
 join_on			::= 	element _EQU element;		  
 
 select_part		::= 	_select _STAR
+			  	  | 	_select DISTINCT cols
 			  	  | 	_select cols;
 		  	  	  /*|		SELECT error {: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete SELECT statement");
 				  	  	   		 TableSE.add(errors_found);  :};*/
 
 _select 		::=		SELECT;
 
-cols			::= 	col _COMMA cols   
-		  	  	  | 	col;
+cols			::= 	col_el _COMMA cols   
+		  	  	  | 	col_el;
+				  	  	  
+col_el 			::= 	aggregates
+				  |     col;
+				  
+aggregates 		::= 	agg_count; // Add aggregate functions here
 
+agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
+				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
+
+count_exp 		::= 	DISTINCT cl
+				  | 	DISTINCT NULL
+				  | 	NULL
+				  | 	cl;
+				  
 col				::= 	cl
-				  | 	cl AS col_ali; 
+				  | 	cl AS col_ali
+				  | 	NULL 
+				  | 	NULL AS col_ali; 
 
 cl				::= 	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
-				  |		TABDOTCOL:col1  {: Columns.add(col1 + ""); :};
+				  |		TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
+				  | 	LITERAL_STRING;
 				  
-col_ali			::= 	QTABLENAME 
-				  | 	IDENTIFIER
-				  | 	QCOLALIAS;				
+col_ali			::= 	QTABLENAME:t {: Tables.add(t+""); :}
+				  | 	IDENTIFIER:t {: Tables.add(t+""); :}
+				  | 	QCOLALIAS:t {: Tables.add(t+""); :};				
 
 
 
 /* UPDATE */
 
-update_s		::= 	update_part SET set_cols where_part
-				  | 	update_part error {: TError errors_found = new TError("",0,0,"Syntax Error","Syntax error in update statement");
-				  	  			 			 TableSE.add(errors_found); :};
+update_s		::= 	update_part _set set_exp_list where_part _semicolon
+				  		{: System.out.println("update_s	::= update_part _set set_cols where_part _semicolon"); :}
+				  |  	update_part _set set_exp_list where_part error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE section. Missing semicolon (;).");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part _set set_cols where_part errorerror.\nMissing semicolon on UPDATE."); :}
+				  |  	update_part _set set_exp_list  error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","UPDATE error after set of columns.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part _set set_cols error"); :}
+				  /*|  	update_part _set error
+				  		{: System.out.println("update_s	::= update_part _set error"); :}*/
+				  |  	update_part error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete UPDATE.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part error"); :}
+				  |     _update error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= _update error"); :}
+				  /*| 	_update error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid statement.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("Invalid UPDATE part. Check UPDATE."); :}*/;
 
-update_part		::= 	UPDATE table_name;
+_set 			::= 	SET
+						{: System.out.println("_set ::= SET"); :};
 
-set_cols		::= 	col _EQU value _COMMA set_cols 
-		  	  	  | 	col _EQU value;
+update_part		::= 	_update table_name
+						{: System.out.println("update_part ::= _update table_name"); :}
+				  | 	error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE.");
+				  	  	   TableSE.add(errors_found); 
+						   System.out.println("update_part ::= _update table_name"); :};
 
+_update 		::= 	UPDATE
+						{: System.out.println("_update ::= UPDATE"); :};
 
-value 			::= 	INTEGER
+set_exp_list	::= 	set_exp _COMMA set_exp_list 
+						{: System.out.println("set_exp_list	::= set_exp _COMMA set_exp_list "); :}
+		  	  	  | 	set_exp
+		  	  	  		{: System.out.println("set_exp_list	::= set_exp "); :}
+		  	  	  | 	error
+		  	  	  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid set of columns in UPDATE");
+				  	  	   TableSE.add(errors_found); 
+						   System.out.println("set_cols	::=	error"); :}
+		  	  	  ;
+
+set_exp 		::= 	col _asig_opr ari_exp
+				  | 	col _EQU LITERAL_STRING
+				  		{: System.out.println("set_exp ::= col _EQU LITERAL_STRING"); :};
+
+ari_exp     	::=     par_exp
+              	  |     exp 
+              	  |     ari_value;
+              	  
+ari_value 		::=		col
+				  		{: System.out.println("value ::= col"); :}
+				  | 	INTEGER
+						{: System.out.println("value ::= INTEGER"); :}
 				  | 	REAL
-				  | 	LITERAL_STRING
-				  | 	col;
+				  		{: System.out.println("value ::= value"); :};              	  
+ 
+par_exp 		::= 	_OPENPAR ari_exp _CLOSEPAR;
+
+exp 			::= 	ari_exp _ari_opr ari_exp; 
+ 
+_ari_opr        ::=     _PLUS 
+              	  |     _MINUS 
+                  |     _STAR 
+              	  |     _DIVIDE;
+
+_asig_opr 		::= 	_EQU|_PLUSEQ|_MINUSEQ|_TIMESEQ|_DIVIDEEQ|_MODEQ|_ANDEQ|_POWEQ|_OREQ;
+ 
 
 
 /* DELETE */
 
-delete_s		::= 	DELETE FROM table_name where_part
-				  | 	DELETE error {: TError errors_found = new TError("",0,0,"Syntax Error","Syntax error in delete statement");
-				  	  			 					TableSE.add(errors_found); :};
+delete_s		::= 	DELETE FROM table_name where_part _semicolon
+				  | 	DELETE error {: TError errors_found = new TError("",0,0,"Syntax Error","Invalid DELETE statement.");
+				  	  			 		TableSE.add(errors_found);
+										System.out.println("value ::= LITERAL_STRING"); :};
 
 
 
@@ -256,32 +361,52 @@ _from			::= 	FROM;
 
 /* TABLE NAMES */
 
-table_name		::= 	tab 
-				  | 	tab tab_ali;
+table_name		::= 	tab
+				  		{: System.out.println("table_name ::= tab"); :}
+				  | 	tab_ali 
+						{: System.out.println("table_name ::= tab_ali"); :};
+
+tab				::= 	IDENTIFIER:id 
+						{: Tables.add(id+"");
+						   System.out.println("tab ::= IDENTIFIER"); :};
 				  
-tab_ali 		::= 	IDENTIFIER
-				  | 	QTABLENAME;
-				  
-tab				::= 	IDENTIFIER:id {: Tables.add(id+""); :};
-
-
-
+tab_ali 		::= 	IDENTIFIER:id1 IDENTIFIER:id2
+						{: System.out.println("tab_ali ::= IDENTIFIER IDENTIFIER");	
+						   Tables.add(id1+" "+id2); :}
+				  | 	IDENTIFIER:id1 QTABLENAME:id2
+				  		{: System.out.println("tab_ali ::= IDENTIFIER QTABLENAME"); 
+						   Tables.add(id1+" "+id2); :};
+		
 
 /* WHERE */
 
-where_part		::= 	_where w_condition;  
+where_part		::= 	_where w_condition
+						{: System.out.println("where_part ::= _where w_condition"); :};  
 
-_where			::=		WHERE;
+_where			::=		WHERE
+						{: System.out.println("_where ::= WHERE"); :};
 
 w_condition		::= 	cond log_oper w_condition
-		  	  	  | 	cond;
+						{: System.out.println("w_condition ::= cond log_oper w_condition"); :}
+		  	  	  | 	cond
+		  	  	  		{: System.out.println("w_condition ::= cond"); :};
 
-cond 			::= 	element ari_oper element
-				  | 	element_in IN col_list;
+cond 			::= 	element cmp_oper element
+				  | 	element_in IN in_list;
 				  
-col_list 		::=  	_OPENPAR list  _CLOSEPAR;
+in_list 		::=  	_OPENPAR in_exp  _CLOSEPAR;
 
-list 			::=  	element _COMMA list
+in_exp 			::= 	in_array
+				  | 	in_subquery; 	
+				  
+in_subquery 	::= 	select_part_sub from_part
+				  |		select_part_sub from_part where_part
+				  |		select_part_sub from_part join_part
+				  |		select_part_sub from_part join_part where_part;
+				
+select_part_sub ::= 	_select col; 				  
+
+in_array 		::=  	element _COMMA in_array
 				  | 	element;
 
 element_in 		::=  	IDENTIFIER
@@ -291,9 +416,10 @@ element    		::= 	IDENTIFIER
 		  	  	  | 	INTEGER
 		  	  	  | 	REAL
 		  	  	  | 	LITERAL_STRING
-		  	  	  | 	TABDOTCOL;
+		  	  	  | 	TABDOTCOL
+		  	  	  | 	NULL;
 
-ari_oper  		::= 	_EQU 
+cmp_oper  		::= 	_EQU 
 		  	  	  | 	_GT 
 		  	  	  | 	_LT 
 		  	  	  | 	_LET 
@@ -302,3 +428,15 @@ ari_oper  		::= 	_EQU
 
 log_oper    	::= 	_AND 
 			  	  | 	_OR;
+
+// ~~ CUP-ECLIPSE:CONFLICT-RES-RR ~~ 
+ // After this the order of productions matters
+/*
+//Separated and moved by CUP Eclipse plugin
+statement_group ::=  	error 
+				  		{: System.out.println(".\nSyntax does not match any correct statement.\n\n\t( •_•)\n\n\t(•_• )\n\nTrying to break Kerberus?"); :};
+
+//Separated and moved by CUP Eclipse plugin
+update_s 		::=   	error
+				  		{: System.out.println("Invalid update_statement."); :};
+*/
