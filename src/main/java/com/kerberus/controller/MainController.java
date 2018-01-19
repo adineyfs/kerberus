@@ -53,7 +53,8 @@ public class MainController {
     		*/
 		//}
     	this.writeFile(sb);
-    	codeAreaSqlValidationReturn.replaceText(0, codeAreaSqlValidationReturn.getLength(), sb.toString());
+    	codeAreaSqlValidationReturn.clear();
+    	codeAreaSqlValidationReturn.replaceText(sb.toString());
     }
 	
 	
@@ -78,7 +79,8 @@ public class MainController {
 	
 	private void writeFile(StringBuilder sb) {
 		try {
-			LogFileUtil logFile = new LogFileUtil();
+			LogFileUtil logFile = LogFileUtil.getInstance();
+			logFile.CreateLogFile();
 			logFile.writeLine(sb.toString());
 			logFile.close();
 		} catch (Exception e) {
