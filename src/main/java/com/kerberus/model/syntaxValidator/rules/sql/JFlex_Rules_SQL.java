@@ -41,14 +41,14 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
    */
   private static final String ZZ_CMAP_PACKED = 
     "\11\0\1\6\1\2\1\15\1\16\1\1\22\0\1\6\1\0\1\17"+
-    "\2\0\1\50\1\51\1\13\1\54\1\55\1\4\1\47\1\57\1\5"+
-    "\1\12\1\3\12\10\1\0\1\56\1\46\1\44\1\45\2\0\1\31"+
-    "\1\7\1\24\1\30\1\22\1\32\1\7\1\37\1\42\1\40\1\7"+
+    "\2\0\1\51\1\52\1\13\1\55\1\56\1\4\1\50\1\60\1\5"+
+    "\1\12\1\3\12\10\1\0\1\57\1\47\1\45\1\46\2\0\1\31"+
+    "\1\7\1\24\1\30\1\22\1\32\1\44\1\37\1\42\1\40\1\7"+
     "\1\23\1\35\1\43\1\34\1\27\1\7\1\33\1\21\1\25\1\26"+
-    "\1\7\1\36\3\7\1\0\1\14\1\0\1\52\1\11\1\0\1\31"+
-    "\1\7\1\24\1\30\1\22\1\32\1\7\1\37\1\42\1\40\1\7"+
+    "\1\7\1\36\3\7\1\0\1\14\1\0\1\53\1\11\1\0\1\31"+
+    "\1\7\1\24\1\30\1\22\1\32\1\44\1\37\1\42\1\40\1\7"+
     "\1\23\1\35\1\43\1\34\1\27\1\7\1\33\1\21\1\25\1\26"+
-    "\1\7\1\36\3\7\1\0\1\53\10\0\1\15\252\0\2\41\115\0"+
+    "\1\7\1\36\3\7\1\0\1\54\10\0\1\15\252\0\2\41\115\0"+
     "\1\20\u1ea8\0\1\15\1\15\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
@@ -63,20 +63,22 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7"+
-    "\4\1\11\6\1\1\2\6\1\10\1\11\1\12\1\13"+
+    "\4\1\13\6\1\1\2\6\1\10\1\11\1\12\1\13"+
     "\3\1\1\2\1\14\1\15\1\16\1\17\1\0\1\20"+
     "\1\21\1\22\1\23\3\0\1\24\5\0\1\25\1\0"+
-    "\4\6\1\0\1\6\2\26\2\6\1\27\1\30\2\6"+
-    "\2\31\1\6\1\32\1\33\1\34\1\35\1\36\1\37"+
-    "\1\40\1\41\2\0\2\22\1\42\1\0\1\43\1\44"+
-    "\1\0\1\45\1\6\1\45\3\6\1\0\1\6\1\46"+
-    "\2\6\1\0\2\6\1\0\1\22\1\0\4\6\1\0"+
-    "\1\6\1\47\1\6\2\50\1\51\1\0\1\6\1\52"+
-    "\2\6\1\0\1\6\1\53\2\54\1\55\1\56\1\0"+
-    "\1\6\1\0\1\6\2\57";
+    "\5\6\1\0\1\6\2\26\3\6\1\0\2\6\1\27"+
+    "\1\30\2\6\2\31\2\6\1\32\1\33\1\34\1\35"+
+    "\1\36\1\37\1\40\1\41\2\0\2\22\1\42\1\0"+
+    "\1\43\1\44\1\0\1\45\1\6\1\45\4\6\1\0"+
+    "\1\6\1\46\2\6\1\0\3\6\1\0\1\6\1\0"+
+    "\3\6\1\0\1\22\1\0\1\6\1\47\3\6\1\0"+
+    "\1\6\1\50\1\51\1\0\3\6\2\52\1\0\1\6"+
+    "\1\53\1\6\1\0\1\6\1\54\2\6\1\0\1\6"+
+    "\2\55\1\56\1\57\2\60\1\6\2\61\1\62\1\63"+
+    "\1\0\2\6\1\0\1\6\1\64\2\65";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[132];
+    int [] result = new int[164];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -101,26 +103,30 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\60\0\60\0\140\0\220\0\300\0\360\0\u0120"+
-    "\0\u0150\0\u0180\0\u01b0\0\u01e0\0\u0210\0\u0240\0\u0270\0\u02a0"+
-    "\0\u02d0\0\u0300\0\u0330\0\u0360\0\u0390\0\u03c0\0\u03f0\0\u0420"+
-    "\0\60\0\u0450\0\u0480\0\u04b0\0\u04e0\0\u0510\0\u0540\0\u0570"+
-    "\0\60\0\60\0\60\0\60\0\u05a0\0\60\0\60\0\u05d0"+
-    "\0\60\0\u0600\0\u0630\0\u0180\0\60\0\u0660\0\u0690\0\u06c0"+
-    "\0\u06f0\0\u0720\0\60\0\u0750\0\u0780\0\u07b0\0\u07e0\0\u0810"+
-    "\0\u0840\0\u0870\0\60\0\360\0\u08a0\0\u08d0\0\360\0\360"+
-    "\0\u0900\0\u0930\0\60\0\360\0\u0960\0\60\0\60\0\60"+
-    "\0\60\0\60\0\60\0\60\0\60\0\u0990\0\u09c0\0\u09f0"+
-    "\0\60\0\u0a20\0\u0a20\0\u0630\0\60\0\u0a50\0\60\0\u0a80"+
-    "\0\360\0\u0ab0\0\u0ae0\0\u0b10\0\u0b40\0\u0b70\0\360\0\u0ba0"+
-    "\0\u0bd0\0\u0c00\0\u0c30\0\u0c60\0\u0c90\0\u0990\0\u0cc0\0\u0cf0"+
-    "\0\u0d20\0\u0d50\0\u0d80\0\u0db0\0\u0de0\0\360\0\u0e10\0\60"+
-    "\0\360\0\360\0\u0e40\0\u0e70\0\360\0\u0ea0\0\u0ed0\0\u0f00"+
-    "\0\u0f30\0\360\0\60\0\360\0\360\0\360\0\u0f60\0\u0f90"+
-    "\0\u0fc0\0\u0ff0\0\60\0\360";
+    "\0\0\0\61\0\61\0\142\0\223\0\304\0\365\0\u0126"+
+    "\0\u0157\0\u0188\0\u01b9\0\u01ea\0\u021b\0\u024c\0\u027d\0\u02ae"+
+    "\0\u02df\0\u0310\0\u0341\0\u0372\0\u03a3\0\u03d4\0\u0405\0\u0436"+
+    "\0\u0467\0\u0498\0\61\0\u04c9\0\u04fa\0\u052b\0\u055c\0\u058d"+
+    "\0\u05be\0\u05ef\0\61\0\61\0\61\0\61\0\u0620\0\61"+
+    "\0\61\0\u0651\0\61\0\u0682\0\u06b3\0\u0188\0\61\0\u06e4"+
+    "\0\u0715\0\u0746\0\u0777\0\u07a8\0\61\0\u07d9\0\u080a\0\u083b"+
+    "\0\u086c\0\u089d\0\u08ce\0\u08ff\0\u0930\0\61\0\365\0\u0961"+
+    "\0\u0992\0\u09c3\0\u09f4\0\u0a25\0\u0a56\0\365\0\365\0\u0a87"+
+    "\0\u0ab8\0\u0ae9\0\u0b1a\0\u0b4b\0\u0b7c\0\61\0\61\0\61"+
+    "\0\61\0\61\0\61\0\61\0\61\0\u0bad\0\u0bde\0\u0c0f"+
+    "\0\61\0\u0c40\0\u0c40\0\u06b3\0\61\0\u0c71\0\61\0\u0ca2"+
+    "\0\365\0\u0cd3\0\u0d04\0\u0d35\0\u0d66\0\u0d97\0\u0dc8\0\365"+
+    "\0\u0df9\0\u0e2a\0\u0e5b\0\u0e8c\0\u0ebd\0\u0eee\0\u0f1f\0\u0f50"+
+    "\0\u0f81\0\u0fb2\0\u0fe3\0\u1014\0\u1045\0\u0bad\0\u1076\0\u10a7"+
+    "\0\365\0\u10d8\0\u1109\0\u113a\0\u116b\0\u119c\0\365\0\365"+
+    "\0\u11cd\0\u11fe\0\u122f\0\u1260\0\61\0\365\0\u1291\0\u12c2"+
+    "\0\365\0\u12f3\0\u1324\0\u1355\0\365\0\u1386\0\u13b7\0\u13e8"+
+    "\0\u1419\0\61\0\365\0\365\0\365\0\61\0\365\0\u144a"+
+    "\0\61\0\365\0\365\0\365\0\u147b\0\u14ac\0\u14dd\0\u150e"+
+    "\0\u153f\0\365\0\61\0\365";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[132];
+    int [] result = new int[164];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -145,80 +151,106 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\2\2\3\1\4\1\5\1\6\1\3\1\7\1\10"+
     "\1\11\1\2\1\12\2\2\1\3\1\13\1\14\1\15"+
-    "\2\7\1\16\1\7\1\17\1\7\1\20\1\21\1\22"+
-    "\1\7\1\23\1\7\1\24\1\7\1\25\1\26\1\27"+
-    "\1\30\1\31\1\32\1\33\1\34\1\35\1\36\1\37"+
-    "\1\40\1\41\1\42\1\43\1\44\64\0\1\45\37\0"+
-    "\1\46\57\0\1\47\20\0\1\50\36\0\1\51\22\0"+
-    "\3\7\1\52\6\0\20\7\1\0\2\7\24\0\1\10"+
-    "\1\0\1\53\54\0\3\7\7\0\20\7\1\0\2\7"+
-    "\14\0\13\54\1\55\1\56\43\54\7\57\1\60\1\57"+
-    "\1\61\2\57\1\62\2\57\1\63\1\57\20\60\1\57"+
-    "\2\60\14\57\22\0\1\64\44\0\3\7\1\52\6\0"+
-    "\1\7\1\65\16\7\1\0\2\7\23\0\3\7\1\52"+
-    "\6\0\13\7\1\66\4\7\1\0\2\7\23\0\3\7"+
-    "\1\52\6\0\6\7\1\67\11\7\1\0\2\7\23\0"+
-    "\3\7\1\52\6\0\1\7\1\70\16\7\1\71\1\72"+
-    "\1\7\23\0\3\7\1\52\5\0\1\73\1\74\17\7"+
-    "\1\0\1\7\1\75\23\0\3\7\1\52\6\0\12\7"+
-    "\1\76\5\7\1\0\2\7\23\0\3\7\1\52\6\0"+
-    "\12\7\1\77\5\7\1\0\1\7\1\100\23\0\3\7"+
-    "\1\52\6\0\16\7\1\101\1\7\1\0\2\7\23\0"+
-    "\3\7\1\52\6\0\13\7\1\102\4\7\1\0\2\7"+
-    "\57\0\1\103\23\0\3\7\1\52\6\0\20\7\1\0"+
-    "\1\7\1\104\23\0\3\7\1\52\6\0\5\7\1\105"+
-    "\12\7\1\0\2\7\60\0\1\106\57\0\1\107\1\110"+
-    "\56\0\1\111\57\0\1\112\57\0\1\113\57\0\1\114"+
-    "\57\0\1\115\13\0\4\116\1\117\53\116\1\50\1\120"+
-    "\1\121\55\50\7\0\1\122\1\0\1\123\7\0\20\122"+
-    "\1\0\2\122\24\0\1\124\47\0\1\54\2\0\12\54"+
-    "\2\0\41\54\14\57\1\62\2\57\1\63\47\57\3\60"+
-    "\2\57\1\62\2\57\1\125\1\57\20\60\1\57\2\60"+
-    "\23\57\3\60\2\57\1\62\2\57\1\63\1\57\20\60"+
-    "\1\57\2\60\15\57\2\0\12\57\2\0\41\57\23\0"+
-    "\1\126\1\0\1\127\41\0\3\7\1\52\6\0\2\7"+
-    "\1\130\1\7\1\131\13\7\1\0\2\7\23\0\3\7"+
-    "\1\52\6\0\5\7\1\132\12\7\1\0\2\7\23\0"+
-    "\3\7\1\52\6\0\7\7\1\133\10\7\1\0\2\7"+
-    "\23\0\3\7\1\52\6\0\2\7\1\134\15\7\1\0"+
-    "\2\7\34\0\2\135\45\0\3\7\1\52\5\0\1\135"+
-    "\1\136\17\7\1\0\2\7\23\0\3\7\1\52\6\0"+
-    "\7\7\1\137\10\7\1\0\2\7\23\0\3\7\1\52"+
-    "\6\0\13\7\1\140\4\7\1\0\2\7\23\0\3\7"+
-    "\1\52\6\0\1\7\1\141\16\7\1\0\2\7\23\0"+
-    "\3\7\1\52\6\0\20\7\1\142\1\143\1\7\23\0"+
-    "\3\7\1\52\6\0\2\7\1\144\15\7\1\0\2\7"+
-    "\14\0\4\116\1\145\56\116\1\146\1\145\53\116\2\0"+
-    "\1\121\64\0\3\122\7\0\20\122\1\0\2\122\36\0"+
-    "\1\147\44\0\3\7\1\52\6\0\1\7\1\150\16\7"+
-    "\1\0\2\7\23\0\3\7\1\52\6\0\20\7\1\0"+
-    "\1\7\1\151\23\0\3\7\1\52\6\0\10\7\1\152"+
-    "\7\7\1\0\2\7\23\0\3\7\1\52\6\0\1\7"+
-    "\1\153\16\7\1\0\2\7\41\0\1\154\41\0\3\7"+
-    "\1\52\6\0\4\7\1\155\13\7\1\0\2\7\23\0"+
-    "\3\7\1\52\6\0\14\7\1\156\3\7\1\0\2\7"+
-    "\23\0\3\7\1\52\6\0\12\7\1\157\5\7\1\0"+
-    "\2\7\57\0\1\160\23\0\3\7\1\52\6\0\20\7"+
-    "\1\0\1\7\1\161\23\0\3\7\1\52\6\0\2\7"+
-    "\1\162\15\7\1\0\2\7\14\0\3\116\1\121\1\145"+
-    "\53\116\24\0\1\163\42\0\3\7\1\52\6\0\3\7"+
-    "\1\164\14\7\1\0\2\7\23\0\3\7\1\52\6\0"+
-    "\4\7\1\165\13\7\1\0\2\7\23\0\3\7\1\52"+
-    "\6\0\4\7\1\166\13\7\1\0\2\7\23\0\3\7"+
-    "\1\52\6\0\4\7\1\167\13\7\1\0\2\7\55\0"+
-    "\2\170\24\0\3\7\1\52\6\0\20\7\1\170\1\171"+
-    "\1\7\23\0\3\7\1\52\6\0\1\7\1\172\16\7"+
-    "\1\0\2\7\41\0\1\173\41\0\3\7\1\52\6\0"+
-    "\4\7\1\174\13\7\1\0\2\7\23\0\3\7\1\52"+
-    "\6\0\1\7\1\175\16\7\1\0\2\7\23\0\3\7"+
-    "\1\52\6\0\1\7\1\176\16\7\1\0\2\7\57\0"+
-    "\1\177\23\0\3\7\1\52\6\0\20\7\1\0\1\7"+
-    "\1\200\40\0\1\201\42\0\3\7\1\52\6\0\3\7"+
-    "\1\202\14\7\1\0\2\7\41\0\1\203\41\0\3\7"+
-    "\1\52\6\0\4\7\1\204\13\7\1\0\2\7\14\0";
+    "\1\7\1\16\1\17\1\7\1\20\1\7\1\21\1\22"+
+    "\1\23\1\24\1\25\1\7\1\26\1\7\1\27\1\30"+
+    "\1\31\1\32\1\7\1\33\1\34\1\35\1\36\1\37"+
+    "\1\40\1\41\1\42\1\43\1\44\1\45\1\46\65\0"+
+    "\1\47\40\0\1\50\60\0\1\51\20\0\1\52\37\0"+
+    "\1\53\22\0\3\7\1\54\6\0\20\7\1\0\3\7"+
+    "\24\0\1\10\1\0\1\55\55\0\3\7\7\0\20\7"+
+    "\1\0\3\7\14\0\13\56\1\57\1\60\44\56\7\61"+
+    "\1\62\1\61\1\63\2\61\1\64\2\61\1\65\1\61"+
+    "\20\62\1\61\3\62\14\61\22\0\1\66\45\0\3\7"+
+    "\1\54\6\0\1\7\1\67\16\7\1\0\3\7\23\0"+
+    "\3\7\1\54\6\0\1\7\1\70\16\7\1\0\3\7"+
+    "\23\0\3\7\1\54\6\0\13\7\1\71\4\7\1\0"+
+    "\3\7\23\0\3\7\1\54\6\0\6\7\1\72\11\7"+
+    "\1\0\3\7\23\0\3\7\1\54\6\0\1\7\1\73"+
+    "\16\7\1\74\1\75\2\7\23\0\3\7\1\54\5\0"+
+    "\1\76\1\77\17\7\1\0\1\7\1\100\1\7\23\0"+
+    "\3\7\1\54\6\0\5\7\1\101\4\7\1\102\5\7"+
+    "\1\0\3\7\23\0\3\7\1\54\6\0\20\7\1\103"+
+    "\1\104\2\7\23\0\3\7\1\54\6\0\5\7\1\105"+
+    "\4\7\1\106\5\7\1\0\1\7\1\107\1\7\23\0"+
+    "\3\7\1\54\6\0\16\7\1\110\1\7\1\0\3\7"+
+    "\23\0\3\7\1\54\6\0\13\7\1\111\4\7\1\0"+
+    "\3\7\57\0\1\112\24\0\3\7\1\54\6\0\20\7"+
+    "\1\0\1\7\1\113\1\7\23\0\3\7\1\54\6\0"+
+    "\5\7\1\114\2\7\1\115\7\7\1\0\3\7\61\0"+
+    "\1\116\60\0\1\117\1\120\57\0\1\121\60\0\1\122"+
+    "\60\0\1\123\60\0\1\124\60\0\1\125\13\0\4\126"+
+    "\1\127\54\126\1\52\1\130\1\131\56\52\7\0\1\132"+
+    "\1\0\1\133\7\0\20\132\1\0\3\132\24\0\1\134"+
+    "\50\0\1\56\2\0\12\56\2\0\42\56\14\61\1\64"+
+    "\2\61\1\65\50\61\3\62\2\61\1\64\2\61\1\135"+
+    "\1\61\20\62\1\61\3\62\23\61\3\62\2\61\1\64"+
+    "\2\61\1\65\1\61\20\62\1\61\3\62\15\61\2\0"+
+    "\12\61\2\0\42\61\23\0\1\136\1\0\1\137\42\0"+
+    "\3\7\1\54\6\0\2\7\1\140\1\7\1\141\13\7"+
+    "\1\0\3\7\23\0\3\7\1\54\6\0\11\7\1\142"+
+    "\6\7\1\0\3\7\23\0\3\7\1\54\6\0\5\7"+
+    "\1\143\12\7\1\0\3\7\23\0\3\7\1\54\6\0"+
+    "\7\7\1\144\10\7\1\0\3\7\23\0\3\7\1\54"+
+    "\6\0\2\7\1\145\15\7\1\0\3\7\34\0\2\146"+
+    "\46\0\3\7\1\54\5\0\1\146\1\147\17\7\1\0"+
+    "\3\7\23\0\3\7\1\54\6\0\7\7\1\150\10\7"+
+    "\1\0\3\7\23\0\3\7\1\54\6\0\2\7\1\151"+
+    "\15\7\1\0\3\7\23\0\3\7\1\54\6\0\13\7"+
+    "\1\152\4\7\1\0\3\7\60\0\1\153\23\0\3\7"+
+    "\1\54\6\0\20\7\1\0\2\7\1\154\23\0\3\7"+
+    "\1\54\6\0\4\7\1\155\13\7\1\0\3\7\23\0"+
+    "\3\7\1\54\6\0\1\7\1\156\16\7\1\0\3\7"+
+    "\23\0\3\7\1\54\6\0\20\7\1\157\1\160\2\7"+
+    "\57\0\1\161\24\0\3\7\1\54\6\0\20\7\1\0"+
+    "\1\7\1\162\1\7\23\0\3\7\1\54\6\0\2\7"+
+    "\1\163\15\7\1\0\3\7\23\0\3\7\1\54\6\0"+
+    "\4\7\1\164\13\7\1\0\3\7\14\0\4\126\1\165"+
+    "\57\126\1\166\1\165\54\126\2\0\1\131\65\0\3\132"+
+    "\7\0\20\132\1\0\3\132\36\0\1\167\45\0\3\7"+
+    "\1\54\6\0\1\7\1\170\16\7\1\0\3\7\23\0"+
+    "\3\7\1\54\6\0\4\7\1\171\13\7\1\0\3\7"+
+    "\23\0\3\7\1\54\6\0\20\7\1\0\1\7\1\172"+
+    "\1\7\23\0\3\7\1\54\6\0\10\7\1\173\7\7"+
+    "\1\0\3\7\23\0\3\7\1\54\6\0\1\7\1\174"+
+    "\16\7\1\0\3\7\41\0\1\175\42\0\3\7\1\54"+
+    "\6\0\4\7\1\176\13\7\1\0\3\7\23\0\3\7"+
+    "\1\54\6\0\2\7\1\177\15\7\1\0\3\7\23\0"+
+    "\3\7\1\54\6\0\14\7\1\200\3\7\1\0\3\7"+
+    "\53\0\1\201\30\0\3\7\1\54\6\0\16\7\1\202"+
+    "\1\7\1\0\3\7\23\0\3\7\1\54\6\0\1\7"+
+    "\1\203\16\7\1\0\3\7\23\0\3\7\1\54\6\0"+
+    "\12\7\1\204\5\7\1\0\3\7\57\0\1\205\24\0"+
+    "\3\7\1\54\6\0\20\7\1\0\1\7\1\206\1\7"+
+    "\36\0\1\207\45\0\3\7\1\54\6\0\1\7\1\210"+
+    "\16\7\1\0\3\7\23\0\3\7\1\54\6\0\2\7"+
+    "\1\211\15\7\1\0\3\7\23\0\3\7\1\54\6\0"+
+    "\5\7\1\212\12\7\1\0\3\7\14\0\3\126\1\131"+
+    "\1\165\54\126\24\0\1\213\43\0\3\7\1\54\6\0"+
+    "\3\7\1\214\14\7\1\0\3\7\23\0\3\7\1\54"+
+    "\6\0\4\7\1\215\13\7\1\0\3\7\23\0\3\7"+
+    "\1\54\6\0\4\7\1\216\13\7\1\0\3\7\23\0"+
+    "\3\7\1\54\6\0\4\7\1\217\13\7\1\0\3\7"+
+    "\55\0\2\220\25\0\3\7\1\54\6\0\20\7\1\220"+
+    "\1\221\2\7\41\0\1\222\42\0\3\7\1\54\6\0"+
+    "\4\7\1\223\13\7\1\0\3\7\23\0\3\7\1\54"+
+    "\6\0\12\7\1\224\5\7\1\0\3\7\23\0\3\7"+
+    "\1\54\6\0\1\7\1\225\16\7\1\0\3\7\47\0"+
+    "\1\226\34\0\3\7\1\54\6\0\12\7\1\227\5\7"+
+    "\1\0\3\7\23\0\3\7\1\54\6\0\12\7\1\230"+
+    "\5\7\1\0\3\7\41\0\1\231\42\0\3\7\1\54"+
+    "\6\0\4\7\1\232\13\7\1\0\3\7\23\0\3\7"+
+    "\1\54\6\0\1\7\1\233\16\7\1\0\3\7\23\0"+
+    "\3\7\1\54\6\0\1\7\1\234\16\7\1\0\3\7"+
+    "\57\0\1\235\24\0\3\7\1\54\6\0\20\7\1\0"+
+    "\1\7\1\236\1\7\23\0\3\7\1\54\6\0\10\7"+
+    "\1\237\7\7\1\0\3\7\40\0\1\240\43\0\3\7"+
+    "\1\54\6\0\3\7\1\241\14\7\1\0\3\7\23\0"+
+    "\3\7\1\54\6\0\2\7\1\242\15\7\1\0\3\7"+
+    "\41\0\1\243\42\0\3\7\1\54\6\0\4\7\1\244"+
+    "\13\7\1\0\3\7\14\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[4128];
+    int [] result = new int[5488];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -256,17 +288,18 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\0\2\11\25\1\1\11\7\1\4\11\1\0\2\11"+
-    "\1\1\1\11\3\0\1\11\5\0\1\11\1\0\4\1"+
-    "\1\0\1\1\1\11\7\1\1\11\2\1\10\11\2\0"+
+    "\1\0\2\11\27\1\1\11\7\1\4\11\1\0\2\11"+
+    "\1\1\1\11\3\0\1\11\5\0\1\11\1\0\5\1"+
+    "\1\0\1\1\1\11\4\1\1\0\12\1\10\11\2\0"+
     "\1\1\1\11\1\1\1\0\1\1\1\11\1\0\1\11"+
-    "\5\1\1\0\4\1\1\0\2\1\1\0\1\1\1\0"+
-    "\4\1\1\0\3\1\1\11\2\1\1\0\4\1\1\0"+
-    "\2\1\1\11\3\1\1\0\1\1\1\0\1\1\1\11"+
-    "\1\1";
+    "\6\1\1\0\4\1\1\0\3\1\1\0\1\1\1\0"+
+    "\3\1\1\0\1\1\1\0\5\1\1\0\3\1\1\0"+
+    "\3\1\1\11\1\1\1\0\3\1\1\0\4\1\1\0"+
+    "\1\1\1\11\3\1\1\11\2\1\1\11\3\1\1\0"+
+    "\2\1\1\0\2\1\1\11\1\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[132];
+    int [] result = new int[164];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -750,191 +783,215 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
 				  	  prettyfier(yytext(), Categories.ERROR);
 					  return new Symbol(sym.ILLEGAL_CHAR, yyline, yycolumn, yytext());
             }
-          case 48: break;
+          case 54: break;
           case 2: 
             { System.out.println("Recognized space: " + yytext()); prettyfier(yytext(), Categories.NOTHING );
             }
-          case 49: break;
+          case 55: break;
           case 3: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._DIVIDE, yyline+1, yycolumn+1, yytext());
             }
-          case 50: break;
+          case 56: break;
           case 4: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._STAR, yyline+1, yycolumn+1, yytext());
             }
-          case 51: break;
+          case 57: break;
           case 5: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._MINUS, yyline+1, yycolumn+1, yytext());
             }
-          case 52: break;
+          case 58: break;
           case 6: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.IDENTIFIER); return new Symbol(sym.IDENTIFIER, yyline+1, yycolumn+1, yytext());
             }
-          case 53: break;
+          case 59: break;
           case 7: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NUMBER); return new Symbol(sym.INTEGER, yyline+1, yycolumn+1, yytext());
             }
-          case 54: break;
+          case 60: break;
           case 8: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._EQU, yyline+1, yycolumn+1, yytext());
             }
-          case 55: break;
+          case 61: break;
           case 9: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._GT, yyline+1, yycolumn+1, yytext());
             }
-          case 56: break;
+          case 62: break;
           case 10: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._LT, yyline+1, yycolumn+1, yytext());
             }
-          case 57: break;
+          case 63: break;
           case 11: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._PLUS, yyline+1, yycolumn+1, yytext());
             }
-          case 58: break;
+          case 64: break;
           case 12: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._OPENPAR, yyline+1, yycolumn+1, yytext());
             }
-          case 59: break;
+          case 65: break;
           case 13: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._CLOSEPAR, yyline+1, yycolumn+1, yytext());
             }
-          case 60: break;
+          case 66: break;
           case 14: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._SEMCOL2, yyline+1, yycolumn+1, yytext());
             }
-          case 61: break;
+          case 67: break;
           case 15: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._COMMA, yyline+1, yycolumn+1, yytext());
             }
-          case 62: break;
+          case 68: break;
           case 16: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._DIVIDEEQ, yyline+1, yycolumn+1, yytext());
             }
-          case 63: break;
+          case 69: break;
           case 17: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._TIMESEQ, yyline+1, yycolumn+1, yytext());
             }
-          case 64: break;
+          case 70: break;
           case 18: 
             { System.out.println("Recognized comment: " + yytext()); prettyfier(yytext(), Categories.COMMENT );
             }
-          case 65: break;
+          case 71: break;
           case 19: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._MINUSEQ, yyline+1, yycolumn+1, yytext());
             }
-          case 66: break;
+          case 72: break;
           case 20: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.LITERAL_STRING); return new Symbol(sym.LITERAL_STRING, yyline+1, yycolumn+1, yytext());
             }
-          case 67: break;
+          case 73: break;
           case 21: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.IDENTIFIER); return new Symbol(sym.QCOLALIAS, yyline+1, yycolumn+1, yytext());
             }
-          case 68: break;
+          case 74: break;
           case 22: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.AS, yyline+1, yycolumn+1, yytext());
             }
-          case 69: break;
+          case 75: break;
           case 23: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym._OR, yyline+1, yycolumn+1, yytext());
             }
-          case 70: break;
+          case 76: break;
           case 24: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ON, yyline+1, yycolumn+1, yytext());
             }
-          case 71: break;
+          case 77: break;
           case 25: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.IN, yyline+1, yycolumn+1, yytext());
             }
-          case 72: break;
+          case 78: break;
           case 26: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._GET, yyline+1, yycolumn+1, yytext());
             }
-          case 73: break;
+          case 79: break;
           case 27: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._LET, yyline+1, yycolumn+1, yytext());
             }
-          case 74: break;
+          case 80: break;
           case 28: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._DIFF, yyline+1, yycolumn+1, yytext());
             }
-          case 75: break;
+          case 81: break;
           case 29: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._PLUSEQ, yyline+1, yycolumn+1, yytext());
             }
-          case 76: break;
+          case 82: break;
           case 30: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._MODEQ, yyline+1, yycolumn+1, yytext());
             }
-          case 77: break;
+          case 83: break;
           case 31: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._ANDEQ, yyline+1, yycolumn+1, yytext());
             }
-          case 78: break;
+          case 84: break;
           case 32: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._POWEQ, yyline+1, yycolumn+1, yytext());
             }
-          case 79: break;
+          case 85: break;
           case 33: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NOTHING ); return new Symbol(sym._OREQ, yyline+1, yycolumn+1, yytext());
             }
-          case 80: break;
+          case 86: break;
           case 34: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.IDENTIFIER); return new Symbol(sym.TABDOTCOL, yyline+1, yycolumn+1, yytext());
             }
-          case 81: break;
+          case 87: break;
           case 35: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.NUMBER); return new Symbol(sym.REAL, yyline+1, yycolumn+1, yytext());
             }
-          case 82: break;
+          case 88: break;
           case 36: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.IDENTIFIER); return new Symbol(sym.QTABLENAME, yyline+1, yycolumn+1, yytext());
             }
-          case 83: break;
+          case 89: break;
           case 37: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SET, yyline+1, yycolumn+1, yytext());
             }
-          case 84: break;
+          case 90: break;
           case 38: 
             { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym._AND, yyline+1, yycolumn+1, yytext());
             }
-          case 85: break;
-          case 39: 
-            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.FROM, yyline+1, yycolumn+1, yytext());
-            }
-          case 86: break;
-          case 40: 
-            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.JOIN, yyline+1, yycolumn+1, yytext());
-            }
-          case 87: break;
-          case 41: 
-            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NULL, yyline+1, yycolumn+1, yytext());
-            }
-          case 88: break;
-          case 42: 
-            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.COUNT, yyline+1, yycolumn+1, yytext());
-            }
-          case 89: break;
-          case 43: 
-            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WHERE, yyline+1, yycolumn+1, yytext());
-            }
-          case 90: break;
-          case 44: 
-            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SELECT, yyline+1, yycolumn+1, yytext());
-            }
           case 91: break;
-          case 45: 
-            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.UPDATE, yyline+1, yycolumn+1, yytext());
+          case 39: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.LEFT, yyline+1, yycolumn+1, yytext());
             }
           case 92: break;
-          case 46: 
-            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DELETE, yyline+1, yycolumn+1, yytext());
+          case 40: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.FULL, yyline+1, yycolumn+1, yytext());
             }
           case 93: break;
-          case 47: 
-            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DISTINCT, yyline+1, yycolumn+1, yytext());
+          case 41: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.FROM, yyline+1, yycolumn+1, yytext());
             }
           case 94: break;
+          case 42: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.JOIN, yyline+1, yycolumn+1, yytext());
+            }
+          case 95: break;
+          case 43: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NULL, yyline+1, yycolumn+1, yytext());
+            }
+          case 96: break;
+          case 44: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.COUNT, yyline+1, yycolumn+1, yytext());
+            }
+          case 97: break;
+          case 45: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.RIGHT, yyline+1, yycolumn+1, yytext());
+            }
+          case 98: break;
+          case 46: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.OUTER, yyline+1, yycolumn+1, yytext());
+            }
+          case 99: break;
+          case 47: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WHERE, yyline+1, yycolumn+1, yytext());
+            }
+          case 100: break;
+          case 48: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.INNER, yyline+1, yycolumn+1, yytext());
+            }
+          case 101: break;
+          case 49: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SELECT, yyline+1, yycolumn+1, yytext());
+            }
+          case 102: break;
+          case 50: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.UPDATE, yyline+1, yycolumn+1, yytext());
+            }
+          case 103: break;
+          case 51: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DELETE, yyline+1, yycolumn+1, yytext());
+            }
+          case 104: break;
+          case 52: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NATURAL, yyline+1, yycolumn+1, yytext());
+            }
+          case 105: break;
+          case 53: 
+            { System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DISTINCT, yyline+1, yycolumn+1, yytext());
+            }
+          case 106: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }

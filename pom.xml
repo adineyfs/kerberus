@@ -8,6 +8,8 @@
   <properties>
       <maven.compiler.source>1.8</maven.compiler.source>
       <maven.compiler.target>1.8</maven.compiler.target>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
   
   <dependencies>
@@ -29,6 +31,7 @@
 	      <artifactId>richtextfx</artifactId>
 	      <version>0.8.1</version>
 	  </dependency>
+	  
   </dependencies>
   
   <build>
@@ -63,7 +66,7 @@
                     <downloadSources>true</downloadSources>
                     <downloadJavadocs>false</downloadJavadocs>
                 </configuration>
-            </plugin>     
+            </plugin>
       </plugins>
       <resources>
           <resource>
