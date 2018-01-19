@@ -8,53 +8,59 @@ package com.kerberus.model.syntaxValidator.rules.sql;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int _ANDEQ = 38;
-  public static final int QCOLALIAS = 21;
-  public static final int _POWEQ = 39;
-  public static final int _MODEQ = 37;
-  public static final int INTEGER = 16;
-  public static final int _SEMCOL2 = 45;
+  public static final int _ANDEQ = 44;
+  public static final int QCOLALIAS = 27;
+  public static final int _POWEQ = 45;
+  public static final int _MODEQ = 43;
+  public static final int NATURAL = 8;
+  public static final int OUTER = 12;
+  public static final int INTEGER = 22;
+  public static final int _SEMCOL2 = 51;
   public static final int UPDATE = 3;
   public static final int DELETE = 5;
-  public static final int _STAR = 44;
+  public static final int _STAR = 50;
   public static final int WHERE = 7;
-  public static final int _MINUS = 29;
-  public static final int _DIVIDE = 30;
-  public static final int _AND = 31;
-  public static final int _LT = 24;
-  public static final int _OR = 32;
-  public static final int IN = 11;
-  public static final int _GET = 26;
-  public static final int _COMMA = 43;
-  public static final int ON = 10;
+  public static final int _MINUS = 35;
+  public static final int _DIVIDE = 36;
+  public static final int FULL = 11;
+  public static final int _AND = 37;
+  public static final int _LT = 30;
+  public static final int _OR = 38;
+  public static final int IN = 17;
+  public static final int _GET = 32;
+  public static final int _COMMA = 49;
+  public static final int ON = 16;
   public static final int SELECT = 2;
-  public static final int _PLUS = 28;
+  public static final int _PLUS = 34;
+  public static final int LEFT = 9;
   public static final int EOF = 0;
   public static final int error = 1;
-  public static final int DISTINCT = 12;
-  public static final int _OREQ = 40;
-  public static final int _TIMESEQ = 35;
-  public static final int NULL = 13;
-  public static final int JOIN = 8;
-  public static final int _PLUSEQ = 33;
+  public static final int DISTINCT = 18;
+  public static final int _OREQ = 46;
+  public static final int _TIMESEQ = 41;
+  public static final int NULL = 19;
+  public static final int JOIN = 14;
+  public static final int INNER = 13;
+  public static final int _PLUSEQ = 39;
   public static final int FROM = 6;
-  public static final int REAL = 17;
-  public static final int TABDOTCOL = 20;
-  public static final int _EQU = 22;
-  public static final int _OPENPAR = 41;
-  public static final int ILLEGAL_CHAR = 46;
-  public static final int LITERAL_STRING = 18;
-  public static final int _LET = 25;
-  public static final int QTABLENAME = 19;
-  public static final int _MINUSEQ = 34;
-  public static final int _DIFF = 27;
-  public static final int COUNT = 14;
-  public static final int AS = 9;
-  public static final int _CLOSEPAR = 42;
-  public static final int _DIVIDEEQ = 36;
-  public static final int _GT = 23;
+  public static final int REAL = 23;
+  public static final int TABDOTCOL = 26;
+  public static final int _EQU = 28;
+  public static final int _OPENPAR = 47;
+  public static final int ILLEGAL_CHAR = 52;
+  public static final int LITERAL_STRING = 24;
+  public static final int _LET = 31;
+  public static final int QTABLENAME = 25;
+  public static final int _MINUSEQ = 40;
+  public static final int _DIFF = 33;
+  public static final int COUNT = 20;
+  public static final int AS = 15;
+  public static final int RIGHT = 10;
+  public static final int _CLOSEPAR = 48;
+  public static final int _DIVIDEEQ = 42;
+  public static final int _GT = 29;
   public static final int SET = 4;
-  public static final int IDENTIFIER = 15;
+  public static final int IDENTIFIER = 21;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -64,6 +70,12 @@ public class sym {
   "DELETE",
   "FROM",
   "WHERE",
+  "NATURAL",
+  "LEFT",
+  "RIGHT",
+  "FULL",
+  "OUTER",
+  "INNER",
   "JOIN",
   "AS",
   "ON",
