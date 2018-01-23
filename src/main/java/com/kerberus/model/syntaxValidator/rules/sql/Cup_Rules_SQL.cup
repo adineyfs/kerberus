@@ -24,6 +24,10 @@ parser code
   	public 	String the_error = "";
 	public 	StringBuilder the_error_message = new StringBuilder();
 
+	public int selects_read = 0;
+	public int updates_read = 0;
+	public int deletes_read = 0;
+
 
 	public void clean_lists() {
 		TableSE = new LinkedList<TError>();
@@ -188,11 +192,14 @@ statement_group ::=		statement_group statement
 			  	  		{: System.out.println("statement_group ::= statement"); :};
 
 statement 		::= 	select_s   
-						{: System.out.println("statement ::= select_s"); :}
+						{: System.out.println("statement ::= select_s"); 	
+						   selects_read++; :}
 				  |  	delete_s
-				  		{: System.out.println("statement ::= delete_s"); :}
+				  		{: System.out.println("statement ::= delete_s");
+						   deletes_read++; :}
 				  | 	update_s
-				  		{: System.out.println("statement ::= update_s"); :};
+				  		{: System.out.println("statement ::= update_s"); 
+						   updates_read++; :};
 				  //| 	insert_s    // ---- TO-DO ----
 
 _semicolon 		::= 	_SEMCOL2

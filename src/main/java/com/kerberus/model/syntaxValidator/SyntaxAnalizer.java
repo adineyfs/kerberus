@@ -48,18 +48,38 @@ public class SyntaxAnalizer {
 			
 			if( Syntax_Analyzer.errors > 0 ){
 				sb.append("\nnumber of errors found: " + Syntax_Analyzer.errors );
+				
+				// Hits this when Panic Mode happens
 				if(Syntax_Analyzer.the_error_message != null) {
 					sb.append(Syntax_Analyzer.the_error_message);
 					if (Syntax_Analyzer.TableSE.isEmpty() == false)
 						sb.append("\n"+Syntax_Analyzer.TableSE.getFirst().getDescription());
 				}
+				// Hits this when regular error happens
 				else 
 					if (Syntax_Analyzer.TableSE.isEmpty() == false)
 						sb.append("\n"+Syntax_Analyzer.TableSE.getFirst().getDescription());
 				
 			}
 			else {
-				sb.append("\n ----> Statement is all Good ✓✓✓ " );
+				sb.append("\n ----> Everything is A-Ok ✓✓✓  \n" );
+				
+				if (Syntax_Analyzer.selects_read > 0)
+				{
+					sb.append("\n\t- Valid SELECTS found: " + Syntax_Analyzer.selects_read );
+				}
+				
+				if (Syntax_Analyzer.updates_read > 0)
+				{
+					sb.append("\n\t- Valid UPDATES found: " + Syntax_Analyzer.updates_read );
+				}
+				
+				if (Syntax_Analyzer.deletes_read > 0)
+				{
+					sb.append("\n\t- Valid DELETES found: " + Syntax_Analyzer.deletes_read );
+				}
+				
+				sb.append("\n\t- Total: " + (Syntax_Analyzer.selects_read+Syntax_Analyzer.updates_read+Syntax_Analyzer.deletes_read) );
 			}
 			
 			sb.append("\n\n-------------- Findings Analysis --------------");
