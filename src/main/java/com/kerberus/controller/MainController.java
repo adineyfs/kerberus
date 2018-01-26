@@ -7,6 +7,7 @@ import org.fxmisc.richtext.CodeArea;
 import com.kerberus.Main;
 import com.kerberus.model.syntaxValidator.SyntaxAnalizer;
 import com.kerberus.model.syntaxValidator.rules.util.PrettyStatement;
+import com.kerberus.util.ErrorHandler;
 import com.kerberus.util.LogFileUtil;
 
 import javafx.fxml.FXML;
@@ -15,6 +16,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 public class MainController {
+	
+	private LogFileUtil logFile = LogFileUtil.getInstance();
+	private ErrorHandler errorHandler = ErrorHandler.getInstance();
 	
 	@FXML
     private CodeArea codeAreaSqlStatement;
@@ -79,12 +83,11 @@ public class MainController {
 	
 	private void writeFile(StringBuilder sb) {
 		try {
-			LogFileUtil logFile = LogFileUtil.getInstance();
 			logFile.CreateLogFile();
 			logFile.writeLine(sb.toString());
 			logFile.close();
 		} catch (Exception e) {
-			System.out.println("Error creating file");
+			errorHandler.throwError(e.toString());
 		}
 	}
     

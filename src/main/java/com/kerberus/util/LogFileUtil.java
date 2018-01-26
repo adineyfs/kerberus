@@ -14,32 +14,20 @@ public class LogFileUtil {
 	private BufferedWriter writer;
 	private File file;
 	public static final String logFilePath = "T:\\Kerberus\\";
-	public static final String errorLogFilePath = "T:\\Kerberus\\Error\\";
+	public static final String errorLogFilePath = "T:\\Kerberus\\Error\\error_";
 
 	protected LogFileUtil() {
 
 	}
 
 	public void CreateLogFile() throws Exception {
-		String hostname = this.getHostName();
-
-		LocalDateTime date = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-		String dateText = date.format(formatter);
-
-		String fileName = logFilePath + hostname + "-" + dateText + ".txt";
+		String fileName = this.getFileName(logFilePath);
 		this.file = new File(fileName);
 		writer = new BufferedWriter(new FileWriter(file, true));
 	}
 
 	public void CreateLogErrorFile() throws Exception {
-		String hostname = this.getHostName();
-
-		LocalDateTime date = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-		String dateText = date.format(formatter);
-
-		String fileName = errorLogFilePath + "error_" + hostname + "-" + dateText + ".txt";
+		String fileName = this.getFileName(errorLogFilePath);
 		this.file = new File(fileName);
 		writer = new BufferedWriter(new FileWriter(file, true));
 	}
@@ -50,6 +38,16 @@ public class LogFileUtil {
 		addr = InetAddress.getLocalHost();
 		hostname = addr.getHostName();
 		return hostname;
+	}
+	
+	public String getFileName(String path) throws Exception {
+		String hostname = this.getHostName();
+
+		LocalDateTime date = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+		String dateText = date.format(formatter);
+		
+		return path + hostname + "-" + dateText + ".txt";
 	}
 
 	public void writeLine(String line) throws Exception {
