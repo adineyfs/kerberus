@@ -382,6 +382,7 @@ public class JFlex_Rules_SQL implements java_cup.runtime.Scanner {
 	public LinkedList<String> StmtCopy = new LinkedList<String>(); // DELETE THIS, will be replaced by PrettyfiedStatement
 	
 	public LinkedList<PrettyStatement> PrettyfiedStatement = new LinkedList<PrettyStatement>();
+	
 		
 	// Will need to create a structure to save the lexeme and its corresponding category code.
 	public void prettyfier (String lexeme, int category) {

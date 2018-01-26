@@ -448,6 +448,10 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
   	public 	String the_error = "";
 	public 	StringBuilder the_error_message = new StringBuilder();
 
+	public int selects_read = 0;
+	public int updates_read = 0;
+	public int deletes_read = 0;
+
 
 	public void clean_lists() {
 		TableSE = new LinkedList<TError>();
@@ -571,7 +575,8 @@ class CUP$Cup_Rules_SQL$actions {
           case 3: // statement ::= select_s 
             {
               Object RESULT =null;
-		 System.out.println("statement ::= select_s"); 
+		 System.out.println("statement ::= select_s"); 	
+						   selects_read++; 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("statement",8, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -580,7 +585,8 @@ class CUP$Cup_Rules_SQL$actions {
           case 4: // statement ::= delete_s 
             {
               Object RESULT =null;
-		 System.out.println("statement ::= delete_s"); 
+		 System.out.println("statement ::= delete_s");
+						   deletes_read++; 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("statement",8, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -590,6 +596,7 @@ class CUP$Cup_Rules_SQL$actions {
             {
               Object RESULT =null;
 		 System.out.println("statement ::= update_s"); 
+						   updates_read++; 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("statement",8, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
