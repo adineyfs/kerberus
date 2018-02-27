@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.fxmisc.richtext.CodeArea;
 
+import com.kerberus.util.ErrorHandler;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +25,8 @@ public class Components {
 	public Scene scene;
 	public Stage stage;
 	public CodeArea code;
+	
+	private ErrorHandler errorHandler = ErrorHandler.getInstance();
 	
 	
 	public Components() {
@@ -48,7 +52,7 @@ public class Components {
 			code = (CodeArea) mainView.lookup("#codeAreaSqlStatement");
 			
 		} catch (IOException e) {
-			throw new NullPointerException(getClass().toString());
+			errorHandler.throwError(e.toString());
 		}
 		
 	}
