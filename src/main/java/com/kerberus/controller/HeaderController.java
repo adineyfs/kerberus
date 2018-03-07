@@ -1,5 +1,6 @@
 package com.kerberus.controller;
 
+import com.kerberus.LayoutUtil;
 import com.kerberus.Main;
 
 import javafx.fxml.FXML;
@@ -15,6 +16,12 @@ public class HeaderController {
 	
 	@FXML
     private Button btnClose;
+	
+	@FXML
+    private Button btnMaximize;
+	
+	@FXML
+    private Button btnMinimize;
 		
     private Main main;
     
@@ -31,6 +38,22 @@ public class HeaderController {
         Stage stage = (Stage) Main.getPrimaryStage();
         stage.close();
     }
+    
+	@FXML
+	public void handleBtnMaximize() {
+		Stage stage = Main.getPrimaryStage();
+	    if (stage.isMaximized()) {
+	    	LayoutUtil.setInitialLayout(stage);
+	    } else {
+	    	LayoutUtil.setMaximizedLayout(stage);
+	    }
+	}
+	
+	@FXML
+	public void handleBtnMinimize() {
+		Stage stage = Main.getPrimaryStage();
+		stage.setIconified(true);
+	}
     
     @FXML
     private void handleOnMousePressed(MouseEvent event) {

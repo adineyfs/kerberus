@@ -4,9 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.geometry.*?>
 
-<Pane fx:id="mainHeader" onMouseDragged="#handleOnMouseDragged" onMousePressed="#handleOnMousePressed" styleClass="mainHeader" stylesheets="@Header.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kerberus.controller.HeaderController">
+<HBox fx:id="mainHeader" onMouseDragged="#handleOnMouseDragged" onMousePressed="#handleOnMousePressed" styleClass="mainHeader" stylesheets="@Header.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kerberus.controller.HeaderController">
    <children>
-      <Button fx:id="btnClose" layoutX="1324.0" mnemonicParsing="false" onAction="#handleBtnClose" styleClass="btnClose" />
+      <Button fx:id="btnMinimize" mnemonicParsing="false" onAction="#handleBtnMinimize" styleClass="btnMinimize" />
+      <Button fx:id="btnMaximize" mnemonicParsing="false" onAction="#handleBtnMaximize" styleClass="btnMaximize" />
+      <Button fx:id="btnClose" mnemonicParsing="false" onAction="#handleBtnClose" styleClass="btnClose" />
    </children>
-</Pane>
+</HBox>

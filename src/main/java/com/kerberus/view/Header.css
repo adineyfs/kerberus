@@ -2,15 +2,40 @@
 	-fx-background-color: rgba(0, 0, 0, 0.6);
 	-fx-pref-width: 1400px;
 	-fx-pref-height: 35px;
+	-fx-alignment: baseline-right;
+	-fx-padding: 5 15 0 0;
+	-fx-spacing: 10;
 }
 
 .btnClose {
 	-fx-background-color: rgba(0, 0, 0, 0.8);
 	-fx-background-radius: 0 0 10 10;
 	-fx-background-image:url('btnClose.png');
-	-fx-background-size: 30px 30px;
+	-fx-background-size: 30px;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
-	-fx-min-width: 60px;
+	-fx-min-width: 20;
 	-fx-min-height: 35px;
+}
+
+.btnMaximize {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+    -fx-background-radius: 0 0 10 10;
+    -fx-background-image:url('btnMaximize.png');
+    -fx-background-size: 25px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-min-width: 20;
+    -fx-min-height: 35px;
+}
+
+.btnMinimize {
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+    -fx-background-radius: 0 0 10 10;
+    -fx-background-image:url('btnMinimize.png');
+    -fx-background-size: 25px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-min-width: 20;
+    -fx-min-height: 45px;
 }

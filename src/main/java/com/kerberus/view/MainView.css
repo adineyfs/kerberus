@@ -1,28 +1,26 @@
 .mainViewContainer {
 	-fx-background-color: rgba(133, 133, 133, 0.2);
-	-fx-pref-height: 865px;
-	-fx-pref-width: 1200px;
 	-fx-border-style: solid;
 	-fx-border-width: 2 2 2 0;
     -fx-border-color: rgba(133, 133, 133, 0.6);
-    -fx-border-radius: 0 0 30 0;
+    
+    -fx-spacing: 30;
+    -fx-alignment: center;
+    -fx-padding: 30;
 }
 
 .codeAreaSqlStatement {
     -fx-background-color: white;
-    -fx-pref-height: 270px;
-	-fx-pref-width: 1050px;
 	-fx-text-fill: black;
 	-fx-font-size: 18;
+	-fx-pref-height: 250;
 }
-
 
 .codeAreaSqlValidationReturn {
     -fx-background-color: white;
-    -fx-pref-height: 270px;
-	-fx-pref-width: 1050px;
 	-fx-text-fill: black;
 	-fx-font-size: 18;
+	-fx-pref-height: 250;
 }
 
 .txtAreaSqlValidationReturn:focused {
@@ -33,16 +31,16 @@
 
 .txtAreaSqlValidationReturnContainer {
 	-fx-background-color: rgba(0, 0, 0, 0.8);
-	-fx-pref-height: 350px;
-	-fx-pref-width: 1100px;
 	-fx-background-radius: 10;
+    -fx-spacing: 10;
+    -fx-padding: 40;
 }
 
 .txtAreaSqlStatementContainer {
 	-fx-background-color: rgba(0, 0, 0, 0.8);
-	-fx-pref-height: 350px;
-	-fx-pref-width: 1100px;
 	-fx-background-radius: 10;
+	-fx-spacing: 10;
+    -fx-padding: 40;
 }
 
 .validationReturnLabel {
@@ -57,6 +55,9 @@
 	-fx-font-family: 'Roboto';
 }
 
+
+
+/*Code Area CSS*/
 
 .keyword {
     -fx-fill: purple;
@@ -92,3 +93,5 @@
 .code-area{
     -fx-font-size: 16px;
 }
+
+/*Code Area CSS*/
