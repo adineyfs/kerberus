@@ -7,6 +7,7 @@ package com.kerberus.model.syntaxValidator.rules.sql;
 
 import java_cup.runtime.*;
 import java.util.LinkedList;
+import java.util.HashSet;
 import java.io.*;
 import com.kerberus.model.syntaxValidator.rules.util.*;
 import java_cup.runtime.XMLElement;
@@ -440,8 +441,8 @@ public class Cup_Rules_SQL extends java_cup.runtime.lr_parser {
 	// This object has a list with all columns found and its table
 	//public static ColumnEvalutator Columns = new ColumnEvaluator();
 
-	public LinkedList<String> Tables  = new LinkedList<String>();
-	public LinkedList<String> Columns = new LinkedList<String>();
+	public HashSet<String> Tables  = new HashSet<String>();
+	public HashSet<String> Columns = new HashSet<String>();
 
 	public  Scanner s;
   	public  int errors = 0, line, column;
