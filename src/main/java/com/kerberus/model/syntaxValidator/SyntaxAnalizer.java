@@ -62,7 +62,7 @@ public class SyntaxAnalizer {
 				
 			}
 			else {
-				sb.append("\n ----> Everything is A-Ok ✓✓✓  \n" );
+				sb.append("\n ----> Everything is Ok ✓✓✓  \n" );
 				
 				if (Syntax_Analyzer.selects_read > 0)
 				{
