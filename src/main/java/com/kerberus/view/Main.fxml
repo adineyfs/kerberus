@@ -5,8 +5,14 @@
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.stage.*?>
+<?import java.util.*?>
+<?import java.lang.*?>
 
 <BorderPane fx:id="mainContainer" styleClass="mainContainer" stylesheets="@Main.css" xmlns:fx="http://javafx.com/fxml/1">
+    <fx:define>
+        <Screen fx:factory="getPrimary" fx:id="screen" />
+    </fx:define>
 	<ImageView>
 	    <effect>
 	      <GaussianBlur radius="15" />

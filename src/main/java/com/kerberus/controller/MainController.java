@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import org.fxmisc.richtext.CodeArea;
 
+import com.kerberus.LayoutUtil;
 import com.kerberus.Main;
 import com.kerberus.model.syntaxValidator.SyntaxAnalizer;
 import com.kerberus.model.syntaxValidator.rules.util.PrettyStatement;
@@ -14,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 public class MainController {
 	
@@ -25,10 +27,15 @@ public class MainController {
 	
 	@FXML
 	private CodeArea codeAreaSqlValidationReturn;
+	
+	@FXML
+	private Button btnValidate;
+	
 
     @FXML
     private void initialize() {
-
+    	/*codeAreaSqlStatement.setPrefHeight(270);
+    	codeAreaSqlStatement.setPrefWidth(1050);*/
     }
     
 	@FXML
