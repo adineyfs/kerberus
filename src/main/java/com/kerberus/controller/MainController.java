@@ -59,6 +59,17 @@ public class MainController {
     	this.writeFile(sb);
     	codeAreaSqlValidationReturn.clear();
     	codeAreaSqlValidationReturn.replaceText(sb.toString());
+    	
+    	codeAreaSqlValidationReturn.deleteText(0,1);
+    	codeAreaSqlValidationReturn.position(0, 0);
+    	
+    	/*
+    	int index = codeAreaSqlValidationReturn.getText().indexOf("Lexical");
+    	codeAreaSqlValidationReturn.moveTo(index);
+    	codeAreaSqlValidationReturn.selectRange(index, index);
+    	*/
+    	
+    	//System.out.println("----> index: " + index);
     }
 	
 	

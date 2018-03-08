@@ -118,6 +118,8 @@ non terminal joins_part,join_p,join_on,join_cond,join_c, join; // join_using_col
 
 non terminal w_condition, cond, log_oper,cmp_oper, element;
 
+non terminal cond_el,c_el,c_ali,mix_exp,m_exp,case_exp, case_rules,case_rul, case_else,case_cond,case_act;
+
 non terminal update_s,_update,_set, update_part, ari_value;
 
 non terminal set_exp_list, set_exp,ari_exp,par_exp,exp,_ari_opr,_asig_opr;  // elements for a small calculator
@@ -142,12 +144,16 @@ terminal AS,ON,IN, DISTINCT,NULL;
 // Aggregated functions
 terminal COUNT;
 
+// Case expressions
+terminal CASE, WHEN, THEN, ELSE, END;
+
+
 // Identifiers and numbers
 terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
 terminal QTABLENAME, TABDOTCOL,QCOLALIAS; // Quoted table-names, table.column, Quoted Column Alias
 
 // Operators 
-terminal _EQU, _GT, _LT, _LET, _GET, _DIFF;
+terminal _EQU, _GT, _LT, _LET, _GET, _DIFF, _DIFF2;
 terminal _PLUS, _MINUS, _DIVIDE; 
 
 // Logical
@@ -177,6 +183,10 @@ terminal ILLEGAL_CHAR;
 precedence nonassoc error;	// Inserted by Eclipse plugin | | 	_update table_name error
 precedence left  _PLUS,_MINUS,_STAR,_DIVIDE;
 precedence left  _EQU;
+
+/* ############# Being tested ################################# */
+precedence left  IDENTIFIER, INTEGER, TABDOTCOL, REAL, NULL; 
+/* ############################################################ */
 
 
 
@@ -238,7 +248,9 @@ join_p			::= 	NATURAL JOIN table_name
 */
 				  
 join 			::=  	INNER JOIN
-				  | 	LEFT  OUTER JOIN
+				  | 	LEFT JOIN
+				  | 	RIGHT JOIN
+				  | 	LEFT OUTER JOIN
 				  | 	RIGHT OUTER JOIN
 				  | 	FULL OUTER JOIN;				 
 
@@ -260,10 +272,29 @@ _select 		::=		SELECT;
 
 cols			::= 	col_el _COMMA cols   
 		  	  	  | 	col_el;
-				  	  	  
-col_el 			::= 	aggregates
-				  |     col;
+		  	  	  
+col_el			::= 	c_el c_ali
+				  | 	c_el;
+
+c_el 			::= 	mix_exp
+				  | 	aggregates; 	
 				  
+c_ali 			::= 	col_ali
+				  | 	AS col_ali;				  
+
+mix_exp 		::= 	_OPENPAR mix_exp _CLOSEPAR
+				  | 	m_exp
+				  | 	ari_value;
+
+m_exp 			::=	  	mix_exp _ari_opr mix_exp; 
+
+/*
+column 			::= 	aggregates
+						{: System.out.println("col_el ::= aggregates"); :}
+				  //|     col    //Removed it because it's included in ari_exp
+				  | 	ari_exp
+				  		{: System.out.println("col_el ::= ari_exp"); :};
+*/				  
 aggregates 		::= 	agg_count; // Add aggregate functions here
 
 agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
@@ -275,18 +306,48 @@ count_exp 		::= 	DISTINCT cl
 				  | 	cl;
 				  
 col				::= 	cl
-				  | 	cl AS col_ali
 				  | 	NULL 
-				  | 	NULL AS col_ali; 
+				  /*| 	cl   	 AS col_ali
+				  | 	NULL 	 AS col_ali
+				  | 	cl 		 col_ali
+				  | 	NULL 	 col_ali*/; 
 
 cl				::= 	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
 				  |		TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
 				  | 	LITERAL_STRING;
 				  
-col_ali			::= 	QTABLENAME:t {: Tables.add(t+""); :}
-				  | 	IDENTIFIER:t {: Tables.add(t+""); :}
-				  | 	QCOLALIAS:t {: Tables.add(t+""); :};				
+col_ali			::= 	QTABLENAME:t {: /*Tables.add(t+"");*/ :}
+				  | 	IDENTIFIER:t {: /*Tables.add(t+"");*/ :}
+				  | 	QCOLALIAS:t {: /*Tables.add(t+"");*/ :};				
 
+
+
+case_exp		::=		CASE case_rules END
+					    {: System.out.println("case_exp ::= CASE case_rules END"); :}
+				  | 	CASE case_rules case_else END
+				  		{: System.out.println("case_exp ::= CASE case_rules case_else END"); :}
+				  | 	CASE col case_rules END
+				  		{: System.out.println("case_exp ::= CASE col case_rules END"); :}
+				  | 	CASE col case_rules case_else END
+				  		{: System.out.println("case_exp ::= CASE col case_rules case_else END"); :};
+
+case_rules 		::=		case_rul case_rules
+						{: System.out.println("case_rules ::= case_rul case_rules"); :}
+				  |  	case_rul
+				  		{: System.out.println("case_rules ::= case_rul"); :};
+
+case_rul 		::= 	case_cond case_act
+						{: System.out.println("case_rul ::= WHEN case_cond THEN case_act"); :};
+				  
+case_cond  		::= 	WHEN w_condition 
+						{: System.out.println("case_cond ::= w_condition"); :}
+				  | 	WHEN element
+				  		{: System.out.println("case_cond ::= element"); :};
+
+case_act 		::= 	THEN ari_exp ;
+
+case_else 		::= 	ELSE ari_exp
+						{: System.out.println("case_else ::= ELSE ari_exp"); :};
 
 
 /* UPDATE */
@@ -336,8 +397,7 @@ set_exp_list	::= 	set_exp _COMMA set_exp_list
 		  	  	  | 	error
 		  	  	  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid set of columns in UPDATE");
 				  	  	   TableSE.add(errors_found); 
-						   System.out.println("set_cols	::=	error"); :}
-		  	  	  ;
+						   System.out.println("set_cols	::=	error"); :};
 
 set_exp 		::= 	col _asig_opr ari_exp
 				  | 	col _EQU LITERAL_STRING
@@ -348,23 +408,23 @@ ari_exp     	::=     par_exp
               	  |     ari_value;
               	  
 ari_value 		::=		col
-				  		{: System.out.println("value ::= col"); :}
+				  		{: System.out.println("ari_value ::= col"); :}
 				  | 	INTEGER
-						{: System.out.println("value ::= INTEGER"); :}
+						{: System.out.println("ari_value ::= INTEGER"); :}
 				  | 	REAL
-				  		{: System.out.println("value ::= value"); :};              	  
+				  		{: System.out.println("ari_value ::= REAL"); :}
+				  |     case_exp 
+				  		{: System.out.println("ari_value ::= case_exp"); :};              	  
  
 par_exp 		::= 	_OPENPAR ari_exp _CLOSEPAR;
 
 exp 			::= 	ari_exp _ari_opr ari_exp; 
  
-_ari_opr        ::=     _PLUS 
-              	  |     _MINUS 
-                  |     _STAR 
-              	  |     _DIVIDE;
+_ari_opr        ::=     _PLUS | _MINUS | _STAR | _DIVIDE;
 
-_asig_opr 		::= 	_EQU|_PLUSEQ|_MINUSEQ|_TIMESEQ|_DIVIDEEQ|_MODEQ|_ANDEQ|_POWEQ|_OREQ;
+_asig_opr 		::= 	_EQU| _PLUSEQ|_MINUSEQ|_TIMESEQ|_DIVIDEEQ|_MODEQ|_ANDEQ|_POWEQ|_OREQ;
  
+
 
 
 /* DELETE */
@@ -402,10 +462,10 @@ tab				::= 	IDENTIFIER:id
 				  
 tab_ali 		::= 	IDENTIFIER:id1 IDENTIFIER:id2
 						{: System.out.println("tab_ali ::= IDENTIFIER IDENTIFIER");	
-						   Tables.add(id1+" "+id2); :}
+						   Columns.add(id1+""); :}
 				  | 	IDENTIFIER:id1 QTABLENAME:id2
 				  		{: System.out.println("tab_ali ::= IDENTIFIER QTABLENAME"); 
-						   Tables.add(id1+" "+id2); :};
+						   Columns.add(id1+""); :};
 		
 
 /* WHERE */
@@ -421,10 +481,13 @@ w_condition		::= 	cond log_oper w_condition
 		  	  	  | 	cond
 		  	  	  		{: System.out.println("w_condition ::= cond"); :};
 
-cond 			::= 	element cmp_oper element
+cond 			::= 	cond_el cmp_oper cond_el
 				  | 	element_in IN in_list;
 				  
-in_list 		::=  	_OPENPAR in_exp  _CLOSEPAR;
+cond_el 		::= 	mix_exp
+				  /*| 	element*/;		  
+				  
+in_list 		::=  	_OPENPAR in_exp _CLOSEPAR;
 
 in_exp 			::= 	in_array
 				  | 	in_subquery; 	
@@ -454,7 +517,8 @@ cmp_oper  		::= 	_EQU
 		  	  	  | 	_LT 
 		  	  	  | 	_LET 
 		  	  	  | 	_GET 
-		  	  	  | 	_DIFF;
+		  	  	  | 	_DIFF
+		  	  	  | 	_DIFF2;
 
 log_oper    	::= 	_AND 
 			  	  | 	_OR;
