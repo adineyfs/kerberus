@@ -462,12 +462,11 @@ tab				::= 	IDENTIFIER:id
 				  
 tab_ali 		::= 	IDENTIFIER:id1 IDENTIFIER:id2
 						{: System.out.println("tab_ali ::= IDENTIFIER IDENTIFIER");	
-						   Columns.add(id1+""); :}
+						   Tables.add(id1+""); :}
 				  | 	IDENTIFIER:id1 QTABLENAME:id2
 				  		{: System.out.println("tab_ali ::= IDENTIFIER QTABLENAME"); 
-						   Columns.add(id1+""); :};
+						   Tables.add(id1+""); :};
 		
-
 /* WHERE */
 
 where_part		::= 	_where w_condition

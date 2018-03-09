@@ -1750,7 +1750,7 @@ class CUP$Cup_Rules_SQL$actions {
 		int id2right = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
 		Object id2 = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
 		 System.out.println("tab_ali ::= IDENTIFIER IDENTIFIER");	
-						   Columns.add(id1+""); 
+						   Tables.add(id1+""); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("tab_ali",6, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -1766,7 +1766,7 @@ class CUP$Cup_Rules_SQL$actions {
 		int id2right = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
 		Object id2 = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
 		 System.out.println("tab_ali ::= IDENTIFIER QTABLENAME"); 
-						   Columns.add(id1+""); 
+						   Tables.add(id1+""); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("tab_ali",6, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-1)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
