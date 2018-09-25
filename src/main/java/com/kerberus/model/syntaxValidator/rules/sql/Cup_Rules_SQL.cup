@@ -108,7 +108,7 @@ non terminal statement_group, statement,_semicolon;
 
 non terminal select_s, select_part,select_part_sub;
 
-non terminal col_el,aggregates,agg_count,count_exp;
+non terminal col_el,aggregates,agg_count,count_exp,stringFunction,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
@@ -143,6 +143,7 @@ terminal AS,ON,IN, DISTINCT,NULL;
 
 // Aggregated functions
 terminal COUNT;
+terminal LPAD, RPAD, LENGTH;
 
 // Case expressions
 terminal CASE, WHEN, THEN, ELSE, END;
@@ -277,7 +278,8 @@ col_el			::= 	c_el c_ali
 				  | 	c_el;
 
 c_el 			::= 	mix_exp
-				  | 	aggregates; 	
+				  | 	aggregates
+				  |		stringFunction; 	
 				  
 c_ali 			::= 	col_ali
 				  | 	AS col_ali;				  
@@ -297,13 +299,29 @@ column 			::= 	aggregates
 */				  
 aggregates 		::= 	agg_count; // Add aggregate functions here
 
+stringFunction	::=		stringFunction_lpad
+				  |		stringFunction_rpad
+				  |		stringFunction_length;
+
 agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
 				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
+
+stringFunction_lpad	::=   	LPAD _OPENPAR lpad_exp _CLOSEPAR;
+
+stringFunction_rpad	::=   	RPAD _OPENPAR rpad_exp _CLOSEPAR;
+
+stringFunction_length	::=   	LENGTH _OPENPAR length_exp _CLOSEPAR AS LITERAL_STRING;
 
 count_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
 				  | 	NULL
 				  | 	cl;
+
+lpad_exp 		::= 	LITERAL_STRING;
+
+rpad_exp 		::= 	LITERAL_STRING;
+
+length_exp 		::= 	col;
 				  
 col				::= 	cl
 				  | 	NULL 

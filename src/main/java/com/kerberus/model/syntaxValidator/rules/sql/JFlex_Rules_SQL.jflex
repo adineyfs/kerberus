@@ -117,6 +117,9 @@ whitespace      = {WhiteSpace}
 	
 /* Aggregated function */
 	"count"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.COUNT, yyline+1, yycolumn+1, yytext()); }
+	"lpad"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.LPAD, yyline+1, yycolumn+1, yytext()); }
+	"rpad"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.RPAD, yyline+1, yycolumn+1, yytext()); }
+	"length"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.LENGTH, yyline+1, yycolumn+1, yytext()); }
 	
 /* Other operators */
 	"as"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.AS, yyline+1, yycolumn+1, yytext()); }
