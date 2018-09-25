@@ -108,7 +108,7 @@ non terminal statement_group, statement,_semicolon;
 
 non terminal select_s, select_part,select_part_sub;
 
-non terminal col_el,aggregates,agg_count,count_exp;
+non terminal col_el,aggregates,agg_count,count_exp,agg_avg,avg_exp;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
@@ -143,6 +143,7 @@ terminal AS,ON,IN, DISTINCT,NULL;
 
 // Aggregated functions
 terminal COUNT;
+terminal AVG;
 
 // Case expressions
 terminal CASE, WHEN, THEN, ELSE, END;
@@ -295,12 +296,21 @@ column 			::= 	aggregates
 				  | 	ari_exp
 				  		{: System.out.println("col_el ::= ari_exp"); :};
 */				  
-aggregates 		::= 	agg_count; // Add aggregate functions here
+aggregates 		::= 	agg_count
+				  |		agg_avg; // Add aggregate functions here
 
 agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
 				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
 
+agg_avg 		::=   	AVG _OPENPAR avg_exp _CLOSEPAR
+				  |		AVG _OPENPAR _STAR _CLOSEPAR;
+
 count_exp 		::= 	DISTINCT cl
+				  | 	DISTINCT NULL
+				  | 	NULL
+				  | 	cl;
+				  
+avg_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
 				  | 	NULL
 				  | 	cl;
