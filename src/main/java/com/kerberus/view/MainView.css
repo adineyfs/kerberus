@@ -55,6 +55,10 @@
 	-fx-font-family: 'Roboto';
 }
 
+.comboDatabaseOption {
+    -fx-alignment: center;
+    -fx-pref-width: 100px;
+}
 
 
 /*Code Area CSS*/
