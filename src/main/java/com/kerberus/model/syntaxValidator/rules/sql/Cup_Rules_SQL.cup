@@ -317,7 +317,7 @@ stringFunction_ltrim	::=   	LTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
 stringFunction_rtrim	::=   	RTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
 
 stringFunction_instr	::=   	INSTR _OPENPAR count_exp _COMMA LITERAL_STRING _CLOSEPAR
-						 |		INSTR _OPENPAR count_exp _COMMA LITERAL_STRING _CLOSEPAR AS LITERAL_STRING;
+						 |		INSTR _OPENPAR count_exp _COMMA LITERAL_STRING _CLOSEPAR AS col_ali;
 
 count_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
