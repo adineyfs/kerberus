@@ -362,6 +362,10 @@ update_s		::= 	update_part _set set_exp_list where_part _semicolon
 				  		{: TError errors_found = new TError("",0,0,"Syntax Error","UPDATE error after set of columns.");
 				  	  	   TableSE.add(errors_found);
 						   System.out.println("update_s	::= update_part _set set_cols error"); :}
+				  |		update_part _set set_exp_list _semicolon error 
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE section. Missing where clause (WHERE).");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part _set set_exp_list _semicolon error.\nMissing WHERE CLAUSE on UPDATE."); :}
 				  /*|  	update_part _set error
 				  		{: System.out.println("update_s	::= update_part _set error"); :}*/
 				  |  	update_part error
@@ -430,6 +434,10 @@ _asig_opr 		::= 	_EQU| _PLUSEQ|_MINUSEQ|_TIMESEQ|_DIVIDEEQ|_MODEQ|_ANDEQ|_POWEQ|
 /* DELETE */
 
 delete_s		::= 	DELETE FROM table_name where_part _semicolon
+				  |		DELETE FROM table_name _semicolon error 
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid DELETE section. Missing where clause (WHERE).");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("DELETE FROM table_name _semicolon error.\nMissing WHERE CLAUSE on DELETE."); :}
 				  | 	DELETE error {: TError errors_found = new TError("",0,0,"Syntax Error","Invalid DELETE statement.");
 				  	  			 		TableSE.add(errors_found);
 										System.out.println("value ::= LITERAL_STRING"); :};
