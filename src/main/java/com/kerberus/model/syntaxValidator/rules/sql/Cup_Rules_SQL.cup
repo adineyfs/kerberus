@@ -108,7 +108,7 @@ non terminal statement_group, statement,_semicolon;
 
 non terminal select_s, select_part,select_part_sub;
 
-non terminal col_el,aggregates,agg_count,count_exp;
+non terminal col_el,aggregates,logicalFunctions,agg_count,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
@@ -143,6 +143,10 @@ terminal AS,ON,IN, DISTINCT,NULL;
 
 // Aggregated functions
 terminal COUNT;
+
+// Logical functions
+terminal CHOOSE;
+terminal IIF;
 
 // Case expressions
 terminal CASE, WHEN, THEN, ELSE, END;
@@ -277,7 +281,8 @@ col_el			::= 	c_el c_ali
 				  | 	c_el;
 
 c_el 			::= 	mix_exp
-				  | 	aggregates; 	
+				  | 	aggregates
+				  |		logicalFunctions; 	
 				  
 c_ali 			::= 	col_ali
 				  | 	AS col_ali;				  
@@ -297,14 +302,32 @@ column 			::= 	aggregates
 */				  
 aggregates 		::= 	agg_count; // Add aggregate functions here
 
+logicalFunctions ::=	logFunc_choose
+				  |		logFunc_iif; // Add logical functions here
+
 agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
 				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
 
+logFunc_choose	::=		CHOOSE _OPENPAR INTEGER _COMMA choose_exp _CLOSEPAR AS col_ali;
+
+logFunc_iif		::=		IIF _OPENPAR INTEGER iif_exp INTEGER _COMMA count_exp _COMMA count_exp _CLOSEPAR AS col_ali;
+
+iif_exp			::=		_EQU
+				 |		_GT
+				 |		_LT
+				 |		_LET
+				 |		_GET
+				 |		_DIFF
+				 |		_DIFF2;
+
+choose_exp 		::= 	count_exp _COMMA choose_exp
+				 |		count_exp;
+				  
 count_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
 				  | 	NULL
 				  | 	cl;
-				  
+			  
 col				::= 	cl
 				  | 	NULL 
 				  /*| 	cl   	 AS col_ali
