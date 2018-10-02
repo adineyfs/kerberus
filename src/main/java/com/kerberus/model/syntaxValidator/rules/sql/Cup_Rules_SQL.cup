@@ -108,7 +108,7 @@ non terminal statement_group, statement,_semicolon;
 
 non terminal select_s, select_part,select_part_sub;
 
-non terminal col_el,aggregates,agg_count,count_exp,agg_avg,avg_exp;
+non terminal col_el,aggregates,logicalFunctions,agg_count,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
@@ -144,6 +144,10 @@ terminal AS,ON,IN, DISTINCT,NULL;
 // Aggregated functions
 terminal COUNT;
 terminal AVG;
+
+// Logical functions
+terminal CHOOSE;
+terminal IIF;
 
 // Case expressions
 terminal CASE, WHEN, THEN, ELSE, END;
@@ -278,7 +282,8 @@ col_el			::= 	c_el c_ali
 				  | 	c_el;
 
 c_el 			::= 	mix_exp
-				  | 	aggregates; 	
+				  | 	aggregates
+				  |		logicalFunctions; 	
 				  
 c_ali 			::= 	col_ali
 				  | 	AS col_ali;				  
@@ -296,25 +301,35 @@ column 			::= 	aggregates
 				  | 	ari_exp
 				  		{: System.out.println("col_el ::= ari_exp"); :};
 */				  
-aggregates 		::= 	agg_count
-				  |		agg_avg; // Add aggregate functions here
+aggregates 		::= 	agg_count // Add aggregate functions here
+				  |		agg_avg;
+logicalFunctions ::=	logFunc_choose // Add logical functions here
+				  |		logFunc_iif; // Add logical functions here
 
 agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
 				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
 
 agg_avg 		::=   	AVG _OPENPAR avg_exp _CLOSEPAR
 				  |		AVG _OPENPAR _STAR _CLOSEPAR;
-
 count_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
 				  | 	NULL
 				  | 	cl;
+				 |		_DIFF2;
+
+choose_exp 		::= 	count_exp _COMMA choose_exp
+				 |		count_exp;
 				  
+count_exp 		::= 	DISTINCT cl
+				  | 	DISTINCT NULL
+				  | 	NULL
+				  | 	cl;
+
 avg_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
 				  | 	NULL
 				  | 	cl;
-				  
+			   
 col				::= 	cl
 				  | 	NULL 
 				  /*| 	cl   	 AS col_ali
