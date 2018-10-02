@@ -275,18 +275,6 @@ join_c			::= 	join_on log_oper join_c
 
 join_on			::= 	element _EQU element;		  
 
-with_part		::=		_with with_exp
-				 |		_with with_exp2;
-		  	  	  /*|		SELECT error {: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete SELECT statement");
-				  	  	   		 TableSE.add(errors_found);  :};*/
-with_exp		::=		col_ali AS _OPENPAR select_part from_part _CLOSEPAR _COMMA with_exp
-				 |		col_ali AS _OPENPAR select_part from_part _CLOSEPAR;
-				 
-with_exp2		::=		col_ali  with_exp2_1 AS _OPENPAR select_part from_part _CLOSEPAR _COMMA with_exp2
-				 |		col_ali with_exp2_1 AS _OPENPAR select_part from_part _CLOSEPAR;
-				 
-with_exp2_1		::= 	_OPENPAR cols _CLOSEPAR;
-
 select_part		::= 	_select _STAR
 			  	  | 	_select DISTINCT cols
 			  	  | 	_select cols;
@@ -306,7 +294,7 @@ c_el 			::= 	mix_exp
 				  |		stringFunctions; 	
 				  
 c_ali 			::= 	col_ali
-				  |	 	AS col_ali;				  
+				  | 	AS col_ali;				  
 
 mix_exp 		::= 	_OPENPAR mix_exp _CLOSEPAR
 				  | 	m_exp
@@ -338,7 +326,8 @@ stringFunction_ltrim	::=   	LTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
 
 stringFunction_rtrim	::=   	RTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
 
-stringFunction_instr	::=   	INSTR _OPENPAR count_exp _COMMA LITERAL_STRING _CLOSEPAR;
+stringFunction_instr	::=   	INSTR _OPENPAR count_exp _COMMA LITERAL_STRING _CLOSEPAR
+						 |		INSTR _OPENPAR count_exp _COMMA LITERAL_STRING _CLOSEPAR AS col_ali;
 				  
 agg_sum	 		::=   	SUM _OPENPAR count_exp _CLOSEPAR;
 
