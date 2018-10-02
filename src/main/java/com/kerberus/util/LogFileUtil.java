@@ -15,6 +15,7 @@ public class LogFileUtil {
 	private File file;
 	public static final String logFilePath = "T:\\Kerberus\\";
 	public static final String errorLogFilePath = "T:\\Kerberus\\Error\\error_";
+	public static final String logFileSuccessfullSQLPath = "T:\\Kerberus\\Validated SQL Scripts\\";
 
 	protected LogFileUtil() {
 
@@ -28,6 +29,12 @@ public class LogFileUtil {
 
 	public void CreateLogErrorFile() throws Exception {
 		String fileName = this.getFileName(errorLogFilePath);
+		this.file = new File(fileName);
+		writer = new BufferedWriter(new FileWriter(file, true));
+	}
+	
+	public void CreateSuccessfullSQLFile() throws Exception {
+		String fileName = this.getFileName(logFileSuccessfullSQLPath);
 		this.file = new File(fileName);
 		writer = new BufferedWriter(new FileWriter(file, true));
 	}
@@ -58,6 +65,36 @@ public class LogFileUtil {
 		} catch (IOException IOE) {
 			throw new IOException("Error writing to the file");
 		}
+	}
+	
+	public void writeSuccessfullSQLLog(String sqlStatement) throws Exception {
+		Cache cache = Cache.getInstance();
+		try {
+			if(cache.getDatabaseOption() == cache.ORACLE_DATABASE) {
+				this.writeOracleTransactionFile(sqlStatement);
+			} else if(cache.getDatabaseOption() == cache.SQL_SERVER_DATABASE) {
+				this.writeSQLServerTransactionFile(sqlStatement);
+			}
+		} catch (IOException IOE) {
+			throw new IOException("Error writing to the file");
+		}
+	}
+	
+	public void writeSQLServerTransactionFile(String sqlStatement) throws IOException {
+		this.writer.write("BEGIN TRANSACTION;");
+		this.writer.newLine();
+		this.writer.write(sqlStatement);
+		this.writer.newLine();
+		this.writer.flush();
+	}
+	
+	public void writeOracleTransactionFile(String sqlStatement) throws IOException {
+		this.writer.write("BEGIN");
+		this.writer.newLine();
+		this.writer.write(sqlStatement);
+		this.writer.newLine();
+		this.writer.write("END;");
+		this.writer.flush();
 	}
 
 	public void close() throws IOException {

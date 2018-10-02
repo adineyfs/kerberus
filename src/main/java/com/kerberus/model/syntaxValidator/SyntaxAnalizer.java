@@ -7,10 +7,16 @@ import java.util.LinkedList;
 import com.kerberus.model.syntaxValidator.rules.sql.Cup_Rules_SQL;
 import com.kerberus.model.syntaxValidator.rules.sql.JFlex_Rules_SQL;
 import com.kerberus.model.syntaxValidator.rules.util.PrettyStatement;
+import com.kerberus.util.ErrorHandler;
+import com.kerberus.util.LogFileUtil;
 
 public class SyntaxAnalizer {
 	
 	public LinkedList<PrettyStatement> ps = new LinkedList<PrettyStatement>();
+	
+	private LogFileUtil logFile = LogFileUtil.getInstance();
+	
+	private ErrorHandler errorHandler = ErrorHandler.getInstance();
 	
 	public StringBuilder analyzeSql(String sqlStatement) {
 		
@@ -63,6 +69,8 @@ public class SyntaxAnalizer {
 			}
 			else {
 				sb.append("\n ----> Everything is Ok ✓✓✓  \n" );
+				
+				this.createSuccessfullStatementFile(sqlStatement);
 				
 				if (Syntax_Analyzer.selects_read > 0)
 				{
@@ -132,6 +140,16 @@ public class SyntaxAnalizer {
             // Prints what exception has been thrown
             sb.append(e);
 		}*/
+	}
+	
+	private void createSuccessfullStatementFile(String sb) {
+		try {
+			logFile.CreateSuccessfullSQLFile();
+			logFile.writeSuccessfullSQLLog(sb.toString());
+			logFile.close();
+		} catch (Exception e) {
+			errorHandler.throwError(e.toString());
+		}
 	}
 
 }
