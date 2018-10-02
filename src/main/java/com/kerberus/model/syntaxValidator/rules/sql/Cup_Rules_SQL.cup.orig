@@ -110,16 +110,16 @@ non terminal statement_group, statement,_semicolon;
 non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub;
 
 <<<<<<< HEAD
-non terminal col_el,aggregates,logicalFunctions,stringFunctions,agg_count,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,strFunc_concat,concat_exp;
+non terminal col_el,aggregates,logicalFunctions,stringFunctions,agg_count,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp;
 =======
-non terminal col_el,aggregates,agg_count,count_exp,stringFunction,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp;
->>>>>>> release-0.3_card_70
+non terminal col_el,aggregates,stringFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp;
+>>>>>>> release-0.3-merging_branch_hanh_2nd
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
 non terminal element_in, in_list, in_exp, in_array, in_subquery;
 
-non terminal joins_part,join_p,join_on,join_cond,join_c, join; // join_using_cols, join_using : future version
+non terminal joins_part,join_p,join_on,join_cond,join_c, join, join_using_cols, join_using; // join_using_cols, join_using : future version
 
 non terminal w_condition, cond, log_oper,cmp_oper, element;
 
@@ -138,10 +138,14 @@ non terminal delete_s;
 
 
 // Reserved words
+<<<<<<< HEAD
 terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, WITH;
+=======
+terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, IS, NOT, WITH;
+>>>>>>> release-0.3-merging_branch_hanh_2nd
 
 // Joins
-terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN; 	// USING : for future improvement
+terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
 
 
 terminal AS,ON,IN, DISTINCT,NULL;
@@ -150,6 +154,7 @@ terminal AS,ON,IN, DISTINCT,NULL;
 terminal COUNT;
 <<<<<<< HEAD
 terminal AVG;
+terminal LPAD, RPAD, LENGTH;
 
 // String functions
 terminal CONCAT;
@@ -158,8 +163,14 @@ terminal CONCAT;
 terminal CHOOSE;
 terminal IIF;
 =======
-terminal LPAD, RPAD, LENGTH;
->>>>>>> release-0.3_card_70
+terminal SUM;
+terminal MAX;
+terminal MIN;
+// MySQL String Functions
+terminal LTRIM;
+terminal RTRIM;
+terminal INSTR;
+>>>>>>> release-0.3-merging_branch_hanh_2nd
 
 // Case expressions
 terminal CASE, WHEN, THEN, ELSE, END;
@@ -247,10 +258,16 @@ select_s		::=		select_part from_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part joins_part"); :}
 				  |		select_part from_part joins_part where_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part"); :};
+<<<<<<< HEAD
 
 with_s			::=		with_part select_s
 						{: System.out.println("with_s	::=	with_part select_s"); :};
 
+=======
+				  
+with_s			::=		with_part select_s
+						{: System.out.println("with_s	::=	with_part select_s"); :};
+>>>>>>> release-0.3-merging_branch_hanh_2nd
 joins_part		::= 	join_p joins_part
 						{: System.out.println("joins_part ::= join_p joins_part"); :}
 				  | 	join_p
@@ -258,17 +275,17 @@ joins_part		::= 	join_p joins_part
 
 join_p			::= 	NATURAL JOIN table_name
 				  | 	JOIN table_name
-				  //| 	JOIN table_name join_using   // future version improvement
+				  | 	JOIN table_name join_using   // future version improvement
 				  | 	JOIN table_name join_cond
 				  | 	join table_name join_cond;
 				  
-/*
+
 	// For a future version : must validate that all column dont have qualifiers: tab.column 
 	join_using 		::= 	USING _OPENPAR join_using_cols _CLOSEPAR;				  
 
 	join_using_cols ::= 	cl _COMMA join_using_cols   
 		  	  	 	  | 		cl;
-*/
+
 				  
 join 			::=  	INNER JOIN
 				  | 	LEFT JOIN
@@ -286,6 +303,7 @@ join_c			::= 	join_on log_oper join_c
 join_on			::= 	element _EQU element;		  
 
 with_part		::=		_with with_exp
+<<<<<<< HEAD
 				  |		_with with_exp2;
 		  	  	  /*|		SELECT error {: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete SELECT statement");
 				  	  	   		 TableSE.add(errors_found);  :};*/
@@ -294,6 +312,16 @@ with_exp		::=		col_ali AS _OPENPAR select_part from_part _CLOSEPAR _COMMA with_e
 				 
 with_exp2		::=		col_ali  with_exp2_1 AS _OPENPAR select_part from_part _CLOSEPAR _COMMA with_exp2
 				  |		col_ali with_exp2_1 AS _OPENPAR select_part from_part _CLOSEPAR;
+=======
+				 |		_with with_exp2;
+		  	  	  /*|		SELECT error {: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete SELECT statement");
+				  	  	   		 TableSE.add(errors_found);  :};*/
+with_exp		::=		col_ali AS _OPENPAR select_part from_part _CLOSEPAR _COMMA with_exp
+				 |		col_ali AS _OPENPAR select_part from_part _CLOSEPAR;
+				 
+with_exp2		::=		col_ali  with_exp2_1 AS _OPENPAR select_part from_part _CLOSEPAR _COMMA with_exp2
+				 |		col_ali with_exp2_1 AS _OPENPAR select_part from_part _CLOSEPAR;
+>>>>>>> release-0.3-merging_branch_hanh_2nd
 				 
 with_exp2_1		::= 	_OPENPAR cols _CLOSEPAR;
 
@@ -317,11 +345,11 @@ c_el 			::= 	mix_exp
 				  |		stringFunctions
 				  |		logicalFunctions; 	
 =======
-				  |		stringFunction; 	
->>>>>>> release-0.3_card_70
+				  |		stringFunctions; 	
+>>>>>>> release-0.3-merging_branch_hanh_2nd
 				  
 c_ali 			::= 	col_ali
-				  | 	AS col_ali;				  
+				  |	 	AS col_ali;				  
 
 mix_exp 		::= 	_OPENPAR mix_exp _CLOSEPAR
 				  | 	m_exp
@@ -333,22 +361,39 @@ m_exp 			::=	  	mix_exp _ari_opr mix_exp;
 column 			::= 	aggregates
 						{: System.out.println("col_el ::= aggregates"); :}
 				  //|     col    //Removed it because it's included in ari_exp
+				  |		stringFunctions
+				  		{: System.out.println("col_el ::= stringFunctions"); :}
 				  | 	ari_exp
 				  		{: System.out.println("col_el ::= ari_exp"); :};
 */				  
-aggregates 		::= 	agg_count // Add aggregate functions here
-				  |		agg_avg;
+<<<<<<< HEAD
+aggregates 		::= 	agg_count 
+				  |		agg_avg; // Add aggregate functions here
 
-stringFunctions ::=		strFunc_concat;
+stringFunctions ::=		stringFunction_concat
+				  |		stringFunction_lpad
+				  |		stringFunction_rpad
+				  |		stringFunction_length; // Add String functions here
 
 logicalFunctions ::=	logFunc_choose // Add logical functions here
 				  |		logFunc_iif; // Add logical functions here
 
-strFunc_concat	::=		CONCAT _OPENPAR concat_exp _CLOSEPAR AS LITERAL_STRING;
+stringFunction_concat	::=		CONCAT _OPENPAR concat_exp _CLOSEPAR AS LITERAL_STRING;
 
-stringFunction	::=		stringFunction_lpad
-				  |		stringFunction_rpad
-				  |		stringFunction_length;
+stringFunction_lpad		::=   	LPAD _OPENPAR lpad_exp _CLOSEPAR;
+
+stringFunction_rpad		::=   	RPAD _OPENPAR rpad_exp _CLOSEPAR;
+
+stringFunction_length	::=   	LENGTH _OPENPAR length_exp _CLOSEPAR AS LITERAL_STRING;
+=======
+aggregates 		::= 	agg_count
+				  |		agg_sum
+				  |		agg_max
+				  |		agg_min; // Add aggregate functions here
+stringFunctions ::= 	stringFunction_ltrim
+				  |		stringFunction_rtrim
+				  |		stringFunction_instr; // Add string functions here
+>>>>>>> release-0.3-merging_branch_hanh_2nd
 
 agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
 				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
@@ -357,45 +402,53 @@ agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
 agg_avg 		::=   	AVG _OPENPAR avg_exp _CLOSEPAR
 				  |		AVG _OPENPAR _STAR _CLOSEPAR;
 =======
-stringFunction_lpad	::=   	LPAD _OPENPAR lpad_exp _CLOSEPAR;
+stringFunction_ltrim	::=   	LTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
 
-stringFunction_rpad	::=   	RPAD _OPENPAR rpad_exp _CLOSEPAR;
+stringFunction_rtrim	::=   	RTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
 
-stringFunction_length	::=   	LENGTH _OPENPAR length_exp _CLOSEPAR AS LITERAL_STRING;
+stringFunction_instr	::=   	INSTR _OPENPAR count_exp _COMMA LITERAL_STRING _CLOSEPAR;
+				  
+agg_sum	 		::=   	SUM _OPENPAR count_exp _CLOSEPAR;
 
->>>>>>> release-0.3_card_70
+agg_max			::=   	MAX _OPENPAR count_exp _CLOSEPAR;
+
+agg_min			::=   	MIN _OPENPAR count_exp _CLOSEPAR;
+>>>>>>> release-0.3-merging_branch_hanh_2nd
+
 count_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
 				  | 	NULL
 				  | 	cl;
-<<<<<<< HEAD
-				 |		_DIFF2;
+
+logFunc_choose	::=		CHOOSE _OPENPAR INTEGER _COMMA choose_exp _CLOSEPAR AS col_ali;
+
+logFunc_iif		::=		IIF _OPENPAR INTEGER iif_exp INTEGER _COMMA count_exp _COMMA count_exp _CLOSEPAR AS col_ali;
 
 choose_exp 		::= 	count_exp _COMMA choose_exp
 				 |		count_exp;
 
 concat_exp		::=		LITERAL_STRING _COMMA concat_exp
 				  |		LITERAL_STRING;
-=======
+				  
+lpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
-lpad_exp 		::= 	LITERAL_STRING;
-
-rpad_exp 		::= 	LITERAL_STRING;
+rpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
 length_exp 		::= 	col;
->>>>>>> release-0.3_card_70
-				  
-				  
-count_exp 		::= 	DISTINCT cl
-				  | 	DISTINCT NULL
-				  | 	NULL
-				  | 	cl;
 
 avg_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
 				  | 	NULL
 				  | 	cl;
-			   
+
+iif_exp			::=		_EQU
+				 |		_GT
+				 |		_LT
+				 |		_LET
+				 |		_GET
+				 |		_DIFF
+				 |		_DIFF2;
+
 col				::= 	cl
 				  | 	NULL 
 				  /*| 	cl   	 AS col_ali
@@ -445,14 +498,18 @@ case_else 		::= 	ELSE ari_exp
 
 update_s		::= 	update_part _set set_exp_list where_part _semicolon
 				  		{: System.out.println("update_s	::= update_part _set set_cols where_part _semicolon"); :}
-				  |  	update_part _set set_exp_list where_part error
-				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE section. Missing semicolon (;).");
+				  /*|  	update_part _set set_exp_list where_part error //For some reason it will never go there when semicolon is missing
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE section. \nMissing semicolon.");
 				  	  	   TableSE.add(errors_found);
-						   System.out.println("update_s	::= update_part _set set_cols where_part errorerror.\nMissing semicolon on UPDATE."); :}
-				  |  	update_part _set set_exp_list  error
-				  		{: TError errors_found = new TError("",0,0,"Syntax Error","UPDATE error after set of columns.");
+						   System.out.println("update_s	::= update_part _set set_cols where_part errorerror.\nMissing semicolon on UPDATE."); :}*/
+				  |  	update_part _set set_exp_list error //Error for when semicolon is missing
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE section. \nMissing semicolon."); //Original error message: UPDATE error after set of columns.
 				  	  	   TableSE.add(errors_found);
-						   System.out.println("update_s	::= update_part _set set_cols error"); :}
+						   System.out.println("update_s	::= update_part _set set_cols error. \nMissing semicolon on UPDATE."); :} //Original error message: update_s	::= update_part _set set_cols error
+				  |		update_part _set set_exp_list _semicolon error 
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE section. Missing where clause (WHERE).");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part _set set_exp_list _semicolon error.\nMissing WHERE CLAUSE on UPDATE."); :}
 				  /*|  	update_part _set error
 				  		{: System.out.println("update_s	::= update_part _set error"); :}*/
 				  |  	update_part error
@@ -472,11 +529,11 @@ _set 			::= 	SET
 						{: System.out.println("_set ::= SET"); :};
 
 update_part		::= 	_update table_name
-						{: System.out.println("update_part ::= _update table_name"); :}
+						{: System.out.println("update_part ::= _update table_name OK"); :}
 				  | 	error
 				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE.");
 				  	  	   TableSE.add(errors_found); 
-						   System.out.println("update_part ::= _update table_name"); :};
+						   System.out.println("update_part ::= _update table_name ERROR"); :};
 
 _update 		::= 	UPDATE
 						{: System.out.println("_update ::= UPDATE"); :};
@@ -521,6 +578,10 @@ _asig_opr 		::= 	_EQU| _PLUSEQ|_MINUSEQ|_TIMESEQ|_DIVIDEEQ|_MODEQ|_ANDEQ|_POWEQ|
 /* DELETE */
 
 delete_s		::= 	DELETE FROM table_name where_part _semicolon
+				  |		DELETE FROM table_name _semicolon error 
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid DELETE section. Missing where clause (WHERE).");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("DELETE FROM table_name _semicolon error.\nMissing WHERE CLAUSE on DELETE."); :}
 				  | 	DELETE error {: TError errors_found = new TError("",0,0,"Syntax Error","Invalid DELETE statement.");
 				  	  			 		TableSE.add(errors_found);
 										System.out.println("value ::= LITERAL_STRING"); :};
@@ -572,7 +633,9 @@ w_condition		::= 	cond log_oper w_condition
 		  	  	  		{: System.out.println("w_condition ::= cond"); :};
 
 cond 			::= 	cond_el cmp_oper cond_el
-				  | 	element_in IN in_list;
+				  | 	element_in IN in_list
+				  | 	cl IS NULL
+				  |		cl IS NOT NULL;
 				  
 cond_el 		::= 	mix_exp
 				  /*| 	element*/;		  
