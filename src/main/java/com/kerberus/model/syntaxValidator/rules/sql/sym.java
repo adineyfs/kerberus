@@ -9,12 +9,19 @@ package com.kerberus.model.syntaxValidator.rules.sql;
 public class sym {
   /* terminals */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> release-0.3_card_69
   public static final int _ANDEQ = 53;
   public static final int QCOLALIAS = 35;
   public static final int WHEN = 25;
   public static final int _POWEQ = 54;
   public static final int _MODEQ = 52;
   public static final int NATURAL = 8;
+<<<<<<< HEAD
+=======
+  public static final int INSTR = 23;
+>>>>>>> release-0.3_card_69
   public static final int CASE = 24;
   public static final int OUTER = 12;
   public static final int INTEGER = 30;
@@ -35,11 +42,18 @@ public class sym {
   public static final int ON = 16;
   public static final int SELECT = 2;
   public static final int _PLUS = 43;
+<<<<<<< HEAD
   public static final int MIN = 23;
+=======
+>>>>>>> release-0.3_card_69
   public static final int LEFT = 9;
   public static final int EOF = 0;
   public static final int error = 1;
   public static final int DISTINCT = 18;
+<<<<<<< HEAD
+=======
+  public static final int LTRIM = 21;
+>>>>>>> release-0.3_card_69
   public static final int _OREQ = 55;
   public static final int _TIMESEQ = 50;
   public static final int NULL = 19;
@@ -58,16 +72,21 @@ public class sym {
   public static final int THEN = 26;
   public static final int QTABLENAME = 33;
   public static final int END = 28;
+<<<<<<< HEAD
   public static final int SUM = 21;
+=======
+>>>>>>> release-0.3_card_69
   public static final int _MINUSEQ = 49;
   public static final int _DIFF = 41;
   public static final int _DIFF2 = 42;
   public static final int COUNT = 20;
+  public static final int RTRIM = 22;
   public static final int AS = 15;
   public static final int RIGHT = 10;
   public static final int _CLOSEPAR = 57;
   public static final int _DIVIDEEQ = 51;
   public static final int _GT = 37;
+<<<<<<< HEAD
   public static final int MAX = 22;
   public static final int SET = 4;
   public static final int IDENTIFIER = 29;
@@ -133,6 +152,10 @@ public class sym {
   public static final int SET = 4;
   public static final int IDENTIFIER = 27;
 >>>>>>> release-0.3_card_47
+=======
+  public static final int SET = 4;
+  public static final int IDENTIFIER = 29;
+>>>>>>> release-0.3_card_69
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -156,9 +179,15 @@ public class sym {
   "DISTINCT",
   "NULL",
   "COUNT",
+<<<<<<< HEAD
   "SUM",
   "MAX",
   "MIN",
+=======
+  "LTRIM",
+  "RTRIM",
+  "INSTR",
+>>>>>>> release-0.3_card_69
   "CASE",
   "WHEN",
   "THEN",

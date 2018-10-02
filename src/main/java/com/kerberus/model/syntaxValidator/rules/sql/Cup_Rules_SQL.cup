@@ -108,7 +108,7 @@ non terminal statement_group, statement,_semicolon;
 
 non terminal select_s, select_part,select_part_sub;
 
-non terminal col_el,aggregates,agg_count,agg_sum,agg_max,agg_min,count_exp;
+non terminal col_el,aggregates,stringFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
@@ -146,6 +146,10 @@ terminal COUNT;
 terminal SUM;
 terminal MAX;
 terminal MIN;
+// MySQL String Functions
+terminal LTRIM;
+terminal RTRIM;
+terminal INSTR;
 
 // Case expressions
 terminal CASE, WHEN, THEN, ELSE, END;
@@ -280,7 +284,8 @@ col_el			::= 	c_el c_ali
 				  | 	c_el;
 
 c_el 			::= 	mix_exp
-				  | 	aggregates; 	
+				  | 	aggregates
+				  |		stringFunctions; 	
 				  
 c_ali 			::= 	col_ali
 				  | 	AS col_ali;				  
@@ -295,6 +300,8 @@ m_exp 			::=	  	mix_exp _ari_opr mix_exp;
 column 			::= 	aggregates
 						{: System.out.println("col_el ::= aggregates"); :}
 				  //|     col    //Removed it because it's included in ari_exp
+				  |		stringFunctions
+				  		{: System.out.println("col_el ::= stringFunctions"); :}
 				  | 	ari_exp
 				  		{: System.out.println("col_el ::= ari_exp"); :};
 */				  
@@ -302,9 +309,19 @@ aggregates 		::= 	agg_count
 				  |		agg_sum
 				  |		agg_max
 				  |		agg_min; // Add aggregate functions here
+stringFunctions ::= 	stringFunction_ltrim
+				  |		stringFunction_rtrim
+				  |		stringFunction_instr; // Add string functions here
 
 agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
 				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
+
+stringFunction_ltrim	::=   	LTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
+
+stringFunction_rtrim	::=   	RTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
+
+stringFunction_instr	::=   	INSTR _OPENPAR count_exp _COMMA LITERAL_STRING _CLOSEPAR
+						 |		INSTR _OPENPAR count_exp _COMMA LITERAL_STRING _CLOSEPAR AS col_ali;
 				  
 agg_sum	 		::=   	SUM _OPENPAR count_exp _CLOSEPAR;
 
