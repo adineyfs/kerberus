@@ -133,7 +133,7 @@ non terminal delete_s;
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE;
+terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, IS, NOT;
 
 // Joins
 terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
@@ -518,7 +518,9 @@ w_condition		::= 	cond log_oper w_condition
 		  	  	  		{: System.out.println("w_condition ::= cond"); :};
 
 cond 			::= 	cond_el cmp_oper cond_el
-				  | 	element_in IN in_list;
+				  | 	element_in IN in_list
+				  | 	cl IS NULL
+				  |		cl IS NOT NULL;
 				  
 cond_el 		::= 	mix_exp
 				  /*| 	element*/;		  
