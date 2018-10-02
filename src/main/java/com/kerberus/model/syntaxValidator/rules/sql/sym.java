@@ -11,6 +11,7 @@ public class sym {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   public static final int _ANDEQ = 51;
   public static final int QCOLALIAS = 33;
   public static final int WHEN = 23;
@@ -87,10 +88,41 @@ public class sym {
 >>>>>>> release-0.3_card_53
 =======
 >>>>>>> release-0.3_card_65
+=======
+  public static final int LPAD = 21;
+  public static final int _ANDEQ = 53;
+  public static final int QCOLALIAS = 35;
+  public static final int WHEN = 25;
+  public static final int _POWEQ = 54;
+  public static final int _MODEQ = 52;
+  public static final int NATURAL = 8;
+  public static final int CASE = 24;
+  public static final int OUTER = 12;
+  public static final int INTEGER = 30;
+  public static final int _SEMCOL2 = 60;
+  public static final int UPDATE = 3;
+  public static final int DELETE = 5;
+  public static final int _STAR = 59;
+  public static final int WHERE = 7;
+  public static final int _MINUS = 44;
+  public static final int _DIVIDE = 45;
+  public static final int FULL = 11;
+  public static final int _AND = 46;
+  public static final int _LT = 38;
+  public static final int _OR = 47;
+  public static final int IN = 17;
+  public static final int _GET = 40;
+  public static final int _COMMA = 58;
+  public static final int ON = 16;
+  public static final int SELECT = 2;
+  public static final int _PLUS = 43;
+  public static final int RPAD = 22;
+>>>>>>> release-0.3_card_70
   public static final int LEFT = 9;
   public static final int EOF = 0;
   public static final int error = 1;
   public static final int DISTINCT = 18;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   public static final int _OREQ = 53;
@@ -216,6 +248,38 @@ public class sym {
 >>>>>>> release-0.3_card_65
 =======
 >>>>>>> release-0.3_card_66
+=======
+  public static final int _OREQ = 55;
+  public static final int _TIMESEQ = 50;
+  public static final int NULL = 19;
+  public static final int JOIN = 14;
+  public static final int INNER = 13;
+  public static final int _PLUSEQ = 48;
+  public static final int FROM = 6;
+  public static final int REAL = 31;
+  public static final int TABDOTCOL = 34;
+  public static final int _EQU = 36;
+  public static final int _OPENPAR = 56;
+  public static final int ELSE = 27;
+  public static final int ILLEGAL_CHAR = 61;
+  public static final int LITERAL_STRING = 32;
+  public static final int _LET = 39;
+  public static final int THEN = 26;
+  public static final int QTABLENAME = 33;
+  public static final int END = 28;
+  public static final int _MINUSEQ = 49;
+  public static final int _DIFF = 41;
+  public static final int _DIFF2 = 42;
+  public static final int COUNT = 20;
+  public static final int AS = 15;
+  public static final int RIGHT = 10;
+  public static final int _CLOSEPAR = 57;
+  public static final int _DIVIDEEQ = 51;
+  public static final int _GT = 37;
+  public static final int LENGTH = 23;
+  public static final int SET = 4;
+  public static final int IDENTIFIER = 29;
+>>>>>>> release-0.3_card_70
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -241,6 +305,7 @@ public class sym {
   "COUNT",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   "AVG",
 =======
   "CHOOSE",
@@ -249,6 +314,11 @@ public class sym {
 =======
   "CONCAT",
 >>>>>>> release-0.3_card_65
+=======
+  "LPAD",
+  "RPAD",
+  "LENGTH",
+>>>>>>> release-0.3_card_70
   "CASE",
   "WHEN",
   "THEN",

@@ -109,7 +109,7 @@ non terminal statement_group, statement,_semicolon;
 
 non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub;
 
-non terminal col_el,aggregates,logicalFunctions,stringFunctions,agg_count,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,strFunc_concat,concat_exp;
+non terminal col_el,aggregates,logicalFunctions,stringFunctions,agg_count,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,strFunc_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
@@ -145,6 +145,7 @@ terminal AS,ON,IN, DISTINCT,NULL;
 // Aggregated functions
 terminal COUNT;
 terminal AVG;
+terminal LPAD, RPAD, LENGTH;
 
 // String functions
 terminal CONCAT;
@@ -327,12 +328,20 @@ column 			::= 	aggregates
 aggregates 		::= 	agg_count // Add aggregate functions here
 				  |		agg_avg;
 
-stringFunctions ::=		strFunc_concat;
+stringFunctions ::=		strFunc_concat
+				  |		stringFunction_lpad
+				  |		stringFunction_rpad
+				  |		stringFunction_length;
 
 logicalFunctions ::=	logFunc_choose // Add logical functions here
 				  |		logFunc_iif; // Add logical functions here
 
 strFunc_concat	::=		CONCAT _OPENPAR concat_exp _CLOSEPAR AS LITERAL_STRING;
+stringFunction_lpad	::=   	LPAD _OPENPAR lpad_exp _CLOSEPAR;
+
+stringFunction_rpad	::=   	RPAD _OPENPAR rpad_exp _CLOSEPAR;
+
+stringFunction_length	::=   	LENGTH _OPENPAR length_exp _CLOSEPAR AS LITERAL_STRING;
 
 agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
 				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
@@ -356,6 +365,12 @@ count_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
 				  | 	NULL
 				  | 	cl;
+
+lpad_exp 		::= 	LITERAL_STRING;
+
+rpad_exp 		::= 	LITERAL_STRING;
+
+length_exp 		::= 	col;
 
 avg_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
