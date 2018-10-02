@@ -109,7 +109,7 @@ non terminal statement_group, statement,_semicolon;
 
 non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub;
 
-non terminal col_el,aggregates,logicalFunctions,stringFunctions,agg_count,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,strFunc_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp;
+non terminal col_el,aggregates,logicalFunctions,stringFunctions,agg_count,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
@@ -325,21 +325,22 @@ column 			::= 	aggregates
 				  | 	ari_exp
 				  		{: System.out.println("col_el ::= ari_exp"); :};
 */				  
-aggregates 		::= 	agg_count // Add aggregate functions here
-				  |		agg_avg;
+aggregates 		::= 	agg_count 
+				  |		agg_avg; // Add aggregate functions here
 
-stringFunctions ::=		strFunc_concat
+stringFunctions ::=		stringFunction_concat
 				  |		stringFunction_lpad
 				  |		stringFunction_rpad
-				  |		stringFunction_length;
+				  |		stringFunction_length; // Add String functions here
 
 logicalFunctions ::=	logFunc_choose // Add logical functions here
 				  |		logFunc_iif; // Add logical functions here
 
-strFunc_concat	::=		CONCAT _OPENPAR concat_exp _CLOSEPAR AS LITERAL_STRING;
-stringFunction_lpad	::=   	LPAD _OPENPAR lpad_exp _CLOSEPAR;
+stringFunction_concat	::=		CONCAT _OPENPAR concat_exp _CLOSEPAR AS LITERAL_STRING;
 
-stringFunction_rpad	::=   	RPAD _OPENPAR rpad_exp _CLOSEPAR;
+stringFunction_lpad		::=   	LPAD _OPENPAR lpad_exp _CLOSEPAR;
+
+stringFunction_rpad		::=   	RPAD _OPENPAR rpad_exp _CLOSEPAR;
 
 stringFunction_length	::=   	LENGTH _OPENPAR length_exp _CLOSEPAR AS LITERAL_STRING;
 
@@ -348,10 +349,15 @@ agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
 
 agg_avg 		::=   	AVG _OPENPAR avg_exp _CLOSEPAR
 				  |		AVG _OPENPAR _STAR _CLOSEPAR;
+
 count_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
 				  | 	NULL
 				  | 	cl;
+
+logFunc_choose	::=		CHOOSE _OPENPAR INTEGER _COMMA choose_exp _CLOSEPAR AS col_ali;
+
+logFunc_iif		::=		IIF _OPENPAR INTEGER iif_exp INTEGER _COMMA count_exp _COMMA count_exp _CLOSEPAR AS col_ali;
 
 choose_exp 		::= 	count_exp _COMMA choose_exp
 				 |		count_exp;
@@ -359,15 +365,9 @@ choose_exp 		::= 	count_exp _COMMA choose_exp
 concat_exp		::=		LITERAL_STRING _COMMA concat_exp
 				  |		LITERAL_STRING;
 				  
-				  
-count_exp 		::= 	DISTINCT cl
-				  | 	DISTINCT NULL
-				  | 	NULL
-				  | 	cl;
+lpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
-lpad_exp 		::= 	LITERAL_STRING;
-
-rpad_exp 		::= 	LITERAL_STRING;
+rpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
 length_exp 		::= 	col;
 
@@ -375,7 +375,15 @@ avg_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
 				  | 	NULL
 				  | 	cl;
-			   
+
+iif_exp			::=		_EQU
+				 |		_GT
+				 |		_LT
+				 |		_LET
+				 |		_GET
+				 |		_DIFF
+				 |		_DIFF2;
+
 col				::= 	cl
 				  | 	NULL 
 				  /*| 	cl   	 AS col_ali
