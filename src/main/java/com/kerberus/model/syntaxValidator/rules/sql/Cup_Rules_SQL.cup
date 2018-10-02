@@ -114,7 +114,7 @@ non terminal from_part, where_part, cols,col,cl,col_ali;
 
 non terminal element_in, in_list, in_exp, in_array, in_subquery;
 
-non terminal joins_part,join_p,join_on,join_cond,join_c, join; // join_using_cols, join_using : future version
+non terminal joins_part,join_p,join_on,join_cond,join_c, join, join_using_cols, join_using; // join_using_cols, join_using : future version
 
 non terminal w_condition, cond, log_oper,cmp_oper, element;
 
@@ -136,7 +136,7 @@ non terminal delete_s;
 terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE;
 
 // Joins
-terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN; 	// USING : for future improvement
+terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
 
 
 terminal AS,ON,IN, DISTINCT,NULL;
@@ -238,17 +238,17 @@ joins_part		::= 	join_p joins_part
 
 join_p			::= 	NATURAL JOIN table_name
 				  | 	JOIN table_name
-				  //| 	JOIN table_name join_using   // future version improvement
+				  | 	JOIN table_name join_using   // future version improvement
 				  | 	JOIN table_name join_cond
 				  | 	join table_name join_cond;
 				  
-/*
+
 	// For a future version : must validate that all column dont have qualifiers: tab.column 
 	join_using 		::= 	USING _OPENPAR join_using_cols _CLOSEPAR;				  
 
 	join_using_cols ::= 	cl _COMMA join_using_cols   
 		  	  	 	  | 		cl;
-*/
+
 				  
 join 			::=  	INNER JOIN
 				  | 	LEFT JOIN
