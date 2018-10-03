@@ -96,6 +96,7 @@ whitespace      = {WhiteSpace}
 	"from" 			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.FROM, yyline+1, yycolumn+1, yytext()); }
 	"where"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WHERE, yyline+1, yycolumn+1, yytext()); }
 	"with"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WITH, yyline+1, yycolumn+1, yytext()); }
+	"sysdate"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SYSDATE, yyline+1, yycolumn+1, yytext()); }
 
 /* Case expressions */
 	"case"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CASE, yyline+1, yycolumn+1, yytext()); }
@@ -123,12 +124,20 @@ whitespace      = {WhiteSpace}
 	"rpad"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.RPAD, yyline+1, yycolumn+1, yytext()); }
 	"length"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.LENGTH, yyline+1, yycolumn+1, yytext()); }
 
+/* Null functions */
+	"nvl"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NVL, yyline+1, yycolumn+1, yytext()); }
+
+
 /* Logical functions */
 	"choose"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CHOOSE, yyline+1, yycolumn+1, yytext()); }
 	"iif"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.IIF, yyline+1, yycolumn+1, yytext()); }
 	
 /* String functions*/
 	"concat"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CONCAT, yyline+1, yycolumn+1, yytext()); }
+	"replace"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.REPLACE, yyline+1, yycolumn+1, yytext()); }
+	"trim"				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TRIM, yyline+1, yycolumn+1, yytext()); }
+	"upper"				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.UPPER, yyline+1, yycolumn+1, yytext()); }
+	"lower"				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.LOWER, yyline+1, yycolumn+1, yytext()); }
 
 
 /* Other operators */
