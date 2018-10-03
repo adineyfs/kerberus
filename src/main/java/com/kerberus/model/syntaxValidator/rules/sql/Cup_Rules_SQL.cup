@@ -107,7 +107,7 @@ non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_a
 
 non terminal statement_group, statement,_semicolon;
 
-non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub;
+non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub,func_ls;
 
 non terminal col_el,aggregates,logicalFunctions,stringFunctions,dateFunctions,nullFunctions,agg_count,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate;
 
@@ -309,22 +309,23 @@ cols			::= 	col_el _COMMA cols
 col_el			::= 	c_el c_ali
 				  | 	c_el;
 
-c_el 			::= 	mix_exp
-				  | 	aggregates
-				  |		stringFunctions
-				  |		dateFunctions
-				  //|		nullFunctions
-				  |		logicalFunctions; 	
+c_el 			::= 	mix_exp; 	
 				  
 c_ali 			::= 	col_ali
 				  | 	AS col_ali;				  
 
 mix_exp 		::= 	_OPENPAR mix_exp _CLOSEPAR
-				  | 	nullFunctions
+				  | 	func_ls
 				  | 	m_exp
 				  | 	ari_value;
 
 m_exp 			::=	  	mix_exp _ari_opr mix_exp; 
+
+func_ls			::=		aggregates
+				  |		stringFunctions
+				  |		dateFunctions
+				  |		nullFunctions
+				  |		logicalFunctions;
 
 /*
 column 			::= 	aggregates
