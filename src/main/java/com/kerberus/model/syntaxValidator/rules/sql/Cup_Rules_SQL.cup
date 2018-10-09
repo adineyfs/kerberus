@@ -394,18 +394,18 @@ nullFunction_nullif ::=	NULLIF _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _CL
 
 function_to_date  ::=	TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR;
 
-function_to_char  ::=	TO_CHAR _OPENPAR to_char_exp _CLOSEPAR
-				    |	TO_CHAR _OPENPAR to_char_exp _COMMA to_char_exp _CLOSEPAR
-				    |	TO_CHAR _OPENPAR to_char_exp _COMMA to_char_exp _COMMA to_char_exp _CLOSEPAR;
+function_to_char  ::=	TO_CHAR _OPENPAR mix_exp _CLOSEPAR
+				    |	TO_CHAR _OPENPAR mix_exp _COMMA mix_exp _CLOSEPAR
+				    |	TO_CHAR _OPENPAR mix_exp _COMMA mix_exp _COMMA mix_exp _CLOSEPAR;
 				    
-to_char_exp		  ::=	//LITERAL_STRING
+/*to_char_exp		  ::=	//LITERAL_STRING
 					//|	INTEGER
 						mix_exp
 				  	| 	aggregates
 				  	|	stringFunctions
 				  	|	logicalFunctions
 				  	|	nullFunctions
-				  	|	function_to_date;
+				  	|	function_to_date;*/
 
 stringFunction_concat	::=		CONCAT _OPENPAR concat_exp _CLOSEPAR AS LITERAL_STRING;
 

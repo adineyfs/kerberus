@@ -103,15 +103,15 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali;
+non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2;
 
 non terminal statement_group, statement,_semicolon;
 
-non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub;
+non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub,nvl2_exp,nvl2_exp_nested,func_ls;
 
-non terminal col_el,aggregates,logicalFunctions,stringFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp;
+non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nvl2,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate;
 
-non terminal from_part, where_part, cols,col,cl,col_ali;
+non terminal from_part, where_part, cols,cols_nvl2,col,cl,col_ali;
 
 non terminal element_in, in_list, in_exp, in_array, in_subquery;
 
@@ -139,6 +139,7 @@ terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, IS, NOT, WITH;
 // Joins
 terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
 
+terminal SYSDATE;
 
 terminal AS,ON,IN, DISTINCT,NULL;
 
@@ -156,10 +157,20 @@ terminal CONCAT;
 terminal LTRIM;
 terminal RTRIM;
 terminal INSTR;
+terminal REPLACE, TRIM, UPPER, LOWER;
 
 // Logical functions
 terminal CHOOSE;
 terminal IIF;
+
+// Null functions
+terminal NVL;
+terminal NVL2;
+terminal NULLIF;
+
+// TO_XXX FUNCTION
+terminal TO_DATE;
+terminal TO_CHAR;
 
 // Case expressions
 terminal CASE, WHEN, THEN, ELSE, END;
@@ -300,31 +311,46 @@ with_exp2_1		::= 	_OPENPAR cols _CLOSEPAR;
 select_part		::= 	_select _STAR
 			  	  | 	_select DISTINCT cols
 			  	  | 	_select cols;
+			  	  
+nvl2_exp		::=		_OPENPAR nvl2_exp_nested _COMMA nvl2_exp_nested _COMMA nvl2_exp_nested _CLOSEPAR;
+				  
+nvl2_exp_nested ::=		//LITERAL_STRING
+				  		ari_exp;
 
 _with			::=		WITH;
 
 _select 		::=		SELECT;
 
+_nvl2			::=		NVL2;
+
 cols			::= 	col_el _COMMA cols   
 		  	  	  | 	col_el;
+		  	  	  
+cols_nvl2		::= 	col_el _COMMA cols   
+		  	  	  | 	col_el _COMMA;
 		  	  	  
 col_el			::= 	c_el c_ali
 				  | 	c_el;
 
-c_el 			::= 	mix_exp
-				  | 	aggregates
-				  |		stringFunctions
-				  |		logicalFunctions; 	
+c_el 			::= 	mix_exp; 	
 				  
 c_ali 			::= 	col_ali
 				  | 	AS col_ali;				  
 
 mix_exp 		::= 	_OPENPAR mix_exp _CLOSEPAR
+				  | 	func_ls
 				  | 	m_exp
 				  | 	ari_value;
 
 m_exp 			::=	  	mix_exp _ari_opr mix_exp; 
 
+func_ls			::=		aggregates
+				  |		stringFunctions
+				  |		dateFunctions
+				  |		nullFunctions
+				  |		logicalFunctions
+				  |		function_to_date
+				  |		function_to_char;
 /*
 column 			::= 	aggregates
 						{: System.out.println("col_el ::= aggregates"); :}
@@ -343,13 +369,43 @@ aggregates 		::= 	agg_count
 stringFunctions ::=		stringFunction_concat
 				  |		stringFunction_lpad
 				  |		stringFunction_rpad
+				  | 	stringFunction_replace
+				  |		stringFunction_upper
+				  |		stringFunction_lower
+				  |		stringFunction_trim
 				  |		stringFunction_length
 				  |		stringFunction_ltrim
 				  |		stringFunction_rtrim
 				  |		stringFunction_instr; // Add String functions here
 
+dateFunctions	::=		sysdate;
+
 logicalFunctions ::=	logFunc_choose // Add logical functions here
 				  |		logFunc_iif; // Add logical functions here
+				  
+nullFunctions 	 ::= 	nullFunction_nvl2
+				  |		nullFunction_nvl
+				  |		nullFunction_nullif;
+
+nullFunction_nvl2 ::= 	_nvl2 nvl2_exp;
+				  //|		cols_nvl2 _nvl2 nvl2_exp;
+				  
+nullFunction_nullif ::=	NULLIF _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR;
+
+function_to_date  ::=	TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR;
+
+function_to_char  ::=	TO_CHAR _OPENPAR to_char_exp _CLOSEPAR
+				    |	TO_CHAR _OPENPAR to_char_exp _COMMA to_char_exp _CLOSEPAR
+				    |	TO_CHAR _OPENPAR to_char_exp _COMMA to_char_exp _COMMA to_char_exp _CLOSEPAR;
+				    
+to_char_exp		  ::=	//LITERAL_STRING
+					//|	INTEGER
+						mix_exp
+				  	| 	aggregates
+				  	|	stringFunctions
+				  	|	logicalFunctions
+				  	|	nullFunctions
+				  	|	function_to_date;
 
 stringFunction_concat	::=		CONCAT _OPENPAR concat_exp _CLOSEPAR AS LITERAL_STRING;
 
@@ -358,6 +414,16 @@ stringFunction_lpad		::=   	LPAD _OPENPAR lpad_exp _CLOSEPAR;
 stringFunction_rpad		::=   	RPAD _OPENPAR rpad_exp _CLOSEPAR;
 
 stringFunction_length	::=   	LENGTH _OPENPAR length_exp _CLOSEPAR AS LITERAL_STRING;
+
+stringFunction_replace	::=		REPLACE _OPENPAR replace_exp _CLOSEPAR;
+
+stringFunction_trim		::=		TRIM _OPENPAR trim_exp _CLOSEPAR AS col_ali;
+
+stringFunction_lower	::=		LOWER _OPENPAR lower_exp _CLOSEPAR;
+
+stringFunction_upper	::=		UPPER _OPENPAR upper_exp _CLOSEPAR;
+
+nullFunction_nvl		::=		NVL _OPENPAR nvl_exp _CLOSEPAR;
 
 agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
 				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
@@ -393,11 +459,23 @@ choose_exp 		::= 	count_exp _COMMA choose_exp
 
 concat_exp		::=		LITERAL_STRING _COMMA concat_exp
 				  |		LITERAL_STRING;
+replace_exp		::=		LITERAL_STRING _COMMA replace_exp
+				  |		LITERAL_STRING;
+
+trim_exp		::=		LITERAL_STRING;
+
+upper_exp		::=		LITERAL_STRING
+				  |		col_ali;
+
+lower_exp		::=		LITERAL_STRING
+				  |		col_ali;
 				  
 lpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
 rpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
+sysdate			::=		SYSDATE _OPENPAR _CLOSEPAR
+				  |		SYSDATE _OPENPAR _CLOSEPAR _ari_opr INTEGER;
 length_exp 		::= 	col;
 
 avg_exp 		::= 	DISTINCT cl
@@ -597,7 +675,9 @@ w_condition		::= 	cond log_oper w_condition
 		  	  	  		{: System.out.println("w_condition ::= cond"); :};
 
 cond 			::= 	cond_el cmp_oper cond_el
-				  | 	element_in IN in_list;
+				  | 	element_in IN in_list
+				  | 	cl IS NULL
+				  |		cl IS NOT NULL;
 				  
 cond_el 		::= 	mix_exp
 				  /*| 	element*/;		  
