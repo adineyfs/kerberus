@@ -162,7 +162,6 @@ terminal IIF;
 // Case expressions
 terminal CASE, WHEN, THEN, ELSE, END;
 
-
 // Identifiers and numbers
 terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
 terminal QTABLENAME, TABDOTCOL,QCOLALIAS; // Quoted table-names, table.column, Quoted Column Alias
@@ -259,7 +258,8 @@ join_p			::= 	NATURAL JOIN table_name
 				  //| 	JOIN table_name join_using   // future version improvement
 				  | 	JOIN table_name join_cond
 				  | 	join table_name join_cond;
-				  
+
+
 /*
 	// For a future version : must validate that all column dont have qualifiers: tab.column 
 	join_using 		::= 	USING _OPENPAR join_using_cols _CLOSEPAR;				  
