@@ -98,7 +98,9 @@ whitespace      = {WhiteSpace}
 	"with"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WITH, yyline+1, yycolumn+1, yytext()); }
 	"is"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.IS, yyline+1, yycolumn+1, yytext()); }
 	"not"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NOT, yyline+1, yycolumn+1, yytext()); }
+	"sysdate"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SYSDATE, yyline+1, yycolumn+1, yytext()); }
 	
+
 /* Case expressions */
 	"case"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CASE, yyline+1, yycolumn+1, yytext()); }
 	"when"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WHEN, yyline+1, yycolumn+1, yytext()); }
@@ -134,11 +136,16 @@ whitespace      = {WhiteSpace}
 	
 /* String functions*/
 	"concat"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CONCAT, yyline+1, yycolumn+1, yytext()); }
+	"replace"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.REPLACE, yyline+1, yycolumn+1, yytext()); }
+	"trim"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TRIM, yyline+1, yycolumn+1, yytext()); }
+	"upper"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.UPPER, yyline+1, yycolumn+1, yytext()); }
+	"lower"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.LOWER, yyline+1, yycolumn+1, yytext()); }
 	"ltrim"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.LTRIM, yyline+1, yycolumn+1, yytext()); }
 	"rtrim"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.RTRIM, yyline+1, yycolumn+1, yytext()); }
 	"instr"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.INSTR, yyline+1, yycolumn+1, yytext()); }
 
 /* Null Functions */
+	"nvl"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NVL, yyline+1, yycolumn+1, yytext()); }
 	"nvl2"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NVL2, yyline+1, yycolumn+1, yytext()); }
 	"nullif"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NULLIF, yyline+1, yycolumn+1, yytext()); }
 
