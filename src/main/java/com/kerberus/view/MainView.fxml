@@ -2,6 +2,7 @@
 
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.collections.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.*?>
 <?import javafx.scene.layout.*?>
@@ -16,14 +17,22 @@
       <VBox styleClass="txtAreaSqlStatementContainer">
          <children>
          	<Label fx:id="sqlStatementsLabel" styleClass="sqlStatementsLabel" text="SQL Statements" />
-            <CodeArea fx:id="codeAreaSqlStatement" styleClass="codeAreaSqlStatement" id="codeAreaSqlStatement" onKeyPressed="#handleEnterPress"/>
+            <CodeArea id="codeAreaSqlStatement" fx:id="codeAreaSqlStatement" onKeyPressed="#handleEnterPress" styleClass="codeAreaSqlStatement" />
          </children>
       </VBox>
+      <ComboBox value="Oracle" fx:id="comboDatabaseOption" styleClass="comboDatabaseOption">
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:id="oracle" fx:value="Oracle" />
+                  <String fx:id="sqlServer" fx:value="SQL Server" />
+              </FXCollections>
+          </items>
+      </ComboBox>
       <Button fx:id="btnValidate" mnemonicParsing="false" onAction="#handleValidateButton" styleClass="btnValidate" text="Validate" />
       <VBox styleClass="txtAreaSqlValidationReturnContainer">
          <children>
          	<Label fx:id="validationReturnLabel" styleClass="validationReturnLabel" text="Validation Return" />
-            <CodeArea fx:id="codeAreaSqlValidationReturn" styleClass="codeAreaSqlValidationReturn" id="codeAreaSqlValidationReturn" editable="false"/>
+            <CodeArea id="codeAreaSqlValidationReturn" fx:id="codeAreaSqlValidationReturn" editable="false" styleClass="codeAreaSqlValidationReturn" />
          </children>
       </VBox>
    </children>

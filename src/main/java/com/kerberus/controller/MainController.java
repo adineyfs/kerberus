@@ -4,18 +4,18 @@ import java.util.LinkedList;
 
 import org.fxmisc.richtext.CodeArea;
 
-import com.kerberus.LayoutUtil;
 import com.kerberus.Main;
 import com.kerberus.model.syntaxValidator.SyntaxAnalizer;
 import com.kerberus.model.syntaxValidator.rules.util.PrettyStatement;
+import com.kerberus.util.Cache;
 import com.kerberus.util.ErrorHandler;
 import com.kerberus.util.LogFileUtil;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 public class MainController {
 	
@@ -31,17 +31,25 @@ public class MainController {
 	@FXML
 	private Button btnValidate;
 	
+	@FXML
+	private ComboBox comboDatabaseOption;
+	
 
     @FXML
     private void initialize() {
-    	/*codeAreaSqlStatement.setPrefHeight(270);
-    	codeAreaSqlStatement.setPrefWidth(1050);*/
+
     }
     
 	@FXML
     private void handleValidateButton() {
+		Cache cache = Cache.getInstance();
     	String sqlStatement = codeAreaSqlStatement.getText();
+    	int databaseOption = comboDatabaseOption.getSelectionModel().getSelectedIndex();
     	SyntaxAnalizer syntaxAnalyzer = new SyntaxAnalizer();
+    	
+    	cache.setSQLStatement(sqlStatement);
+    	cache.setDatabaseOption(databaseOption);
+    	
     	StringBuilder sb = syntaxAnalyzer.analyzeSql(sqlStatement);
     	
     	LinkedList<PrettyStatement> ps = syntaxAnalyzer.ps;
