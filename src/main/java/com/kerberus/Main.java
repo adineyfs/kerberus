@@ -23,7 +23,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		window = primaryStage;
 		primaryStage.setTitle("Kerberus");
-		primaryStage.getIcons().add(new Image("Kerberus_logo.png"));
+		primaryStage.getIcons().add(new Image("Kerberus_logo_icon.png"));
 		primaryStage.initStyle(StageStyle.TRANSPARENT);
 		
 		components.scene = new Scene(components.main);
