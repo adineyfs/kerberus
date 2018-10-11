@@ -8,34 +8,33 @@
 }
 
 .btnClose {
-	-fx-background-color: rgba(0, 0, 0, 0.8);
-	-fx-background-radius: 0 0 10 10;
-	-fx-background-image:url('btnClose.png');
-	-fx-background-size: 30px;
+	-fx-background-color: rgba(16, 64, 80, 0);
+	-fx-background-radius: 5;
+	-fx-background-image:url('btnClose2.png');
+	-fx-background-size: 22;
 	-fx-background-repeat: no-repeat;
 	-fx-background-position: center;
-	-fx-min-width: 20;
-	-fx-min-height: 35px;
+	-fx-min-width: 25;
+	-fx-min-height: 25;
 }
 
 .btnMaximize {
-    -fx-background-color: rgba(0, 0, 0, 0.8);
-    -fx-background-radius: 0 0 10 10;
-    -fx-background-image:url('btnMaximize.png');
-    -fx-background-size: 25px;
+    -fx-background-color: rgba(16, 64, 80, 0);
+    -fx-background-image:url('btnMaximize2.png');
+    -fx-background-size: 25;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-min-width: 20;
-    -fx-min-height: 35px;
+    -fx-min-width: 25;
+    -fx-min-height: 25;
 }
 
 .btnMinimize {
-    -fx-background-color: rgba(0, 0, 0, 0.8);
-    -fx-background-radius: 0 0 10 10;
-    -fx-background-image:url('btnMinimize.png');
-    -fx-background-size: 25px;
+    -fx-background-color: rgba(16, 64, 80, 0);
+    -fx-background-radius: 5;
+    -fx-background-image:url('btnMinimize2.png');
+    -fx-background-size: 22;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-min-width: 20;
-    -fx-min-height: 45px;
+    -fx-min-width: 25;
+    -fx-min-height: 25;
 }

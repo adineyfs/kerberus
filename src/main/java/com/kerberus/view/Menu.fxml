@@ -12,14 +12,17 @@
 
 <Pane fx:id="menuContainer" styleClass="menuContainer" stylesheets="@Menu.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-       <ImageView fx:id="menuLogo" fitHeight="150.0" fitWidth="200.0" layoutX="15.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="headerLogo">
-          <image>
-             <Image url="Kerberus_logo.png" />
-          </image>
-          <effect>
-             <ColorAdjust brightness="0.72" contrast="0.07" hue="1.0" saturation="-1.0" />
-          </effect>
-       </ImageView>
-       <Label fx:id="menuLabel" layoutX="11.0" layoutY="178.0" styleClass="menuLabel" text="TECSYS Kerberus" textFill="WHITE" />
+       <VBox styleClass="menuLogoContainer">
+           <Label fx:id="menuLabel" styleClass="labelTecsys" text="TECSYS" />
+           <ImageView fx:id="menuLogo" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="menuLogo">
+              <image>
+                 <Image url="Kerberus_logo.png" />
+              </image>
+              <effect>
+                 <ColorAdjust brightness="0.40" contrast="0.02" hue="1.0" saturation="-1.0" />
+              </effect>
+           </ImageView>
+           <Label fx:id="menuLabel" styleClass="labelKerberus" text="Kerberus" />
+       </VBox>
     </children>
 </Pane>

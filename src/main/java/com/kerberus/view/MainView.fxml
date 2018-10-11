@@ -20,15 +20,17 @@
             <CodeArea id="codeAreaSqlStatement" fx:id="codeAreaSqlStatement" onKeyPressed="#handleEnterPress" styleClass="codeAreaSqlStatement" />
          </children>
       </VBox>
-      <ComboBox value="Oracle" fx:id="comboDatabaseOption" styleClass="comboDatabaseOption">
-          <items>
-              <FXCollections fx:factory="observableArrayList">
-                  <String fx:id="oracle" fx:value="Oracle" />
-                  <String fx:id="sqlServer" fx:value="SQL Server" />
-              </FXCollections>
-          </items>
-      </ComboBox>
-      <Button fx:id="btnValidate" mnemonicParsing="false" onAction="#handleValidateButton" styleClass="btnValidate" text="Validate" />
+      <HBox styleClass="buttonsContainer">
+          <ComboBox value="Oracle" fx:id="comboDatabaseOption" styleClass="comboDatabaseOption">
+              <items>
+                  <FXCollections fx:factory="observableArrayList">
+                      <String fx:id="oracle" fx:value="Oracle" />
+                      <String fx:id="sqlServer" fx:value="SQL Server" />
+                  </FXCollections>
+              </items>
+          </ComboBox>
+          <Button fx:id="btnValidate" mnemonicParsing="false" onAction="#handleValidateButton" styleClass="btnValidate" text="Validate" />
+      </HBox>
       <VBox styleClass="txtAreaSqlValidationReturnContainer">
          <children>
          	<Label fx:id="validationReturnLabel" styleClass="validationReturnLabel" text="Validation Return" />
