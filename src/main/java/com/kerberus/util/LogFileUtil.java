@@ -13,28 +13,32 @@ public class LogFileUtil {
 	private static LogFileUtil logFileInstance = null;
 	private BufferedWriter writer;
 	private File file;
-	public static final String logFilePath = "T:\\Kerberus\\";
-	public static final String errorLogFilePath = "T:\\Kerberus\\Error\\error_";
-	public static final String logFileSuccessfullSQLPath = "T:\\Kerberus\\Validated SQL Scripts\\";
+	public static final String logFilePath = "J:\\support\\Kerberus\\";
+	public static final String errorLogFilePath = "J:\\support\\Kerberus\\error_";
+	public static final String logFileSuccessfullSQLPath = "J:\\support\\Kerberus\\Validated SQL Scripts\\";
+	
+	private static final int SCRIPT_FILE = 1;
+	private static final int LOG_FILE = 2;
+	private static final int ERROR_FILE = 3;
 
 	protected LogFileUtil() {
 
 	}
 
 	public void CreateLogFile() throws Exception {
-		String fileName = this.getFileName(logFilePath);
+		String fileName = this.getFileName(logFilePath, 2);
 		this.file = new File(fileName);
 		writer = new BufferedWriter(new FileWriter(file, true));
 	}
 
 	public void CreateLogErrorFile() throws Exception {
-		String fileName = this.getFileName(errorLogFilePath);
+		String fileName = this.getFileName(errorLogFilePath, 3);
 		this.file = new File(fileName);
 		writer = new BufferedWriter(new FileWriter(file, true));
 	}
 	
 	public void CreateSuccessfullSQLFile() throws Exception {
-		String fileName = this.getFileName(logFileSuccessfullSQLPath);
+		String fileName = this.getFileName(logFileSuccessfullSQLPath, 1);
 		this.file = new File(fileName);
 		writer = new BufferedWriter(new FileWriter(file, true));
 	}
@@ -47,14 +51,21 @@ public class LogFileUtil {
 		return hostname;
 	}
 	
-	public String getFileName(String path) throws Exception {
+	public String getFileName(String path, int fileType) throws Exception {
 		String hostname = this.getHostName();
 
 		LocalDateTime date = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 		String dateText = date.format(formatter);
 		
-		return path + hostname + "-" + dateText + ".txt";
+		if (fileType == SCRIPT_FILE) {
+			return path + hostname + "_" + "script_" + dateText + ".txt";
+		} else if (fileType == LOG_FILE) {
+			return path + hostname + "_" + "log_" + dateText + ".txt";
+		} else {
+			return path + hostname + "_" + "error_" + dateText + ".txt";	
+		}
+		
 	}
 
 	public void writeLine(String line) throws Exception {

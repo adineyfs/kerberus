@@ -1,12 +1,16 @@
 .mainViewContainer {
-	-fx-background-color: rgba(133, 133, 133, 0.2);
+	-fx-background-color: rgba(16, 64, 80, 0.6);
 	-fx-border-style: solid;
 	-fx-border-width: 2 2 2 0;
-    -fx-border-color: rgba(133, 133, 133, 0.6);
+    -fx-border-color: rgba(16, 64, 80, 0.6);
     
     -fx-spacing: 30;
     -fx-alignment: center;
     -fx-padding: 30;
+}
+
+.buttonsContainer {
+    -fx-alignment: center;
 }
 
 .codeAreaSqlStatement {
@@ -30,14 +34,14 @@
 }
 
 .txtAreaSqlValidationReturnContainer {
-	-fx-background-color: rgba(0, 0, 0, 0.8);
+	-fx-background-color: rgba(0, 0, 0, 0.6);
 	-fx-background-radius: 10;
     -fx-spacing: 10;
     -fx-padding: 40;
 }
 
 .txtAreaSqlStatementContainer {
-	-fx-background-color: rgba(0, 0, 0, 0.8);
+	-fx-background-color: rgba(0, 0, 0, 0.6);
 	-fx-background-radius: 10;
 	-fx-spacing: 10;
     -fx-padding: 40;
@@ -46,19 +50,82 @@
 .validationReturnLabel {
 	-fx-font-size: 24;
 	-fx-text-fill: white;
-	-fx-font-family: 'Roboto';
+	-fx-font-family: 'Montserrat Light';
 }
 
 .sqlStatementsLabel {
 	-fx-font-size: 24;
 	-fx-text-fill: white;
-	-fx-font-family: 'Roboto';
+	-fx-font-family: 'Montserrat Light';
 }
 
 .comboDatabaseOption {
     -fx-alignment: center;
     -fx-pref-width: 100px;
 }
+
+.btnValidate {
+    -fx-background-color: #3E6F95;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-font-family: 'Montserrat Light';
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-size: 12px;
+    -fx-padding: 10 15;
+    -fx-border-insets: 0 25;
+    -fx-background-insets: 3 10;
+    -fx-pref-width: 150;
+}
+
+.btnValidate Text {
+    -fx-effect: dropshadow( one-pass-box , rgba(0,0,0,0.9) , 1, 0.0 , 0 , 1 );
+}
+
+.combo-box {
+    -fx-focus-color: transparent;
+    -fx-background-color: #3E6F95;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-background-insets: 1;
+    -fx-pref-height: 31;
+    -fx-pref-width: 130;
+    -fx-font-family: 'Montserrat Light';
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-font-size: 12px;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+}
+
+.combo-box-base .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box-base .arrow {
+    -fx-shape: "M8.124,13.625l4.125-3.375v2.889l-4.125,3.86L4,13.139V10.25L8.124,13.625z";
+    -fx-background-color: white;
+}
+
+.combo-box-popup .list-view {
+    -fx-effect: null;
+    -fx-background-color: #38424b;
+}
+
+.combo-box-popup .list-view .list-cell:filled {
+    -fx-background-color: #38424b;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-background-color: #384231;
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected {
+    -fx-background-color: #38424F;
+}
+
+.combo-box-base .list-view .cell  {
+    -fx-background-color: #38424b; 
+}
+
 
 
 /*Code Area CSS*/

@@ -7,6 +7,9 @@
     -fx-background-color: rgba(0, 0, 0, 0.6);
 }
 
+.menuLogoContainer {
+    -fx-alignment: center;
+}
 
 .lblValidationReturn {
 	-fx-text-fill: black;
@@ -21,12 +24,14 @@
 	-fx-font-size: 20px;
 }
 
-.menuLogo {
-
+.labelTecsys {
+    -fx-text-fill: #C1C1C1;
+    -fx-font-family: 'Roboto Black';
+    -fx-font-size: 35;
 }
 
-.menuLabel {
-	-fx-font-size: 22;
-	-fx-color: white;
-	-fx-font-family: 'Roboto Black';
+.labelKerberus {
+    -fx-text-fill: #C1C1C1;
+    -fx-font-family: 'Montserrat Light';
+    -fx-font-size: 30;
 }
