@@ -30,7 +30,7 @@ parser code
 	public int updates_read = 0;
 	public int deletes_read = 0;
 	public int with_read = 0;
-
+	public int inserts_read = 0;
 
 	public void clean_lists() {
 		TableSE = new LinkedList<TError>();
@@ -127,6 +127,8 @@ non terminal set_exp_list, set_exp,ari_exp,par_exp,exp,_ari_opr,_asig_opr;  // e
 
 non terminal delete_s;
 
+non terminal insert_s, insert_cols, values_exp, mix_exp_insert, ari_value_insert;
+
 
 
 
@@ -134,7 +136,7 @@ non terminal delete_s;
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, IS, NOT, WITH, ORDER, BY, ASC, DESC;
+terminal SELECT, UPDATE, SET, DELETE, INSERT, INTO, VALUES, FROM, WHERE, IS, NOT, WITH, ORDER, BY, ASC, DESC ;
 
 // Joins
 terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
@@ -242,8 +244,10 @@ statement 		::= 	select_s
 						   updates_read++; :}
 				  |		with_s
 				  		{: System.out.println("statement ::= with_s");
-						   with_read++;	:};
-				  //| 	insert_s    // ---- TO-DO ----
+						   with_read++;	:}
+				  | 	insert_s
+				  		{: System.out.println("statement ::= insert_s");
+						   inserts_read++;	:};
 
 _semicolon 		::= 	_SEMCOL2
 						{: System.out.println("_semicolon ::= _SEMICOL2"); :};
@@ -372,12 +376,10 @@ order_by_part 	::= _order _by order_by_part_nested ;
 
 order_by_part_nested 	::=  order_cols ;
 										 
-order_cols	::=		cols order_cols
-					 |			cols asc_desc _COMMA order_cols
-					 |			cols asc_desc order_cols
-					 |			cols 
-					 |			cols asc_desc _COMMA 
-					 |			cols asc_desc;
+order_cols	::=		col_ali _COMMA order_cols
+					 |			col_ali asc_desc _COMMA order_cols
+					 |			col_ali 
+					 |			col_ali asc_desc;
 										 
 asc_desc		::=		_asc	
 					 |			_desc;
@@ -662,7 +664,28 @@ delete_s		::= 	DELETE FROM table_name where_part _semicolon
 				  	  			 		TableSE.add(errors_found);
 										System.out.println("value ::= LITERAL_STRING"); :};
 
+/* INSERT */
 
+insert_s		::=	INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR VALUES _OPENPAR values_exp _CLOSEPAR _semicolon;
+
+insert_cols ::=	IDENTIFIER:col1 _COMMA insert_cols {: Columns.add(col1 + ""); :}
+					 |		IDENTIFIER:col1 {: Columns.add(col1 + ""); :}; 
+
+values_exp ::=	mix_exp_insert _COMMA values_exp
+					// |		LITERAL_STRING _COMMA values_exp
+					 |		mix_exp_insert;
+					// | 		LITERAL_STRING;
+					
+mix_exp_insert ::=	_OPENPAR mix_exp _CLOSEPAR
+					  | 	func_ls
+					  | 	m_exp
+					  | 	ari_value_insert;
+					  
+ari_value_insert ::= LITERAL_STRING
+				  | 	INTEGER
+						{: System.out.println("ari_value ::= INTEGER"); :}
+				  | 	REAL
+				  		{: System.out.println("ari_value ::= REAL"); :};              
 
 /* FROM: single and multiple tables */
 
