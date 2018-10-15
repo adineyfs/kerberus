@@ -109,7 +109,7 @@ non terminal statement_group, statement,_semicolon;
 
 non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub,nvl2_exp,nvl2_exp_nested,func_ls;
 
-non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nvl2,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate;
+non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nvl2,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate,to_timestamp,to_timestamp_exp;
 
 non terminal from_part, where_part, cols,cols_nvl2,col,cl,col_ali;
 
@@ -139,7 +139,9 @@ terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, IS, NOT, WITH;
 // Joins
 terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
 
+// Date functions
 terminal SYSDATE;
+terminal TO_TIMESTAMP;
 
 terminal AS,ON,IN, DISTINCT,NULL;
 
@@ -378,7 +380,8 @@ stringFunctions ::=		stringFunction_concat
 				  |		stringFunction_rtrim
 				  |		stringFunction_instr; // Add String functions here
 
-dateFunctions	::=		sysdate;
+dateFunctions	::=		sysdate
+				  |		to_timestamp;
 
 logicalFunctions ::=	logFunc_choose // Add logical functions here
 				  |		logFunc_iif; // Add logical functions here
@@ -441,6 +444,7 @@ agg_max			::=   	MAX _OPENPAR count_exp _CLOSEPAR;
 
 agg_min			::=   	MIN _OPENPAR count_exp _CLOSEPAR;
 
+to_timestamp	::=		TO_TIMESTAMP _OPENPAR to_timestamp_exp _CLOSEPAR;
 
 agg_avg 		::=   	AVG _OPENPAR avg_exp _CLOSEPAR
 				  |		AVG _OPENPAR _STAR _CLOSEPAR;
@@ -482,6 +486,8 @@ avg_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
 				  | 	NULL
 				  | 	cl;
+
+to_timestamp_exp ::=	LITERAL_STRING _COMMA LITERAL_STRING;
 
 iif_exp			::=		_EQU
 				 |		_GT
