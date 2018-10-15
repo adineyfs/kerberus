@@ -103,11 +103,11 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2;
+non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, _order, _by, _asc, _desc;
 
 non terminal statement_group, statement,_semicolon;
 
-non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub,nvl2_exp,nvl2_exp_nested,func_ls;
+non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub,nvl2_exp,nvl2_exp_nested,func_ls, order_by_part, order_by_part_nested, order_cols, asc_desc;
 
 non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nvl2,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate;
 
@@ -134,7 +134,7 @@ non terminal delete_s;
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, IS, NOT, WITH;
+terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, IS, NOT, WITH, ORDER, BY, ASC, DESC;
 
 // Joins
 terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
@@ -257,7 +257,15 @@ select_s		::=		select_part from_part _semicolon
 				  |		select_part from_part joins_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part joins_part"); :}
 				  |		select_part from_part joins_part where_part _semicolon
-				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part"); :};
+				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part"); :}
+				  |		select_part from_part order_by_part _semicolon
+						{: System.out.println("select_s ::= select_part from_part order_by_part"); :}
+				  |		select_part from_part where_part order_by_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part where_part order_by_part"); :}
+				  |		select_part from_part joins_part order_by_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part joins_part order_by_part"); :}
+				  |		select_part from_part joins_part where_part order_by_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part order_by_part"); :};
 
 with_s			::=		with_part select_s
 						{: System.out.println("with_s	::=	with_part select_s"); :};
@@ -316,12 +324,20 @@ nvl2_exp		::=		_OPENPAR nvl2_exp_nested _COMMA nvl2_exp_nested _COMMA nvl2_exp_n
 				  
 nvl2_exp_nested ::=		//LITERAL_STRING
 				  		ari_exp;
-
+				  		
 _with			::=		WITH;
 
 _select 		::=		SELECT;
 
 _nvl2			::=		NVL2;
+
+_order			::=		ORDER;
+
+_by				::=		BY;
+
+_asc				::=		ASC;
+
+_desc			::=		DESC;
 
 cols			::= 	col_el _COMMA cols   
 		  	  	  | 	col_el;
@@ -351,6 +367,21 @@ func_ls			::=		aggregates
 				  |		logicalFunctions
 				  |		function_to_date
 				  |		function_to_char;
+				  
+order_by_part 	::= _order _by order_by_part_nested ;
+
+order_by_part_nested 	::=  order_cols ;
+										 
+order_cols	::=		cols order_cols
+					 |			cols asc_desc _COMMA order_cols
+					 |			cols asc_desc order_cols
+					 |			cols 
+					 |			cols asc_desc _COMMA 
+					 |			cols asc_desc;
+										 
+asc_desc		::=		_asc	
+					 |			_desc;
+
 /*
 column 			::= 	aggregates
 						{: System.out.println("col_el ::= aggregates"); :}

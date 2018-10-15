@@ -99,7 +99,10 @@ whitespace      = {WhiteSpace}
 	"is"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.IS, yyline+1, yycolumn+1, yytext()); }
 	"not"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NOT, yyline+1, yycolumn+1, yytext()); }
 	"sysdate"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SYSDATE, yyline+1, yycolumn+1, yytext()); }
-	
+	"order"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ORDER, yyline+1, yycolumn+1, yytext()); }
+	"by"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.BY, yyline+1, yycolumn+1, yytext()); }
+	"asc"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ASC, yyline+1, yycolumn+1, yytext()); }
+	"desc"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DESC, yyline+1, yycolumn+1, yytext()); }
 
 /* Case expressions */
 	"case"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CASE, yyline+1, yycolumn+1, yytext()); }
