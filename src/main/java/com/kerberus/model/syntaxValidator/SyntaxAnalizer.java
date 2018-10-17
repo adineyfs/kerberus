@@ -86,8 +86,13 @@ public class SyntaxAnalizer {
 				{
 					sb.append("\n\t- Valid DELETES found: " + Syntax_Analyzer.deletes_read );
 				}
+
+				if (Syntax_Analyzer.inserts_read > 0)
+				{
+					sb.append("\n\t- Valid INSERTS found: " + Syntax_Analyzer.inserts_read );
+				}
 				
-				sb.append("\n\t- Total: " + (Syntax_Analyzer.selects_read+Syntax_Analyzer.updates_read+Syntax_Analyzer.deletes_read) );
+				sb.append("\n\t- Total: " + (Syntax_Analyzer.selects_read+Syntax_Analyzer.updates_read+Syntax_Analyzer.deletes_read+Syntax_Analyzer.inserts_read) );
 			}
 			
 			sb.append("\n\n-------------- Findings Analysis --------------");
