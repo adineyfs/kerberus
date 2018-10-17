@@ -516,8 +516,8 @@ sysdate			::=		SYSDATE _OPENPAR _CLOSEPAR
 				  |		SYSDATE _OPENPAR _CLOSEPAR _ari_opr INTEGER;
 length_exp 		::= 	col;
 
-avg_exp 		::= 	ari_exp_avg
-					  |		DISTINCT IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
+avg_exp 		::= 	/*ari_exp_avg
+					  |*/	DISTINCT IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
 					  | 	DISTINCT TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
 					  | 	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
 					  | 	TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
