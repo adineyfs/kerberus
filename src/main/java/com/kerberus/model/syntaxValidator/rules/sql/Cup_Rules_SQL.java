@@ -3162,10 +3162,10 @@ class CUP$Cup_Rules_SQL$actions {
           case 175: // col_ali ::= IDENTIFIER 
             {
               Object RESULT =null;
-		int tleft = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).left;
-		int tright = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
-		Object t = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
-		 /*Tables.add(t+"");*/ 
+		int col1left = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).left;
+		int col1right = ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()).right;
+		Object col1 = (Object)((java_cup.runtime.Symbol) CUP$Cup_Rules_SQL$stack.peek()).value;
+		 Columns.add(col1 + ""); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("col_ali",81, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;

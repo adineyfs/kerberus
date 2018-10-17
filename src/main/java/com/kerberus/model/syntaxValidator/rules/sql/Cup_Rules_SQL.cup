@@ -546,7 +546,8 @@ cl				::= 	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
 				  | 	LITERAL_STRING;
 				  
 col_ali			::= 	QTABLENAME:t {: /*Tables.add(t+"");*/ :}
-				  | 	IDENTIFIER:t {: /*Tables.add(t+"");*/ :}
+				 // | 	IDENTIFIER:t {: /*Tables.add(t+"");*/ :} 
+				  |     IDENTIFIER:col1  {: Columns.add(col1 + ""); :}
 				  | 	QCOLALIAS:t {: /*Tables.add(t+"");*/ :};				
 
 
