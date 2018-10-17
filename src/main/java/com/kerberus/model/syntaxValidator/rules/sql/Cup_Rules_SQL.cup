@@ -103,7 +103,7 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2;
+non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, drop, table;
 
 non terminal statement_group, statement,_semicolon;
 
@@ -125,7 +125,7 @@ non terminal update_s,_update,_set, update_part, ari_value;
 
 non terminal set_exp_list, set_exp,ari_exp,par_exp,exp,_ari_opr,_asig_opr;  // elements for a small calculator
 
-non terminal delete_s;
+non terminal delete_s, drop_s;
 
 
 
@@ -134,7 +134,7 @@ non terminal delete_s;
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, IS, NOT, WITH;
+terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, IS, NOT, WITH, DROP, TABLE;
 
 // Joins
 terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
@@ -245,6 +245,9 @@ statement 		::= 	select_s
 						   updates_read++; :}
 				  |		with_s
 				  		{: System.out.println("statement ::= with_s");
+						   with_read++;	:}
+				  |		drop_s
+				  		{: System.out.println("statement ::= drop_s");
 						   with_read++;	:};
 				  //| 	insert_s    // ---- TO-DO ----
 
@@ -265,6 +268,9 @@ select_s		::=		select_part from_part _semicolon
 with_s			::=		with_part select_s
 						{: System.out.println("with_s	::=	with_part select_s"); :};
 
+drop_s			::=		drop table table_name _semicolon
+						{: System.out.println("drop_s ::= drop table table_name"); :};
+
 joins_part		::= 	join_p joins_part
 						{: System.out.println("joins_part ::= join_p joins_part"); :}
 				  | 	join_p
@@ -283,7 +289,7 @@ join_p			::= 	NATURAL JOIN table_name
 	join_using_cols ::= 	cl _COMMA join_using_cols   
 		  	  	 	  | 		cl;
 
-				  
+
 join 			::=  	INNER JOIN
 				  | 	LEFT JOIN
 				  | 	RIGHT JOIN
@@ -319,6 +325,9 @@ nvl2_exp		::=		_OPENPAR nvl2_exp_nested _COMMA nvl2_exp_nested _COMMA nvl2_exp_n
 				  
 nvl2_exp_nested ::=		//LITERAL_STRING
 				  		ari_exp;
+
+drop			::=		DROP;
+table			::=		TABLE;
 
 _with			::=		WITH;
 
