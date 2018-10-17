@@ -115,7 +115,7 @@ non terminal from_part, where_part, cols,cols_nvl2,col,cl,col_ali;
 
 non terminal element_in, in_list, in_exp, in_array, in_subquery;
 
-non terminal joins_part,join_p,join_on,join_cond,join_c, join,join_using_cols, join_using; // join_using_cols, join_using : future version
+non terminal joins_part,join_p,join_on,join_cond,join_c, join,join_using_cols, join_using,union, union_p, union_part, union_exp; // join_using_cols, join_using : future version
 
 non terminal w_condition, cond, log_oper,cmp_oper, element,h_condition, g_condition;
 
@@ -265,6 +265,10 @@ select_s		::=		select_part from_part _semicolon
 						{: System.out.println("select_s ::= select_part from_part group_by_part"); :}
 				  |		select_part from_part where_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part where_part"); :}
+				  |		select_part from_part union_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part union_part"); :}
+				  |		select_part from_part where_part union_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part union_part"); :}
 				  |		select_part from_part where_part group_by_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part"); :}
 				  |		select_part from_part where_part group_by_part having_part _semicolon
@@ -293,11 +297,15 @@ joins_part		::= 	join_p joins_part
 				  | 	join_p
 				  		{: System.out.println("joins_part ::= join_p"); :};		
 
+union_part		::=		union_p union_exp
+						{: System.out.println("union_part ::= union_p select_part from_part"); :};
 join_p			::= 	NATURAL JOIN table_name
 				  | 	JOIN table_name
 				  | 	JOIN table_name join_using   // future version improvement
 				  | 	JOIN table_name join_cond
 				  | 	join table_name join_cond;
+
+union_p			::=		union;
 				  
 group_by_part	::=		_group _by g_condition
 						{: System.out.println("group_by_part ::= _group _by g_condition"); :};
@@ -322,6 +330,13 @@ join 			::=  	INNER JOIN
 				  | 	LEFT OUTER JOIN
 				  | 	RIGHT OUTER JOIN
 				  | 	FULL OUTER JOIN;				 
+
+union			::=		UNION
+				  |		UNION ALL;
+
+union_exp		::=		select_part from_part
+				  |		select_part from_part where_part;
+
 
 join_cond		::= 	ON join_c;
 
@@ -756,6 +771,7 @@ in_exp 			::= 	in_array
 in_subquery 	::= 	select_part_sub from_part
 				  |		select_part_sub from_part where_part
 				  |		select_part_sub from_part joins_part
+				  |		select_part_sub from_part union_part
 				  |		select_part_sub from_part joins_part where_part;
 				
 select_part_sub ::= 	_select col; 				  
