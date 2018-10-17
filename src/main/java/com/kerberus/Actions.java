@@ -19,7 +19,7 @@ public class Actions {
 			"join","as","on","null", "natural", "inner", "outer", "left",
 			"right", "full", "in", "when","case","end","then","else","is","not","with","using","nvl2","nvl","sysdate",
 			"min", "max", "sum", "avg", "nullif", "to_date", "to_char", "ltrim", "rtrim", "instr", "lpad", "rpad",
-			"length", "replace", "trim", "upper", "lower", "concat"
+			"length", "replace", "trim", "upper", "lower", "concat", "having", "group", "by", "count"
     };
 
     private static final String KEYWORD_PATTERN 	 = "\\b(" + String.join("|", KEYWORDS) + ")\\b";

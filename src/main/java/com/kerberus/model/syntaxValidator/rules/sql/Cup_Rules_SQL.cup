@@ -103,7 +103,7 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2;
+non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, _group, _having, _by;
 
 non terminal statement_group, statement,_semicolon;
 
@@ -111,13 +111,13 @@ non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, sele
 
 non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nvl2,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate;
 
-non terminal from_part, where_part, cols,cols_nvl2,col,cl,col_ali;
+non terminal from_part, where_part, cols,cols_nvl2,col,cl,col_ali, group_by_part, having_part;
 
 non terminal element_in, in_list, in_exp, in_array, in_subquery;
 
 non terminal joins_part,join_p,join_on,join_cond,join_c, join,join_using_cols, join_using; // join_using_cols, join_using : future version
 
-non terminal w_condition, cond, log_oper,cmp_oper, element;
+non terminal w_condition, cond, log_oper,cmp_oper, element, h_condition, g_condition;
 
 non terminal cond_el,c_el,c_ali,mix_exp,m_exp,case_exp, case_rules,case_rul, case_else,case_cond,case_act;
 
@@ -134,7 +134,7 @@ non terminal delete_s;
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, IS, NOT, WITH;
+terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, GROUP, HAVING, IS, NOT, WITH, BY;
 
 // Joins
 terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
@@ -252,12 +252,22 @@ _semicolon 		::= 	_SEMCOL2
 
 select_s		::=		select_part from_part _semicolon
 						{: System.out.println("select_s ::= select_part from_part"); :}
+				  |		select_part from_part group_by_part _semicolon
+						{: System.out.println("select_s ::= select_part from_part group_by_part"); :}
 				  |		select_part from_part where_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part where_part"); :}
+				  |		select_part from_part where_part group_by_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part"); :}
+				  |		select_part from_part where_part group_by_part having_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part having_part"); :}
 				  |		select_part from_part joins_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part joins_part"); :}
 				  |		select_part from_part joins_part where_part _semicolon
-				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part"); :};
+				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part"); :}
+				  |		select_part from_part joins_part where_part group_by_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part group_by_part"); :}
+				  |		select_part from_part joins_part where_part group_by_part having_part _semicolon
+				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part group_by_part having_part"); :};
 
 with_s			::=		with_part select_s
 						{: System.out.println("with_s	::=	with_part select_s"); :};
@@ -272,7 +282,13 @@ join_p			::= 	NATURAL JOIN table_name
 				  | 	JOIN table_name join_using   // future version improvement
 				  | 	JOIN table_name join_cond
 				  | 	join table_name join_cond;
-				  
+
+group_by_part	::=		_group _by g_condition
+						{: System.out.println("group_by_part ::= _group _by g_condition"); :};
+
+having_part		::=		_having h_condition
+						{: System.out.println("having_part ::= _having h_condition"); :};
+
 
 	// For a future version : must validate that all column dont have qualifiers: tab.column 
 	join_using 		::= 	USING _OPENPAR join_using_cols _CLOSEPAR;				  
@@ -294,7 +310,17 @@ join_cond		::= 	ON join_c;
 join_c			::= 	join_on log_oper join_c
 				  |   	join_on;
 
-join_on			::= 	element _EQU element;		  
+join_on			::= 	element _EQU element;
+
+_group			::=		GROUP;
+
+_having			::=		HAVING;
+
+g_condition		::=		aggregates
+				  |		cl _COMMA g_condition
+				  |		cl;
+
+h_condition		::=		w_condition;
 
 with_part		::=		_with with_exp
 				  |		_with with_exp2;
@@ -320,6 +346,8 @@ nvl2_exp_nested ::=		//LITERAL_STRING
 _with			::=		WITH;
 
 _select 		::=		SELECT;
+
+_by				::=		BY;
 
 _nvl2			::=		NVL2;
 
@@ -675,6 +703,7 @@ w_condition		::= 	cond log_oper w_condition
 						{: System.out.println("w_condition ::= cond log_oper w_condition"); :}
 		  	  	  | 	cond
 		  	  	  		{: System.out.println("w_condition ::= cond"); :};
+
 
 cond 			::= 	cond_el cmp_oper cond_el
 				  | 	element_in IN in_list
