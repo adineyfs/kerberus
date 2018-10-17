@@ -176,7 +176,7 @@ terminal TO_DATE;
 terminal TO_CHAR;
 
 // Case expressions
-terminal CASE, WHEN, THEN, ELSE, END;
+terminal CASE, WHEN, THEN, ELSE, END, MATCHED;
 
 
 // Identifiers and numbers
@@ -699,7 +699,9 @@ w_condition		::= 	cond log_oper w_condition
 cond 			::= 	cond_el cmp_oper cond_el
 				  | 	element_in IN in_list
 				  | 	cl IS NULL
-				  |		cl IS NOT NULL;
+				  |		cl IS NOT NULL
+				  |		MATCHED
+				  |		NOT MATCHED;
 				  
 cond_el 		::= 	mix_exp
 				  /*| 	element*/;		  

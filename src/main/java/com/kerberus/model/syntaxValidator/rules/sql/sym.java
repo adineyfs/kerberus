@@ -18,7 +18,10 @@ public class sym {
   public static final int LTRIM = 35;
 =======
   public static final int LTRIM = 34;
+<<<<<<< HEAD
 >>>>>>> release-0.3_card_96
+=======
+>>>>>>> release-0.3_card_109
   public static final int _GT = 62;
   public static final int OUTER = 15;
   public static final int NATURAL = 11;
@@ -27,20 +30,28 @@ public class sym {
   public static final int SYSDATE = 19;
   public static final int _PLUSEQ = 73;
 <<<<<<< HEAD
+<<<<<<< HEAD
   public static final int SUM = 27;
   public static final int NVL = 44;
 =======
+=======
+>>>>>>> release-0.3_card_109
   public static final int SUM = 26;
   public static final int NVL = 43;
 >>>>>>> release-0.3_card_96
   public static final int JOIN = 17;
   public static final int INNER = 16;
+<<<<<<< HEAD
   public static final int TO_DATE = 47;
+=======
+  public static final int TO_DATE = 46;
+>>>>>>> release-0.3_card_109
   public static final int _LT = 63;
   public static final int INTEGER = 55;
   public static final int _CLOSEPAR = 82;
   public static final int NOT = 9;
   public static final int _OPENPAR = 81;
+<<<<<<< HEAD
 <<<<<<< HEAD
   public static final int MIN = 29;
   public static final int THEN = 51;
@@ -54,6 +65,12 @@ public class sym {
   public static final int _MINUSEQ = 74;
   public static final int LITERAL_STRING = 57;
   public static final int ISNULL = 46;
+=======
+  public static final int MIN = 28;
+  public static final int THEN = 50;
+  public static final int _MINUSEQ = 74;
+  public static final int LITERAL_STRING = 57;
+>>>>>>> release-0.3_card_109
   public static final int TRIM = 38;
   public static final int LOWER = 40;
 >>>>>>> release-0.3_card_96
@@ -66,9 +83,12 @@ public class sym {
   public static final int _SEMCOL2 = 85;
   public static final int _LET = 64;
 <<<<<<< HEAD
+<<<<<<< HEAD
   public static final int IIF = 43;
   public static final int NULLIF = 46;
 =======
+=======
+>>>>>>> release-0.3_card_109
   public static final int IIF = 42;
   public static final int NULLIF = 45;
 >>>>>>> release-0.3_card_96
@@ -76,6 +96,7 @@ public class sym {
   public static final int TABDOTCOL = 59;
   public static final int QCOLALIAS = 60;
   public static final int _MINUS = 69;
+<<<<<<< HEAD
 <<<<<<< HEAD
   public static final int MAX = 28;
   public static final int _PLUS = 68;
@@ -90,11 +111,18 @@ public class sym {
   public static final int AVG = 30;
   public static final int NULL = 25;
 =======
+=======
+  public static final int MATCHED = 53;
+>>>>>>> release-0.3_card_109
   public static final int MAX = 27;
   public static final int _PLUS = 68;
   public static final int LPAD = 30;
   public static final int CONCAT = 33;
+<<<<<<< HEAD
   public static final int ELSE = 52;
+=======
+  public static final int ELSE = 51;
+>>>>>>> release-0.3_card_109
   public static final int _MODEQ = 77;
   public static final int INSTR = 36;
   public static final int LENGTH = 32;
@@ -110,6 +138,7 @@ public class sym {
   public static final int IS = 8;
   public static final int _EQU = 61;
 <<<<<<< HEAD
+<<<<<<< HEAD
   public static final int RPAD = 32;
   public static final int NVL2 = 45;
   public static final int IN = 23;
@@ -120,6 +149,8 @@ public class sym {
   public static final int END = 53;
   public static final int REPLACE = 38;
 =======
+=======
+>>>>>>> release-0.3_card_109
   public static final int RPAD = 31;
   public static final int NVL2 = 44;
   public static final int IN = 22;
@@ -129,13 +160,20 @@ public class sym {
   public static final int ON = 21;
   public static final int END = 53;
   public static final int REPLACE = 37;
+<<<<<<< HEAD
 >>>>>>> release-0.3_card_96
+=======
+>>>>>>> release-0.3_card_109
   public static final int QTABLENAME = 58;
   public static final int USING = 18;
   public static final int _ANDEQ = 78;
   public static final int _TIMESEQ = 75;
   public static final int _DIFF = 66;
+<<<<<<< HEAD
   public static final int CASE = 49;
+=======
+  public static final int CASE = 48;
+>>>>>>> release-0.3_card_109
   public static final int _DIVIDEEQ = 76;
   public static final int UPDATE = 3;
 <<<<<<< HEAD
@@ -150,6 +188,7 @@ public class sym {
   public static final int _OREQ = 80;
   public static final int WITH = 10;
   public static final int DISTINCT = 23;
+<<<<<<< HEAD
 >>>>>>> release-0.3_card_96
   public static final int ILLEGAL_CHAR = 86;
   public static final int _COMMA = 83;
@@ -244,6 +283,11 @@ public class sym {
   public static final int _COMMA = 84;
   public static final int TO_CHAR = 49;
 >>>>>>> release-0.3_card_105
+=======
+  public static final int ILLEGAL_CHAR = 86;
+  public static final int _COMMA = 83;
+  public static final int TO_CHAR = 47;
+>>>>>>> release-0.3_card_109
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -302,6 +346,7 @@ public class sym {
   "THEN",
   "ELSE",
   "END",
+  "MATCHED",
   "IDENTIFIER",
   "INTEGER",
   "REAL",
