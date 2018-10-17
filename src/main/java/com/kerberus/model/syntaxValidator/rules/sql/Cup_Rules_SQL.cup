@@ -103,11 +103,11 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, drop, table_group, _having, _by;
+non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, drop, table_group, _having, _by,_merge;
 
 non terminal statement_group, statement,_semicolon;
 
-non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub,nvl2_exp,nvl2_exp_nested,func_ls;
+non terminal select_s, with_s, with_part, with_exp, with_exp2, with_exp2_1,merge_s, merge_part, merge_exp, merge_using, merge_using_cols, select_part,select_part_sub,nvl2_exp,nvl2_exp_nested,func_ls;
 
 non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nvl2,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate,to_timestamp,to_timestamp_exp,nullFunction_isnull,isnull_exp;
 
@@ -134,7 +134,7 @@ non terminal delete_s, drop_s;
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, GROUP, HAVING, IS, NOT, WITH, DROP, TABLE,BY;
+terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, GROUP, HAVING, IS, NOT, WITH, DROP, TABLE,BY,MERGE, INTO;
 
 // Joins
 terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
@@ -248,7 +248,10 @@ statement 		::= 	select_s
 						   with_read++;	:}
 				  |		drop_s
 				  		{: System.out.println("statement ::= drop_s");
-						   with_read++;	:};
+						   with_read++;	:}
+				  |		merge_s
+				  		{: System.out.println("statement ::= merge_s");
+						   merge_read++;	:};
 				  //| 	insert_s    // ---- TO-DO ----
 
 _semicolon 		::= 	_SEMCOL2
@@ -281,6 +284,10 @@ with_s			::=		with_part select_s
 drop_s			::=		drop table table_name _semicolon
 						{: System.out.println("drop_s ::= drop table table_name"); :};
 
+
+merge_s			::=		merge_part
+						{: System.out.println("merge_s	::=	merge_part"); :};
+
 joins_part		::= 	join_p joins_part
 						{: System.out.println("joins_part ::= join_p joins_part"); :}
 				  | 	join_p
@@ -297,6 +304,10 @@ group_by_part	::=		_group _by g_condition
 
 having_part		::=		_having h_condition
 						{: System.out.println("having_part ::= _having h_condition"); :};
+
+merge_using			::=		USING _OPENPAR merge_using_cols _CLOSEPAR;
+
+merge_using_cols	::=		join_using_cols; // add select subqueries as another option later
 
 	// For a future version : must validate that all column dont have qualifiers: tab.column 
 	join_using 		::= 	USING _OPENPAR join_using_cols _CLOSEPAR;				  
@@ -320,6 +331,8 @@ join_c			::= 	join_on log_oper join_c
 
 join_on			::= 	element _EQU element;		  
 
+merge_part		::=		_merge merge_exp;
+
 _group			::=		GROUP;
 
 _having			::=		HAVING;
@@ -342,6 +355,7 @@ with_exp2		::=		col_ali  with_exp2_1 AS _OPENPAR select_part from_part _CLOSEPAR
 				 
 with_exp2_1		::= 	_OPENPAR cols _CLOSEPAR;
 
+merge_exp		::=		col merge_using join_cond case_cond THEN _update _set set_exp _semicolon;
 select_part		::= 	_select _STAR
 			  	  | 	_select DISTINCT cols
 			  	  | 	_select cols;
@@ -350,6 +364,8 @@ nvl2_exp		::=		_OPENPAR nvl2_exp_nested _COMMA nvl2_exp_nested _COMMA nvl2_exp_n
 				  
 nvl2_exp_nested ::=		//LITERAL_STRING
 				  		ari_exp;
+
+_merge			::=		MERGE INTO;
 
 drop			::=		DROP;
 table			::=		TABLE;
