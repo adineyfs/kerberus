@@ -9,6 +9,7 @@ package com.kerberus.model.syntaxValidator.rules.sql;
 public class sym {
   /* terminals */
 <<<<<<< HEAD
+<<<<<<< HEAD
   public static final int AS = 21;
   public static final int LEFT = 12;
   public static final int IDENTIFIER = 54;
@@ -288,6 +289,97 @@ public class sym {
   public static final int _COMMA = 83;
   public static final int TO_CHAR = 47;
 >>>>>>> release-0.3_card_109
+=======
+  public static final int AS = 23;
+  public static final int LEFT = 15;
+  public static final int IDENTIFIER = 56;
+  public static final int REAL = 58;
+  public static final int FROM = 6;
+  public static final int LTRIM = 37;
+  public static final int _GT = 64;
+  public static final int GROUP = 8;
+  public static final int OUTER = 18;
+  public static final int NATURAL = 14;
+  public static final int _DIFF2 = 69;
+  public static final int RIGHT = 16;
+  public static final int SYSDATE = 22;
+  public static final int _PLUSEQ = 75;
+  public static final int SUM = 29;
+  public static final int NVL = 46;
+  public static final int JOIN = 20;
+  public static final int INNER = 19;
+  public static final int TO_DATE = 49;
+  public static final int _LT = 65;
+  public static final int INTEGER = 57;
+  public static final int _CLOSEPAR = 84;
+  public static final int NOT = 11;
+  public static final int _OPENPAR = 83;
+  public static final int MIN = 31;
+  public static final int THEN = 53;
+  public static final int _MINUSEQ = 76;
+  public static final int LITERAL_STRING = 59;
+  public static final int TRIM = 41;
+  public static final int LOWER = 43;
+  public static final int WHEN = 52;
+  public static final int SELECT = 2;
+  public static final int _AND = 73;
+  public static final int FULL = 17;
+  public static final int _POWEQ = 81;
+  public static final int _DIVIDE = 72;
+  public static final int _SEMCOL2 = 87;
+  public static final int _LET = 66;
+  public static final int IIF = 45;
+  public static final int NULLIF = 48;
+  public static final int DELETE = 5;
+  public static final int TABDOTCOL = 61;
+  public static final int QCOLALIAS = 62;
+  public static final int _MINUS = 71;
+  public static final int MAX = 30;
+  public static final int _PLUS = 70;
+  public static final int LPAD = 33;
+  public static final int CONCAT = 36;
+  public static final int ELSE = 54;
+  public static final int _MODEQ = 79;
+  public static final int INSTR = 39;
+  public static final int LENGTH = 35;
+  public static final int _GET = 67;
+  public static final int AVG = 32;
+  public static final int NULL = 27;
+  public static final int EOF = 0;
+  public static final int _STAR = 86;
+  public static final int WHERE = 7;
+  public static final int COUNT = 28;
+  public static final int CHOOSE = 44;
+  public static final int IS = 10;
+  public static final int _EQU = 63;
+  public static final int RPAD = 34;
+  public static final int NVL2 = 47;
+  public static final int IN = 25;
+  public static final int SET = 4;
+  public static final int error = 1;
+  public static final int _OR = 74;
+  public static final int ON = 24;
+  public static final int END = 55;
+  public static final int REPLACE = 40;
+  public static final int BY = 13;
+  public static final int QTABLENAME = 60;
+  public static final int USING = 21;
+  public static final int _ANDEQ = 80;
+  public static final int _TIMESEQ = 77;
+  public static final int _DIFF = 68;
+  public static final int CASE = 51;
+  public static final int _DIVIDEEQ = 78;
+  public static final int UPDATE = 3;
+  public static final int RTRIM = 38;
+  public static final int UPPER = 42;
+  public static final int _OREQ = 82;
+  public static final int WITH = 12;
+  public static final int HAVING = 9;
+  public static final int DISTINCT = 26;
+  public static final int ILLEGAL_CHAR = 88;
+  public static final int _COMMA = 85;
+  public static final int TO_CHAR = 50;
+>>>>>>> release-0.3_card_111
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -297,11 +389,17 @@ public class sym {
   "DELETE",
   "FROM",
   "WHERE",
+  "GROUP",
+  "HAVING",
   "IS",
   "NOT",
   "WITH",
+<<<<<<< HEAD
   "DROP",
   "TABLE",
+=======
+  "BY",
+>>>>>>> release-0.3_card_111
   "NATURAL",
   "LEFT",
   "RIGHT",
