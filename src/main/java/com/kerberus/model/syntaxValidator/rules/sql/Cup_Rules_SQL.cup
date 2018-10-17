@@ -521,7 +521,7 @@ avg_exp 		::= 	/*ari_exp_avg
 					  | 	DISTINCT TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
 					  | 	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
 					  | 	TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
-					  |		aggregates;
+					  /*|		aggregates*/;
 
 iif_exp			::=		_EQU
 				 |		_GT
