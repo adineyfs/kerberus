@@ -73,7 +73,7 @@ alphanumeric	= {letter}|{digit}
 under			= [_] 		// Underscore character
 // begins with letter or a underscore, followed by characters,numbers or underscore, finishing with letter or a _.
 identifier      = ((  {under}({alphanumeric}|{under})+  ) | (  {letter}({alphanumeric}|{under})*  )) 
-integer			= {digit}+ | [-]{digit}+
+integer			= {digit}+ //| [-]{digit}+
 real			= {digit}+[.]{digit}+
 literalString	= '(\\.|[^\\'])*'
 QTableName		= \"{identifier}\" 
