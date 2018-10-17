@@ -96,20 +96,28 @@ whitespace      = {WhiteSpace}
 	"from" 			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.FROM, yyline+1, yycolumn+1, yytext()); }
 	"where"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WHERE, yyline+1, yycolumn+1, yytext()); }
 	"with"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WITH, yyline+1, yycolumn+1, yytext()); }
-<<<<<<< HEAD
 	"is"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.IS, yyline+1, yycolumn+1, yytext()); }
 	"not"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NOT, yyline+1, yycolumn+1, yytext()); }
-	
-=======
+	"by"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.BY, yyline+1, yycolumn+1, yytext()); }
+	"group"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.GROUP, yyline+1, yycolumn+1, yytext()); }
+	"having"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.HAVING, yyline+1, yycolumn+1, yytext()); }
 	"sysdate"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SYSDATE, yyline+1, yycolumn+1, yytext()); }
+	"drop"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DROP, yyline+1, yycolumn+1, yytext()); }
+	"table"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TABLE, yyline+1, yycolumn+1, yytext()); }
+		
 
->>>>>>> release-0.3-merging_branch
+/* Date functions */
+	"to_timestamp"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TO_TIMESTAMP, yyline+1, yycolumn+1, yytext()); }
+	"merge"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.MERGE, yyline+1, yycolumn+1, yytext()); }
+	
+
 /* Case expressions */
 	"case"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CASE, yyline+1, yycolumn+1, yytext()); }
 	"when"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WHEN, yyline+1, yycolumn+1, yytext()); }
 	"then"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.THEN, yyline+1, yycolumn+1, yytext()); }
 	"else"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ELSE, yyline+1, yycolumn+1, yytext()); }
 	"end"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.END, yyline+1, yycolumn+1, yytext()); }
+	"matched"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.MATCHED, yyline+1, yycolumn+1, yytext()); }
 	
 	
 /* JOINS */	
@@ -121,6 +129,7 @@ whitespace      = {WhiteSpace}
 	"full"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.FULL, yyline+1, yycolumn+1, yytext()); }
 	"inner"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.INNER, yyline+1, yycolumn+1, yytext()); }
 	"on"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ON, yyline+1, yycolumn+1, yytext()); }
+	"into"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.INTO, yyline+1, yycolumn+1, yytext()); }
 	"using"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.USING, yyline+1, yycolumn+1, yytext()); }
 	
 /* Aggregated function */
@@ -133,31 +142,25 @@ whitespace      = {WhiteSpace}
 	"max"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.MAX, yyline+1, yycolumn+1, yytext()); }
 	"min"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.MIN, yyline+1, yycolumn+1, yytext()); }
 
-/* Null functions */
-	"nvl"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NVL, yyline+1, yycolumn+1, yytext()); }
-
-
 /* Logical functions */
 	"choose"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CHOOSE, yyline+1, yycolumn+1, yytext()); }
 	"iif"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.IIF, yyline+1, yycolumn+1, yytext()); }
 	
 /* String functions*/
-<<<<<<< HEAD
 	"concat"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CONCAT, yyline+1, yycolumn+1, yytext()); }
+	"replace"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.REPLACE, yyline+1, yycolumn+1, yytext()); }
+	"trim"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TRIM, yyline+1, yycolumn+1, yytext()); }
+	"upper"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.UPPER, yyline+1, yycolumn+1, yytext()); }
+	"lower"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.LOWER, yyline+1, yycolumn+1, yytext()); }
 	"ltrim"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.LTRIM, yyline+1, yycolumn+1, yytext()); }
 	"rtrim"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.RTRIM, yyline+1, yycolumn+1, yytext()); }
 	"instr"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.INSTR, yyline+1, yycolumn+1, yytext()); }
-=======
-	"concat"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CONCAT, yyline+1, yycolumn+1, yytext()); }
-	"replace"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.REPLACE, yyline+1, yycolumn+1, yytext()); }
-	"trim"				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TRIM, yyline+1, yycolumn+1, yytext()); }
-	"upper"				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.UPPER, yyline+1, yycolumn+1, yytext()); }
-	"lower"				{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.LOWER, yyline+1, yycolumn+1, yytext()); }
->>>>>>> release-0.3-merging_branch
 
 /* Null Functions */
+	"nvl"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NVL, yyline+1, yycolumn+1, yytext()); }
 	"nvl2"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NVL2, yyline+1, yycolumn+1, yytext()); }
 	"nullif"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NULLIF, yyline+1, yycolumn+1, yytext()); }
+	"isnull"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ISNULL, yyline+1, yycolumn+1, yytext()); }
 
 /* Other Function */
 	"to_date"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TO_DATE, yyline+1, yycolumn+1, yytext()); }

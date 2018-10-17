@@ -30,6 +30,7 @@ parser code
 	public int updates_read = 0;
 	public int deletes_read = 0;
 	public int with_read = 0;
+	public int merge_read = 0;
 
 
 	public void clean_lists() {
@@ -103,7 +104,7 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, drop, table_group, _having, _by,_merge;
+non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, drop,group_by_part,having_part,table,_group, table_group, _having, _by,_merge;
 
 non terminal statement_group, statement,_semicolon;
 
@@ -134,7 +135,7 @@ non terminal delete_s, drop_s;
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, GROUP, HAVING, IS, NOT, WITH, DROP, TABLE,BY,MERGE, INTO;
+terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, GROUP, HAVING, IS, NOT, WITH, DROP, TABLE,BY,MERGE, INTO,UNION,ALL;
 
 // Joins
 terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
