@@ -104,7 +104,7 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, drop,group_by_part,having_part,table,_group, table_group, _having, _by,_merge;
+non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, drop,group_by_part,having_part,table,_group, table_group, _having, _by,_merge,top;
 
 non terminal statement_group, statement,_semicolon;
 
@@ -135,7 +135,7 @@ non terminal delete_s, drop_s;
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, GROUP, HAVING, IS, NOT, WITH, DROP, TABLE,BY,MERGE, INTO,UNION,ALL;
+terminal SELECT, UPDATE, SET, DELETE, FROM, WHERE, GROUP, HAVING, IS, NOT, WITH, DROP, TABLE,BY,MERGE, INTO,UNION,ALL,TOP;
 
 // Joins
 terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
@@ -701,6 +701,7 @@ _asig_opr 		::= 	_EQU| _PLUSEQ|_MINUSEQ|_TIMESEQ|_DIVIDEEQ|_MODEQ|_ANDEQ|_POWEQ|
 /* DELETE */
 
 delete_s		::= 	DELETE FROM table_name where_part _semicolon
+				  |		DELETE top FROM table_name where_part _semicolon 
 				  |		DELETE FROM table_name _semicolon error 
 				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid DELETE section. Missing where clause (WHERE).");
 				  	  	   TableSE.add(errors_found);
@@ -800,6 +801,8 @@ cmp_oper  		::= 	_EQU
 
 log_oper    	::= 	_AND 
 			  	  | 	_OR;
+top				::=		TOP INTEGER
+				  |		TOP _OPENPAR INTEGER _CLOSEPAR;
 
 // ~~ CUP-ECLIPSE:CONFLICT-RES-RR ~~ 
  // After this the order of productions matters

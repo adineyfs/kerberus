@@ -105,6 +105,7 @@ whitespace      = {WhiteSpace}
 	"drop"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DROP, yyline+1, yycolumn+1, yytext()); }
 	"table"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TABLE, yyline+1, yycolumn+1, yytext()); }
 	"merge"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.MERGE, yyline+1, yycolumn+1, yytext()); }
+	"top"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TOP, yyline+1, yycolumn+1, yytext()); }
 		
 
 /* Date functions */
