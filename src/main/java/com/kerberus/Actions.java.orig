@@ -15,15 +15,15 @@ import javafx.stage.Stage;
 public class Actions {
 	
 	private static final String[] KEYWORDS = new String[] {
-			"select","update","set","delete","from","where","and","or",
+			"select","update","set","delete","insert","into","values","from","where","and","or",
 			"join","as","on","null", "natural", "inner", "outer", "left",
 			"right", "full", "in", "when","case","end","then","else","is","not","with","using","nvl2","nvl","sysdate",
 			"min", "max", "sum", "avg", "nullif", "to_date", "to_char", "ltrim", "rtrim", "instr", "lpad", "rpad",
 <<<<<<< HEAD
-			"length", "replace", "trim", "upper", "lower", "concat","to_timestamp","isnull","drop", "table","matched","having", "group", "by", "count","merge", "into"
+			"length", "replace", "trim", "upper", "lower", "concat", "order","by" ,"asc", "desc"
 =======
-			"length", "replace", "trim", "upper", "lower", "concat","union","all"
->>>>>>> release-0.3_card_97
+			"length", "replace", "trim", "upper", "lower", "concat","to_timestamp","isnull","drop", "table","matched","having", "group", "by", "count","merge", "into","union","all","top","distinct"
+>>>>>>> release-0.3-mergin-branch_v2
     };
 
     private static final String KEYWORD_PATTERN 	 = "\\b(" + String.join("|", KEYWORDS) + ")\\b";

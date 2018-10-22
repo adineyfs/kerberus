@@ -73,7 +73,7 @@ alphanumeric	= {letter}|{digit}
 under			= [_] 		// Underscore character
 // begins with letter or a underscore, followed by characters,numbers or underscore, finishing with letter or a _.
 identifier      = ((  {under}({alphanumeric}|{under})+  ) | (  {letter}({alphanumeric}|{under})*  )) 
-integer			= {digit}+ | [-]{digit}+
+integer			= {digit}+ //| [-]{digit}+
 real			= {digit}+[.]{digit}+
 literalString	= '(\\.|[^\\'])*'
 QTableName		= \"{identifier}\" 
@@ -93,6 +93,9 @@ whitespace      = {WhiteSpace}
 	"update" 		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.UPDATE, yyline+1, yycolumn+1, yytext()); }
 	"set" 			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SET, yyline+1, yycolumn+1, yytext()); }
 	"delete" 		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DELETE, yyline+1, yycolumn+1, yytext()); }
+	"insert" 		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.INSERT, yyline+1, yycolumn+1, yytext()); }
+	"into" 		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.INTO, yyline+1, yycolumn+1, yytext()); }
+	"values" 		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.VALUES, yyline+1, yycolumn+1, yytext()); }
 	"from" 			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.FROM, yyline+1, yycolumn+1, yytext()); }
 	"where"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WHERE, yyline+1, yycolumn+1, yytext()); }
 	"with"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WITH, yyline+1, yycolumn+1, yytext()); }
@@ -102,14 +105,21 @@ whitespace      = {WhiteSpace}
 	"group"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.GROUP, yyline+1, yycolumn+1, yytext()); }
 	"having"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.HAVING, yyline+1, yycolumn+1, yytext()); }
 	"sysdate"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SYSDATE, yyline+1, yycolumn+1, yytext()); }
+<<<<<<< HEAD
+	"order"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ORDER, yyline+1, yycolumn+1, yytext()); }
+	"by"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.BY, yyline+1, yycolumn+1, yytext()); }
+	"asc"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ASC, yyline+1, yycolumn+1, yytext()); }
+	"desc"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DESC, yyline+1, yycolumn+1, yytext()); }
+=======
 	"drop"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DROP, yyline+1, yycolumn+1, yytext()); }
 	"table"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TABLE, yyline+1, yycolumn+1, yytext()); }
+	"merge"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.MERGE, yyline+1, yycolumn+1, yytext()); }
+	"top"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TOP, yyline+1, yycolumn+1, yytext()); }
 		
 
 /* Date functions */
 	"to_timestamp"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TO_TIMESTAMP, yyline+1, yycolumn+1, yytext()); }
-	"merge"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.MERGE, yyline+1, yycolumn+1, yytext()); }
-	
+>>>>>>> release-0.3-mergin-branch_v2
 
 /* Case expressions */
 	"case"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CASE, yyline+1, yycolumn+1, yytext()); }
@@ -131,6 +141,8 @@ whitespace      = {WhiteSpace}
 	"on"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ON, yyline+1, yycolumn+1, yytext()); }
 	"into"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.INTO, yyline+1, yycolumn+1, yytext()); }
 	"using"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.USING, yyline+1, yycolumn+1, yytext()); }
+	"union"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.UNION, yyline+1, yycolumn+1, yytext()); }
+	"all"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ALL, yyline+1, yycolumn+1, yytext()); }
 	
 /* Aggregated function */
 	"count"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.COUNT, yyline+1, yycolumn+1, yytext()); }

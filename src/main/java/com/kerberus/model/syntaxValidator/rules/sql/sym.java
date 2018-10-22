@@ -8,201 +8,110 @@ package com.kerberus.model.syntaxValidator.rules.sql;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-<<<<<<< HEAD
-  public static final int AS = 27;
-  public static final int LEFT = 19;
-  public static final int IDENTIFIER = 60;
-  public static final int REAL = 62;
+  public static final int AS = 36;
+  public static final int LEFT = 27;
+  public static final int IDENTIFIER = 71;
+  public static final int REAL = 73;
   public static final int FROM = 9;
-  public static final int LTRIM = 41;
-  public static final int _GT = 68;
-  public static final int OUTER = 22;
-  public static final int NATURAL = 18;
-  public static final int _DIFF2 = 73;
-  public static final int RIGHT = 20;
-  public static final int ASC = 16;
-  public static final int SYSDATE = 26;
-  public static final int _PLUSEQ = 79;
-  public static final int SUM = 33;
-  public static final int NVL = 50;
-  public static final int JOIN = 24;
-  public static final int INNER = 23;
-  public static final int TO_DATE = 53;
-  public static final int _LT = 69;
-  public static final int INTEGER = 61;
-  public static final int _CLOSEPAR = 88;
-  public static final int NOT = 12;
-  public static final int _OPENPAR = 87;
-  public static final int MIN = 35;
-  public static final int THEN = 57;
-  public static final int _MINUSEQ = 80;
-  public static final int LITERAL_STRING = 63;
-  public static final int TRIM = 45;
-  public static final int LOWER = 47;
-  public static final int WHEN = 56;
+  public static final int LTRIM = 50;
+  public static final int _GT = 79;
+  public static final int GROUP = 11;
+  public static final int OUTER = 30;
+  public static final int NATURAL = 26;
+  public static final int _DIFF2 = 84;
+  public static final int RIGHT = 28;
+  public static final int TABLE = 17;
+  public static final int TOP = 25;
+  public static final int ASC = 21;
+  public static final int SYSDATE = 34;
+  public static final int _PLUSEQ = 90;
+  public static final int SUM = 42;
+  public static final int NVL = 59;
+  public static final int JOIN = 32;
+  public static final int INNER = 31;
+  public static final int TO_DATE = 63;
+  public static final int ALL = 24;
+  public static final int _LT = 80;
+  public static final int INTEGER = 72;
+  public static final int _CLOSEPAR = 99;
+  public static final int NOT = 14;
+  public static final int _OPENPAR = 98;
+  public static final int MIN = 44;
+  public static final int THEN = 67;
+  public static final int _MINUSEQ = 91;
+  public static final int LITERAL_STRING = 74;
+  public static final int ISNULL = 62;
+  public static final int TRIM = 54;
+  public static final int LOWER = 56;
+  public static final int WHEN = 66;
   public static final int INTO = 7;
   public static final int SELECT = 2;
-  public static final int _AND = 77;
-  public static final int FULL = 21;
-  public static final int _POWEQ = 85;
-  public static final int _DIVIDE = 76;
-  public static final int _SEMCOL2 = 91;
-  public static final int _LET = 70;
-  public static final int IIF = 49;
-  public static final int ORDER = 14;
-  public static final int NULLIF = 52;
+  public static final int _AND = 88;
+  public static final int FULL = 29;
+  public static final int _POWEQ = 96;
+  public static final int _DIVIDE = 87;
+  public static final int _SEMCOL2 = 102;
+  public static final int _LET = 81;
+  public static final int IIF = 58;
+  public static final int ORDER = 18;
+  public static final int UNION = 23;
+  public static final int NULLIF = 61;
   public static final int DELETE = 5;
-  public static final int TABDOTCOL = 65;
-  public static final int QCOLALIAS = 66;
-  public static final int _MINUS = 75;
-  public static final int _PLUS = 74;
-  public static final int MAX = 34;
-  public static final int LPAD = 37;
-  public static final int CONCAT = 40;
-  public static final int ELSE = 58;
-  public static final int _MODEQ = 83;
-  public static final int INSTR = 43;
-  public static final int _GET = 71;
-  public static final int LENGTH = 39;
-  public static final int AVG = 36;
-  public static final int NULL = 31;
+  public static final int QCOLALIAS = 77;
+  public static final int TABDOTCOL = 76;
+  public static final int _MINUS = 86;
+  public static final int MATCHED = 70;
+  public static final int _PLUS = 85;
+  public static final int MAX = 43;
+  public static final int LPAD = 46;
+  public static final int CONCAT = 49;
+  public static final int ELSE = 68;
+  public static final int _MODEQ = 94;
+  public static final int TO_TIMESTAMP = 35;
+  public static final int INSTR = 52;
+  public static final int _GET = 82;
+  public static final int LENGTH = 48;
+  public static final int AVG = 45;
+  public static final int NULL = 40;
   public static final int EOF = 0;
-  public static final int _STAR = 90;
+  public static final int _STAR = 101;
   public static final int WHERE = 10;
-  public static final int COUNT = 32;
-  public static final int CHOOSE = 48;
-  public static final int IS = 11;
-  public static final int _EQU = 67;
-  public static final int RPAD = 38;
-  public static final int NVL2 = 51;
-  public static final int IN = 29;
+  public static final int COUNT = 41;
+  public static final int CHOOSE = 57;
+  public static final int IS = 13;
+  public static final int _EQU = 78;
+  public static final int RPAD = 47;
+  public static final int NVL2 = 60;
+  public static final int IN = 38;
   public static final int SET = 4;
   public static final int error = 1;
-  public static final int _OR = 78;
-  public static final int ON = 28;
-  public static final int DESC = 17;
-  public static final int END = 59;
-  public static final int REPLACE = 44;
-  public static final int BY = 15;
-  public static final int QTABLENAME = 64;
+  public static final int _OR = 89;
+  public static final int ON = 37;
+  public static final int DESC = 22;
+  public static final int END = 69;
+  public static final int REPLACE = 53;
+  public static final int BY = 19;
+  public static final int QTABLENAME = 75;
   public static final int VALUES = 8;
-  public static final int USING = 25;
-  public static final int _ANDEQ = 84;
-  public static final int _TIMESEQ = 81;
-  public static final int _DIFF = 72;
-  public static final int CASE = 55;
-  public static final int _DIVIDEEQ = 82;
+  public static final int USING = 33;
+  public static final int MERGE = 20;
+  public static final int _ANDEQ = 95;
+  public static final int _TIMESEQ = 92;
+  public static final int _DIFF = 83;
+  public static final int CASE = 65;
+  public static final int _DIVIDEEQ = 93;
   public static final int UPDATE = 3;
   public static final int INSERT = 6;
-  public static final int RTRIM = 42;
-  public static final int UPPER = 46;
-  public static final int _OREQ = 86;
-  public static final int WITH = 13;
-  public static final int DISTINCT = 30;
-  public static final int ILLEGAL_CHAR = 92;
-  public static final int _COMMA = 89;
-  public static final int TO_CHAR = 54;
-=======
-  public static final int AS = 31;
-  public static final int LEFT = 22;
-  public static final int IDENTIFIER = 66;
-  public static final int REAL = 68;
-  public static final int FROM = 6;
-  public static final int LTRIM = 45;
-  public static final int _GT = 74;
-  public static final int GROUP = 8;
-  public static final int OUTER = 25;
-  public static final int NATURAL = 21;
-  public static final int _DIFF2 = 79;
-  public static final int RIGHT = 23;
-  public static final int TABLE = 14;
-  public static final int TOP = 20;
-  public static final int SYSDATE = 29;
-  public static final int _PLUSEQ = 85;
-  public static final int SUM = 37;
-  public static final int NVL = 54;
-  public static final int JOIN = 27;
-  public static final int INNER = 26;
-  public static final int TO_DATE = 58;
-  public static final int ALL = 19;
-  public static final int _LT = 75;
-  public static final int INTEGER = 67;
-  public static final int _CLOSEPAR = 94;
-  public static final int NOT = 11;
-  public static final int _OPENPAR = 93;
-  public static final int MIN = 39;
-  public static final int THEN = 62;
-  public static final int _MINUSEQ = 86;
-  public static final int LITERAL_STRING = 69;
-  public static final int ISNULL = 57;
-  public static final int TRIM = 49;
-  public static final int LOWER = 51;
-  public static final int WHEN = 61;
-  public static final int INTO = 17;
-  public static final int SELECT = 2;
-  public static final int _AND = 83;
-  public static final int FULL = 24;
-  public static final int _POWEQ = 91;
-  public static final int _DIVIDE = 82;
-  public static final int _SEMCOL2 = 97;
-  public static final int _LET = 76;
-  public static final int IIF = 53;
-  public static final int UNION = 18;
-  public static final int NULLIF = 56;
-  public static final int DELETE = 5;
-  public static final int QCOLALIAS = 72;
-  public static final int TABDOTCOL = 71;
-  public static final int _MINUS = 81;
-  public static final int MATCHED = 65;
-  public static final int _PLUS = 80;
-  public static final int MAX = 38;
-  public static final int LPAD = 41;
-  public static final int CONCAT = 44;
-  public static final int ELSE = 63;
-  public static final int _MODEQ = 89;
-  public static final int TO_TIMESTAMP = 30;
-  public static final int INSTR = 47;
-  public static final int _GET = 77;
-  public static final int LENGTH = 43;
-  public static final int AVG = 40;
-  public static final int NULL = 35;
-  public static final int EOF = 0;
-  public static final int _STAR = 96;
-  public static final int WHERE = 7;
-  public static final int COUNT = 36;
-  public static final int CHOOSE = 52;
-  public static final int IS = 10;
-  public static final int _EQU = 73;
-  public static final int RPAD = 42;
-  public static final int NVL2 = 55;
-  public static final int IN = 33;
-  public static final int SET = 4;
-  public static final int error = 1;
-  public static final int _OR = 84;
-  public static final int ON = 32;
-  public static final int END = 64;
-  public static final int REPLACE = 48;
-  public static final int BY = 15;
-  public static final int QTABLENAME = 70;
-  public static final int USING = 28;
-  public static final int MERGE = 16;
-  public static final int _ANDEQ = 90;
-  public static final int _TIMESEQ = 87;
-  public static final int _DIFF = 78;
-  public static final int CASE = 60;
-  public static final int _DIVIDEEQ = 88;
-  public static final int UPDATE = 3;
-  public static final int RTRIM = 46;
-  public static final int UPPER = 50;
-  public static final int _OREQ = 92;
-  public static final int DROP = 13;
-  public static final int WITH = 12;
-  public static final int HAVING = 9;
-  public static final int DISTINCT = 34;
-  public static final int ILLEGAL_CHAR = 98;
-  public static final int _COMMA = 95;
-  public static final int TO_CHAR = 59;
->>>>>>> release-0.3-mergin-branch_v2
+  public static final int RTRIM = 51;
+  public static final int UPPER = 55;
+  public static final int _OREQ = 97;
+  public static final int DROP = 16;
+  public static final int WITH = 15;
+  public static final int HAVING = 12;
+  public static final int DISTINCT = 39;
+  public static final int ILLEGAL_CHAR = 103;
+  public static final int _COMMA = 100;
+  public static final int TO_CHAR = 64;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -220,21 +129,16 @@ public class sym {
   "IS",
   "NOT",
   "WITH",
-<<<<<<< HEAD
-  "ORDER",
-  "BY",
-  "ASC",
-  "DESC",
-=======
   "DROP",
   "TABLE",
+  "ORDER",
   "BY",
   "MERGE",
-  "INTO",
+  "ASC",
+  "DESC",
   "UNION",
   "ALL",
   "TOP",
->>>>>>> release-0.3-mergin-branch_v2
   "NATURAL",
   "LEFT",
   "RIGHT",
