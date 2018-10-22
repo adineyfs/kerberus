@@ -107,7 +107,7 @@ non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_a
 
 non terminal statement_group, statement,_semicolon;
 
-non terminal select_s, into_part, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub,nvl2_exp,nvl2_exp_nested,func_ls, order_by_part, order_by_part_nested, order_cols, asc_desc;
+non terminal select_s, select_into_s,into_part, with_s, with_part, with_exp, with_exp2, with_exp2_1, select_part,select_part_sub,nvl2_exp,nvl2_exp_nested,func_ls, order_by_part, order_by_part_nested, order_cols, asc_desc;
 
 non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nvl2,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate;
 
@@ -236,6 +236,9 @@ statement_group ::=		statement_group statement
 statement 		::= 	select_s   
 						{: System.out.println("statement ::= select_s"); 	
 						   selects_read++; :}
+				  |		select_into_s
+  						{: System.out.println("statement ::= select_into_s"); 	
+						   selects_read++; :}
 				  |  	delete_s
 				  		{: System.out.println("statement ::= delete_s");
 						   deletes_read++; :}
@@ -270,6 +273,23 @@ select_s		::=		select_part from_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part joins_part order_by_part"); :}
 				  |		select_part from_part joins_part where_part order_by_part _semicolon
 				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part order_by_part"); :};
+				  		
+select_into_s ::= 	select_part into_part from_part _semicolon
+						{: System.out.println("select_s ::= select_part into_part from_part"); :}
+				  |		select_part into_part from_part where_part _semicolon
+				  		{: System.out.println("select_s ::= select_part into_part from_part where_part"); :}
+				  |		select_part into_part from_part joins_part _semicolon
+				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part"); :}
+				  |		select_part into_part from_part joins_part where_part _semicolon
+				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part where_part"); :}
+				  |		select_part into_part from_part order_by_part _semicolon
+						{: System.out.println("select_s ::= select_part into_part from_part order_by_part"); :}
+				  |		select_part into_part from_part where_part order_by_part _semicolon
+				  		{: System.out.println("select_s ::= select_part into_part from_part where_part order_by_part"); :}
+				  |		select_part into_part from_part joins_part order_by_part _semicolon
+				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part order_by_part"); :}
+				  |		select_part into_part from_part joins_part where_part order_by_part _semicolon
+				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part where_part order_by_part"); :};
 				  		
 into_part		 ::=	INTO table_name
 					  |		INTO table_name IN LITERAL_STRING;
@@ -325,10 +345,7 @@ with_exp2_1		::= 	_OPENPAR cols _CLOSEPAR;
 
 select_part		::= 	_select _STAR
 			  	  | 	_select DISTINCT cols
-			  	  | 	_select cols
-			  	  |		_select _STAR into_part
-			  	  | 	_select DISTINCT cols into_part
-			  	  | 	_select cols into_part;
+			  	  | 	_select cols;
 			  	  
 nvl2_exp		::=		_OPENPAR nvl2_exp_nested _COMMA nvl2_exp_nested _COMMA nvl2_exp_nested _CLOSEPAR;
 				  
