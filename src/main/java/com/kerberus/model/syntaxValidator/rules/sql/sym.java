@@ -8,6 +8,7 @@ package com.kerberus.model.syntaxValidator.rules.sql;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
+<<<<<<< HEAD
   public static final int AS = 27;
   public static final int LEFT = 19;
   public static final int IDENTIFIER = 60;
@@ -101,6 +102,107 @@ public class sym {
   public static final int ILLEGAL_CHAR = 92;
   public static final int _COMMA = 89;
   public static final int TO_CHAR = 54;
+=======
+  public static final int AS = 31;
+  public static final int LEFT = 22;
+  public static final int IDENTIFIER = 66;
+  public static final int REAL = 68;
+  public static final int FROM = 6;
+  public static final int LTRIM = 45;
+  public static final int _GT = 74;
+  public static final int GROUP = 8;
+  public static final int OUTER = 25;
+  public static final int NATURAL = 21;
+  public static final int _DIFF2 = 79;
+  public static final int RIGHT = 23;
+  public static final int TABLE = 14;
+  public static final int TOP = 20;
+  public static final int SYSDATE = 29;
+  public static final int _PLUSEQ = 85;
+  public static final int SUM = 37;
+  public static final int NVL = 54;
+  public static final int JOIN = 27;
+  public static final int INNER = 26;
+  public static final int TO_DATE = 58;
+  public static final int ALL = 19;
+  public static final int _LT = 75;
+  public static final int INTEGER = 67;
+  public static final int _CLOSEPAR = 94;
+  public static final int NOT = 11;
+  public static final int _OPENPAR = 93;
+  public static final int MIN = 39;
+  public static final int THEN = 62;
+  public static final int _MINUSEQ = 86;
+  public static final int LITERAL_STRING = 69;
+  public static final int ISNULL = 57;
+  public static final int TRIM = 49;
+  public static final int LOWER = 51;
+  public static final int WHEN = 61;
+  public static final int INTO = 17;
+  public static final int SELECT = 2;
+  public static final int _AND = 83;
+  public static final int FULL = 24;
+  public static final int _POWEQ = 91;
+  public static final int _DIVIDE = 82;
+  public static final int _SEMCOL2 = 97;
+  public static final int _LET = 76;
+  public static final int IIF = 53;
+  public static final int UNION = 18;
+  public static final int NULLIF = 56;
+  public static final int DELETE = 5;
+  public static final int QCOLALIAS = 72;
+  public static final int TABDOTCOL = 71;
+  public static final int _MINUS = 81;
+  public static final int MATCHED = 65;
+  public static final int _PLUS = 80;
+  public static final int MAX = 38;
+  public static final int LPAD = 41;
+  public static final int CONCAT = 44;
+  public static final int ELSE = 63;
+  public static final int _MODEQ = 89;
+  public static final int TO_TIMESTAMP = 30;
+  public static final int INSTR = 47;
+  public static final int _GET = 77;
+  public static final int LENGTH = 43;
+  public static final int AVG = 40;
+  public static final int NULL = 35;
+  public static final int EOF = 0;
+  public static final int _STAR = 96;
+  public static final int WHERE = 7;
+  public static final int COUNT = 36;
+  public static final int CHOOSE = 52;
+  public static final int IS = 10;
+  public static final int _EQU = 73;
+  public static final int RPAD = 42;
+  public static final int NVL2 = 55;
+  public static final int IN = 33;
+  public static final int SET = 4;
+  public static final int error = 1;
+  public static final int _OR = 84;
+  public static final int ON = 32;
+  public static final int END = 64;
+  public static final int REPLACE = 48;
+  public static final int BY = 15;
+  public static final int QTABLENAME = 70;
+  public static final int USING = 28;
+  public static final int MERGE = 16;
+  public static final int _ANDEQ = 90;
+  public static final int _TIMESEQ = 87;
+  public static final int _DIFF = 78;
+  public static final int CASE = 60;
+  public static final int _DIVIDEEQ = 88;
+  public static final int UPDATE = 3;
+  public static final int RTRIM = 46;
+  public static final int UPPER = 50;
+  public static final int _OREQ = 92;
+  public static final int DROP = 13;
+  public static final int WITH = 12;
+  public static final int HAVING = 9;
+  public static final int DISTINCT = 34;
+  public static final int ILLEGAL_CHAR = 98;
+  public static final int _COMMA = 95;
+  public static final int TO_CHAR = 59;
+>>>>>>> release-0.3-mergin-branch_v2
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -113,13 +215,26 @@ public class sym {
   "VALUES",
   "FROM",
   "WHERE",
+  "GROUP",
+  "HAVING",
   "IS",
   "NOT",
   "WITH",
+<<<<<<< HEAD
   "ORDER",
   "BY",
   "ASC",
   "DESC",
+=======
+  "DROP",
+  "TABLE",
+  "BY",
+  "MERGE",
+  "INTO",
+  "UNION",
+  "ALL",
+  "TOP",
+>>>>>>> release-0.3-mergin-branch_v2
   "NATURAL",
   "LEFT",
   "RIGHT",
@@ -129,6 +244,7 @@ public class sym {
   "JOIN",
   "USING",
   "SYSDATE",
+  "TO_TIMESTAMP",
   "AS",
   "ON",
   "IN",
@@ -155,6 +271,7 @@ public class sym {
   "NVL",
   "NVL2",
   "NULLIF",
+  "ISNULL",
   "TO_DATE",
   "TO_CHAR",
   "CASE",
@@ -162,6 +279,7 @@ public class sym {
   "THEN",
   "ELSE",
   "END",
+  "MATCHED",
   "IDENTIFIER",
   "INTEGER",
   "REAL",

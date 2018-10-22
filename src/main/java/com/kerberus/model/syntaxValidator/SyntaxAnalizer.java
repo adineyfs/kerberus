@@ -91,8 +91,18 @@ public class SyntaxAnalizer {
 				{
 					sb.append("\n\t- Valid INSERTS found: " + Syntax_Analyzer.inserts_read );
 				}
+
+				if (Syntax_Analyzer.merge_read > 0)
+				{
+					sb.append("\n\t- Valid MERGE found: " + Syntax_Analyzer.merge_read );
+				}
 				
-				sb.append("\n\t- Total: " + (Syntax_Analyzer.selects_read+Syntax_Analyzer.updates_read+Syntax_Analyzer.deletes_read+Syntax_Analyzer.inserts_read) );
+				if (Syntax_Analyzer.with_read > 0)
+				{
+					sb.append("\n\t- Valid WITH found: " + Syntax_Analyzer.with_read );
+				}
+				
+				sb.append("\n\t- Total: " + (Syntax_Analyzer.selects_read+Syntax_Analyzer.updates_read+Syntax_Analyzer.deletes_read+Syntax_Analyzer.inserts_read+Syntax_Analyzer.merge_read+Syntax_Analyzer.with_read) );
 			}
 			
 			sb.append("\n\n-------------- Findings Analysis --------------");
