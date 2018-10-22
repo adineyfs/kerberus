@@ -300,6 +300,7 @@ joins_part		::= 	join_p joins_part
 
 union_part		::=		union_p union_exp
 						{: System.out.println("union_part ::= union_p select_part from_part"); :};
+						
 join_p			::= 	NATURAL JOIN table_name
 				  | 	JOIN table_name
 				  | 	JOIN table_name join_using   // future version improvement
@@ -372,8 +373,11 @@ with_exp2		::=		col_ali  with_exp2_1 AS _OPENPAR select_part from_part _CLOSEPAR
 with_exp2_1		::= 	_OPENPAR cols _CLOSEPAR;
 
 merge_exp		::=		col merge_using join_cond case_cond THEN _update _set set_exp _semicolon;
+
 select_part		::= 	_select _STAR
 			  	  | 	_select DISTINCT cols
+			  	  | 	_select top cols
+				  | 	_select top _STAR
 			  	  | 	_select cols;
 			  	  
 nvl2_exp		::=		_OPENPAR nvl2_exp_nested _COMMA nvl2_exp_nested _COMMA nvl2_exp_nested _CLOSEPAR;
@@ -384,6 +388,7 @@ nvl2_exp_nested ::=		//LITERAL_STRING
 _merge			::=		MERGE INTO;
 
 drop			::=		DROP;
+
 table			::=		TABLE;
 
 _with			::=		WITH;
@@ -391,6 +396,7 @@ _with			::=		WITH;
 _select 		::=		SELECT;
 
 _by				::=		BY;
+
 _nvl2			::=		NVL2;
 
 cols			::= 	col_el _COMMA cols   
@@ -498,6 +504,7 @@ stringFunction_upper	::=		UPPER _OPENPAR upper_exp _CLOSEPAR;
 nullFunction_nvl		::=		NVL _OPENPAR nvl_exp _CLOSEPAR;
 
 nullFunction_isnull		::=		ISNULL _OPENPAR isnull_exp _CLOSEPAR;
+
 agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
 				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
 
@@ -550,6 +557,7 @@ rpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
 sysdate			::=		SYSDATE _OPENPAR _CLOSEPAR
 				  |		SYSDATE _OPENPAR _CLOSEPAR _ari_opr INTEGER;
+
 length_exp 		::= 	col;
 
 avg_exp 		::= 	DISTINCT cl
@@ -569,8 +577,10 @@ iif_exp			::=		_EQU
 
 nvl_exp			::=		cl _COMMA INTEGER
 				  |		cl _COMMA LITERAL_STRING;
+
 isnull_exp		::=		cl _COMMA INTEGER
 				  |		cl _COMMA LITERAL_STRING;
+
 col				::= 	cl
 				  | 	NULL 
 				  /*| 	cl   	 AS col_ali
