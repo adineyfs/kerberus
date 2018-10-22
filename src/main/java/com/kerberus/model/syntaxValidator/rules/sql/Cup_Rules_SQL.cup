@@ -721,7 +721,8 @@ delete_s		::= 	DELETE FROM table_name where_part _semicolon
 /* INSERT */
 
 insert_s		::=	INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
-					 |		INSERT INTO table_name  VALUES _OPENPAR values_exp _CLOSEPAR _semicolon;
+					 |		INSERT INTO table_name  VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
+					 |		INSERT INTO table_name select_s;
 
 insert_cols ::=	IDENTIFIER:col1 _COMMA insert_cols {: Columns.add(col1 + ""); :}
 					 |		IDENTIFIER:col1 {: Columns.add(col1 + ""); :}; 
