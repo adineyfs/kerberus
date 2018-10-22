@@ -787,6 +787,7 @@ w_condition		::= 	cond log_oper w_condition
 
 cond 			::= 	cond_el cmp_oper cond_el
 				  | 	element_in IN in_list
+				  |		element_in NOT IN in_list
 				  | 	cl IS NULL
 				  |		cl IS NOT NULL;
 				  
