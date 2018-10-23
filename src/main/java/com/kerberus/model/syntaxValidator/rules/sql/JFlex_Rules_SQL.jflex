@@ -79,6 +79,14 @@ literalString	= '(\\.|[^\\'])*'
 QTableName		= \"{identifier}\" 
 QColAlias		= \"([^\\\"]|\\.)*\"
 TabDotCol	    = {identifier}\.{identifier}
+ //0-255
+varcharSize = ^([01]|2[0-4][0-9]|25[0-5])$
+/* 0-32767 */
+varchar2_size = ^(([1-9]{1}[0-9]{0,3}|[1-2]{1}[0-9]{1,4}|[3]{1}([0-1]{1}[0-9]{3}|[2]{1}([0-6]{1}[0-9]{2}|[7]{1}([0-5]{1}[0-9]{1}|([6]{1}[0-7]{1}))))))$
+//0-4294967295
+nvarchar_size = ^(0|(\+)?[1-9]{1}[0-9]{0,8}|(\+)?[1-3]{1}[0-9]{1,9}|(\+)?[4]{1}([0-1]{1}[0-9]{8}|[2]{1}([0-8]{1}[0-9]{7}|[9]{1}([0-3]{1}[0-9]{6}|[4]{1}([0-8]{1}[0-9]{5}|[9]{1}([0-5]{1}[0-9]{4}|[6]{1}([0-6]{1}[0-9]{3}|[7]{1}([0-1]{1}[0-9]{2}|[2]{1}([0-8]{1}[0-9]{1}|[9]{1}[0-5]{1})))))))))$
+//1-4000
+nchar_size =^(([1-3]{1}[0-9]{0,3})|[4][0][0][0])$
 /*
 //SQL Server only
 QTabDotCol 		= \"{identifier}\"\.{identifier}
@@ -113,11 +121,28 @@ whitespace      = {WhiteSpace}
 	"table"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TABLE, yyline+1, yycolumn+1, yytext()); }
 	"merge"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.MERGE, yyline+1, yycolumn+1, yytext()); }
 	"top"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TOP, yyline+1, yycolumn+1, yytext()); }
+	"create"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CREATE, yyline+1, yycolumn+1, yytext()); }
 
 /* Date functions */
 	"to_timestamp"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TO_TIMESTAMP, yyline+1, yycolumn+1, yytext()); }
-		
-
+	
+/* Datatypes oracle */
+	"varchar"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.VARCHAR, yyline+1, yycolumn+1, yytext()); }
+	"varchar2"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.VARCHAR2, yyline+1, yycolumn+1, yytext()); }
+	"number"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NUMBER, yyline+1, yycolumn+1, yytext()); }
+	"date"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DATE, yyline+1, yycolumn+1, yytext()); }
+	"varcharSize"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.VARCHARSIZE, yyline+1, yycolumn+1, yytext()); }
+	"varchar2_size"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.VARCHAR2_SIZE, yyline+1, yycolumn+1, yytext()); }
+	
+	/* Datatypes server */
+	"nvarchar"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NVARCHAR, yyline+1, yycolumn+1, yytext()); }
+	"smallint"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.SMALLINT, yyline+1, yycolumn+1, yytext()); }
+	"nchar"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NCHAR, yyline+1, yycolumn+1, yytext()); }
+	"int"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.INT, yyline+1, yycolumn+1, yytext()); }
+	"datetime"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.DATETIME, yyline+1, yycolumn+1, yytext()); }
+	"nvarchar_size"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NVARCHAR_SIZE, yyline+1, yycolumn+1, yytext()); }
+	"nchar_size"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NCHAR_SIZE, yyline+1, yycolumn+1, yytext()); }
+	
 /* Case expressions */
 	"case"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.CASE, yyline+1, yycolumn+1, yytext()); }
 	"when"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.WHEN, yyline+1, yycolumn+1, yytext()); }

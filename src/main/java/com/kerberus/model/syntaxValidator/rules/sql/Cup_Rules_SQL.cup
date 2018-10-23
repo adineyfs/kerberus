@@ -32,6 +32,7 @@ parser code
 	public int with_read = 0;
 	public int inserts_read = 0;
 	public int merge_read = 0;
+	public int creates_read = 0;
 
 	public void clean_lists() {
 		TableSE = new LinkedList<TError>();
@@ -130,14 +131,20 @@ non terminal delete_s, drop_s;
 
 non terminal insert_s, insert_cols, values_exp, mix_exp_insert, ari_value_insert;
 
-
+non terminal create_s, create_col, datatype_oracle, datatype_server;
 
 
 /* --- Terminals | Branches of the tree --- */
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, INSERT, INTO, VALUES, FROM, WHERE,GROUP, HAVING, IS, NOT, WITH,DROP,TABLE, ORDER, BY,MERGE, ASC, DESC ,UNION,ALL,TOP;
+terminal SELECT, UPDATE, SET, DELETE, INSERT, INTO, VALUES, FROM, WHERE,GROUP, HAVING, IS, NOT, WITH,DROP,TABLE, ORDER, BY,MERGE, ASC, DESC ,UNION,ALL,TOP,CREATE;
+
+// Datatype Oracle
+terminal VARCHAR2, VARCHAR, NUMBER, DATE;
+
+// Datatype Server
+terminal NVARCHAR, SMALLINT, NCHAR, INT, DATETIME;
 
 // Joins
 terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
@@ -185,6 +192,9 @@ terminal CASE, WHEN, THEN, ELSE, END, MATCHED;
 // Identifiers and numbers
 terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
 terminal QTABLENAME, TABDOTCOL,QCOLALIAS; // Quoted table-names, table.column, Quoted Column Alias
+
+// Size
+terminal VARCHARSIZE, VARCHAR2_SIZE, NVARCHAR_SIZE, NCHAR_SIZE;
 
 // Operators 
 terminal _EQU, _GT, _LT, _LET, _GET, _DIFF, _DIFF2;
@@ -260,7 +270,10 @@ statement 		::= 	select_s
 						   with_read++;	:}
 				  |		merge_s
 				  		{: System.out.println("statement ::= merge_s");
-						   merge_read++;	:};
+						   merge_read++;	:}
+				  |		create_s
+				  		{: System.out.println("statement ::= create_s");
+						   creates_read++;	:};
 
 _semicolon 		::= 	_SEMCOL2
 						{: System.out.println("_semicolon ::= _SEMICOL2"); :};
@@ -838,6 +851,29 @@ ari_value_insert ::= LITERAL_STRING
 						{: System.out.println("ari_value ::= INTEGER"); :}
 				  | 	REAL
 				  		{: System.out.println("ari_value ::= REAL"); :};              
+				  		
+/* CREATE */
+
+create_s 		::=	CREATE TABLE table_name _OPENPAR _CLOSEPAR;
+
+create_col  ::=	IDENTIFIER datatype_oracle _COMMA create_col
+					 |		IDENTIFIER datatype_server _COMMA create_col
+					 |		IDENTIFIER datatype_oracle 
+					 |		IDENTIFIER datatype_server;
+
+datatype_oracle    ::=	VARCHAR2 _OPENPAR VARCHAR2_SIZE _CLOSEPAR
+								 | 		VARCHAR _OPENPAR VARCHARSIZE _CLOSEPAR
+								 | 		NUMBER 
+								 | 		DATE
+								 |		DATE _OPENPAR _CLOSEPAR;
+					 
+datatype_server ::=	NVARCHAR _OPENPAR NVARCHAR_SIZE _CLOSEPAR
+							 |		NVARCHAR _OPENPAR MAX _CLOSEPAR
+							// |		SMALLINT _OPENPAR VARCHARSIZE _CLOSEPAR
+							 |		SMALLINT
+							 |		NCHAR _OPENPAR nchar_size _CLOSEPAR
+							 |		INT
+							 |		DATETIME;
 
 /* FROM: single and multiple tables */
 

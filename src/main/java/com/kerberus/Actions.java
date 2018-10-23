@@ -15,11 +15,12 @@ import javafx.stage.Stage;
 public class Actions {
 	
 	private static final String[] KEYWORDS = new String[] {
-			"select","update","set","delete","insert","into","values","from","where","and","or",
+			"select","update","set","delete","insert","into","values","from","where","and","or","create",
 			"join","as","on","null", "natural", "inner", "outer", "left",
 			"right", "full", "in", "when","case","end","then","else","is","not","with","using","nvl2","nvl","sysdate",
 			"min", "max", "sum", "avg", "nullif", "to_date", "to_char", "ltrim", "rtrim", "instr", "lpad", "rpad",
-			"length", "replace", "trim", "upper", "lower", "concat", "order","by" ,"asc", "desc","to_timestamp","isnull","drop", "table","matched","having", "group", "by", "count","merge", "into","union","all","top","distinct"
+			"length", "replace", "trim", "upper", "lower", "concat", "order","by" ,"asc", "desc","to_timestamp","isnull","drop", "table","matched","having", "group", "by", "count","merge", "into","union","all","top","distinct",
+			"varchar","varchar2", "number", "date","nvarchar","smallint","nchar","int","datetime"
     };
 
     private static final String KEYWORD_PATTERN 	 = "\\b(" + String.join("|", KEYWORDS) + ")\\b";
