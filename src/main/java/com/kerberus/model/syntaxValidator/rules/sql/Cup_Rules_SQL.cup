@@ -138,7 +138,7 @@ non terminal create_s, create_col, datatype_oracle, datatype_server;
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, INSERT, INTO, VALUES, FROM, WHERE,GROUP, HAVING, IS, NOT, WITH,DROP,TABLE, ORDER, BY,MERGE, ASC, DESC ,UNION,ALL,TOP,CREATE;
+terminal SELECT, UPDATE, SET, DELETE, INSERT, INTO, VALUES, FROM, WHERE,GROUP, HAVING, IS, NOT, WITH,DROP,TABLE, ORDER, BY,MERGE, ASC, DESC ,UNION,ALL,TOP,CREATE,LIKE;
 
 // Datatype Oracle
 terminal VARCHAR2, VARCHAR, NUMBER, DATE;
@@ -921,6 +921,8 @@ w_condition		::= 	cond log_oper w_condition
 cond 			::= 	cond_el cmp_oper cond_el
 				  | 	element_in IN in_list
 				  |		element_in NOT IN in_list
+				  |		element_in LIKE LITERAL_STRING /*IN THE FUTURE CHANGE LITERAL STRING BY A REGULAR EXPRESSION SPECIFIC FOR LIKE*/
+				  |		element_in NOT LIKE LITERAL_STRING
 				  | 	cl IS NULL
 				  |		cl IS NOT NULL
 				  |		MATCHED
