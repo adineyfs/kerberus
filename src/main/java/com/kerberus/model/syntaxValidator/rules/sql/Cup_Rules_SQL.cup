@@ -856,7 +856,7 @@ ari_value_insert ::= LITERAL_STRING
 				  		
 /* CREATE */
 
-create_s 		::=	CREATE TABLE table_name _OPENPAR _CLOSEPAR;
+create_s 		::=	CREATE TABLE table_name _OPENPAR create_col _CLOSEPAR;
 
 create_col  ::=	IDENTIFIER datatype_oracle _COMMA create_col
 					 |		IDENTIFIER datatype_server _COMMA create_col
