@@ -536,7 +536,7 @@ nullFunctions 	 ::= 	nullFunction_nvl2
 nullFunction_nvl2 ::= 	_nvl2 nvl2_exp;
 				  //|		cols_nvl2 _nvl2 nvl2_exp;
 				  
-nullFunction_nullif ::=	NULLIF _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR;
+nullFunction_nullif ::=	NULLIF _OPENPAR ari_value_insert _COMMA ari_value_insert _CLOSEPAR;
 
 function_to_date  ::=	TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR;
 
