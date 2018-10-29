@@ -538,7 +538,8 @@ nullFunction_nvl2 ::= 	_nvl2 nvl2_exp;
 				  
 nullFunction_nullif ::=	NULLIF _OPENPAR ari_value_insert _COMMA ari_value_insert _CLOSEPAR;
 
-function_to_date  ::=	TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR;
+function_to_date  ::=	TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR
+								|		TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING  _CLOSEPAR;
 
 function_to_char  ::=	TO_CHAR _OPENPAR mix_exp _CLOSEPAR
 				    |	TO_CHAR _OPENPAR mix_exp _COMMA mix_exp _CLOSEPAR
@@ -831,7 +832,8 @@ delete_s		::= 	DELETE FROM table_name where_part _semicolon
 
 insert_s		::=	INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
 					 |		INSERT INTO table_name  VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
-					 |		INSERT INTO table_name select_s;
+					 |		INSERT INTO table_name select_s
+					 |		INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR select_s;
 
 insert_cols ::=	IDENTIFIER:col1 _COMMA insert_cols {: Columns.add(col1 + ""); :}
 					 |		IDENTIFIER:col1 {: Columns.add(col1 + ""); :}; 
