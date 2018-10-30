@@ -33,6 +33,8 @@ parser code
 	public int inserts_read = 0;
 	public int merge_read = 0;
 	public int creates_read = 0;
+	public int alter_read = 0;
+	public int drop_read = 0;
 
 	public void clean_lists() {
 		TableSE = new LinkedList<TError>();
@@ -105,7 +107,7 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, _order, _by, _asc, _desc,drop,group_by_part,having_part,table,_group, table_group, _having, _merge,top;
+non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, _order, _by, _asc, _desc,drop,group_by_part,having_part,table,_group, table_group, _having, _merge,top, column, alter, add;
 
 non terminal statement_group, statement,_semicolon;
 
@@ -127,7 +129,7 @@ non terminal update_s,_update,_set, update_part, ari_value_update, ari_value_avg
 
 non terminal set_exp_list, set_exp, mix_exp_update, ari_exp_avg, ari_exp_update, ari_exp, par_exp_avg, par_exp_update,exp_update, par_exp,exp_avg, exp,_ari_opr,_asig_opr;  // elements for a small calculator
 
-non terminal delete_s, drop_s;
+non terminal delete_s, drop_s, alter_s, alter_part, alter_exp;
 
 non terminal insert_s, insert_cols, values_exp, mix_exp_insert, ari_value_insert;
 
@@ -138,7 +140,7 @@ non terminal create_s, create_col, datatype_oracle, datatype_server;
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, INSERT, INTO, VALUES, FROM, WHERE,GROUP, HAVING, IS, NOT, WITH,DROP,TABLE, ORDER, BY,MERGE, ASC, DESC ,UNION,ALL,TOP,CREATE,LIKE;
+terminal SELECT, UPDATE, SET, DELETE, INSERT, INTO, VALUES, FROM, WHERE,GROUP, HAVING, IS, NOT, WITH,DROP,TABLE, ORDER, BY,MERGE, ASC, DESC ,UNION,ALL,TOP,CREATE,LIKE,ALTER,COLUMN, ADD;
 
 // Datatype Oracle
 terminal VARCHAR2, VARCHAR, NUMBER, DATE;
@@ -273,7 +275,10 @@ statement 		::= 	select_s
 						   merge_read++;	:}
 				  |		create_s
 				  		{: System.out.println("statement ::= create_s");
-						   creates_read++;	:};
+						   creates_read++;	:}
+				  |		alter_s
+				  		{: System.out.println("statement ::= alter_s");
+						   alter_read++;	:};
 
 _semicolon 		::= 	_SEMCOL2
 						{: System.out.println("_semicolon ::= _SEMICOL2"); :};
@@ -346,6 +351,8 @@ with_s			::=		with_part select_s
 drop_s			::=		drop table table_name _semicolon
 						{: System.out.println("drop_s ::= drop table table_name"); :};
 
+alter_s			::=		alter_part _semicolon
+						{: System.out.println("alter_s ::= alter_part"); :};
 
 merge_s			::=		merge_part
 						{: System.out.println("merge_s	::=	merge_part"); :};
@@ -419,6 +426,14 @@ g_condition		::=		aggregates
 
 h_condition		::=		w_condition;
 
+alter_part		::=		alter_exp;
+
+alter_exp		::=		alter table table_name add col_ali datatype_oracle
+				|		alter table table_name add col_ali datatype_server
+				|		alter table table_name drop column col_ali
+				|		alter table table_name alter column col_ali datatype_oracle
+				|		alter table table_name alter column col_ali datatype_server;
+
 with_part		::=		_with with_exp select_s
 				  |		_with with_exp2 select_s;
 		  	  	  /*|		SELECT error {: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete SELECT statement");
@@ -447,6 +462,12 @@ nvl2_exp_nested ::=		//LITERAL_STRING
 _merge			::=		MERGE INTO;
 
 drop			::=		DROP;
+
+add				::=		ADD;
+
+alter			::=		ALTER;
+
+column			::=		COLUMN;
 
 table			::=		TABLE;
 				  		
