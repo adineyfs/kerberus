@@ -647,11 +647,11 @@ length_exp 		::= 	col;
 
 to_timestamp_exp::=		LITERAL_STRING _COMMA LITERAL_STRING;
 avg_exp 		::= 	/*ari_exp_avg
-					  |*/	DISTINCT IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
-					  | 	DISTINCT TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
-					  | 	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
-					  | 	TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
-					  /*|		aggregates*/;
+				|*/		DISTINCT IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
+				| 		DISTINCT TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
+				| 		IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
+				| 		TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
+				/*|		aggregates*/;
 
 iif_exp			::=		INTEGER cmp_oper INTEGER _COMMA LITERAL_STRING _COMMA LITERAL_STRING
 				  |		nullFunctions _COMMA LITERAL_STRING _COMMA LITERAL_STRING;
@@ -762,18 +762,18 @@ set_exp_list	::= 	set_exp _COMMA set_exp_list
 				  	  	   TableSE.add(errors_found); 
 						   System.out.println("set_cols	::=	error"); :};
 
-set_exp 		::=IDENTIFIER:col1 _asig_opr ari_exp_update  {: Columns.add(col1 + ""); :}
-				 	 |	 IDENTIFIER:col1 _EQU LITERAL_STRING  {: Columns.add(col1 + ""); :}
+set_exp 		::=		IDENTIFIER:col1 _asig_opr ari_exp_update  {: Columns.add(col1 + ""); :}
+				|	 	IDENTIFIER:col1 _EQU LITERAL_STRING  {: Columns.add(col1 + ""); :}
 				  		 {: System.out.println("set_exp ::= IDENTIFIER _EQU LITERAL_STRING"); :}
-				  	 |	 IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr REAL 
-				  	 |	 IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr INTEGER ;
+				|		 IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr REAL 
+				|	 	IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr INTEGER ;
 
-mix_exp_update ::= 	/*_OPENPAR mix_exp_update _CLOSEPAR
+mix_exp_update ::= 	/*	_OPENPAR mix_exp_update _CLOSEPAR
 				  |*/ 	func_ls
 				  | 	m_exp_update
 				  | 	ari_value_update;
 
-ari_exp_update ::=     par_exp_update
+ari_exp_update ::=     	par_exp_update
               	  |     exp_update
               	  |     mix_exp_update;
 
@@ -845,25 +845,25 @@ delete_s		::= 	DELETE FROM table_name where_part _semicolon
 
 /* INSERT */
 
-insert_s		::=	INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
-				|	INSERT INTO table_name  VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
-				|	INSERT INTO table_name select_s
-				|	INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR select_s;
+insert_s		::=		INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
+				|		INSERT INTO table_name  VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
+				|		INSERT INTO table_name select_s
+				|		INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR select_s;
 
-insert_cols 	::=	IDENTIFIER:col1 _COMMA insert_cols {: Columns.add(col1 + ""); :}
-				|	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}; 
+insert_cols 	::=		IDENTIFIER:col1 _COMMA insert_cols {: Columns.add(col1 + ""); :}
+				|		IDENTIFIER:col1 {: Columns.add(col1 + ""); :}; 
 
-values_exp 		::=	mix_exp_insert _COMMA values_exp
-				// |		LITERAL_STRING _COMMA values_exp
-					 |		mix_exp_insert;
+values_exp 		::=		mix_exp_insert _COMMA values_exp
+			 // |		LITERAL_STRING _COMMA values_exp
+				|		mix_exp_insert;
 					// | 		LITERAL_STRING;
 					
-mix_exp_insert 	::=	_OPENPAR mix_exp_insert _CLOSEPAR
-					  | 	func_ls
-					  | 	m_exp_insert
-					  | 	ari_value_insert;
+mix_exp_insert 	::=		_OPENPAR mix_exp_insert _CLOSEPAR
+				|	 	func_ls
+				|	 	m_exp_insert
+				|	 	ari_value_insert;
 					  
-ari_value_insert ::= LITERAL_STRING
+ari_value_insert ::= 	LITERAL_STRING
 				  | 	INTEGER
 						{: System.out.println("ari_value ::= INTEGER"); :}
 				  | 	REAL
@@ -871,34 +871,34 @@ ari_value_insert ::= LITERAL_STRING
 				  		
 /* CREATE */
 
-create_s 		::=	CREATE TABLE table_name _OPENPAR create_col _CLOSEPAR _semicolon;
+create_s 		::=		CREATE TABLE table_name _OPENPAR create_col _CLOSEPAR _semicolon;
 
-create_col  	::=	IDENTIFIER datatype_oracle _COMMA create_col
-				|	IDENTIFIER datatype_server _COMMA create_col
-				|	IDENTIFIER datatype_oracle 
-				|	IDENTIFIER datatype_server;
+create_col  	::=		IDENTIFIER datatype_oracle _COMMA create_col
+				|		IDENTIFIER datatype_server _COMMA create_col
+				|		IDENTIFIER datatype_oracle 
+				|		IDENTIFIER datatype_server;
 
 datatype_oracle    ::=	//VARCHAR2 _OPENPAR VARCHAR2_SIZE _CLOSEPAR
 						VARCHAR2 _OPENPAR INTEGER _CLOSEPAR
-					| 	VARCHAR _OPENPAR VARCHARSIZE _CLOSEPAR
+					//|	VARCHAR _OPENPAR VARCHARSIZE _CLOSEPAR
 					|	VARCHAR _OPENPAR INTEGER _CLOSEPAR
 					| 	NUMBER 
 					| 	DATE //MYSQL
 					|	DATE _OPENPAR _CLOSEPAR; //SQL SERVER
 					 
 datatype_server 	::=	//NVARCHAR _OPENPAR NVARCHAR_SIZE _CLOSEPAR
-									NVARCHAR _OPENPAR INTEGER _CLOSEPAR
-							 |		NVARCHAR _OPENPAR MAX _CLOSEPAR
-							 |		NVARCHAR
-							// |		SMALLINT _OPENPAR VARCHARSIZE _CLOSEPAR
-							 |		SMALLINT _OPENPAR INTEGER _CLOSEPAR
-							 |		SMALLINT
-							 //|		NCHAR _OPENPAR NCHAR_SIZE _CLOSEPAR
-							 |		NCHAR
-							 |		INT
-							 |		INT _OPENPAR INTEGER _CLOSEPAR
-							 |		DATETIME
-							 |		DATETIME _OPENPAR _CLOSEPAR;
+						NVARCHAR _OPENPAR INTEGER _CLOSEPAR
+					|	NVARCHAR _OPENPAR MAX _CLOSEPAR
+					|	NVARCHAR
+				//  |	SMALLINT _OPENPAR VARCHARSIZE _CLOSEPAR
+					|	SMALLINT _OPENPAR INTEGER _CLOSEPAR
+					|	SMALLINT
+				//  |	NCHAR _OPENPAR NCHAR_SIZE _CLOSEPAR
+					|	NCHAR
+					|	INT
+					|	INT _OPENPAR INTEGER _CLOSEPAR
+					|	DATETIME
+					|	DATETIME _OPENPAR _CLOSEPAR;
 
 /* FROM: single and multiple tables */
 
