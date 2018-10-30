@@ -320,7 +320,7 @@ select_ss		::=		select_part from_part
 				  |		select_part from_part joins_part where_part order_by_part
 				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part order_by_part"); :};
 				  		
-select_into_s ::= 	select_part into_part from_part _semicolon
+select_into_s   ::= 	select_part into_part from_part _semicolon
 						{: System.out.println("select_s ::= select_part into_part from_part"); :}
 				  |		select_part into_part from_part where_part _semicolon
 				  		{: System.out.println("select_s ::= select_part into_part from_part where_part"); :}
@@ -338,7 +338,7 @@ select_into_s ::= 	select_part into_part from_part _semicolon
 				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part where_part order_by_part"); :};
 				  		
 into_part		 ::=	INTO table_name
-					  |		INTO table_name IN LITERAL_STRING;
+				  |		INTO table_name IN LITERAL_STRING;
 
 with_s			::=		with_part select_s
 						{: System.out.println("with_s	::=	with_part select_s"); :};
@@ -362,6 +362,7 @@ join_p			::= 	NATURAL JOIN table_name
 				  | 	JOIN table_name join_using   // future version improvement
 				  | 	JOIN table_name join_cond
 				  | 	join table_name join_cond;
+
 union_p			::=		union;
 				  
 group_by_part	::=		_group _by g_condition
@@ -392,7 +393,7 @@ union			::=		UNION
 				  |		UNION ALL;
 
 union_exp		::=		select_part from_part
-				  |		select_part from_part where_part;
+				  |		select_part from_part where_part
 				  |		select_part from_part joins_part
 				  |		select_part from_part where_part order_by_part
 				  |		select_part from_part where_part group_by_part order_by_part
@@ -417,6 +418,7 @@ g_condition		::=		aggregates
 				  |		cl;
 
 h_condition		::=		w_condition;
+
 with_part		::=		_with with_exp select_s
 				  |		_with with_exp2 select_s;
 		  	  	  /*|		SELECT error {: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete SELECT statement");
@@ -458,7 +460,7 @@ _order			::=		ORDER;
 
 _by				::=		BY;
 
-_asc				::=		ASC;
+_asc			::=		ASC;
 
 _desc			::=		DESC;
 
@@ -481,9 +483,9 @@ mix_exp 		::= 	_OPENPAR mix_exp _CLOSEPAR
 				  | 	m_exp
 				  | 	ari_value;
 
-m_exp_update ::=	  	mix_exp_update _ari_opr mix_exp_update;
+m_exp_update 	::=	  	mix_exp_update _ari_opr mix_exp_update;
 
-m_exp_insert ::=	  	mix_exp_insert _ari_opr mix_exp_insert;
+m_exp_insert 	::=	  	mix_exp_insert _ari_opr mix_exp_insert;
 
 m_exp 			::=	  	mix_exp _ari_opr mix_exp; 
 
@@ -496,17 +498,17 @@ func_ls			::=		/*func_ls
 				  |		function_to_date
 				  |		function_to_char;
 				  
-order_by_part 	::= _order _by order_by_part_nested ;
+order_by_part 			::= _order _by order_by_part_nested ;
 
 order_by_part_nested 	::=  order_cols ;
 										 
-order_cols	::=		col_ali _COMMA order_cols
-					 |			col_ali asc_desc _COMMA order_cols
-					 |			col_ali 
-					 |			col_ali asc_desc;
+order_cols				::=		col_ali _COMMA order_cols
+					 	|		col_ali asc_desc _COMMA order_cols
+					 	|		col_ali 
+					 	|		col_ali asc_desc;
 										 
 asc_desc		::=		_asc	
-					 |			_desc;
+				|		_desc;
 
 /*
 column 			::= 	aggregates
@@ -546,12 +548,12 @@ nullFunctions 	 ::= 	nullFunction_nvl2
 				  |		nullFunction_isnull
 				  |		nullFunction_nullif;
 
-nullFunction_nvl2 ::= 	_nvl2 nvl2_exp;
+nullFunction_nvl2 	::= 	_nvl2 nvl2_exp;
 				  //|		cols_nvl2 _nvl2 nvl2_exp;
 				  
 nullFunction_nullif ::=	NULLIF _OPENPAR ari_value_insert _COMMA ari_value_insert _CLOSEPAR;
 
-function_to_date  ::=	TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR
+function_to_date  	::=	TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR
 								|		TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING  _CLOSEPAR;
 
 function_to_char  ::=	TO_CHAR _OPENPAR mix_exp _CLOSEPAR
@@ -586,8 +588,9 @@ stringFunction_upper	::=		UPPER _OPENPAR upper_exp _CLOSEPAR;
 nullFunction_nvl		::=		NVL _OPENPAR nvl_exp _CLOSEPAR;
 
 nullFunction_isnull		::=		ISNULL _OPENPAR isnull_exp _CLOSEPAR;
-agg_count 		::=   	COUNT _OPENPAR count_exp _CLOSEPAR
-				  |		COUNT _OPENPAR _STAR _CLOSEPAR;
+
+agg_count 				::=   	COUNT _OPENPAR count_exp _CLOSEPAR
+				  		|		COUNT _OPENPAR _STAR _CLOSEPAR;
 
 stringFunction_ltrim	::=   	LTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
 
@@ -605,7 +608,7 @@ agg_min			::=   	MIN _OPENPAR count_exp _CLOSEPAR;
 to_timestamp	::=		TO_TIMESTAMP _OPENPAR to_timestamp_exp _CLOSEPAR;
 
 agg_avg 		::=   	AVG _OPENPAR avg_exp _CLOSEPAR
-					/* |		AVG _OPENPAR avg_exp _CLOSEPAR*/;
+			  /* |		AVG _OPENPAR avg_exp _CLOSEPAR*/;
 
 count_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
@@ -621,6 +624,7 @@ choose_exp 		::= 	LITERAL_STRING _COMMA choose_exp
 
 concat_exp		::=		LITERAL_STRING _COMMA concat_exp
 				  |		LITERAL_STRING;
+
 replace_exp		::=		LITERAL_STRING _COMMA replace_exp
 				  |		LITERAL_STRING;
 
@@ -638,6 +642,7 @@ rpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
 sysdate			::=		SYSDATE _OPENPAR _CLOSEPAR
 				  |		SYSDATE _OPENPAR _CLOSEPAR _ari_opr INTEGER;
+
 length_exp 		::= 	col;
 
 to_timestamp_exp::=		LITERAL_STRING _COMMA LITERAL_STRING;
@@ -776,11 +781,11 @@ ari_exp     	::=     par_exp
               	  |     exp 
               	  |     ari_value;
               	  
-ari_exp_avg ::=     par_exp_avg
+ari_exp_avg 	::=     par_exp_avg
               	  |     exp_avg
               	  |     ari_value_avg;
               	  
-ari_value_update ::= LITERAL_STRING
+ari_value_update ::= 	LITERAL_STRING
 				  		{: System.out.println("ari_value ::= LITERAL_STRING"); :}
 				  | 	INTEGER
 						{: System.out.println("ari_value ::= INTEGER"); :}
@@ -789,7 +794,7 @@ ari_value_update ::= LITERAL_STRING
 				  |     case_exp 
 				  		{: System.out.println("ari_value ::= case_exp"); :};
               	  
-ari_value_avg 		::=		/*col
+ari_value_avg 	::=		/*col
 				  		{: System.out.println("ari_value ::= col"); :}
 				  |*/ 	INTEGER
 						{: System.out.println("ari_value ::= INTEGER"); :}
@@ -807,13 +812,13 @@ ari_value 		::=		col
 				  |     case_exp 
 				  		{: System.out.println("ari_value ::= case_exp"); :};             
 				  		
-par_exp_avg 	 		::= 	_OPENPAR ari_exp_avg _CLOSEPAR;
+par_exp_avg 	::= 	_OPENPAR ari_exp_avg _CLOSEPAR;
  
 par_exp_update 	::= 	_OPENPAR ari_exp_update _CLOSEPAR;
 
-exp_avg					::= 	ari_exp_avg _ari_opr ari_exp_avg; 
+exp_avg			::= 	ari_exp_avg _ari_opr ari_exp_avg; 
 
-exp_update 			::= 	ari_exp_update _ari_opr ari_exp_update; 
+exp_update 		::= 	ari_exp_update _ari_opr ari_exp_update; 
 
 par_exp 		::= 	_OPENPAR ari_exp _CLOSEPAR;
 
@@ -841,19 +846,19 @@ delete_s		::= 	DELETE FROM table_name where_part _semicolon
 /* INSERT */
 
 insert_s		::=	INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
-					 |		INSERT INTO table_name  VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
-					 |		INSERT INTO table_name select_s
-					 |		INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR select_s;
+				|	INSERT INTO table_name  VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
+				|	INSERT INTO table_name select_s
+				|	INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR select_s;
 
-insert_cols ::=	IDENTIFIER:col1 _COMMA insert_cols {: Columns.add(col1 + ""); :}
-					 |		IDENTIFIER:col1 {: Columns.add(col1 + ""); :}; 
+insert_cols 	::=	IDENTIFIER:col1 _COMMA insert_cols {: Columns.add(col1 + ""); :}
+				|	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}; 
 
-values_exp ::=	mix_exp_insert _COMMA values_exp
-					// |		LITERAL_STRING _COMMA values_exp
+values_exp 		::=	mix_exp_insert _COMMA values_exp
+				// |		LITERAL_STRING _COMMA values_exp
 					 |		mix_exp_insert;
 					// | 		LITERAL_STRING;
 					
-mix_exp_insert ::=	_OPENPAR mix_exp_insert _CLOSEPAR
+mix_exp_insert 	::=	_OPENPAR mix_exp_insert _CLOSEPAR
 					  | 	func_ls
 					  | 	m_exp_insert
 					  | 	ari_value_insert;
@@ -868,20 +873,20 @@ ari_value_insert ::= LITERAL_STRING
 
 create_s 		::=	CREATE TABLE table_name _OPENPAR create_col _CLOSEPAR _semicolon;
 
-create_col  ::=	IDENTIFIER datatype_oracle _COMMA create_col
-					 |		IDENTIFIER datatype_server _COMMA create_col
-					 |		IDENTIFIER datatype_oracle 
-					 |		IDENTIFIER datatype_server;
+create_col  	::=	IDENTIFIER datatype_oracle _COMMA create_col
+				|	IDENTIFIER datatype_server _COMMA create_col
+				|	IDENTIFIER datatype_oracle 
+				|	IDENTIFIER datatype_server;
 
 datatype_oracle    ::=	//VARCHAR2 _OPENPAR VARCHAR2_SIZE _CLOSEPAR
-										VARCHAR2 _OPENPAR INTEGER _CLOSEPAR
-								// | 		VARCHAR _OPENPAR VARCHARSIZE _CLOSEPAR
-								 |		VARCHAR _OPENPAR INTEGER _CLOSEPAR
-								 | 		NUMBER 
-								 | 		DATE //MYSQL
-								 |		DATE _OPENPAR _CLOSEPAR; //SQL SERVER
+						VARCHAR2 _OPENPAR INTEGER _CLOSEPAR
+					| 	VARCHAR _OPENPAR VARCHARSIZE _CLOSEPAR
+					|	VARCHAR _OPENPAR INTEGER _CLOSEPAR
+					| 	NUMBER 
+					| 	DATE //MYSQL
+					|	DATE _OPENPAR _CLOSEPAR; //SQL SERVER
 					 
-datatype_server ::=	//NVARCHAR _OPENPAR NVARCHAR_SIZE _CLOSEPAR
+datatype_server 	::=	//NVARCHAR _OPENPAR NVARCHAR_SIZE _CLOSEPAR
 									NVARCHAR _OPENPAR INTEGER _CLOSEPAR
 							 |		NVARCHAR _OPENPAR MAX _CLOSEPAR
 							 |		NVARCHAR
