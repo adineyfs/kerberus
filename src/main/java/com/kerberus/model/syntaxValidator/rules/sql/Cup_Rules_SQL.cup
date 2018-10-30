@@ -35,6 +35,7 @@ parser code
 	public int creates_read = 0;
 	public int alter_read = 0;
 	public int drop_read = 0;
+	public int commit_read = 0;
 
 	public void clean_lists() {
 		TableSE = new LinkedList<TError>();
@@ -107,7 +108,7 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, _order, _by, _asc, _desc,drop,group_by_part,having_part,table,_group, table_group, _having, _merge,top, column, alter, add;
+non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, _order, _by, _asc, _desc,drop,group_by_part,having_part,table,_group, table_group, _having, _merge,top, column, alter, add, _commit, commit_s;
 
 non terminal statement_group, statement,_semicolon;
 
@@ -140,7 +141,7 @@ non terminal create_s, create_col, datatype_oracle, datatype_server;
 
 
 // Reserved words
-terminal SELECT, UPDATE, SET, DELETE, INSERT, INTO, VALUES, FROM, WHERE,GROUP, HAVING, IS, NOT, WITH,DROP,TABLE, ORDER, BY,MERGE, ASC, DESC ,UNION,ALL,TOP,CREATE,LIKE,ALTER,COLUMN, ADD;
+terminal SELECT, UPDATE, SET, DELETE, INSERT, INTO, VALUES, FROM, WHERE,GROUP, HAVING, IS, NOT, WITH,DROP,TABLE, ORDER, BY,MERGE, ASC, DESC ,UNION,ALL,TOP,CREATE,LIKE,ALTER,COLUMN, ADD, COMMIT;
 
 // Datatype Oracle
 terminal VARCHAR2, VARCHAR, NUMBER, DATE;
@@ -269,7 +270,7 @@ statement 		::= 	select_s
 						   inserts_read++;	:}
 				  |		drop_s
 				  		{: System.out.println("statement ::= drop_s");
-						   with_read++;	:}
+						   drop_read++;	:}
 				  |		merge_s
 				  		{: System.out.println("statement ::= merge_s");
 						   merge_read++;	:}
@@ -278,10 +279,15 @@ statement 		::= 	select_s
 						   creates_read++;	:}
 				  |		alter_s
 				  		{: System.out.println("statement ::= alter_s");
-						   alter_read++;	:};
+						   alter_read++;	:}
+				  |		commit_s
+				  		{: System.out.println("statement ::= commit_s");
+						   commit_read++;	:};
 
 _semicolon 		::= 	_SEMCOL2
 						{: System.out.println("_semicolon ::= _SEMICOL2"); :};
+
+
 
 /* SELECT */
 select_s		::= 	select_ss _semicolon;
@@ -341,11 +347,13 @@ select_into_s   ::= 	select_part into_part from_part _semicolon
 				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part order_by_part"); :}
 				  |		select_part into_part from_part joins_part where_part order_by_part _semicolon
 				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part where_part order_by_part"); :};
-				  		
-into_part		 ::=	INTO table_name
+
+commit_s		::=		_commit _semicolon;
+
+into_part		::=		INTO table_name
 				  |		INTO table_name IN LITERAL_STRING;
 
-with_s			::=		with_part select_s
+with_s			::=		with_part
 						{: System.out.println("with_s	::=	with_part select_s"); :};
 
 drop_s			::=		drop table table_name _semicolon
@@ -472,6 +480,8 @@ column			::=		COLUMN;
 table			::=		TABLE;
 				  		
 _with			::=		WITH;
+
+_commit			::=		COMMIT;
 
 _select 		::=		SELECT;
 

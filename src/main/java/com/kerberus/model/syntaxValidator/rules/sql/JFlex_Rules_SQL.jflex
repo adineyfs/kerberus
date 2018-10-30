@@ -126,6 +126,7 @@ whitespace      = {WhiteSpace}
 	"add"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ADD, yyline+1, yycolumn+1, yytext()); }
 	"column"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.COLUMN, yyline+1, yycolumn+1, yytext()); }
 	"alter"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ALTER, yyline+1, yycolumn+1, yytext()); }
+	"commit"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.COMMIT, yyline+1, yycolumn+1, yytext()); }
 	
 /* Date functions */
 	"to_timestamp"	{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TO_TIMESTAMP, yyline+1, yycolumn+1, yytext()); }
