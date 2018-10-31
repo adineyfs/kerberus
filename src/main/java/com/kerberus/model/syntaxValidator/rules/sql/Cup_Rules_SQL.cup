@@ -308,6 +308,8 @@ select_ss		::=		select_part from_part
 				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part order_by_part"); :}
 				  |		select_part from_part where_part group_by_part having_part
 				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part having_part"); :}
+				  |		select_part from_part group_by_part having_part
+				  		{: System.out.println("select_s ::= select_part from_part group_by_part having_part"); :}
 				  |		select_part from_part where_part group_by_part having_part order_by_part
 				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part having_part order_by_part"); :}
 				  |		select_part from_part joins_part
