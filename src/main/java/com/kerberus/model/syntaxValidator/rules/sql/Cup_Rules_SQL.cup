@@ -122,7 +122,7 @@ non terminal element_in, in_list, in_exp, in_array, in_subquery;
 
 non terminal joins_part,join_p,join_on,join_cond,join_c, join,join_using_cols, join_using,union, union_p, union_part, union_exp; // join_using_cols, join_using : future version
 
-non terminal w_condition, cond, log_oper,cmp_oper, element,h_condition, g_condition;
+non terminal w_condition, cond, log_oper,cmp_oper, element,h_condition, g_condition, sub_cond;
 
 non terminal cond_el,c_el,c_ali,mix_exp,m_exp_update,m_exp_insert, m_exp,case_exp, case_rules,case_rul, case_else,case_cond,case_act;
 
@@ -189,7 +189,7 @@ terminal TO_DATE;
 terminal TO_CHAR;
 
 // Case expressions
-terminal CASE, WHEN, THEN, ELSE, END, MATCHED;
+terminal CASE, WHEN, THEN, ELSE, END, MATCHED, EXISTS;
 
 
 // Identifiers and numbers
@@ -679,6 +679,7 @@ sysdate			::=		SYSDATE _OPENPAR _CLOSEPAR
 length_exp 		::= 	col;
 
 to_timestamp_exp::=		LITERAL_STRING _COMMA LITERAL_STRING;
+
 avg_exp 		::= 	/*ari_exp_avg
 				|*/		DISTINCT IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
 				| 		DISTINCT TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
@@ -798,7 +799,7 @@ set_exp_list	::= 	set_exp _COMMA set_exp_list
 set_exp 		::=		IDENTIFIER:col1 _asig_opr ari_exp_update  {: Columns.add(col1 + ""); :}
 				|	 	IDENTIFIER:col1 _EQU LITERAL_STRING  {: Columns.add(col1 + ""); :}
 				  		 {: System.out.println("set_exp ::= IDENTIFIER _EQU LITERAL_STRING"); :}
-				|		 IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr REAL 
+				|		IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr REAL 
 				|	 	IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr INTEGER ;
 
 mix_exp_update ::= 	/*	_OPENPAR mix_exp_update _CLOSEPAR
@@ -984,10 +985,12 @@ cond 			::= 	cond_el cmp_oper cond_el
 				  | 	cl IS NULL
 				  |		cl IS NOT NULL
 				  |		MATCHED
-				  |		NOT MATCHED;
+				  |		NOT MATCHED
+				  |		EXISTS sub_cond
+				  |		NOT EXISTS sub_cond;
 				  
 cond_el 		::= 	mix_exp
-				  /*| 	element*/;		  
+				  | 	sub_cond;		  
 				  
 in_list 		::=  	_OPENPAR in_exp _CLOSEPAR;
 
@@ -1013,7 +1016,8 @@ element    		::= 	IDENTIFIER
 		  	  	  | 	REAL
 		  	  	  | 	LITERAL_STRING
 		  	  	  | 	TABDOTCOL
-		  	  	  | 	NULL;
+		  	  	  | 	NULL
+		  	  	  | 	sub_cond;
 
 cmp_oper  		::= 	_EQU 
 		  	  	  | 	_GT 
@@ -1028,6 +1032,8 @@ log_oper    	::= 	_AND
 
 top				::=		TOP INTEGER
 				  |		TOP _OPENPAR INTEGER _CLOSEPAR;
+
+sub_cond		::=		_OPENPAR select_ss _CLOSEPAR;
 
 // ~~ CUP-ECLIPSE:CONFLICT-RES-RR ~~ 
  // After this the order of productions matters

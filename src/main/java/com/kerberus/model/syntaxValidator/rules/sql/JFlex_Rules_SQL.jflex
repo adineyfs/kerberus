@@ -157,6 +157,7 @@ whitespace      = {WhiteSpace}
 	"else"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ELSE, yyline+1, yycolumn+1, yytext()); }
 	"end"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.END, yyline+1, yycolumn+1, yytext()); }
 	"matched"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.MATCHED, yyline+1, yycolumn+1, yytext()); }
+	"exists"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.EXISTS, yyline+1, yycolumn+1, yytext()); }
 	
 	
 /* JOINS */	
