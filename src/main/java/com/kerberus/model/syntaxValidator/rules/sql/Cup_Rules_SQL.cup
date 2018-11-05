@@ -509,7 +509,8 @@ col_el			::= 	c_el c_ali
 c_el 			::= 	mix_exp; 	
 				  
 c_ali 			::= 	col_ali
-				  | 	AS col_ali;				  
+				  | 	AS col_ali
+				  |		AS LITERAL_STRING;				  
 
 mix_exp 		::= 	_OPENPAR mix_exp _CLOSEPAR
 				  | 	func_ls
@@ -696,6 +697,7 @@ nvl_exp			::=		cl _COMMA INTEGER
 				  
 isnull_exp		::=		cl _COMMA INTEGER
 				  |		cl _COMMA LITERAL_STRING;
+				  
 col				::= 	cl
 				  | 	NULL 
 				  /*| 	cl   	 AS col_ali
@@ -796,18 +798,19 @@ set_exp_list	::= 	set_exp _COMMA set_exp_list
 				  	  	   TableSE.add(errors_found); 
 						   System.out.println("set_cols	::=	error"); :};
 
-set_exp 		::=		IDENTIFIER:col1 _asig_opr ari_exp_update  {: Columns.add(col1 + ""); :}
-				|	 	IDENTIFIER:col1 _EQU LITERAL_STRING  {: Columns.add(col1 + ""); :}
+set_exp 		::=		IDENTIFIER:col1 _asig_opr ari_exp_update  {: Columns.add(col1 + ""); :} 
+				|		IDENTIFIER:col1 _EQU LITERAL_STRING  {: Columns.add(col1 + ""); :}
 				  		 {: System.out.println("set_exp ::= IDENTIFIER _EQU LITERAL_STRING"); :}
 				|		IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr REAL 
-				|	 	IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr INTEGER ;
+				|	 	IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr INTEGER;
+				
 
-mix_exp_update ::= 	/*	_OPENPAR mix_exp_update _CLOSEPAR
+mix_exp_update 	::= 	/*	_OPENPAR mix_exp_update _CLOSEPAR
 				  |*/ 	func_ls
 				  | 	m_exp_update
 				  | 	ari_value_update;
 
-ari_exp_update ::=     	par_exp_update
+ari_exp_update 	::=     par_exp_update
               	  |     exp_update
               	  |     mix_exp_update;
 
@@ -848,7 +851,8 @@ ari_value 		::=		col
 				  		
 par_exp_avg 	::= 	_OPENPAR ari_exp_avg _CLOSEPAR;
  
-par_exp_update 	::= 	_OPENPAR ari_exp_update _CLOSEPAR;
+par_exp_update 	::= 	_OPENPAR ari_exp_update _CLOSEPAR
+				|		sub_cond;
 
 exp_avg			::= 	ari_exp_avg _ari_opr ari_exp_avg; 
 
