@@ -785,9 +785,10 @@ set_exp_list	::= 	set_exp _COMMA set_exp_list
 						   System.out.println("set_cols	::=	error"); :};
 
 set_exp 		::=		IDENTIFIER:col1 _asig_opr ari_exp_update  {: Columns.add(col1 + ""); :}
-				|	 	IDENTIFIER:col1 _EQU LITERAL_STRING  {: Columns.add(col1 + ""); :}
+				   | 	IDENTIFIER:col1 _EQU LITERAL_STRING  {: Columns.add(col1 + ""); :}
 				  		 {: System.out.println("set_exp ::= IDENTIFIER _EQU LITERAL_STRING"); :}
-				|		 IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr REAL 
+				   |		IDENTIFIER _EQU _OPENPAR select_ss _CLOSEPAR
+				|		IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr REAL 
 				|	 	IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr INTEGER ;
 
 mix_exp_update ::= 	/*	_OPENPAR mix_exp_update _CLOSEPAR
@@ -795,8 +796,8 @@ mix_exp_update ::= 	/*	_OPENPAR mix_exp_update _CLOSEPAR
 				  | 	m_exp_update
 				  | 	ari_value_update;
 
-ari_exp_update ::=     	par_exp_update
-              	  |     exp_update
+ari_exp_update ::=     	par_exp_update //_OPENPAR ari_exp_update _CLOSEPAR;
+              	  |     exp_update //ari_exp_update _ari_opr ari_exp_update
               	  |     mix_exp_update;
 
 ari_exp     	::=     par_exp
@@ -836,7 +837,8 @@ ari_value 		::=		col
 				  		
 par_exp_avg 	::= 	_OPENPAR ari_exp_avg _CLOSEPAR;
  
-par_exp_update 	::= 	_OPENPAR ari_exp_update _CLOSEPAR;
+par_exp_update 	::= 	_OPENPAR ari_exp_update _CLOSEPAR
+								 |		_OPENPAR select_ss  _CLOSEPAR; //this is for the subquery after SET on UPDATE clause card 106
 
 exp_avg			::= 	ari_exp_avg _ari_opr ari_exp_avg; 
 
