@@ -291,6 +291,7 @@ _semicolon 		::= 	_SEMCOL2
 
 /* SELECT */
 select_s		::= 	select_ss _semicolon;
+				  |		select_into_s _semicolon;
 
 select_ss		::=		select_part from_part
 						{: System.out.println("select_s ::= select_part from_part"); :}
@@ -335,21 +336,21 @@ select_ss		::=		select_part from_part
 				  |		select_part from_part joins_part where_part order_by_part
 				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part order_by_part"); :};
 				  		
-select_into_s   ::= 	select_part into_part from_part _semicolon
+select_into_s   ::= 	select_part into_part from_part
 						{: System.out.println("select_s ::= select_part into_part from_part"); :}
-				  |		select_part into_part from_part where_part _semicolon
+				  |		select_part into_part from_part where_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part where_part"); :}
-				  |		select_part into_part from_part joins_part _semicolon
+				  |		select_part into_part from_part joins_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part"); :}
-				  |		select_part into_part from_part joins_part where_part _semicolon
+				  |		select_part into_part from_part joins_part where_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part where_part"); :}
-				  |		select_part into_part from_part order_by_part _semicolon
+				  |		select_part into_part from_part order_by_part
 						{: System.out.println("select_s ::= select_part into_part from_part order_by_part"); :}
-				  |		select_part into_part from_part where_part order_by_part _semicolon
+				  |		select_part into_part from_part where_part order_by_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part where_part order_by_part"); :}
-				  |		select_part into_part from_part joins_part order_by_part _semicolon
+				  |		select_part into_part from_part joins_part order_by_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part order_by_part"); :}
-				  |		select_part into_part from_part joins_part where_part order_by_part _semicolon
+				  |		select_part into_part from_part joins_part where_part order_by_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part where_part order_by_part"); :};
 
 commit_s		::=		_commit _semicolon;
@@ -357,7 +358,7 @@ commit_s		::=		_commit _semicolon;
 into_part		::=		INTO table_name
 				  |		INTO table_name IN LITERAL_STRING;
 
-with_s			::=		with_part
+with_s			::=		with_part select_s
 						{: System.out.println("with_s	::=	with_part select_s"); :};
 
 drop_s			::=		drop table table_name _semicolon
@@ -380,7 +381,8 @@ join_p			::= 	NATURAL JOIN table_name
 				  | 	JOIN table_name
 				  | 	JOIN table_name join_using   // future version improvement
 				  | 	JOIN table_name join_cond
-				  | 	join table_name join_cond;
+				  | 	join table_name join_cond
+				  |		join sub_cond IDENTIFIER ON join_on log_oper join_on WHERE join_on log_oper _OPENPAR element IS NULL log_oper join_on _CLOSEPAR {: System.out.println("join_p ::= join sub_cond IDENTIFIER join_cond"); :};  // LEFT OUTER JOIN subquery card 118
 
 union_p			::=		union;
 				  
@@ -807,6 +809,7 @@ set_exp_list	::= 	set_exp _COMMA set_exp_list
 set_exp 		::=		IDENTIFIER:col1 _asig_opr ari_exp_update  {: Columns.add(col1 + ""); :} 
 				|		IDENTIFIER:col1 _EQU LITERAL_STRING  {: Columns.add(col1 + ""); :}
 				  		 {: System.out.println("set_exp ::= IDENTIFIER _EQU LITERAL_STRING"); :}
+			   	|		IDENTIFIER _EQU _OPENPAR select_ss _CLOSEPAR
 				|		IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr REAL 
 				|	 	IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr INTEGER;
 				
@@ -858,7 +861,7 @@ ari_value 		::=		col
 par_exp_avg 	::= 	_OPENPAR ari_exp_avg _CLOSEPAR;
  
 par_exp_update 	::= 	_OPENPAR ari_exp_update _CLOSEPAR
-				|		sub_cond;
+				|		sub_cond; //this is for the subquery after SET on UPDATE clause card 106
 
 exp_avg			::= 	ari_exp_avg _ari_opr ari_exp_avg; 
 
@@ -915,7 +918,8 @@ ari_value_insert ::= 	LITERAL_STRING
 				  		
 /* CREATE */
 
-create_s 		::=		CREATE TABLE table_name _OPENPAR create_col _CLOSEPAR _semicolon;
+create_s 		::=		CREATE TABLE table_name _OPENPAR create_col _CLOSEPAR _semicolon
+				|		CREATE TABLE table_name AS select_ss _semicolon;
 
 create_col  	::=		IDENTIFIER datatype_oracle _COMMA create_col
 				|		IDENTIFIER datatype_server _COMMA create_col
