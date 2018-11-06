@@ -121,7 +121,7 @@ non terminal element_in, in_list, in_exp, in_array, in_subquery;
 
 non terminal joins_part,join_p,join_on,join_cond,join_c, join,join_using_cols, join_using,union, union_p, union_part, union_exp; // join_using_cols, join_using : future version
 
-non terminal w_condition, cond, log_oper,cmp_oper, element,h_condition, g_condition;
+non terminal w_condition, cond, log_oper,cmp_oper, element,h_condition, g_condition, sub_cond;
 
 non terminal cond_el,c_el,c_ali,mix_exp,m_exp_update,m_exp_insert, m_exp,case_exp, case_rules,case_rul, case_else,case_cond,case_act;
 
@@ -369,7 +369,8 @@ join_p			::= 	NATURAL JOIN table_name
 				  | 	JOIN table_name
 				  | 	JOIN table_name join_using   // future version improvement
 				  | 	JOIN table_name join_cond
-				  | 	join table_name join_cond;
+				  | 	join table_name join_cond
+				  |		join sub_cond IDENTIFIER ON join_on log_oper join_on WHERE join_on log_oper _OPENPAR element IS NULL log_oper join_on _CLOSEPAR {: System.out.println("join_p ::= join sub_cond IDENTIFIER join_cond"); :};  // LEFT OUTER JOIN subquery card 118
 
 union_p			::=		union;
 				  
@@ -410,10 +411,10 @@ union_exp		::=		select_part from_part
 join_cond		::= 	ON join_c;
 
 
-join_c			::= 	join_on log_oper join_c
-				  |   	join_on;
+join_c			::= 	join_on log_oper join_c //log_oper = AND OR
+				  	|   	join_on;
 
-join_on			::= 	element _EQU element;		  
+join_on			::= 	element cmp_oper element;	//element = IDENTIFIER INTEGER REAL LITERAL_STRING	TABDOTCOL NULL I changed here equal to cmp_oper 
 
 merge_part		::=		_merge merge_exp;
 
@@ -929,7 +930,7 @@ datatype_server 	::=	//NVARCHAR _OPENPAR NVARCHAR_SIZE _CLOSEPAR
 
 
 from_part		::= 	_from table_name_mult
-						 |		_from _OPENPAR select_ss _CLOSEPAR AS IDENTIFIER;
+						 |		_from sub_cond AS IDENTIFIER;
 						 //|		_from _OPENPAR select_into_s _CLOSEPAR;
 
 table_name_mult ::= 	table_name _COMMA table_name_mult
@@ -975,6 +976,7 @@ cond 			::= 	cond_el cmp_oper cond_el
 				  |		element_in NOT IN in_list
 				  |		element_in LIKE LITERAL_STRING /*IN THE FUTURE CHANGE LITERAL STRING BY A REGULAR EXPRESSION SPECIFIC FOR LIKE*/
 				  |		element_in NOT LIKE LITERAL_STRING
+				  //|		element cmp_oper element //for card 118 WHERE X <> X might conflict with cond_el not sure
 				  | 	cl IS NULL
 				  |		cl IS NOT NULL
 				  |		MATCHED
@@ -1022,6 +1024,8 @@ log_oper    	::= 	_AND
 
 top				::=		TOP INTEGER
 				  |		TOP _OPENPAR INTEGER _CLOSEPAR;
+
+sub_cond ::= _OPENPAR select_ss _CLOSEPAR;
 
 // ~~ CUP-ECLIPSE:CONFLICT-RES-RR ~~ 
  // After this the order of productions matters
