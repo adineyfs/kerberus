@@ -3145,7 +3145,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 85: // _group ::= GROUP 
             {
               Object RESULT =null;
-
+		 System.out.println("_group ::=GROUP"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_group",17, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3154,7 +3154,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 86: // _having ::= HAVING 
             {
               Object RESULT =null;
-
+		 System.out.println("_having ::=HAVING"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("_having",19, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3163,7 +3163,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 87: // g_condition ::= aggregates 
             {
               Object RESULT =null;
-
+		 System.out.println("g_condition ::=aggregates"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("g_condition",132, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3172,7 +3172,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 88: // g_condition ::= cl _COMMA g_condition 
             {
               Object RESULT =null;
-
+		 System.out.println("g_condition ::=cl _COMMA g_condition"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("g_condition",132, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3181,7 +3181,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 89: // g_condition ::= cl 
             {
               Object RESULT =null;
-
+		 System.out.println("g_condition ::=cl"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("g_condition",132, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3190,7 +3190,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 90: // h_condition ::= w_condition 
             {
               Object RESULT =null;
-
+		 System.out.println("h_condition ::=w_condition"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("h_condition",131, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3199,7 +3199,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 91: // alter_part ::= alter_exp 
             {
               Object RESULT =null;
-
+		 System.out.println("alter_part ::=alter_exp"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("alter_part",171, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3208,7 +3208,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 92: // alter_exp ::= alter table table_name add col_ali datatype_oracle 
             {
               Object RESULT =null;
-
+		 System.out.println("alter_exp ::=alter table table_name add col_ali datatype_oracle"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("alter_exp",172, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-5)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3217,7 +3217,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 93: // alter_exp ::= alter table table_name add col_ali datatype_server 
             {
               Object RESULT =null;
-
+		 System.out.println("alter_exp ::=alter table table_name add col_ali datatype_server"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("alter_exp",172, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-5)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3226,7 +3226,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 94: // alter_exp ::= alter table table_name drop column col_ali 
             {
               Object RESULT =null;
-
+		 System.out.println("alter_exp ::=alter table table_name drop column col_ali"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("alter_exp",172, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-5)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3235,7 +3235,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 95: // alter_exp ::= alter table table_name alter column col_ali datatype_oracle 
             {
               Object RESULT =null;
-
+		 System.out.println("alter_exp ::=alter table table_name alter column col_ali datatype_oracle"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("alter_exp",172, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-6)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3244,7 +3244,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 96: // alter_exp ::= alter table table_name alter column col_ali datatype_server 
             {
               Object RESULT =null;
-
+		 System.out.println("alter_exp ::=alter table table_name alter column col_ali datatype_server"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("alter_exp",172, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-6)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3253,7 +3253,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 97: // with_part ::= _with with_exp select_s 
             {
               Object RESULT =null;
-
+		 System.out.println("with_part ::=_with with_exp select_s"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("with_part",35, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3262,7 +3262,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 98: // with_part ::= _with with_exp2 select_s 
             {
               Object RESULT =null;
-
+		 System.out.println("with_part ::=_with with_exp2 select_s"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("with_part",35, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3271,7 +3271,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 99: // with_exp ::= col_ali AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp 
             {
               Object RESULT =null;
-
+		 System.out.println("with_exp ::=col_ali AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("with_exp",36, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-6)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3280,7 +3280,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 100: // with_exp ::= col_ali AS _OPENPAR select_ss _CLOSEPAR 
             {
               Object RESULT =null;
-
+		 System.out.println("with_exp ::=col_ali AS _OPENPAR select_ss _CLOSEPAR"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("with_exp",36, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-4)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3289,7 +3289,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 101: // with_exp2 ::= col_ali with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp2 
             {
               Object RESULT =null;
-
+		 System.out.println("with_exp2 ::=col_ali  with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp2"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("with_exp2",37, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-7)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3298,7 +3298,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 102: // with_exp2 ::= col_ali with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR 
             {
               Object RESULT =null;
-
+		 System.out.println("with_exp2 ::=col_ali with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("with_exp2",37, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-5)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3307,7 +3307,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 103: // with_exp2_1 ::= _OPENPAR cols _CLOSEPAR 
             {
               Object RESULT =null;
-
+		 System.out.println("with_exp2_1 ::=_OPENPAR cols _CLOSEPAR"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("with_exp2_1",38, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-2)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3316,7 +3316,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 104: // merge_exp ::= col merge_using merge_on case_cond THEN _update _set set_exp_list _semicolon 
             {
               Object RESULT =null;
-
+		 System.out.println("merge_exp ::=col merge_using merge_on case_cond THEN _update _set set_exp_list _semicolon"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("merge_exp",41, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-8)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
@@ -3325,7 +3325,7 @@ class CUP$Cup_Rules_SQL$actions {
           case 105: // merge_on ::= ON _OPENPAR col _EQU col _AND col cmp_oper col _CLOSEPAR 
             {
               Object RESULT =null;
-
+		 System.out.println("merge_on ::=ON _OPENPAR col _EQU col _AND col cmp_oper col _CLOSEPAR"); 
               CUP$Cup_Rules_SQL$result = parser.getSymbolFactory().newSymbol("merge_on",44, ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.elementAt(CUP$Cup_Rules_SQL$top-9)), ((java_cup.runtime.Symbol)CUP$Cup_Rules_SQL$stack.peek()), RESULT);
             }
           return CUP$Cup_Rules_SQL$result;
