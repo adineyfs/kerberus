@@ -114,7 +114,7 @@ non terminal statement_group, statement,_semicolon;
 
 non terminal select_s,select_ss, select_into_s,into_part, with_s, with_part, with_exp, with_exp2, with_exp2_1,merge_s, merge_part, merge_exp, merge_using, merge_using_cols, merge_on, select_part,select_part_sub,nvl2_exp,nvl2_exp_nested,func_ls, order_by_part, order_by_part_nested, order_cols, asc_desc;
 
-non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nvl2,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate,to_timestamp,to_timestamp_exp,nullFunction_isnull,isnull_exp;
+non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nvl2,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate,to_timestamp,to_timestamp_exp,nullFunction_isnull,isnull_exp;
 
 non terminal from_part, where_part, cols,cols_nvl2,col,cl,col_ali;
 
@@ -126,9 +126,9 @@ non terminal w_condition, cond, log_oper,cmp_oper, element,h_condition, g_condit
 
 non terminal cond_el,c_el,c_ali,mix_exp,m_exp_update,m_exp_insert, m_exp,case_exp, case_rules,case_rul, case_else,case_cond,case_act;
 
-non terminal update_s,_update,_set, update_part, ari_value_update, ari_value_avg, ari_value;
+non terminal update_s,_update,_set, update_part, ari_value_update, ari_value;
 
-non terminal set_exp_list, set_exp, mix_exp_update, ari_exp_avg, ari_exp_update, ari_exp, par_exp_avg, par_exp_update,exp_update, par_exp,exp_avg, exp,_ari_opr,_asig_opr;  // elements for a small calculator
+non terminal set_exp_list, set_exp, mix_exp_update, ari_exp_update, ari_exp, par_exp_update,exp_update, par_exp, exp,_ari_opr,_asig_opr;  // elements for a small calculator
 
 non terminal delete_s, drop_s, alter_s, alter_part, alter_exp;
 
@@ -159,11 +159,6 @@ terminal TO_TIMESTAMP;
 terminal AS,ON,IN, DISTINCT,NULL;
 
 // Aggregated functions
-terminal COUNT;
-terminal SUM;
-terminal MAX;
-terminal MIN;
-terminal AVG;
 terminal LPAD, RPAD, LENGTH;
 
 // String functions
@@ -172,7 +167,7 @@ terminal CONCAT;
 terminal LTRIM;
 terminal RTRIM;
 terminal INSTR;
-terminal REPLACE, TRIM, UPPER, LOWER;
+terminal TRIM, UPPER, LOWER;
 
 // Logical functions
 terminal CHOOSE;
@@ -609,16 +604,10 @@ column 			::= 	aggregates
 				  | 	ari_exp
 				  		{: System.out.println("col_el ::= ari_exp"); :};
 */				  
-aggregates 		::= 	agg_count
-				  |		agg_sum
-				  |		agg_max
-				  |		agg_min 
-				  |		agg_avg; // Add aggregate functions here
 
 stringFunctions ::=		stringFunction_concat
 				  |		stringFunction_lpad
 				  |		stringFunction_rpad
-				  | 	stringFunction_replace
 				  |		stringFunction_upper
 				  |		stringFunction_lower
 				  |		stringFunction_trim
@@ -667,8 +656,6 @@ stringFunction_rpad		::=   	RPAD _OPENPAR rpad_exp _CLOSEPAR;
 
 stringFunction_length	::=   	LENGTH _OPENPAR length_exp _CLOSEPAR AS LITERAL_STRING;
 
-stringFunction_replace	::=		REPLACE _OPENPAR replace_exp _CLOSEPAR;
-
 stringFunction_trim		::=		TRIM _OPENPAR trim_exp _CLOSEPAR AS col_ali;
 
 stringFunction_lower	::=		LOWER _OPENPAR lower_exp _CLOSEPAR;
@@ -679,26 +666,14 @@ nullFunction_nvl		::=		NVL _OPENPAR nvl_exp _CLOSEPAR;
 
 nullFunction_isnull		::=		ISNULL _OPENPAR isnull_exp _CLOSEPAR;
 
-agg_count 				::=   	COUNT _OPENPAR count_exp _CLOSEPAR
-				  		|		COUNT _OPENPAR _STAR _CLOSEPAR;
-
 stringFunction_ltrim	::=   	LTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
 
 
 stringFunction_rtrim	::=   	RTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
 
 stringFunction_instr	::=   	INSTR _OPENPAR count_exp _COMMA LITERAL_STRING _CLOSEPAR;
-				  
-agg_sum	 		::=   	SUM _OPENPAR count_exp _CLOSEPAR;
-
-agg_max			::=   	MAX _OPENPAR count_exp _CLOSEPAR;
-
-agg_min			::=   	MIN _OPENPAR count_exp _CLOSEPAR;
 
 to_timestamp	::=		TO_TIMESTAMP _OPENPAR to_timestamp_exp _CLOSEPAR;
-
-agg_avg 		::=   	AVG _OPENPAR avg_exp _CLOSEPAR
-			  /* |		AVG _OPENPAR avg_exp _CLOSEPAR*/;
 
 count_exp 		::= 	DISTINCT cl
 				  | 	DISTINCT NULL
@@ -713,9 +688,6 @@ choose_exp 		::= 	LITERAL_STRING _COMMA choose_exp
 				 |		LITERAL_STRING;
 
 concat_exp		::=		LITERAL_STRING _COMMA concat_exp
-				  |		LITERAL_STRING;
-
-replace_exp		::=		LITERAL_STRING _COMMA replace_exp
 				  |		LITERAL_STRING;
 
 trim_exp		::=		LITERAL_STRING;
@@ -737,12 +709,6 @@ length_exp 		::= 	col;
 
 to_timestamp_exp::=		LITERAL_STRING _COMMA LITERAL_STRING;
 
-avg_exp 		::= 	/*ari_exp_avg
-				|*/		DISTINCT IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
-				| 		DISTINCT TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
-				| 		IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
-				| 		TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
-				/*|		aggregates*/;
 
 iif_exp			::=		INTEGER cmp_oper INTEGER _COMMA LITERAL_STRING _COMMA LITERAL_STRING
 				  |		nullFunctions _COMMA LITERAL_STRING _COMMA LITERAL_STRING;
@@ -874,10 +840,7 @@ ari_exp_update 	::=     par_exp_update
 ari_exp     	::=     par_exp
               	  |     exp 
               	  |     ari_value;
-              	  
-ari_exp_avg 	::=     par_exp_avg
-              	  |     exp_avg
-              	  |     ari_value_avg;
+
               	  
 ari_value_update ::= 	LITERAL_STRING
 				  		{: System.out.println("ari_value ::= LITERAL_STRING"); :}
@@ -886,16 +849,7 @@ ari_value_update ::= 	LITERAL_STRING
 				  | 	REAL
 				  		{: System.out.println("ari_value ::= REAL"); :}
 				  |     case_exp 
-				  		{: System.out.println("ari_value ::= case_exp"); :};
-              	  
-ari_value_avg 	::=		/*col
-				  		{: System.out.println("ari_value ::= col"); :}
-				  |*/ 	INTEGER
-						{: System.out.println("ari_value ::= INTEGER"); :}
-				  | 	REAL
-				  		{: System.out.println("ari_value ::= REAL"); :}
-				  |     case_exp 
-				  		{: System.out.println("ari_value ::= case_exp"); :};            
+				  		{: System.out.println("ari_value ::= case_exp"); :};         
               	  
 ari_value 		::=		col
 				  		{: System.out.println("ari_value ::= col"); :}
@@ -906,12 +860,10 @@ ari_value 		::=		col
 				  |     case_exp 
 				  		{: System.out.println("ari_value ::= case_exp"); :};             
 				  		
-par_exp_avg 	::= 	_OPENPAR ari_exp_avg _CLOSEPAR;
  
 par_exp_update 	::= 	_OPENPAR ari_exp_update _CLOSEPAR
 				|		sub_cond; //this is for the subquery after SET on UPDATE clause card 106
 
-exp_avg			::= 	ari_exp_avg _ari_opr ari_exp_avg; 
 
 exp_update 		::= 	ari_exp_update _ari_opr ari_exp_update; 
 
@@ -984,7 +936,7 @@ datatype_oracle    ::=	//VARCHAR2 _OPENPAR VARCHAR2_SIZE _CLOSEPAR
 					 
 datatype_server 	::=	//NVARCHAR _OPENPAR NVARCHAR_SIZE _CLOSEPAR
 						NVARCHAR _OPENPAR INTEGER _CLOSEPAR
-					|	NVARCHAR _OPENPAR MAX _CLOSEPAR
+				//	|	NVARCHAR _OPENPAR MAX _CLOSEPAR
 					|	NVARCHAR
 				//  |	SMALLINT _OPENPAR VARCHARSIZE _CLOSEPAR
 					|	SMALLINT _OPENPAR INTEGER _CLOSEPAR
