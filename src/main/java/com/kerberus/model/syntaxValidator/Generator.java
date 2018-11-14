@@ -13,8 +13,10 @@ public class Generator {
 		String rootPath = utilFiles.getRootpath();
         String subPath = utilFiles.getSubpath();
         String sqlCupFile = "Cup_Rules_SQL";
+        String sqlServerCupFile = "Cup_Rules_SQL_Server"; //Second
         //String commaCupFile = "Cup_Rules_Commas";
         String sqlFlexFile = "JFlex_Rules_SQL";
+        String sqlServerFlexFile = "JFlex_Rules_SQL_Server"; //Second
         //String commaFlexFile = "JFlex_Rules_Commas";
 			
         
@@ -23,6 +25,12 @@ public class Generator {
         
         CupUtil cupUtil = new CupUtil();
         cupUtil.generateCupFile(rootPath, subPath + "sql\\", sqlCupFile);
+        
+        FlexUtil flexUtil2 = new FlexUtil();
+        flexUtil2.generateFlexFile(rootPath, subPath + "sqlServer\\", sqlServerFlexFile);
+        
+        CupUtil cupUtil2 = new CupUtil();
+        cupUtil2.generateCupFile(rootPath, subPath + "sqlServer\\", sqlServerCupFile);
 
 	}
 }

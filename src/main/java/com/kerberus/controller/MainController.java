@@ -6,6 +6,7 @@ import org.fxmisc.richtext.CodeArea;
 
 import com.kerberus.Main;
 import com.kerberus.model.syntaxValidator.SyntaxAnalizer;
+import com.kerberus.model.syntaxValidator.SyntaxAnalizerServer;
 import com.kerberus.model.syntaxValidator.rules.util.PrettyStatement;
 import com.kerberus.util.Cache;
 import com.kerberus.util.ErrorHandler;
@@ -39,52 +40,101 @@ public class MainController {
     private void initialize() {
 
     }
-    
-	@FXML
+    @FXML
     private void handleValidateButton() {
-		Cache cache = Cache.getInstance();
-    	String sqlStatement = codeAreaSqlStatement.getText();
-    	int databaseOption = comboDatabaseOption.getSelectionModel().getSelectedIndex();
-    	SyntaxAnalizer syntaxAnalyzer = new SyntaxAnalizer();
-    	
-    	cache.setSQLStatement(sqlStatement);
-    	cache.setDatabaseOption(databaseOption);
-    	
-    	StringBuilder sb = syntaxAnalyzer.analyzeSql(sqlStatement);
-    	
-    	LinkedList<PrettyStatement> ps = syntaxAnalyzer.ps;
-    	
-    	/*for (int i = 0; i < ps.size(); i++) {
-    	//sb.append("<h1>teste</h1>");
-    	for (int i = 0; i < ps.size(); i++) {
-			//sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
-    		
-    		//sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
-    		sb.append("\nLexeme: " + ps.get(i).getLexeme());
-    		
-    		/*
-    		if( Categories.categoryNames[ps.get(i).getCategory()] == "RESERVED" ) {
-    			
-    		}
-    		else
-    		Text text;
-    		txtAreaSqlValidationReturn.setText()
-    		*/
-		//}
-    	this.writeFile(sb);
-    	codeAreaSqlValidationReturn.clear();
-    	codeAreaSqlValidationReturn.replaceText(sb.toString());
-    	
-    	codeAreaSqlValidationReturn.deleteText(0,1);
-    	codeAreaSqlValidationReturn.position(0, 0);
-    	
-    	/*
-    	int index = codeAreaSqlValidationReturn.getText().indexOf("Lexical");
-    	codeAreaSqlValidationReturn.moveTo(index);
-    	codeAreaSqlValidationReturn.selectRange(index, index);
-    	*/
-    	
-    	//System.out.println("----> index: " + index);
+		//System.out.println("Hello " + comboDatabaseOption.getValue());
+		if(comboDatabaseOption.getValue().equals("Oracle")) {
+			System.out.println("This is in Oracle!!!!");
+			Cache cache = Cache.getInstance();
+	    	String sqlStatement = codeAreaSqlStatement.getText();
+	    	int databaseOption = comboDatabaseOption.getSelectionModel().getSelectedIndex();
+	    	SyntaxAnalizer syntaxAnalyzer = new SyntaxAnalizer();
+	    	
+	    	cache.setSQLStatement(sqlStatement);
+	    	cache.setDatabaseOption(databaseOption);
+	    	
+	    	StringBuilder sb = syntaxAnalyzer.analyzeSql(sqlStatement);
+	    	
+	    	LinkedList<PrettyStatement> ps = syntaxAnalyzer.ps;
+	    	
+	    	/*for (int i = 0; i < ps.size(); i++) {
+	    	//sb.append("<h1>teste</h1>");
+	    	for (int i = 0; i < ps.size(); i++) {
+				//sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
+	    		
+	    		//sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
+	    		sb.append("\nLexeme: " + ps.get(i).getLexeme());
+	    		
+	    		/*
+	    		if( Categories.categoryNames[ps.get(i).getCategory()] == "RESERVED" ) {
+	    			
+	    		}
+	    		else
+	    		Text text;
+	    		txtAreaSqlValidationReturn.setText()
+	    		*/
+			//}
+	    	this.writeFile(sb);
+	    	codeAreaSqlValidationReturn.clear();
+	    	codeAreaSqlValidationReturn.replaceText(sb.toString());
+	    	
+	    	codeAreaSqlValidationReturn.deleteText(0,1);
+	    	codeAreaSqlValidationReturn.position(0, 0);
+	    	
+	    	/*
+	    	int index = codeAreaSqlValidationReturn.getText().indexOf("Lexical");
+	    	codeAreaSqlValidationReturn.moveTo(index);
+	    	codeAreaSqlValidationReturn.selectRange(index, index);
+	    	*/
+	    	
+	    	//System.out.println("----> index: " + index);
+		}
+		else {
+			System.out.println("This is in Server");
+			Cache cache = Cache.getInstance();
+	    	String sqlStatement = codeAreaSqlStatement.getText();
+	    	int databaseOption = comboDatabaseOption.getSelectionModel().getSelectedIndex();
+	    	SyntaxAnalizerServer syntaxAnalyzerServer = new SyntaxAnalizerServer();
+	    	
+	    	cache.setSQLStatement(sqlStatement);
+	    	cache.setDatabaseOption(databaseOption);
+	    	
+	    	StringBuilder sb = syntaxAnalyzerServer.analyzeSql(sqlStatement);
+	    	
+	    	LinkedList<PrettyStatement> ps = syntaxAnalyzerServer.ps;
+	    	
+	    	/*for (int i = 0; i < ps.size(); i++) {
+	    	//sb.append("<h1>teste</h1>");
+	    	for (int i = 0; i < ps.size(); i++) {
+				//sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
+	    		
+	    		//sb.append("\nLexeme: " + ps.get(i).getLexeme() + " - Category: " + Categories.categoryNames[ps.get(i).getCategory()] );
+	    		sb.append("\nLexeme: " + ps.get(i).getLexeme());
+	    		
+	    		/*
+	    		if( Categories.categoryNames[ps.get(i).getCategory()] == "RESERVED" ) {
+	    			
+	    		}
+	    		else
+	    		Text text;
+	    		txtAreaSqlValidationReturn.setText()
+	    		*/
+			//}
+	    	this.writeFile(sb);
+	    	codeAreaSqlValidationReturn.clear();
+	    	codeAreaSqlValidationReturn.replaceText(sb.toString());
+	    	
+	    	codeAreaSqlValidationReturn.deleteText(0,1);
+	    	codeAreaSqlValidationReturn.position(0, 0);
+	    	
+	    	/*
+	    	int index = codeAreaSqlValidationReturn.getText().indexOf("Lexical");
+	    	codeAreaSqlValidationReturn.moveTo(index);
+	    	codeAreaSqlValidationReturn.selectRange(index, index);
+	    	*/
+	    	
+	    	//System.out.println("----> index: " + index);
+		}
     }
 	
 	

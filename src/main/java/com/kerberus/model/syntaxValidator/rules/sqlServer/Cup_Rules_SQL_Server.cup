@@ -1,0 +1,1112 @@
+/* ---------------------- 1st Part: User Code --------------------------------------------*/
+package com.kerberus.model.syntaxValidator.rules.sqlServer;
+
+import java_cup.runtime.*; //Just import Symbols, maybe it's the only one we need
+//import java.util.*;
+import java.util.LinkedList;
+import java.util.HashSet;
+
+import java.io.*;
+import com.kerberus.model.syntaxValidator.rules.util.*;
+
+// ---------------------- Code for parser,variables and methods ----------------------
+parser code
+{:
+	// This list will store every error found in the syntax analysis process. SE -> Syntax errors
+	public static LinkedList<TError> TableSE = new LinkedList<TError>();
+
+	// This object has a list with all columns found and its table
+	//public static ColumnEvalutator Columns = new ColumnEvaluator();
+
+	public HashSet<String> Tables  = new HashSet<String>();
+	public HashSet<String> Columns = new HashSet<String>();
+
+	public  Scanner s;
+  	public  int errors = 0, line, column;
+  	public 	String the_error = "";
+	public 	StringBuilder the_error_message = new StringBuilder();
+
+	public int selects_read = 0;
+	public int updates_read = 0;
+	public int deletes_read = 0;
+	public int with_read = 0;
+	public int inserts_read = 0;
+	public int merge_read = 0;
+	public int creates_read = 0;
+	public int alter_read = 0;
+	public int drop_read = 0;
+	public int commit_read = 0;
+
+	public void clean_lists() {
+		TableSE = new LinkedList<TError>();
+	}
+
+	/* This is the error handler */
+	public void report_error(String message, Object info) {
+
+        /* Create a StringBuilder called 'm' with the string 'Error' in it. */
+        StringBuilder m = new StringBuilder("\n\n---- Error message: " + message + "\n");
+   
+        /* Check if the information passed to the method is the same
+           type as the type java_cup.runtime.Symbol. */
+        if (info instanceof java_cup.runtime.Symbol) {
+
+        	// Uncomment when Analyzer can handle multiple errors
+			//errors++;
+			errors = 1;
+
+            /* Declare a java_cup.runtime.Symbol object 's' with the
+               information in the object info that is being typecasted
+               as a java_cup.runtime.Symbol object. */
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+   
+            /* Check if the line number in the input is greater or
+               equal to zero. */
+            if (s.left >= 0 && s.right >= 0) {
+
+            	
+				the_error = (s.value == null) ? "Empty" : s.value.toString();
+				//the_error = s.value.toString();
+                
+                m.append("--> Unexpected : " + the_error );
+                m.append(" at line: "+(s.left));  
+                m.append(", column: "+(s.right)); 
+
+				the_error_message = m;
+            }
+        }
+   
+        /* Print the contents of the StringBuilder 'm', which contains
+           an error message, out on a line. */
+        System.err.println(m);
+    }
+   
+    /* Change the method report_fatal_error so when it reports a fatal
+       error it will display the line and column number of where the
+       fatal error occurred in the input as well as the reason for the
+       fatal error which is passed into the method in the object
+       'message' and then exit.*/
+
+    public void report_fatal_error(String message, Object info) {
+        //report_error(message, info);
+		//the_error_message.append("\n\n---- Unknown syntax error ლ(ಠ_ಠლ)" + "\n");
+		the_error_message.append("\n\n---- Unknown syntax error." + "\n");
+    }
+	
+:};
+
+// -------------- Code for grammatical actions ------------------------------------------
+
+action code 
+{:
+	
+:}
+
+/*---------------------- 2nd Part: Declarations --------------------------------------------*/
+
+
+
+/* --- Non-Terminals | Branches of the tree --- */
+
+non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, _order, _by, _asc, _desc,drop,group_by_part,having_part,table,_group, table_group, _having, _merge,top, column, alter, add, _commit, commit_s;
+
+non terminal statement_group, statement,_semicolon;
+
+non terminal select_s,select_ss, select_into_s,into_part, with_s, with_part, with_exp, with_exp2, with_exp2_1,merge_s, merge_part, merge_exp, merge_using, merge_using_cols, merge_on, select_part,select_part_sub,nvl2_exp,nvl2_exp_nested,func_ls, order_by_part, order_by_part_nested, order_cols, asc_desc;
+
+non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nvl2,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate,to_timestamp,to_timestamp_exp,nullFunction_isnull,isnull_exp;
+
+non terminal from_part, where_part, cols,cols_nvl2,col,cl,col_ali;
+
+non terminal element_in, in_list, in_exp, in_array, in_subquery;
+
+non terminal joins_part,join_p,join_on,join_cond,join_c, join,join_using_cols, join_using,union, union_p, union_part, union_exp; // join_using_cols, join_using : future version
+
+non terminal w_condition, cond, log_oper,cmp_oper, element,h_condition, g_condition, sub_cond;
+
+non terminal cond_el,c_el,c_ali,mix_exp,m_exp_update,m_exp_insert, m_exp,case_exp, case_rules,case_rul, case_else,case_cond,case_act;
+
+non terminal update_s,_update,_set, update_part, ari_value_update, ari_value_avg, ari_value;
+
+non terminal set_exp_list, set_exp, mix_exp_update, ari_exp_avg, ari_exp_update, ari_exp, par_exp_avg, par_exp_update,exp_update, par_exp,exp_avg, exp,_ari_opr,_asig_opr;  // elements for a small calculator
+
+non terminal delete_s, drop_s, alter_s, alter_part, alter_exp;
+
+non terminal insert_s, insert_cols, values_exp, mix_exp_insert, ari_value_insert;
+
+non terminal create_s, create_col, datatype_oracle, datatype_server;
+
+
+/* --- Terminals | Branches of the tree --- */
+
+
+// Reserved words
+terminal SELECT, UPDATE, SET, DELETE, INSERT, INTO, VALUES, FROM, WHERE,GROUP, HAVING, IS, NOT, WITH,DROP,TABLE, ORDER, BY,MERGE, ASC, DESC ,UNION,ALL,TOP,CREATE,LIKE,ALTER,COLUMN, ADD, COMMIT;
+
+// Datatype Oracle
+terminal VARCHAR2, VARCHAR, NUMBER, DATE;
+
+// Datatype Server
+terminal NVARCHAR, SMALLINT, NCHAR, INT, DATETIME;
+
+// Joins
+terminal NATURAL, LEFT, RIGHT,FULL, OUTER, INNER, JOIN, USING; 	// USING : for future improvement
+
+// Date functions
+terminal SYSDATE;
+terminal TO_TIMESTAMP;
+
+terminal AS,ON,IN, DISTINCT,NULL;
+
+// Aggregated functions
+terminal COUNT;
+terminal SUM;
+terminal MAX;
+terminal MIN;
+terminal AVG;
+terminal LPAD, RPAD, LENGTH;
+
+// String functions
+terminal CONCAT;
+// MySQL String Functions
+terminal LTRIM;
+terminal RTRIM;
+terminal INSTR;
+terminal REPLACE, TRIM, UPPER, LOWER;
+
+// Logical functions
+terminal CHOOSE;
+terminal IIF;
+
+// Null functions
+terminal NVL;
+terminal NVL2;
+terminal NULLIF;
+terminal ISNULL;
+
+// TO_XXX FUNCTION
+terminal TO_DATE;
+terminal TO_CHAR;
+
+// Case expressions
+terminal CASE, WHEN, THEN, ELSE, END, MATCHED, EXISTS;
+
+
+// Identifiers and numbers
+terminal IDENTIFIER, INTEGER, REAL, LITERAL_STRING;
+terminal QTABLENAME, TABDOTCOL,QCOLALIAS; // Quoted table-names, table.column, Quoted Column Alias
+
+// Regular expression for datatypes sizes 
+//terminal VARCHARSIZE, VARCHAR2_SIZE, NVARCHAR_SIZE, NCHAR_SIZE;
+
+// Operators 
+terminal _EQU, _GT, _LT, _LET, _GET, _DIFF, _DIFF2;
+terminal _PLUS, _MINUS, _DIVIDE; 
+
+// Logical
+terminal _AND,_OR;
+
+// Special assignment operators -   += | -= | *= | /= | %= | &= | ^= | |=
+terminal _PLUSEQ,_MINUSEQ,_TIMESEQ,_DIVIDEEQ,_MODEQ,_ANDEQ,_POWEQ,_OREQ;
+
+/* Grouping operators */
+terminal _OPENPAR,_CLOSEPAR;
+
+/* Other characters */
+terminal _COMMA;
+terminal _STAR;
+
+// Statement closure
+terminal /*_SEMCOL1,*/_SEMCOL2;
+
+
+// Lexical error
+terminal ILLEGAL_CHAR;
+
+/* -------------Precedence and Associatively of Terminals Section----------- */
+/* Enter precedence declarations here*/
+
+//Precedences added by Eclipse plugin
+precedence nonassoc error;	// Inserted by Eclipse plugin | | 	_update table_name error
+precedence left  _PLUS,_MINUS,_STAR,_DIVIDE;
+precedence left  _EQU;
+
+/* ############# Being tested ################################# */
+precedence left  IDENTIFIER, INTEGER, TABDOTCOL, REAL, NULL; 
+/* ############################################################ */
+
+
+
+
+// ------- Define which is the first production
+start with statement_group ;
+
+
+
+/*---------------------- 3rd Part: Semantic Rules --------------------------------------------*/
+
+statement_group ::=		statement_group statement
+						{: System.out.println("statement_group ::= statement_group statement"); :}
+			  	  | 	statement
+			  	  		{: System.out.println("statement_group ::= statement"); :};
+
+statement 		::= 	select_s   
+						{: System.out.println("statement ::= select_s"); 	
+						   selects_read++; :}
+				  |		select_into_s
+  						{: System.out.println("statement ::= select_into_s"); 	
+						   selects_read++; :}
+				  |  	delete_s
+				  		{: System.out.println("statement ::= delete_s");
+						   deletes_read++; :}
+				  | 	update_s
+				  		{: System.out.println("statement ::= update_s"); 
+						   updates_read++; :}
+				  |		with_s
+				  		{: System.out.println("statement ::= with_s");
+						   with_read++;	:}
+				  | 	insert_s
+				  		{: System.out.println("statement ::= insert_s");
+						   inserts_read++;	:}
+				  |		drop_s
+				  		{: System.out.println("statement ::= drop_s");
+						   drop_read++;	:}
+				  |		merge_s
+				  		{: System.out.println("statement ::= merge_s");
+						   merge_read++;	:}
+				  |		create_s
+				  		{: System.out.println("statement ::= create_s");
+						   creates_read++;	:}
+				  |		alter_s
+				  		{: System.out.println("statement ::= alter_s");
+						   alter_read++;	:}
+				  |		commit_s
+				  		{: System.out.println("statement ::= commit_s");
+						   commit_read++;	:};
+
+_semicolon 		::= 	_SEMCOL2
+						{: System.out.println("_semicolon ::= _SEMICOL2"); :};
+
+
+
+/* SELECT */
+select_s		::= 	select_ss _semicolon
+							{: System.out.println("select_s ::= select_ss _semicolon"); :}
+				  	|		select_into_s _semicolon
+				  			{: System.out.println("select_s ::= select_into_s _semicolon"); :};
+
+select_ss		::=		select_part from_part
+						{: System.out.println("select_s ::= select_part from_part"); :}
+				  |		select_part from_part group_by_part
+						{: System.out.println("select_s ::= select_part from_part group_by_part"); :}
+				  |		select_part from_part where_part
+				  		{: System.out.println("select_s ::= select_part from_part where_part"); :}
+				  |		select_part from_part union_part
+				  		{: System.out.println("select_s ::= select_part from_part union_part"); :}
+				  |		select_part from_part where_part union_part
+				  		{: System.out.println("select_s ::= select_part from_part union_part"); :}
+				  |		select_part from_part where_part group_by_part
+				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part"); :}
+				  |		select_part from_part where_part group_by_part union_part
+				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part union_part"); :}
+				  |		select_part from_part where_part group_by_part order_by_part
+				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part order_by_part"); :}
+				  |		select_part from_part where_part group_by_part having_part
+				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part having_part"); :}
+				  |		select_part from_part group_by_part having_part
+				  		{: System.out.println("select_s ::= select_part from_part group_by_part having_part"); :}
+				  |		select_part from_part where_part group_by_part having_part order_by_part
+				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part having_part order_by_part"); :}
+				  |		select_part from_part joins_part
+				  		{: System.out.println("select_s ::= select_part from_part joins_part"); :}
+				  |		select_part from_part joins_part where_part
+				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part"); :}
+				  |		select_part from_part joins_part where_part group_by_part
+				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part group_by_part"); :}
+				  |		select_part from_part joins_part where_part group_by_part order_by_part
+				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part group_by_part order_by_part"); :}
+				  |		select_part from_part joins_part where_part group_by_part having_part
+				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part group_by_part having_part"); :}
+				  |		select_part from_part joins_part where_part group_by_part having_part order_by_part
+				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part group_by_part having_part order_by_part"); :}
+				  |		select_part from_part order_by_part
+						{: System.out.println("select_s ::= select_part from_part order_by_part"); :}
+				  |		select_part from_part where_part order_by_part
+				  		{: System.out.println("select_s ::= select_part from_part where_part order_by_part"); :}
+				  |		select_part from_part joins_part order_by_part
+				  		{: System.out.println("select_s ::= select_part from_part joins_part order_by_part"); :}
+				  |		select_part from_part joins_part where_part order_by_part
+				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part order_by_part"); :};
+				  		
+select_into_s   ::= 	select_part into_part from_part
+						{: System.out.println("select_s ::= select_part into_part from_part"); :}
+				  |		select_part into_part from_part where_part
+				  		{: System.out.println("select_s ::= select_part into_part from_part where_part"); :}
+				  |		select_part into_part from_part joins_part
+				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part"); :}
+				  |		select_part into_part from_part joins_part where_part
+				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part where_part"); :}
+				  |		select_part into_part from_part order_by_part
+						{: System.out.println("select_s ::= select_part into_part from_part order_by_part"); :}
+				  |		select_part into_part from_part where_part order_by_part
+				  		{: System.out.println("select_s ::= select_part into_part from_part where_part order_by_part"); :}
+				  |		select_part into_part from_part joins_part order_by_part
+				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part order_by_part"); :}
+				  |		select_part into_part from_part joins_part where_part order_by_part
+				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part where_part order_by_part"); :};
+
+commit_s		::=		_commit _semicolon
+									{: System.out.println("commit_s ::= _commit _semicolon"); :};
+
+into_part		::=		INTO table_name
+								{: System.out.println("into_part  ::= INTO table_name"); :}
+					  |			INTO table_name IN LITERAL_STRING
+				  				{: System.out.println("into_part  ::= INTO table_name IN LITERAL_STRING"); :};
+
+with_s			::=		with_part select_s
+								{: System.out.println("with_s	::=	with_part select_s"); :};
+
+drop_s			::=		drop table table_name _semicolon
+								{: System.out.println("drop_s ::= drop table table_name"); :};
+
+alter_s			::=		alter_part _semicolon
+								{: System.out.println("alter_s ::= alter_part"); :};
+
+merge_s			::=		merge_part
+									{: System.out.println("merge_s	::=	merge_part"); :};
+
+joins_part		::= 	join_p joins_part
+								{: System.out.println("joins_part ::= join_p joins_part"); :}
+				 		 | 		join_p
+				  				{: System.out.println("joins_part ::= join_p"); :};		
+
+union_part		::=		union_p union_exp
+									{: System.out.println("union_part ::= union_p select_part from_part"); :};
+						
+join_p			::= 	NATURAL JOIN table_name
+							{: System.out.println("join_p ::= NATURAL JOIN table_name"); :}
+					  | 	JOIN table_name
+					 		{: System.out.println("join_p ::= JOIN table_name"); :}
+					  | 	JOIN table_name join_using   // future version improvement
+					  		{: System.out.println("join_p ::= JOIN table_name join_using"); :}
+					  | 	JOIN table_name join_cond
+					  		{: System.out.println("join_p ::= JOIN table_name join_cond"); :}
+					  | 	join table_name join_cond
+					  		{: System.out.println("join_p ::= join table_name join_cond"); :}
+					  |		join sub_cond IDENTIFIER ON join_on log_oper join_on WHERE join_on log_oper _OPENPAR element IS NULL log_oper join_on _CLOSEPAR // LEFT OUTER JOIN subquery card 118
+					  		{: System.out.println("join_p ::= join sub_cond IDENTIFIER ON join_on log_oper join_on WHERE join_on log_oper _OPENPAR element IS NULL log_oper join_on _CLOSEPAR "); :};  
+
+union_p		::=		union
+								{: System.out.println("union_p ::= union"); :};
+				  
+group_by_part	::=		_group _by g_condition
+										{: System.out.println("group_by_part ::= _group _by g_condition"); :};
+
+having_part		::=		_having h_condition
+										{: System.out.println("having_part ::= _having h_condition"); :};
+
+merge_using		::=		USING _OPENPAR merge_using_cols _CLOSEPAR
+										{: System.out.println("merge_using ::=	USING _OPENPAR merge_using_cols _CLOSEPAR"); :}
+							|			USING sub_cond IDENTIFIER
+										{: System.out.println("merge_using ::=	USING sub_cond IDENTIFIER"); :};
+
+merge_using_cols	::=		join_using_cols
+											{: System.out.println("merge_using_cols ::=	join_using_cols"); :}; // add select subqueries as another option later
+
+// For a future version : must validate that all column dont have qualifiers: tab.column 
+join_using 		::= 	USING _OPENPAR join_using_cols _CLOSEPAR
+								{: System.out.println("join_using ::=	USING _OPENPAR join_using_cols _CLOSEPAR"); :};
+
+join_using_cols ::= 	cl _COMMA join_using_cols
+									{: System.out.println("join_using_cols ::=	cl _COMMA join_using_cols"); :}   
+		  	  	 	  		| 		cl
+		  	  	 	  				{: System.out.println("join_using_cols ::=	cl"); :};
+
+				  
+join 			::=  	INNER JOIN
+						{: System.out.println("join ::=	INNER JOIN"); :}
+				  | 	LEFT JOIN
+				  		{: System.out.println("join ::=	LEFT JOIN"); :}
+				  | 	RIGHT JOIN
+				  		{: System.out.println("join ::=	RIGHT JOIN"); :}
+				  | 	LEFT OUTER JOIN
+				  		{: System.out.println("join ::=	LEFT OUTER JOIN"); :}
+				  | 	RIGHT OUTER JOIN
+				  		{: System.out.println("join ::=	RIGHT OUTER JOIN"); :}
+				  | 	FULL OUTER JOIN
+				  		{: System.out.println("join ::=	FULL OUTER JOIN"); :};				 
+
+union			::=		UNION
+								{: System.out.println("union ::=	UNION"); :}
+					  |			UNION ALL
+					  			{: System.out.println("union ::=	UNION ALL"); :};
+
+union_exp	::=		select_ss
+								{: System.out.println("union_exp ::=	select_ss"); :};
+
+join_cond	::= 		ON join_c
+								{: System.out.println("join_cond ::=	ON join_c"); :};
+
+join_c			::= 		join_on log_oper join_c
+								{: System.out.println("join_c ::=	join_on log_oper join_c"); :}
+				  	|   		join_on
+				  				{: System.out.println("join_c ::=	join_on"); :};
+
+join_on			::= 	element cmp_oper element
+								{: System.out.println("join_on ::=	element _EQU element"); :};		  
+
+merge_part	::=		_merge merge_exp
+									{: System.out.println("merge_part ::=_merge merge_exp"); :};
+
+_group			::=		GROUP
+									{: System.out.println("_group ::=GROUP"); :};
+
+_having			::=		HAVING
+									{: System.out.println("_having ::=HAVING"); :};
+
+g_condition	::=		aggregates
+									{: System.out.println("g_condition ::=aggregates"); :}
+						  |			cl _COMMA g_condition
+						  			{: System.out.println("g_condition ::=cl _COMMA g_condition"); :}
+						  |			cl
+						  			{: System.out.println("g_condition ::=cl"); :};
+
+h_condition	::=		w_condition
+										{: System.out.println("h_condition ::=w_condition"); :};
+
+alter_part		::=		alter_exp
+									{: System.out.println("alter_part ::=alter_exp"); :};
+
+alter_exp			::=		alter table table_name add col_ali datatype_oracle
+									{: System.out.println("alter_exp ::=alter table table_name add col_ali datatype_oracle"); :}
+							|		alter table table_name add col_ali datatype_server
+									{: System.out.println("alter_exp ::=alter table table_name add col_ali datatype_server"); :}
+							|		alter table table_name drop column col_ali
+									{: System.out.println("alter_exp ::=alter table table_name drop column col_ali"); :}
+							|		alter table table_name alter column col_ali datatype_oracle
+									{: System.out.println("alter_exp ::=alter table table_name alter column col_ali datatype_oracle"); :}
+							|		alter table table_name alter column col_ali datatype_server
+									{: System.out.println("alter_exp ::=alter table table_name alter column col_ali datatype_server"); :};
+
+with_part		::=		_with with_exp select_s
+									{: System.out.println("with_part ::=_with with_exp select_s"); :}
+						 	|		_with with_exp2 select_s
+						 			{: System.out.println("with_part ::=_with with_exp2 select_s"); :};
+		  	  			  /*|		SELECT error {: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete SELECT statement");
+				  	  	   			 TableSE.add(errors_found);  :};*/
+				  	  	   		 
+with_exp			::=		col_ali AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp
+									{: System.out.println("with_exp ::=col_ali AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp"); :}
+						  |			col_ali AS _OPENPAR select_ss _CLOSEPAR
+						  			{: System.out.println("with_exp ::=col_ali AS _OPENPAR select_ss _CLOSEPAR"); :};
+				 
+with_exp2		::=		col_ali  with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp2
+									{: System.out.println("with_exp2 ::=col_ali  with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp2"); :}
+						 |			col_ali with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR
+						 			{: System.out.println("with_exp2 ::=col_ali with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR"); :};
+				 
+with_exp2_1	::= 	_OPENPAR cols _CLOSEPAR
+								{: System.out.println("with_exp2_1 ::=_OPENPAR cols _CLOSEPAR"); :};
+
+merge_exp		::=	col merge_using merge_on case_cond THEN _update _set set_exp_list _semicolon
+								{: System.out.println("merge_exp ::=col merge_using merge_on case_cond THEN _update _set set_exp_list _semicolon"); :};
+
+merge_on		::=	ON _OPENPAR col _EQU col _AND col cmp_oper col _CLOSEPAR
+								{: System.out.println("merge_on ::=ON _OPENPAR col _EQU col _AND col cmp_oper col _CLOSEPAR"); :}; 
+
+select_part		::= 	_select _STAR
+					  	  | 	_select DISTINCT cols
+					  	  | 	_select cols
+					  	  | 	_select top cols
+					  	  | 	_select top _STAR;
+			  	  
+nvl2_exp		::=		_OPENPAR nvl2_exp_nested _COMMA nvl2_exp_nested _COMMA nvl2_exp_nested _CLOSEPAR;
+				  
+nvl2_exp_nested ::=		//LITERAL_STRING
+				  		ari_exp;
+
+_merge			::=		MERGE INTO;
+
+drop			::=		DROP;
+
+add				::=		ADD;
+
+alter			::=		ALTER;
+
+column			::=		COLUMN;
+
+table			::=		TABLE;
+				  		
+_with			::=		WITH;
+
+_commit			::=		COMMIT;
+
+_select 		::=		SELECT;
+
+_nvl2			::=		NVL2;
+
+_order			::=		ORDER;
+
+_by				::=		BY;
+
+_asc			::=		ASC;
+
+_desc			::=		DESC;
+
+cols			::= 	col_el _COMMA cols   
+		  	  	  | 	col_el;
+		  	  	  
+cols_nvl2		::= 	col_el _COMMA cols   
+		  	  	  | 	col_el _COMMA;
+		  	  	  
+col_el			::= 	c_el c_ali
+				  | 	c_el;
+
+c_el 			::= 	mix_exp; 	
+				  
+c_ali 			::= 	col_ali
+				  | 	AS col_ali
+				  |		AS LITERAL_STRING;				  
+
+mix_exp 		::= 	_OPENPAR mix_exp _CLOSEPAR
+				  | 	func_ls
+				  | 	m_exp
+				  | 	ari_value;
+
+m_exp_update 	::=	  	mix_exp_update _ari_opr mix_exp_update;
+
+m_exp_insert 	::=	  	mix_exp_insert _ari_opr mix_exp_insert;
+
+m_exp 			::=	  	mix_exp _ari_opr mix_exp; 
+
+func_ls			::=		/*func_ls
+				  |	*/	aggregates
+				  |		stringFunctions
+				  |		dateFunctions
+				  |		nullFunctions
+				  |		logicalFunctions
+				  |		function_to_date
+				  |		function_to_char;
+				  
+order_by_part 			::= _order _by order_by_part_nested ;
+
+order_by_part_nested 	::=  order_cols ;
+										 
+order_cols				::=		col_ali _COMMA order_cols
+					 	|		col_ali asc_desc _COMMA order_cols
+					 	|		col_ali 
+					 	|		col_ali asc_desc;
+										 
+asc_desc		::=		_asc	
+				|		_desc;
+
+/*
+column 			::= 	aggregates
+						{: System.out.println("col_el ::= aggregates"); :}
+				  //|     col    //Removed it because it's included in ari_exp
+				  |		stringFunctions
+				  		{: System.out.println("col_el ::= stringFunctions"); :}
+				  | 	ari_exp
+				  		{: System.out.println("col_el ::= ari_exp"); :};
+*/				  
+aggregates 		::= 	agg_count
+				  |		agg_sum
+				  |		agg_max
+				  |		agg_min 
+				  |		agg_avg; // Add aggregate functions here
+
+stringFunctions ::=		stringFunction_concat
+				  |		stringFunction_lpad
+				  |		stringFunction_rpad
+				  | 	stringFunction_replace
+				  |		stringFunction_upper
+				  |		stringFunction_lower
+				  |		stringFunction_trim
+				  |		stringFunction_length
+				  |		stringFunction_ltrim
+				  |		stringFunction_rtrim
+				  |		stringFunction_instr; // Add String functions here
+
+dateFunctions	::=		sysdate
+				  |		to_timestamp;
+
+logicalFunctions ::=	logFunc_choose // Add logical functions here
+				  |		logFunc_iif; // Add logical functions here
+				  
+nullFunctions 	 ::= 	nullFunction_nvl2
+				  |		nullFunction_nvl
+				  |		nullFunction_isnull
+				  |		nullFunction_nullif;
+
+nullFunction_nvl2 	::= 	_nvl2 nvl2_exp;
+				  //|		cols_nvl2 _nvl2 nvl2_exp;
+				  
+nullFunction_nullif ::=	NULLIF _OPENPAR ari_value_insert _COMMA ari_value_insert _CLOSEPAR;
+
+function_to_date  	::=	TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR
+								|		TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING  _CLOSEPAR;
+
+function_to_char  ::=	TO_CHAR _OPENPAR mix_exp _CLOSEPAR
+				    |	TO_CHAR _OPENPAR mix_exp _COMMA mix_exp _CLOSEPAR
+				    |	TO_CHAR _OPENPAR mix_exp _COMMA mix_exp _COMMA mix_exp _CLOSEPAR;
+				    
+/*to_char_exp		  ::=	//LITERAL_STRING
+					//|	INTEGER
+						mix_exp
+				  	| 	aggregates
+				  	|	stringFunctions
+				  	|	logicalFunctions
+				  	|	nullFunctions
+				  	|	function_to_date;*/
+
+stringFunction_concat	::=		CONCAT _OPENPAR concat_exp _CLOSEPAR AS LITERAL_STRING;
+
+stringFunction_lpad		::=   	LPAD _OPENPAR lpad_exp _CLOSEPAR;
+
+stringFunction_rpad		::=   	RPAD _OPENPAR rpad_exp _CLOSEPAR;
+
+stringFunction_length	::=   	LENGTH _OPENPAR length_exp _CLOSEPAR AS LITERAL_STRING;
+
+stringFunction_replace	::=		REPLACE _OPENPAR replace_exp _CLOSEPAR;
+
+stringFunction_trim		::=		TRIM _OPENPAR trim_exp _CLOSEPAR AS col_ali;
+
+stringFunction_lower	::=		LOWER _OPENPAR lower_exp _CLOSEPAR;
+
+stringFunction_upper	::=		UPPER _OPENPAR upper_exp _CLOSEPAR;
+
+nullFunction_nvl		::=		NVL _OPENPAR nvl_exp _CLOSEPAR;
+
+nullFunction_isnull		::=		ISNULL _OPENPAR isnull_exp _CLOSEPAR;
+
+agg_count 				::=   	COUNT _OPENPAR count_exp _CLOSEPAR
+				  		|		COUNT _OPENPAR _STAR _CLOSEPAR;
+
+stringFunction_ltrim	::=   	LTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
+
+
+stringFunction_rtrim	::=   	RTRIM _OPENPAR LITERAL_STRING _CLOSEPAR;
+
+stringFunction_instr	::=   	INSTR _OPENPAR count_exp _COMMA LITERAL_STRING _CLOSEPAR;
+				  
+agg_sum	 		::=   	SUM _OPENPAR count_exp _CLOSEPAR;
+
+agg_max			::=   	MAX _OPENPAR count_exp _CLOSEPAR;
+
+agg_min			::=   	MIN _OPENPAR count_exp _CLOSEPAR;
+
+to_timestamp	::=		TO_TIMESTAMP _OPENPAR to_timestamp_exp _CLOSEPAR;
+
+agg_avg 		::=   	AVG _OPENPAR avg_exp _CLOSEPAR
+			  /* |		AVG _OPENPAR avg_exp _CLOSEPAR*/;
+
+count_exp 		::= 	DISTINCT cl
+				  | 	DISTINCT NULL
+				  | 	NULL
+				  | 	cl;
+
+logFunc_choose	::=		CHOOSE _OPENPAR INTEGER _COMMA choose_exp _CLOSEPAR AS col_ali;
+
+logFunc_iif		::=		IIF _OPENPAR iif_exp _CLOSEPAR;
+
+choose_exp 		::= 	LITERAL_STRING _COMMA choose_exp
+				 |		LITERAL_STRING;
+
+concat_exp		::=		LITERAL_STRING _COMMA concat_exp
+				  |		LITERAL_STRING;
+
+replace_exp		::=		LITERAL_STRING _COMMA replace_exp
+				  |		LITERAL_STRING;
+
+trim_exp		::=		LITERAL_STRING;
+
+upper_exp		::=		LITERAL_STRING
+				  |		col_ali;
+
+lower_exp		::=		LITERAL_STRING
+				  |		col_ali;
+				  
+lpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
+
+rpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
+
+sysdate			::=		SYSDATE _OPENPAR _CLOSEPAR
+				  |		SYSDATE _OPENPAR _CLOSEPAR _ari_opr INTEGER;
+
+length_exp 		::= 	col;
+
+to_timestamp_exp::=		LITERAL_STRING _COMMA LITERAL_STRING;
+
+avg_exp 		::= 	/*ari_exp_avg
+				|*/		DISTINCT IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
+				| 		DISTINCT TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
+				| 		IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
+				| 		TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
+				/*|		aggregates*/;
+
+iif_exp			::=		INTEGER cmp_oper INTEGER _COMMA LITERAL_STRING _COMMA LITERAL_STRING
+				  |		nullFunctions _COMMA LITERAL_STRING _COMMA LITERAL_STRING;
+
+
+nvl_exp			::=		cl _COMMA INTEGER
+				  |		cl _COMMA LITERAL_STRING;
+				  
+isnull_exp		::=		cl _COMMA INTEGER
+				  |		cl _COMMA LITERAL_STRING;
+				  
+col				::= 	cl
+				  | 	NULL 
+				  /*| 	cl   	 AS col_ali
+				  | 	NULL 	 AS col_ali
+				  | 	cl 		 col_ali
+				  | 	NULL 	 col_ali*/; 
+
+cl				::= 	IDENTIFIER:col1 {: Columns.add(col1 + ""); :}
+				  |		TABDOTCOL:col1  {: Columns.add(col1 + ""); :}
+				  | 	LITERAL_STRING;
+				  
+col_ali			::= 	QTABLENAME:t {: /*Tables.add(t+"");*/ :}
+				 // | 	IDENTIFIER:t {: /*Tables.add(t+"");*/ :} 
+				  |     IDENTIFIER:col1  {: Columns.add(col1 + ""); :}
+				  | 	QCOLALIAS:t {: /*Tables.add(t+"");*/ :};				
+
+
+
+case_exp		::=		CASE case_rules END
+					    {: System.out.println("case_exp ::= CASE case_rules END"); :}
+				  | 	CASE case_rules case_else END
+				  		{: System.out.println("case_exp ::= CASE case_rules case_else END"); :}
+				  | 	CASE col case_rules END
+				  		{: System.out.println("case_exp ::= CASE col case_rules END"); :}
+				  | 	CASE col case_rules case_else END
+				  		{: System.out.println("case_exp ::= CASE col case_rules case_else END"); :};
+
+case_rules 		::=		case_rul case_rules
+						{: System.out.println("case_rules ::= case_rul case_rules"); :}
+				  |  	case_rul
+				  		{: System.out.println("case_rules ::= case_rul"); :};
+
+case_rul 		::= 	case_cond case_act
+						{: System.out.println("case_rul ::= WHEN case_cond THEN case_act"); :};
+				  
+case_cond  		::= 	WHEN w_condition 
+						{: System.out.println("case_cond ::= w_condition"); :}
+				  | 	WHEN element
+				  		{: System.out.println("case_cond ::= element"); :};
+
+case_act 		::= 	THEN ari_exp ;
+
+case_else 		::= 	ELSE ari_exp
+						{: System.out.println("case_else ::= ELSE ari_exp"); :};
+
+
+/* UPDATE */
+
+update_s		::= 	update_part _set set_exp_list where_part _semicolon
+				  		{: System.out.println("update_s	::= update_part _set set_cols where_part _semicolon"); :}
+				  /*|  	update_part _set set_exp_list where_part error //For some reason it will never go there when semicolon is missing
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE section. \nMissing semicolon.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part _set set_cols where_part errorerror.\nMissing semicolon on UPDATE."); :}*/
+				  |  	update_part _set set_exp_list error //Error for when semicolon is missing
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE section. \nMissing semicolon."); //Original error message: UPDATE error after set of columns.
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part _set set_cols error. \nMissing semicolon on UPDATE."); :} //Original error message: update_s	::= update_part _set set_cols error
+				  |		update_part _set set_exp_list _semicolon error 
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE section. Missing where clause (WHERE).");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part _set set_exp_list _semicolon error.\nMissing WHERE CLAUSE on UPDATE."); :}
+				  /*|  	update_part _set error
+				  		{: System.out.println("update_s	::= update_part _set error"); :}*/
+				  |  	update_part error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete UPDATE.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= update_part error"); :}
+				  |     _update error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("update_s	::= _update error"); :}
+				  /*| 	_update error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid statement.");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("Invalid UPDATE part. Check UPDATE."); :}*/;
+
+
+_set 			::= 	SET
+						{: System.out.println("_set ::= SET"); :};
+
+update_part		::= 	_update table_name
+						{: System.out.println("update_part ::= _update table_name OK"); :}
+				  | 	error
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid UPDATE.");
+				  	  	   TableSE.add(errors_found); 
+						   System.out.println("update_part ::= _update table_name ERROR"); :};
+
+_update 		::= 	UPDATE
+						{: System.out.println("_update ::= UPDATE"); :};
+
+set_exp_list	::= 	set_exp _COMMA set_exp_list 
+						{: System.out.println("set_exp_list	::= set_exp _COMMA set_exp_list "); :}
+		  	  	  | 	set_exp
+		  	  	  		{: System.out.println("set_exp_list	::= set_exp "); :}
+		  	  	  | 	error
+		  	  	  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid set of columns in UPDATE");
+				  	  	   TableSE.add(errors_found); 
+						   System.out.println("set_cols	::=	error"); :};
+
+set_exp 		::=		IDENTIFIER:col1 _asig_opr ari_exp_update  {: Columns.add(col1 + ""); :} 
+				|		IDENTIFIER:col1 _EQU LITERAL_STRING  {: Columns.add(col1 + ""); :}
+				  		 {: System.out.println("set_exp ::= IDENTIFIER _EQU LITERAL_STRING"); :}
+			   	|		IDENTIFIER _EQU _OPENPAR select_ss _CLOSEPAR
+				|		IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr REAL 
+				|	 	IDENTIFIER:col1 _EQU IDENTIFIER _ari_opr INTEGER;
+				
+
+mix_exp_update 	::= 	/*	_OPENPAR mix_exp_update _CLOSEPAR
+				  |*/ 	func_ls
+				  | 	m_exp_update
+				  | 	ari_value_update;
+
+ari_exp_update 	::=     par_exp_update
+              	  |     exp_update
+              	  |     mix_exp_update;
+
+ari_exp     	::=     par_exp
+              	  |     exp 
+              	  |     ari_value;
+              	  
+ari_exp_avg 	::=     par_exp_avg
+              	  |     exp_avg
+              	  |     ari_value_avg;
+              	  
+ari_value_update ::= 	LITERAL_STRING
+				  		{: System.out.println("ari_value ::= LITERAL_STRING"); :}
+				  | 	INTEGER
+						{: System.out.println("ari_value ::= INTEGER"); :}
+				  | 	REAL
+				  		{: System.out.println("ari_value ::= REAL"); :}
+				  |     case_exp 
+				  		{: System.out.println("ari_value ::= case_exp"); :};
+              	  
+ari_value_avg 	::=		/*col
+				  		{: System.out.println("ari_value ::= col"); :}
+				  |*/ 	INTEGER
+						{: System.out.println("ari_value ::= INTEGER"); :}
+				  | 	REAL
+				  		{: System.out.println("ari_value ::= REAL"); :}
+				  |     case_exp 
+				  		{: System.out.println("ari_value ::= case_exp"); :};            
+              	  
+ari_value 		::=		col
+				  		{: System.out.println("ari_value ::= col"); :}
+				  | 	INTEGER
+						{: System.out.println("ari_value ::= INTEGER"); :}
+				  | 	REAL
+				  		{: System.out.println("ari_value ::= REAL"); :}
+				  |     case_exp 
+				  		{: System.out.println("ari_value ::= case_exp"); :};             
+				  		
+par_exp_avg 	::= 	_OPENPAR ari_exp_avg _CLOSEPAR;
+ 
+par_exp_update 	::= 	_OPENPAR ari_exp_update _CLOSEPAR
+				|		sub_cond; //this is for the subquery after SET on UPDATE clause card 106
+
+exp_avg			::= 	ari_exp_avg _ari_opr ari_exp_avg; 
+
+exp_update 		::= 	ari_exp_update _ari_opr ari_exp_update; 
+
+par_exp 		::= 	_OPENPAR ari_exp _CLOSEPAR;
+
+exp 			::= 	ari_exp _ari_opr ari_exp; 
+ 
+_ari_opr        ::=     _PLUS | _MINUS | _STAR | _DIVIDE;
+
+_asig_opr 		::= 	_EQU| _PLUSEQ|_MINUSEQ|_TIMESEQ|_DIVIDEEQ|_MODEQ|_ANDEQ|_POWEQ|_OREQ;
+ 
+
+
+
+/* DELETE */
+
+delete_s		::= 	DELETE FROM table_name where_part _semicolon
+				  |		DELETE top FROM table_name where_part _semicolon 
+				  |		DELETE FROM table_name _semicolon error 
+				  		{: TError errors_found = new TError("",0,0,"Syntax Error","Invalid DELETE section. Missing where clause (WHERE).");
+				  	  	   TableSE.add(errors_found);
+						   System.out.println("DELETE FROM table_name _semicolon error.\nMissing WHERE CLAUSE on DELETE."); :}
+				  | 	DELETE error {: TError errors_found = new TError("",0,0,"Syntax Error","Invalid DELETE statement.");
+				  	  			 		TableSE.add(errors_found);
+										System.out.println("value ::= LITERAL_STRING"); :};
+
+/* INSERT */
+
+insert_s		::=		INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
+				|		INSERT INTO table_name  VALUES _OPENPAR values_exp _CLOSEPAR _semicolon
+				|		INSERT INTO table_name select_s
+				|		INSERT INTO table_name _OPENPAR insert_cols _CLOSEPAR select_s;
+
+insert_cols 	::=		IDENTIFIER:col1 _COMMA insert_cols {: Columns.add(col1 + ""); :}
+				|		IDENTIFIER:col1 {: Columns.add(col1 + ""); :}; 
+
+values_exp 		::=		mix_exp_insert _COMMA values_exp
+			 // |		LITERAL_STRING _COMMA values_exp
+				|		mix_exp_insert;
+					// | 		LITERAL_STRING;
+					
+mix_exp_insert 	::=		_OPENPAR mix_exp_insert _CLOSEPAR
+				|	 	func_ls
+				|	 	m_exp_insert
+				|	 	ari_value_insert;
+					  
+ari_value_insert ::= 	LITERAL_STRING
+				  | 	INTEGER
+						{: System.out.println("ari_value ::= INTEGER"); :}
+				  | 	REAL
+				  		{: System.out.println("ari_value ::= REAL"); :};              
+				  		
+/* CREATE */
+
+create_s 		::=		CREATE TABLE table_name _OPENPAR create_col _CLOSEPAR _semicolon
+				|		CREATE TABLE table_name AS select_ss _semicolon;
+
+create_col  	::=		IDENTIFIER datatype_oracle _COMMA create_col
+				|		IDENTIFIER datatype_server _COMMA create_col
+				|		IDENTIFIER datatype_oracle 
+				|		IDENTIFIER datatype_server;
+
+datatype_oracle    ::=	//VARCHAR2 _OPENPAR VARCHAR2_SIZE _CLOSEPAR
+						VARCHAR2 _OPENPAR INTEGER _CLOSEPAR
+					//|	VARCHAR _OPENPAR VARCHARSIZE _CLOSEPAR
+					|	VARCHAR _OPENPAR INTEGER _CLOSEPAR
+					| 	NUMBER 
+					| 	DATE //MYSQL
+					|	DATE _OPENPAR _CLOSEPAR; //SQL SERVER
+					 
+datatype_server 	::=	//NVARCHAR _OPENPAR NVARCHAR_SIZE _CLOSEPAR
+						NVARCHAR _OPENPAR INTEGER _CLOSEPAR
+					|	NVARCHAR _OPENPAR MAX _CLOSEPAR
+					|	NVARCHAR
+				//  |	SMALLINT _OPENPAR VARCHARSIZE _CLOSEPAR
+					|	SMALLINT _OPENPAR INTEGER _CLOSEPAR
+					|	SMALLINT
+				//  |	NCHAR _OPENPAR NCHAR_SIZE _CLOSEPAR
+					|	NCHAR
+					|	INT
+					|	INT _OPENPAR INTEGER _CLOSEPAR
+					|	DATETIME
+					|	DATETIME _OPENPAR _CLOSEPAR;
+
+/* FROM: single and multiple tables */
+
+
+from_part		::= 	_from table_name_mult
+				|		_from sub_cond IDENTIFIER
+				|		_from sub_cond AS IDENTIFIER;
+
+table_name_mult ::= 	table_name _COMMA table_name_mult
+				  |     table_name;
+
+_from			::= 	FROM;
+
+
+
+/* TABLE NAMES */
+
+table_name		::= 	tab
+				  		{: System.out.println("table_name ::= tab"); :}
+				  | 	tab_ali 
+						{: System.out.println("table_name ::= tab_ali"); :};
+
+tab				::= 	IDENTIFIER:id 
+						{: Tables.add(id+"");
+						   System.out.println("tab ::= IDENTIFIER"); :};
+				  
+tab_ali 		::= 	IDENTIFIER:id1 IDENTIFIER:id2
+						{: System.out.println("tab_ali ::= IDENTIFIER IDENTIFIER");	
+						   Tables.add(id1+""); :}
+				  | 	IDENTIFIER:id1 QTABLENAME:id2
+				  		{: System.out.println("tab_ali ::= IDENTIFIER QTABLENAME"); 
+						   Tables.add(id1+""); :};
+		
+/* WHERE */
+
+where_part		::= 	_where w_condition
+						{: System.out.println("where_part ::= _where w_condition"); :};  
+
+_where			::=		WHERE
+						{: System.out.println("_where ::= WHERE"); :};
+
+w_condition		::= 	cond log_oper w_condition
+						{: System.out.println("w_condition ::= cond log_oper w_condition"); :}
+		  	  	  | 	cond
+		  	  	  		{: System.out.println("w_condition ::= cond"); :};
+
+cond 			::= 	cond_el cmp_oper cond_el
+				  | 	element_in IN in_list
+				  |		element_in NOT IN in_list
+				  |		element_in LIKE LITERAL_STRING /*IN THE FUTURE CHANGE LITERAL STRING BY A REGULAR EXPRESSION SPECIFIC FOR LIKE*/
+				  |		element_in NOT LIKE LITERAL_STRING
+				  | 	cl IS NULL
+				  |		cl IS NOT NULL
+				  |		MATCHED
+				  |		NOT MATCHED
+				  |		EXISTS sub_cond
+				  |		NOT EXISTS sub_cond;
+				  
+cond_el 		::= 	mix_exp
+				  | 	sub_cond;		  
+				  
+in_list 		::=  	_OPENPAR in_exp _CLOSEPAR;
+
+in_exp 			::= 	in_array
+				  | 	in_subquery; 	
+				  
+in_subquery 	::= 	select_part_sub from_part
+				  |		select_part_sub from_part where_part
+				  |		select_part_sub from_part joins_part
+				  |		select_part_sub from_part union_part
+				  |		select_part_sub from_part joins_part where_part;
+				
+select_part_sub ::= 	_select col; 				  
+
+in_array 		::=  	element _COMMA in_array
+				  | 	element;
+
+element_in 		::=  	IDENTIFIER
+				  | 	TABDOTCOL;
+
+element    		::= 	IDENTIFIER
+		  	  	  | 	INTEGER
+		  	  	  | 	REAL
+		  	  	  | 	LITERAL_STRING
+		  	  	  | 	TABDOTCOL
+		  	  	  | 	NULL
+		  	  	  | 	sub_cond;
+
+cmp_oper  		::= 	_EQU 
+		  	  	  | 	_GT 
+		  	  	  | 	_LT 
+		  	  	  | 	_LET 
+		  	  	  | 	_GET 
+		  	  	  | 	_DIFF
+		  	  	  | 	_DIFF2;
+
+log_oper    	::= 	_AND 
+			  	  | 	_OR;
+
+top				::=		TOP INTEGER
+				  |		TOP _OPENPAR INTEGER _CLOSEPAR;
+
+sub_cond		::=		_OPENPAR select_ss _CLOSEPAR;
+
+// ~~ CUP-ECLIPSE:CONFLICT-RES-RR ~~ 
+ // After this the order of productions matters
+/*
+//Separated and moved by CUP Eclipse plugin
+statement_group ::=  	error 
+				  		{: System.out.println(".\nSyntax does not match any correct statement.\n\n\t( •_•)\n\n\t(•_• )\n\nTrying to break Kerberus?"); :};
+
+//Separated and moved by CUP Eclipse plugin
+update_s 		::=   	error
+				  		{: System.out.println("Invalid update_statement."); :};
+*/
