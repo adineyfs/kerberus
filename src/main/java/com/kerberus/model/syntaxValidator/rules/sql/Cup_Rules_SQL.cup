@@ -363,8 +363,8 @@ into_part		::=		INTO table_name
 					  |			INTO table_name IN LITERAL_STRING
 				  				{: System.out.println("into_part  ::= INTO table_name IN LITERAL_STRING"); :};
 
-with_s			::=		with_part select_s
-								{: System.out.println("with_s	::=	with_part select_s"); :};
+with_s			::=		with_part
+								{: System.out.println("with_s	::=	with_part"); :};
 
 drop_s			::=		drop table table_name _semicolon
 								{: System.out.println("drop_s ::= drop table table_name"); :};

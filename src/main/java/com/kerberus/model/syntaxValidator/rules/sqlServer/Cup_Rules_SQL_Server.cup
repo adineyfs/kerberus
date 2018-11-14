@@ -108,15 +108,15 @@ action code
 
 /* --- Non-Terminals | Branches of the tree --- */
 
-non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali,_nvl2, _order, _by, _asc, _desc,drop,group_by_part,having_part,table,_group, table_group, _having, _merge,top, column, alter, add, _commit, commit_s;
+non terminal _select, _with, _from, _where, table_name,table_name_mult,tab,tab_ali, _order, _by, _asc, _desc,drop,group_by_part,having_part,table,_group, table_group, _having, _merge,top, column, alter, add, _commit, commit_s;
 
 non terminal statement_group, statement,_semicolon;
 
-non terminal select_s,select_ss, select_into_s,into_part, with_s, with_part, with_exp, with_exp2, with_exp2_1,merge_s, merge_part, merge_exp, merge_using, merge_using_cols, merge_on, select_part,select_part_sub,nvl2_exp,nvl2_exp_nested,func_ls, order_by_part, order_by_part_nested, order_cols, asc_desc;
+non terminal select_s,select_ss, select_into_s,into_part, with_s, with_part, with_exp, with_exp2, with_exp2_1,merge_s, merge_part, merge_exp, merge_using, merge_using_cols, merge_on, select_part,select_part_sub,func_ls, order_by_part, order_by_part_nested, order_cols, asc_desc;
 
-non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nvl2,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,nullFunction_nvl,nvl_exp,sysdate,to_timestamp,to_timestamp_exp,nullFunction_isnull,isnull_exp;
+non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,sysdate,to_timestamp,to_timestamp_exp,nullFunction_isnull,isnull_exp;
 
-non terminal from_part, where_part, cols,cols_nvl2,col,cl,col_ali;
+non terminal from_part, where_part, cols,col,cl,col_ali;
 
 non terminal element_in, in_list, in_exp, in_array, in_subquery;
 
@@ -179,8 +179,6 @@ terminal CHOOSE;
 terminal IIF;
 
 // Null functions
-terminal NVL;
-terminal NVL2;
 terminal NULLIF;
 terminal ISNULL;
 
@@ -363,8 +361,8 @@ into_part		::=		INTO table_name
 					  |			INTO table_name IN LITERAL_STRING
 				  				{: System.out.println("into_part  ::= INTO table_name IN LITERAL_STRING"); :};
 
-with_s			::=		with_part select_s
-								{: System.out.println("with_s	::=	with_part select_s"); :};
+with_s			::=		with_part
+								{: System.out.println("with_s	::=	with_part"); :};
 
 drop_s			::=		drop table table_name _semicolon
 								{: System.out.println("drop_s ::= drop table table_name"); :};
@@ -519,11 +517,6 @@ select_part		::= 	_select _STAR
 					  	  | 	_select cols
 					  	  | 	_select top cols
 					  	  | 	_select top _STAR;
-			  	  
-nvl2_exp		::=		_OPENPAR nvl2_exp_nested _COMMA nvl2_exp_nested _COMMA nvl2_exp_nested _CLOSEPAR;
-				  
-nvl2_exp_nested ::=		//LITERAL_STRING
-				  		ari_exp;
 
 _merge			::=		MERGE INTO;
 
@@ -543,8 +536,6 @@ _commit			::=		COMMIT;
 
 _select 		::=		SELECT;
 
-_nvl2			::=		NVL2;
-
 _order			::=		ORDER;
 
 _by				::=		BY;
@@ -555,9 +546,6 @@ _desc			::=		DESC;
 
 cols			::= 	col_el _COMMA cols   
 		  	  	  | 	col_el;
-		  	  	  
-cols_nvl2		::= 	col_el _COMMA cols   
-		  	  	  | 	col_el _COMMA;
 		  	  	  
 col_el			::= 	c_el c_ali
 				  | 	c_el;
@@ -633,13 +621,8 @@ dateFunctions	::=		sysdate
 logicalFunctions ::=	logFunc_choose // Add logical functions here
 				  |		logFunc_iif; // Add logical functions here
 				  
-nullFunctions 	 ::= 	nullFunction_nvl2
-				  |		nullFunction_nvl
-				  |		nullFunction_isnull
+nullFunctions 	 ::= 	nullFunction_isnull
 				  |		nullFunction_nullif;
-
-nullFunction_nvl2 	::= 	_nvl2 nvl2_exp;
-				  //|		cols_nvl2 _nvl2 nvl2_exp;
 				  
 nullFunction_nullif ::=	NULLIF _OPENPAR ari_value_insert _COMMA ari_value_insert _CLOSEPAR;
 
@@ -674,8 +657,6 @@ stringFunction_trim		::=		TRIM _OPENPAR trim_exp _CLOSEPAR AS col_ali;
 stringFunction_lower	::=		LOWER _OPENPAR lower_exp _CLOSEPAR;
 
 stringFunction_upper	::=		UPPER _OPENPAR upper_exp _CLOSEPAR;
-
-nullFunction_nvl		::=		NVL _OPENPAR nvl_exp _CLOSEPAR;
 
 nullFunction_isnull		::=		ISNULL _OPENPAR isnull_exp _CLOSEPAR;
 
@@ -746,10 +727,6 @@ avg_exp 		::= 	/*ari_exp_avg
 
 iif_exp			::=		INTEGER cmp_oper INTEGER _COMMA LITERAL_STRING _COMMA LITERAL_STRING
 				  |		nullFunctions _COMMA LITERAL_STRING _COMMA LITERAL_STRING;
-
-
-nvl_exp			::=		cl _COMMA INTEGER
-				  |		cl _COMMA LITERAL_STRING;
 				  
 isnull_exp		::=		cl _COMMA INTEGER
 				  |		cl _COMMA LITERAL_STRING;

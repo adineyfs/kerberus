@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.LinkedList;
 
-import com.kerberus.model.syntaxValidator.rules.sqlServer.Cup_Rules_SQL;
+import com.kerberus.model.syntaxValidator.rules.sqlServer.Cup_Rules_SQL_Server;
 import com.kerberus.model.syntaxValidator.rules.sqlServer.JFlex_Rules_SQL;
 import com.kerberus.model.syntaxValidator.rules.util.PrettyStatement;
 import com.kerberus.util.ErrorHandler;
@@ -26,7 +26,7 @@ public class SyntaxAnalizerServer {
         //String statement = "select _col_1,_col_2,_col_3 FROM some_table WHerE _col_2 = 1 AND _col_3 = 4 OR _col_4 = 30";
 		
 		JFlex_Rules_SQL Lex_Analyzer = new JFlex_Rules_SQL( new BufferedReader( new StringReader(sqlStatement) ) ); 
-		Cup_Rules_SQL Syntax_Analyzer = new Cup_Rules_SQL(Lex_Analyzer);
+		Cup_Rules_SQL_Server Syntax_Analyzer = new Cup_Rules_SQL_Server(Lex_Analyzer);
 		
 		StringBuilder sb = new StringBuilder();
 		

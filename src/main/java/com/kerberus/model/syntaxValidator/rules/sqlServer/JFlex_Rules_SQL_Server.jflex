@@ -199,8 +199,6 @@ whitespace      = {WhiteSpace}
 	"instr"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.INSTR, yyline+1, yycolumn+1, yytext()); }
 
 /* Null Functions */
-	"nvl"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NVL, yyline+1, yycolumn+1, yytext()); }
-	"nvl2"			{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NVL2, yyline+1, yycolumn+1, yytext()); }
 	"nullif"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.NULLIF, yyline+1, yycolumn+1, yytext()); }
 	"isnull"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ISNULL, yyline+1, yycolumn+1, yytext()); }
 
