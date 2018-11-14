@@ -203,7 +203,6 @@ whitespace      = {WhiteSpace}
 	"isnull"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.ISNULL, yyline+1, yycolumn+1, yytext()); }
 
 /* Other Function */
-	"to_date"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TO_DATE, yyline+1, yycolumn+1, yytext()); }
 	"to_char"		{ System.out.println("Recognized: " + yytext()); prettyfier(yytext(), Categories.RESERVED); return new Symbol(sym.TO_CHAR, yyline+1, yycolumn+1, yytext()); }
 	
 /* Other operators */

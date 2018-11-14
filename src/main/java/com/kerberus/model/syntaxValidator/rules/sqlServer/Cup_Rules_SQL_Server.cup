@@ -114,7 +114,7 @@ non terminal statement_group, statement,_semicolon;
 
 non terminal select_s,select_ss, select_into_s,into_part, with_s, with_part, with_exp, with_exp2, with_exp2_1,merge_s, merge_part, merge_exp, merge_using, merge_using_cols, merge_on, select_part,select_part_sub,func_ls, order_by_part, order_by_part_nested, order_cols, asc_desc;
 
-non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nullif,function_to_date,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,sysdate,to_timestamp,to_timestamp_exp,nullFunction_isnull,isnull_exp;
+non terminal col_el,aggregates,logicalFunctions,nullFunctions,nullFunction_nullif,function_to_char,to_char_exp,stringFunctions,dateFunctions,agg_count,stringFunction_ltrim,stringFunction_rtrim,stringFunction_instr,agg_sum,agg_max,agg_min,count_exp,logFunc_choose,choose_exp,logFunc_iif,iif_exp,agg_avg,avg_exp,stringFunction_concat,concat_exp,stringFunction_lpad,lpad_exp,stringFunction_rpad,rpad_exp,stringFunction_length,length_exp,stringFunction_replace,replace_exp,stringFunction_trim,trim_exp,stringFunction_upper,upper_exp,stringFunction_lower,lower_exp,sysdate,to_timestamp,to_timestamp_exp,nullFunction_isnull,isnull_exp;
 
 non terminal from_part, where_part, cols,col,cl,col_ali;
 
@@ -183,7 +183,6 @@ terminal NULLIF;
 terminal ISNULL;
 
 // TO_XXX FUNCTION
-terminal TO_DATE;
 terminal TO_CHAR;
 
 // Case expressions
@@ -573,7 +572,6 @@ func_ls			::=		/*func_ls
 				  |		dateFunctions
 				  |		nullFunctions
 				  |		logicalFunctions
-				  |		function_to_date
 				  |		function_to_char;
 				  
 order_by_part 			::= _order _by order_by_part_nested ;
@@ -626,9 +624,6 @@ nullFunctions 	 ::= 	nullFunction_isnull
 				  
 nullFunction_nullif ::=	NULLIF _OPENPAR ari_value_insert _COMMA ari_value_insert _CLOSEPAR;
 
-function_to_date  	::=	TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR
-								|		TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING  _CLOSEPAR;
-
 function_to_char  ::=	TO_CHAR _OPENPAR mix_exp _CLOSEPAR
 				    |	TO_CHAR _OPENPAR mix_exp _COMMA mix_exp _CLOSEPAR
 				    |	TO_CHAR _OPENPAR mix_exp _COMMA mix_exp _COMMA mix_exp _CLOSEPAR;
@@ -639,8 +634,7 @@ function_to_char  ::=	TO_CHAR _OPENPAR mix_exp _CLOSEPAR
 				  	| 	aggregates
 				  	|	stringFunctions
 				  	|	logicalFunctions
-				  	|	nullFunctions
-				  	|	function_to_date;*/
+				  	|	nullFunctions;*/
 
 stringFunction_concat	::=		CONCAT _OPENPAR concat_exp _CLOSEPAR AS LITERAL_STRING;
 
