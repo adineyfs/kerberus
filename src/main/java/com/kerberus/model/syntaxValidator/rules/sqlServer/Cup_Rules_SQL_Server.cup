@@ -685,7 +685,8 @@ lpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
 rpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
-sysdate			::=		SYSDATE _OPENPAR _CLOSEPAR
+sysdate			::=		SYSDATE
+				  |		SYSDATE _OPENPAR _CLOSEPAR
 				  |		SYSDATE _OPENPAR _CLOSEPAR _ari_opr INTEGER;
 
 length_exp 		::= 	col;

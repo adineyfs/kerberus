@@ -247,40 +247,40 @@ start with statement_group ;
 
 statement_group ::=		statement_group statement
 						{: System.out.println("statement_group ::= statement_group statement"); :}
-			  	  | 	statement
+			  	| 		statement
 			  	  		{: System.out.println("statement_group ::= statement"); :};
 
 statement 		::= 	select_s   
 						{: System.out.println("statement ::= select_s"); 	
 						   selects_read++; :}
-				  |		select_into_s
+				|		select_into_s
   						{: System.out.println("statement ::= select_into_s"); 	
 						   selects_read++; :}
-				  |  	delete_s
+				|  		delete_s
 				  		{: System.out.println("statement ::= delete_s");
 						   deletes_read++; :}
-				  | 	update_s
+				| 		update_s
 				  		{: System.out.println("statement ::= update_s"); 
 						   updates_read++; :}
-				  |		with_s
+				|		with_s
 				  		{: System.out.println("statement ::= with_s");
 						   with_read++;	:}
-				  | 	insert_s
+				| 		insert_s
 				  		{: System.out.println("statement ::= insert_s");
 						   inserts_read++;	:}
-				  |		drop_s
+				|		drop_s
 				  		{: System.out.println("statement ::= drop_s");
 						   drop_read++;	:}
-				  |		merge_s
+				|		merge_s
 				  		{: System.out.println("statement ::= merge_s");
 						   merge_read++;	:}
-				  |		create_s
+				|		create_s
 				  		{: System.out.println("statement ::= create_s");
 						   creates_read++;	:}
-				  |		alter_s
+				|		alter_s
 				  		{: System.out.println("statement ::= alter_s");
 						   alter_read++;	:}
-				  |		commit_s
+				|		commit_s
 				  		{: System.out.println("statement ::= commit_s");
 						   commit_read++;	:};
 
@@ -291,234 +291,234 @@ _semicolon 		::= 	_SEMCOL2
 
 /* SELECT */
 select_s		::= 	select_ss _semicolon
-							{: System.out.println("select_s ::= select_ss _semicolon"); :}
-				  	|		select_into_s _semicolon
-				  			{: System.out.println("select_s ::= select_into_s _semicolon"); :};
+						{: System.out.println("select_s ::= select_ss _semicolon"); :}
+				|		select_into_s _semicolon
+				  		{: System.out.println("select_s ::= select_into_s _semicolon"); :};
 
 select_ss		::=		select_part from_part
 						{: System.out.println("select_s ::= select_part from_part"); :}
-				  |		select_part from_part group_by_part
+				|		select_part from_part group_by_part
 						{: System.out.println("select_s ::= select_part from_part group_by_part"); :}
-				  |		select_part from_part where_part
+				|		select_part from_part where_part
 				  		{: System.out.println("select_s ::= select_part from_part where_part"); :}
-				  |		select_part from_part union_part
+				|		select_part from_part union_part
 				  		{: System.out.println("select_s ::= select_part from_part union_part"); :}
-				  |		select_part from_part where_part union_part
+				|		select_part from_part where_part union_part
 				  		{: System.out.println("select_s ::= select_part from_part union_part"); :}
-				  |		select_part from_part where_part group_by_part
+				|		select_part from_part where_part group_by_part
 				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part"); :}
-				  |		select_part from_part where_part group_by_part union_part
+				|		select_part from_part where_part group_by_part union_part
 				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part union_part"); :}
-				  |		select_part from_part where_part group_by_part order_by_part
+				|		select_part from_part where_part group_by_part order_by_part
 				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part order_by_part"); :}
-				  |		select_part from_part where_part group_by_part having_part
+				|		select_part from_part where_part group_by_part having_part
 				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part having_part"); :}
-				  |		select_part from_part group_by_part having_part
+				|		select_part from_part group_by_part having_part
 				  		{: System.out.println("select_s ::= select_part from_part group_by_part having_part"); :}
-				  |		select_part from_part where_part group_by_part having_part order_by_part
+				|		select_part from_part where_part group_by_part having_part order_by_part
 				  		{: System.out.println("select_s ::= select_part from_part where_part group_by_part having_part order_by_part"); :}
-				  |		select_part from_part joins_part
+				|		select_part from_part joins_part
 				  		{: System.out.println("select_s ::= select_part from_part joins_part"); :}
-				  |		select_part from_part joins_part where_part
+				|		select_part from_part joins_part where_part
 				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part"); :}
-				  |		select_part from_part joins_part where_part group_by_part
+				|		select_part from_part joins_part where_part group_by_part
 				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part group_by_part"); :}
-				  |		select_part from_part joins_part where_part group_by_part order_by_part
+				|		select_part from_part joins_part where_part group_by_part order_by_part
 				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part group_by_part order_by_part"); :}
-				  |		select_part from_part joins_part where_part group_by_part having_part
+				|		select_part from_part joins_part where_part group_by_part having_part
 				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part group_by_part having_part"); :}
-				  |		select_part from_part joins_part where_part group_by_part having_part order_by_part
+				|		select_part from_part joins_part where_part group_by_part having_part order_by_part
 				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part group_by_part having_part order_by_part"); :}
-				  |		select_part from_part order_by_part
+				|		select_part from_part order_by_part
 						{: System.out.println("select_s ::= select_part from_part order_by_part"); :}
-				  |		select_part from_part where_part order_by_part
+				|		select_part from_part where_part order_by_part
 				  		{: System.out.println("select_s ::= select_part from_part where_part order_by_part"); :}
-				  |		select_part from_part joins_part order_by_part
+				|		select_part from_part joins_part order_by_part
 				  		{: System.out.println("select_s ::= select_part from_part joins_part order_by_part"); :}
-				  |		select_part from_part joins_part where_part order_by_part
+				|		select_part from_part joins_part where_part order_by_part
 				  		{: System.out.println("select_s ::= select_part from_part joins_part where_part order_by_part"); :};
 				  		
 select_into_s   ::= 	select_part into_part from_part
 						{: System.out.println("select_s ::= select_part into_part from_part"); :}
-				  |		select_part into_part from_part where_part
+				|		select_part into_part from_part where_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part where_part"); :}
-				  |		select_part into_part from_part joins_part
+				|		select_part into_part from_part joins_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part"); :}
-				  |		select_part into_part from_part joins_part where_part
+				|		select_part into_part from_part joins_part where_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part where_part"); :}
-				  |		select_part into_part from_part order_by_part
+				|		select_part into_part from_part order_by_part
 						{: System.out.println("select_s ::= select_part into_part from_part order_by_part"); :}
-				  |		select_part into_part from_part where_part order_by_part
+				|		select_part into_part from_part where_part order_by_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part where_part order_by_part"); :}
-				  |		select_part into_part from_part joins_part order_by_part
+				|		select_part into_part from_part joins_part order_by_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part order_by_part"); :}
-				  |		select_part into_part from_part joins_part where_part order_by_part
+				|		select_part into_part from_part joins_part where_part order_by_part
 				  		{: System.out.println("select_s ::= select_part into_part from_part joins_part where_part order_by_part"); :};
 
 commit_s		::=		_commit _semicolon
-									{: System.out.println("commit_s ::= _commit _semicolon"); :};
+						{: System.out.println("commit_s ::= _commit _semicolon"); :};
 
 into_part		::=		INTO table_name
-								{: System.out.println("into_part  ::= INTO table_name"); :}
-					  |			INTO table_name IN LITERAL_STRING
-				  				{: System.out.println("into_part  ::= INTO table_name IN LITERAL_STRING"); :};
+						{: System.out.println("into_part  ::= INTO table_name"); :}
+				|		INTO table_name IN LITERAL_STRING
+				  		{: System.out.println("into_part  ::= INTO table_name IN LITERAL_STRING"); :};
 
 with_s			::=		with_part
-								{: System.out.println("with_s	::=	with_part"); :};
+						{: System.out.println("with_s	::=	with_part"); :};
 
 drop_s			::=		drop table table_name _semicolon
-								{: System.out.println("drop_s ::= drop table table_name"); :};
+						{: System.out.println("drop_s ::= drop table table_name"); :};
 
 alter_s			::=		alter_part _semicolon
-								{: System.out.println("alter_s ::= alter_part"); :};
+						{: System.out.println("alter_s ::= alter_part"); :};
 
 merge_s			::=		merge_part
-									{: System.out.println("merge_s	::=	merge_part"); :};
+						{: System.out.println("merge_s	::=	merge_part"); :};
 
 joins_part		::= 	join_p joins_part
-								{: System.out.println("joins_part ::= join_p joins_part"); :}
-				 		 | 		join_p
-				  				{: System.out.println("joins_part ::= join_p"); :};		
+						{: System.out.println("joins_part ::= join_p joins_part"); :}
+				| 		join_p
+				  		{: System.out.println("joins_part ::= join_p"); :};		
 
 union_part		::=		union_p union_exp
-									{: System.out.println("union_part ::= union_p select_part from_part"); :};
+						{: System.out.println("union_part ::= union_p select_part from_part"); :};
 						
 join_p			::= 	NATURAL JOIN table_name
-							{: System.out.println("join_p ::= NATURAL JOIN table_name"); :}
-					  | 	JOIN table_name
-					 		{: System.out.println("join_p ::= JOIN table_name"); :}
-					  | 	JOIN table_name join_using   // future version improvement
-					  		{: System.out.println("join_p ::= JOIN table_name join_using"); :}
-					  | 	JOIN table_name join_cond
-					  		{: System.out.println("join_p ::= JOIN table_name join_cond"); :}
-					  | 	join table_name join_cond
-					  		{: System.out.println("join_p ::= join table_name join_cond"); :}
-					  |		join sub_cond IDENTIFIER ON join_on log_oper join_on WHERE join_on log_oper _OPENPAR element IS NULL log_oper join_on _CLOSEPAR // LEFT OUTER JOIN subquery card 118
-					  		{: System.out.println("join_p ::= join sub_cond IDENTIFIER ON join_on log_oper join_on WHERE join_on log_oper _OPENPAR element IS NULL log_oper join_on _CLOSEPAR "); :};  
+						{: System.out.println("join_p ::= NATURAL JOIN table_name"); :}
+				|	 	JOIN table_name
+					 	{: System.out.println("join_p ::= JOIN table_name"); :}
+				|	 	JOIN table_name join_using   // future version improvement
+					  	{: System.out.println("join_p ::= JOIN table_name join_using"); :}
+				|	 	JOIN table_name join_cond
+					  	{: System.out.println("join_p ::= JOIN table_name join_cond"); :}
+				|	 	join table_name join_cond
+					  	{: System.out.println("join_p ::= join table_name join_cond"); :}
+				|		join sub_cond IDENTIFIER ON join_on log_oper join_on WHERE join_on log_oper _OPENPAR element IS NULL log_oper join_on _CLOSEPAR // LEFT OUTER JOIN subquery card 118
+					  	{: System.out.println("join_p ::= join sub_cond IDENTIFIER ON join_on log_oper join_on WHERE join_on log_oper _OPENPAR element IS NULL log_oper join_on _CLOSEPAR "); :};  
 
-union_p		::=		union
-								{: System.out.println("union_p ::= union"); :};
+union_p			::=		union
+						{: System.out.println("union_p ::= union"); :};
 				  
 group_by_part	::=		_group _by g_condition
-										{: System.out.println("group_by_part ::= _group _by g_condition"); :};
+						{: System.out.println("group_by_part ::= _group _by g_condition"); :};
 
 having_part		::=		_having h_condition
-										{: System.out.println("having_part ::= _having h_condition"); :};
+						{: System.out.println("having_part ::= _having h_condition"); :};
 
 merge_using		::=		USING _OPENPAR merge_using_cols _CLOSEPAR
-										{: System.out.println("merge_using ::=	USING _OPENPAR merge_using_cols _CLOSEPAR"); :}
-							|			USING sub_cond IDENTIFIER
-										{: System.out.println("merge_using ::=	USING sub_cond IDENTIFIER"); :};
+						{: System.out.println("merge_using ::=	USING _OPENPAR merge_using_cols _CLOSEPAR"); :}
+				|		USING sub_cond IDENTIFIER
+						{: System.out.println("merge_using ::=	USING sub_cond IDENTIFIER"); :};
 
-merge_using_cols	::=		join_using_cols
-											{: System.out.println("merge_using_cols ::=	join_using_cols"); :}; // add select subqueries as another option later
+merge_using_cols::=		join_using_cols
+						{: System.out.println("merge_using_cols ::=	join_using_cols"); :}; // add select subqueries as another option later
 
 // For a future version : must validate that all column dont have qualifiers: tab.column 
 join_using 		::= 	USING _OPENPAR join_using_cols _CLOSEPAR
-								{: System.out.println("join_using ::=	USING _OPENPAR join_using_cols _CLOSEPAR"); :};
+						{: System.out.println("join_using ::=	USING _OPENPAR join_using_cols _CLOSEPAR"); :};
 
 join_using_cols ::= 	cl _COMMA join_using_cols
-									{: System.out.println("join_using_cols ::=	cl _COMMA join_using_cols"); :}   
-		  	  	 	  		| 		cl
-		  	  	 	  				{: System.out.println("join_using_cols ::=	cl"); :};
+						{: System.out.println("join_using_cols ::=	cl _COMMA join_using_cols"); :}   
+		  	  	| 		cl
+		  	  	 	  	{: System.out.println("join_using_cols ::=	cl"); :};
 
 				  
 join 			::=  	INNER JOIN
 						{: System.out.println("join ::=	INNER JOIN"); :}
-				  | 	LEFT JOIN
+				|	 	LEFT JOIN
 				  		{: System.out.println("join ::=	LEFT JOIN"); :}
-				  | 	RIGHT JOIN
+				|	 	RIGHT JOIN
 				  		{: System.out.println("join ::=	RIGHT JOIN"); :}
-				  | 	LEFT OUTER JOIN
+				|	 	LEFT OUTER JOIN
 				  		{: System.out.println("join ::=	LEFT OUTER JOIN"); :}
-				  | 	RIGHT OUTER JOIN
+				|	 	RIGHT OUTER JOIN
 				  		{: System.out.println("join ::=	RIGHT OUTER JOIN"); :}
-				  | 	FULL OUTER JOIN
+				|	 	FULL OUTER JOIN
 				  		{: System.out.println("join ::=	FULL OUTER JOIN"); :};				 
 
 union			::=		UNION
-								{: System.out.println("union ::=	UNION"); :}
-					  |			UNION ALL
-					  			{: System.out.println("union ::=	UNION ALL"); :};
+						{: System.out.println("union ::=	UNION"); :}
+				|		UNION ALL
+					  	{: System.out.println("union ::=	UNION ALL"); :};
 
-union_exp	::=		select_ss
-								{: System.out.println("union_exp ::=	select_ss"); :};
+union_exp		::=		select_ss
+						{: System.out.println("union_exp ::=	select_ss"); :};
 
-join_cond	::= 		ON join_c
-								{: System.out.println("join_cond ::=	ON join_c"); :};
+join_cond		::= 	ON join_c
+						{: System.out.println("join_cond ::=	ON join_c"); :};
 
-join_c			::= 		join_on log_oper join_c
-								{: System.out.println("join_c ::=	join_on log_oper join_c"); :}
-				  	|   		join_on
-				  				{: System.out.println("join_c ::=	join_on"); :};
+join_c			::= 	join_on log_oper join_c
+						{: System.out.println("join_c ::=	join_on log_oper join_c"); :}
+				|   	join_on
+				  		{: System.out.println("join_c ::=	join_on"); :};
 
 join_on			::= 	element cmp_oper element
-								{: System.out.println("join_on ::=	element _EQU element"); :};		  
+						{: System.out.println("join_on ::=	element _EQU element"); :};		  
 
-merge_part	::=		_merge merge_exp
-									{: System.out.println("merge_part ::=_merge merge_exp"); :};
+merge_part		::=		_merge merge_exp
+						{: System.out.println("merge_part ::=_merge merge_exp"); :};
 
 _group			::=		GROUP
-									{: System.out.println("_group ::=GROUP"); :};
+						{: System.out.println("_group ::=GROUP"); :};
 
 _having			::=		HAVING
 									{: System.out.println("_having ::=HAVING"); :};
 
-g_condition	::=		aggregates
-									{: System.out.println("g_condition ::=aggregates"); :}
-						  |			cl _COMMA g_condition
-						  			{: System.out.println("g_condition ::=cl _COMMA g_condition"); :}
-						  |			cl
-						  			{: System.out.println("g_condition ::=cl"); :};
+g_condition		::=		aggregates
+						{: System.out.println("g_condition ::=aggregates"); :}
+				|		cl _COMMA g_condition
+						{: System.out.println("g_condition ::=cl _COMMA g_condition"); :}
+				|		cl
+						{: System.out.println("g_condition ::=cl"); :};
 
-h_condition	::=		w_condition
-										{: System.out.println("h_condition ::=w_condition"); :};
+h_condition		::=		w_condition
+						{: System.out.println("h_condition ::=w_condition"); :};
 
 alter_part		::=		alter_exp
-									{: System.out.println("alter_part ::=alter_exp"); :};
+						{: System.out.println("alter_part ::=alter_exp"); :};
 
-alter_exp			::=		alter table table_name add col_ali datatype_oracle
-									{: System.out.println("alter_exp ::=alter table table_name add col_ali datatype_oracle"); :}
-							|		alter table table_name add col_ali datatype_server
-									{: System.out.println("alter_exp ::=alter table table_name add col_ali datatype_server"); :}
-							|		alter table table_name drop column col_ali
-									{: System.out.println("alter_exp ::=alter table table_name drop column col_ali"); :}
-							|		alter table table_name alter column col_ali datatype_oracle
-									{: System.out.println("alter_exp ::=alter table table_name alter column col_ali datatype_oracle"); :}
-							|		alter table table_name alter column col_ali datatype_server
-									{: System.out.println("alter_exp ::=alter table table_name alter column col_ali datatype_server"); :};
+alter_exp		::=		alter table table_name add col_ali datatype_oracle
+						{: System.out.println("alter_exp ::=alter table table_name add col_ali datatype_oracle"); :}
+				|		alter table table_name add col_ali datatype_server
+						{: System.out.println("alter_exp ::=alter table table_name add col_ali datatype_server"); :}
+				|		alter table table_name drop column col_ali
+						{: System.out.println("alter_exp ::=alter table table_name drop column col_ali"); :}
+				|		alter table table_name alter column col_ali datatype_oracle
+						{: System.out.println("alter_exp ::=alter table table_name alter column col_ali datatype_oracle"); :}
+				|		alter table table_name alter column col_ali datatype_server
+						{: System.out.println("alter_exp ::=alter table table_name alter column col_ali datatype_server"); :};
 
 with_part		::=		_with with_exp select_s
-									{: System.out.println("with_part ::=_with with_exp select_s"); :}
-						 	|		_with with_exp2 select_s
-						 			{: System.out.println("with_part ::=_with with_exp2 select_s"); :};
+						{: System.out.println("with_part ::=_with with_exp select_s"); :}
+				|		_with with_exp2 select_s
+						{: System.out.println("with_part ::=_with with_exp2 select_s"); :};
 		  	  			  /*|		SELECT error {: TError errors_found = new TError("",0,0,"Syntax Error","Incomplete SELECT statement");
 				  	  	   			 TableSE.add(errors_found);  :};*/
 				  	  	   		 
-with_exp			::=		col_ali AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp
-									{: System.out.println("with_exp ::=col_ali AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp"); :}
-						  |			col_ali AS _OPENPAR select_ss _CLOSEPAR
-						  			{: System.out.println("with_exp ::=col_ali AS _OPENPAR select_ss _CLOSEPAR"); :};
+with_exp		::=		col_ali AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp
+						{: System.out.println("with_exp ::=col_ali AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp"); :}
+				|		col_ali AS _OPENPAR select_ss _CLOSEPAR
+						{: System.out.println("with_exp ::=col_ali AS _OPENPAR select_ss _CLOSEPAR"); :};
 				 
 with_exp2		::=		col_ali  with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp2
-									{: System.out.println("with_exp2 ::=col_ali  with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp2"); :}
-						 |			col_ali with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR
-						 			{: System.out.println("with_exp2 ::=col_ali with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR"); :};
+						{: System.out.println("with_exp2 ::=col_ali  with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR _COMMA with_exp2"); :}
+				|		col_ali with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR
+						{: System.out.println("with_exp2 ::=col_ali with_exp2_1 AS _OPENPAR select_ss _CLOSEPAR"); :};
 				 
-with_exp2_1	::= 	_OPENPAR cols _CLOSEPAR
-								{: System.out.println("with_exp2_1 ::=_OPENPAR cols _CLOSEPAR"); :};
+with_exp2_1		::= 	_OPENPAR cols _CLOSEPAR
+						{: System.out.println("with_exp2_1 ::=_OPENPAR cols _CLOSEPAR"); :};
 
-merge_exp		::=	col merge_using merge_on case_cond THEN _update _set set_exp_list _semicolon
-								{: System.out.println("merge_exp ::=col merge_using merge_on case_cond THEN _update _set set_exp_list _semicolon"); :};
+merge_exp		::=		col merge_using merge_on case_cond THEN _update _set set_exp_list _semicolon
+						{: System.out.println("merge_exp ::=col merge_using merge_on case_cond THEN _update _set set_exp_list _semicolon"); :};
 
-merge_on		::=	ON _OPENPAR col _EQU col _AND col cmp_oper col _CLOSEPAR
-								{: System.out.println("merge_on ::=ON _OPENPAR col _EQU col _AND col cmp_oper col _CLOSEPAR"); :}; 
+merge_on		::=		ON _OPENPAR col _EQU col _AND col cmp_oper col _CLOSEPAR
+						{: System.out.println("merge_on ::=ON _OPENPAR col _EQU col _AND col cmp_oper col _CLOSEPAR"); :}; 
 
 select_part		::= 	_select _STAR
-					  	  | 	_select DISTINCT cols
-					  	  | 	_select cols
-					  	  | 	_select top cols
-					  	  | 	_select top _STAR;
+				|	 	_select DISTINCT cols
+				|	 	_select cols
+				|	 	_select top cols
+				|	 	_select top _STAR;
 			  	  
 nvl2_exp		::=		_OPENPAR nvl2_exp_nested _COMMA nvl2_exp_nested _COMMA nvl2_exp_nested _CLOSEPAR;
 				  
@@ -554,24 +554,24 @@ _asc			::=		ASC;
 _desc			::=		DESC;
 
 cols			::= 	col_el _COMMA cols   
-		  	  	  | 	col_el;
+		  	  	|	 	col_el;
 		  	  	  
 cols_nvl2		::= 	col_el _COMMA cols   
-		  	  	  | 	col_el _COMMA;
+		  	  	|		col_el _COMMA;
 		  	  	  
 col_el			::= 	c_el c_ali
-				  | 	c_el;
+				|		c_el;
 
 c_el 			::= 	mix_exp; 	
 				  
 c_ali 			::= 	col_ali
-				  | 	AS col_ali
-				  |		AS LITERAL_STRING;				  
+				|		AS col_ali
+				|		AS LITERAL_STRING;				  
 
 mix_exp 		::= 	_OPENPAR mix_exp _CLOSEPAR
-				  | 	func_ls
-				  | 	m_exp
-				  | 	ari_value;
+				|		func_ls
+				|		m_exp
+				|		ari_value;
 
 m_exp_update 	::=	  	mix_exp_update _ari_opr mix_exp_update;
 
@@ -579,18 +579,17 @@ m_exp_insert 	::=	  	mix_exp_insert _ari_opr mix_exp_insert;
 
 m_exp 			::=	  	mix_exp _ari_opr mix_exp; 
 
-func_ls			::=		/*func_ls
-				  |	*/	aggregates
-				  |		stringFunctions
-				  |		dateFunctions
-				  |		nullFunctions
-				  |		logicalFunctions
-				  |		function_to_date
-				  |		function_to_char;
+func_ls			::=		aggregates
+				|		stringFunctions
+				|		dateFunctions
+				|		nullFunctions
+				|		logicalFunctions
+				|		function_to_date
+				|		function_to_char;
 				  
-order_by_part 			::= _order _by order_by_part_nested ;
+order_by_part 			::= 	_order _by order_by_part_nested ;
 
-order_by_part_nested 	::=  order_cols ;
+order_by_part_nested 	::=  	order_cols ;
 										 
 order_cols				::=		col_ali _COMMA order_cols
 					 	|		col_ali asc_desc _COMMA order_cols
@@ -610,44 +609,44 @@ column 			::= 	aggregates
 				  		{: System.out.println("col_el ::= ari_exp"); :};
 */				  
 aggregates 		::= 	agg_count
-				  |		agg_sum
-				  |		agg_max
-				  |		agg_min 
-				  |		agg_avg; // Add aggregate functions here
+				|		agg_sum
+				|		agg_max
+				|		agg_min 
+				|		agg_avg; // Add aggregate functions here
 
 stringFunctions ::=		stringFunction_concat
-				  |		stringFunction_lpad
-				  |		stringFunction_rpad
-				  |		stringFunction_upper
-				  |		stringFunction_lower
-				  |		stringFunction_trim
-				  |		stringFunction_length
-				  |		stringFunction_ltrim
-				  |		stringFunction_rtrim
-				  |		stringFunction_instr; // Add String functions here
+				|		stringFunction_lpad
+				|		stringFunction_rpad
+				|		stringFunction_upper
+				|		stringFunction_lower
+				|		stringFunction_trim
+				|		stringFunction_length
+				|		stringFunction_ltrim
+				|		stringFunction_rtrim
+				|		stringFunction_instr; // Add String functions here
 
 dateFunctions	::=		sysdate
-				  |		to_timestamp;
+				|		to_timestamp;
 
-logicalFunctions ::=	logFunc_choose // Add logical functions here
-				  |		logFunc_iif; // Add logical functions here
+logicalFunctions::=		logFunc_choose // Add logical functions here
+				|		logFunc_iif; // Add logical functions here
 				  
-nullFunctions 	 ::= 	nullFunction_nvl2
-				  |		nullFunction_nvl
-				  |		nullFunction_isnull
-				  |		nullFunction_nullif;
+nullFunctions 	::= 	nullFunction_nvl2
+				|		nullFunction_nvl
+				|		nullFunction_isnull
+				|		nullFunction_nullif;
 
-nullFunction_nvl2 	::= 	_nvl2 nvl2_exp;
+nullFunction_nvl2::= 	_nvl2 nvl2_exp;
 				  //|		cols_nvl2 _nvl2 nvl2_exp;
 				  
-nullFunction_nullif ::=	NULLIF _OPENPAR ari_value_insert _COMMA ari_value_insert _CLOSEPAR;
+nullFunction_nullif::=		NULLIF _OPENPAR ari_value_insert _COMMA ari_value_insert _CLOSEPAR;
 
-function_to_date  	::=	TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR
-								|		TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING  _CLOSEPAR;
+function_to_date  	::=		TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING _COMMA LITERAL_STRING _CLOSEPAR
+					|		TO_DATE _OPENPAR LITERAL_STRING _COMMA LITERAL_STRING  _CLOSEPAR;
 
-function_to_char  ::=	TO_CHAR _OPENPAR mix_exp _CLOSEPAR
-				    |	TO_CHAR _OPENPAR mix_exp _COMMA mix_exp _CLOSEPAR
-				    |	TO_CHAR _OPENPAR mix_exp _COMMA mix_exp _COMMA mix_exp _CLOSEPAR;
+function_to_char  	::=		TO_CHAR _OPENPAR mix_exp _CLOSEPAR
+					|		TO_CHAR _OPENPAR mix_exp _COMMA mix_exp _CLOSEPAR
+				    |		TO_CHAR _OPENPAR mix_exp _COMMA mix_exp _COMMA mix_exp _CLOSEPAR;
 				    
 /*to_char_exp		  ::=	//LITERAL_STRING
 					//|	INTEGER
@@ -724,7 +723,8 @@ lpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
 rpad_exp 		::= 	LITERAL_STRING _COMMA INTEGER _COMMA LITERAL_STRING;
 
-sysdate			::=		SYSDATE _OPENPAR _CLOSEPAR
+sysdate			::=		SYSDATE
+				  |		SYSDATE _OPENPAR _CLOSEPAR
 				  |		SYSDATE _OPENPAR _CLOSEPAR _ari_opr INTEGER;
 
 length_exp 		::= 	col;
