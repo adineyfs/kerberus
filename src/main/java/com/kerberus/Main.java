@@ -8,6 +8,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+
 public class Main extends Application {
 	
 	private static Stage window;
@@ -47,7 +53,9 @@ public class Main extends Application {
     }
 
 	public static void main(String[] args) {
+		DatabaseController.runSQLStatement();
 		launch(args);
+
 	}
 }
 
