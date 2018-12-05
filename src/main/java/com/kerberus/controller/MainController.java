@@ -12,6 +12,8 @@ import com.kerberus.util.Cache;
 import com.kerberus.util.ErrorHandler;
 import com.kerberus.util.LogFileUtil;
 
+import com.kerberus.DatabaseController;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -78,6 +80,8 @@ public class MainController {
 	    	codeAreaSqlValidationReturn.clear();
 	    	codeAreaSqlValidationReturn.replaceText(sb.toString());
 	    	
+	    	System.out.println("This is sb: " + sb);
+	    	
 	    	codeAreaSqlValidationReturn.deleteText(0,1);
 	    	codeAreaSqlValidationReturn.position(0, 0);
 	    	
@@ -88,6 +92,8 @@ public class MainController {
 	    	*/
 	    	
 	    	//System.out.println("----> index: " + index);
+	    	
+	    	//DatabaseController.runSQLStatement(sqlStatement);
 		}
 		else {
 			System.out.println("This is in Server");
@@ -134,6 +140,7 @@ public class MainController {
 	    	*/
 	    	
 	    	//System.out.println("----> index: " + index);
+	    	//DatabaseController.runSQLStatement(sqlStatement);
 		}
     }
 	

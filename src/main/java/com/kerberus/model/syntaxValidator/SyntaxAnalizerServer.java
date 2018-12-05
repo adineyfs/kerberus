@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.StringReader;
 import java.util.LinkedList;
 
+import com.kerberus.DatabaseController;
 import com.kerberus.model.syntaxValidator.rules.sqlServer.Cup_Rules_SQL_Server;
 import com.kerberus.model.syntaxValidator.rules.sqlServer.JFlex_Rules_SQL;
 import com.kerberus.model.syntaxValidator.rules.util.PrettyStatement;
@@ -127,8 +128,9 @@ public class SyntaxAnalizerServer {
 			
 			sb.append("\n\n-------------- Findings Analysis --------------");
 			sb.append("\n" + Syntax_Analyzer.Tables.size()+ " Tables found (to be validated):\n" + Syntax_Analyzer.Tables);
+			sb.append(DatabaseController.getTables(sqlStatement));
 			sb.append("\n" + Syntax_Analyzer.Columns.size()+ " Columns found (to be validated):\n" + Syntax_Analyzer.Columns);
-			
+			sb.append(DatabaseController.getColumnsOutput(sqlStatement));
 			sb.append("\n\n-------------- SQL Statement Copy --------------\n");
 			sb.append(sqlStatement);
 			/*

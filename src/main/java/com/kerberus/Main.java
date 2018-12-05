@@ -52,8 +52,7 @@ public class Main extends Application {
         return window;
     }
 
-	public static void main(String[] args) {
-		DatabaseController.runSQLStatement();
+	public static void main(String[] args) {	      
 		launch(args);
 
 	}
